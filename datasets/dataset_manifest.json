@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "literature-and-source-intake-2026-08-28",
+  "status": "CANDIDATE_REVIEW_REQUIRED",
+  "records": {
+    "papers": 6,
+    "phenotypes": 14,
+    "approved_calibration_targets": 0,
+    "second_review_audit": 14,
+    "root_id_mapping_audit": 6,
+    "second_pass_sources": 6
+  },
+  "files": [
+    {
+      "path": "source_intake/DATASET_SOURCES_DETAILED_REPORT.md",
+      "sha256": "0ba52d63e7e78a8114a5392cfae1a84d5280a0678c590d87665351bb7542d60c"
+    },
+    {
+      "path": "literature_phenotypes/paper_registry.csv",
+      "sha256": "a3db446148618f381c470a8a5265459ad25f1fc4e936932fe3de3f783ee3dec9"
+    },
+    {
+      "path": "literature_phenotypes/phenotype_records.csv",
+      "sha256": "981b023f7f65a112dd9a2ff88169dc7d4b1309180f330e9cb1ae8c4465734cf6"
+    },
+    {
+      "path": "literature_phenotypes/gene_condition_mapping.csv",
+      "sha256": "7e28c9bc644c588757cbb312b7d658c91d98190943d1a7bbdb7765c8e16e8936"
+    },
+    {
+      "path": "literature_phenotypes/second_review_audit.csv",
+      "sha256": "5de067f243b7f62799ea45065c8ea605f51ffc3126a8ba125b6e867c5f795469"
+    },
+    {
+      "path": "literature_phenotypes/root_id_mapping_audit.csv",
+      "sha256": "4b49634235054f33af7d2375a1b12f101a8dc1bcfa916c310e9851920a35ec2f"
+    },
+    {
+      "path": "source_intake/second_pass_sources.csv",
+      "sha256": "c31793d764b6f0bb1df4de42485462549571eb5bdf141f992d272668515884f5"
+    }
+  ],
+  "large_artifacts": {
+    "location": "external/fly-brain (ignored by Git)",
+    "catalog": "../data/source_catalog.json",
+    "policy": "Fetch pinned artifacts and verify SHA256 before execution"
+  },
+  "scientific_boundary": "Candidate literature extraction for computational calibration preparation; not biological Parkinson validation"
+}

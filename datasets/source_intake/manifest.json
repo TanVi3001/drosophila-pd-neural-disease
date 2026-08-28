@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "source-report-intake-2026-08-28",
+  "artifact": "DATASET_SOURCES_DETAILED_REPORT.md",
+  "sha256": "0ba52d63e7e78a8114a5392cfae1a84d5280a0678c590d87665351bb7542d60c",
+  "size_bytes": 22243,
+  "classification": "SOURCE_REPORT_NOT_DATASET",
+  "review_status": "AUDITED_NOT_AUTHORITATIVE",
+  "verified_data_catalog": "../../data/source_catalog.json",
+  "excluded_claims": [
+    "experimental_locomotion_db.json was not supplied",
+    "bridge_scales files were not supplied",
+    "reported multi-seed outputs were not supplied",
+    "reported statistical outputs were not supplied"
+  ],
+  "scientific_use": "Provenance and intake audit only"
+}

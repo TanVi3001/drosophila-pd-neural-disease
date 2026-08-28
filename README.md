@@ -95,6 +95,9 @@ thay thế bước kiểm tra license, annotation và calibration target.
 - [Disease profiles](docs/03_disease_profiles.md)
 - [Calibration](docs/04_calibration.md)
 - [GPU](docs/05_gpu.md)
+- [Tích hợp nguồn dataset](docs/12_tich_hop_nguon_dataset.md)
+- [Dataset candidate và provenance](datasets/README.md)
+- [Phenotype literature chờ review](datasets/literature_phenotypes/README.md)
 
 ## Chay brain-body that va MP4
 

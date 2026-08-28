@@ -109,7 +109,9 @@ def _numeric_edges(brain_root: Path):
     return result
 
 
-def _perturb_numeric(edges: dict[str, np.ndarray], condition) -> np.ndarray:
+def _perturb_numeric(
+    edges: dict[str, np.ndarray], condition, base_weights: np.ndarray
+) -> np.ndarray:
     params = condition.parameters
     root_ids = edges["root_ids"]
     target_index = {value: index for index, value in enumerate(root_ids.tolist())}
@@ -140,7 +142,12 @@ def _perturb_numeric(edges: dict[str, np.ndarray], condition) -> np.ndarray:
                 f"Target edge chua co neuron trong completeness: {exc.args[0]}"
             ) from exc
         factor[np.isin(encoded, target_pairs)] *= np.float32(params.presynaptic_gain)
-    result = edges["Excitatory x Connectivity"].astype(np.float32, copy=True)
+    result = np.asarray(base_weights, dtype=np.float32).copy()
+    if result.ndim != 1 or result.shape != factor.shape:
+        raise RuntimeError(
+            "Checkpoint khong khop shape cua connectome: "
+            f"{result.shape} != {factor.shape}."
+        )
     result *= factor
     if not np.isfinite(result).all():
         raise RuntimeError("Perturbation tao ra weight khong huu han.")
@@ -185,7 +192,7 @@ def prepare_checkpoint(
             "So luong checkpoint khong khop so dong connectome: "
             f"{original.numel()} != {len(edges['Excitatory x Connectivity'])}."
         )
-    modified = _perturb_numeric(edges, condition)
+    modified = _perturb_numeric(edges, condition, original.numpy())
     output.mkdir(parents=True, exist_ok=True)
     target_checkpoint = output / "plastic_weights.pt"
     torch.save(torch.as_tensor(modified, dtype=original.dtype), target_checkpoint)

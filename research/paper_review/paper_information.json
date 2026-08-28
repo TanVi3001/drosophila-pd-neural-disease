@@ -1,0 +1,92 @@
+{
+  "review_scope": "Tự động đọc nguồn công khai và đối chiếu candidate phenotype; chưa phải human second review.",
+  "review_date": "2026-08-28",
+  "reviewer": "AUTOMATED_SOURCE_AUDIT",
+  "papers": [
+    {
+      "paper_id": "riemensperger_2011_dopamine_deficiency",
+      "title": "Behavioral consequences of dopamine deficiency in the Drosophila central nervous system",
+      "year": 2011,
+      "journal": "Proceedings of the National Academy of Sciences",
+      "doi": "10.1073/pnas.1010930108",
+      "pmid": "21187381",
+      "pmcid": "PMC3021077",
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/21187381/",
+      "paper_url": "https://europepmc.org/articles/PMC3021077",
+      "local_pdf": "temporary/paper_pdf/riemensperger_2011_dopamine_deficiency.pdf",
+      "status": "CANDIDATE_REVIEW_REQUIRED",
+      "summary_vi": "Mô hình thiếu dopamine thần kinh được đo bằng walking tự phát và negative geotaxis. Nhóm mục tiêu có median walking speed 7.8 mm/s ở ruồi 5 ngày tuổi; đây là median, không phải mean."
+    },
+    {
+      "paper_id": "pokrzywa_2017_alpha_syn_flytracker",
+      "title": "Effects of small-molecule amyloid modulators on a Drosophila model of Parkinson's disease",
+      "year": 2017,
+      "journal": "PLOS ONE",
+      "doi": "10.1371/journal.pone.0184117",
+      "pmid": "28863169",
+      "pmcid": "PMC5581160",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5581160/",
+      "paper_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0184117",
+      "local_pdf": "temporary/paper_pdf/pokrzywa_2017_alpha_syn_flytracker.pdf",
+      "status": "CANDIDATE_REVIEW_REQUIRED",
+      "summary_vi": "FlyTracker đo nhiều chỉ số locomotion ở ruồi cái biểu hiện alpha-synuclein người theo tuổi. Mean velocity được báo cáo từ 5.6 xuống 2.5 mm/s ở mốc đầu và khoảng ba tuần; SE số học chưa được trích."
+    },
+    {
+      "paper_id": "dumitrescu_2023_parkin_rnai",
+      "title": "Parkin Knockdown Modulates Dopamine Release in the Central Complex but Not the Mushroom Body Heel of Aging Drosophila",
+      "year": 2023,
+      "journal": "ACS Chemical Neuroscience",
+      "doi": "10.1021/acschemneuro.2c00277",
+      "pmid": "36576890",
+      "pmcid": "PMC9897283",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9897283/",
+      "paper_url": "https://doi.org/10.1021/acschemneuro.2c00277",
+      "local_pdf": null,
+      "fulltext_fallback": "temporary/literature_second_review/PMC9897283/fulltext_bioc.json",
+      "status": "CANDIDATE_REVIEW_REQUIRED_PDF_NOT_RETAINED",
+      "summary_vi": "Parkin-RNAi dưới TH-GAL4 được theo dõi bằng DAM beam-break trong 7 ngày. Hoạt động tương đối giảm khoảng 30 phần trăm ở nhóm trẻ và 85 phần trăm ở nhóm già; đây không phải walking speed."
+    },
+    {
+      "paper_id": "pozo_2022_pink1_serotonin",
+      "title": "An Early Disturbance in Serotonergic Neurotransmission Contributes to the Onset of Parkinsonian Phenotypes in Drosophila melanogaster",
+      "year": 2022,
+      "journal": "Cells",
+      "doi": "10.3390/cells11091544",
+      "pmid": "35563850",
+      "pmcid": "PMC9105628",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9105628/",
+      "paper_url": "https://www.mdpi.com/2073-4409/11/9/1544",
+      "local_pdf": "temporary/paper_pdf/pozo_2022_pink1_serotonin.pdf",
+      "status": "CANDIDATE_REVIEW_REQUIRED",
+      "summary_vi": "Pink1B9 28 ngày tuổi được đo trong open-field 3 phút. Distance traveled là 62.091 mm so với 323.326 mm ở control; spread cần giữ nguyên vì chú thích ghi IQR và min/max."
+    },
+    {
+      "paper_id": "hwang_2013_dj1_dlp",
+      "title": "Drosophila DJ-1 Decreases Neural Sensitivity to Stress by Negatively Regulating Daxx-Like Protein through dFOXO",
+      "year": 2013,
+      "journal": "PLOS Genetics",
+      "doi": "10.1371/journal.pgen.1003412",
+      "pmid": "23593018",
+      "pmcid": "PMC3616925",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3616925/",
+      "paper_url": "https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1003412",
+      "local_pdf": "temporary/paper_pdf/hwang_2013_dj1_dlp.pdf",
+      "status": "CANDIDATE_REVIEW_REQUIRED",
+      "summary_vi": "DJ-1beta ex54 được đánh giá bằng negative geotaxis ở ruồi 5 ngày tuổi. Figure 5E dùng mean ± SE và có khác biệt nhóm, nhưng tâm số chỉ có trên figure và chưa được đọc thủ công độc lập."
+    },
+    {
+      "paper_id": "godena_2014_lrrk2_microtubule",
+      "title": "Increasing microtubule acetylation rescues axonal transport and locomotor deficits caused by LRRK2 Roc-COR domain mutations",
+      "year": 2014,
+      "journal": "Nature Communications",
+      "doi": "10.1038/ncomms6245",
+      "pmid": "25316291",
+      "pmcid": "PMC4208097",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4208097/",
+      "paper_url": "https://www.nature.com/articles/ncomms6245",
+      "local_pdf": "temporary/paper_pdf/godena_2014_lrrk2_microtubule.pdf",
+      "status": "CANDIDATE_REVIEW_REQUIRED",
+      "summary_vi": "LRRK2 R1441C/Y1699C biểu hiện ở motor neuron bằng D42-GAL4 gây giảm climbing và flight; rescue liên quan đến acetyl hóa vi ống. Đây là validation-only cho đến khi assay và phạm vi motor neuron/VNC được map có provenance."
+    }
+  ]
+}

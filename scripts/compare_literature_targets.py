@@ -6,6 +6,7 @@ import argparse
 import csv
 from datetime import UTC, datetime
 import json
+import math
 from pathlib import Path
 import sys
 from typing import Sequence
@@ -19,11 +20,11 @@ def _metrics(path: Path) -> dict[str, float]:
     values = document.get("scalar_metrics", document)
     if not isinstance(values, dict):
         return {}
-    return {
-        str(key): float(value)
-        for key, value in values.items()
-        if isinstance(value, (int, float)) and not isinstance(value, bool)
-    }
+    result: dict[str, float] = {}
+    for key, value in values.items():
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            result[str(key)] = float(value)
+    return result
 
 
 def _approved_targets(path: Path) -> list[dict[str, object]]:
@@ -55,6 +56,12 @@ def compare(metrics_path: Path, target_path: Path, output: Path) -> str:
                     continue
         try:
             require_targets(target)
+            invalid = sorted(key for key, value in observed.items() if not math.isfinite(value))
+            if invalid:
+                raise ValueError(f"Observed metrics chua gia tri huu han: {', '.join(invalid)}.")
+            missing = sorted(set(target) - set(observed))
+            if missing:
+                raise ValueError(f"Observed metrics thieu target metrics: {', '.join(missing)}.")
             loss = compute_loss(observed, target)
         except (RuntimeError, ValueError) as exc:
             status = "WAITING_TARGET_DATA" if "WAITING_TARGET_DATA" in str(exc) else "INSUFFICIENT_METRICS"

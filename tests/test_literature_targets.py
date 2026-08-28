@@ -26,3 +26,16 @@ def test_pending_targets_keep_comparison_at_waiting_gate(tmp_path: Path) -> None
         tmp_path / "comparison",
     )
     assert status == "WAITING_TARGET_DATA"
+
+
+def test_comparison_rejects_partial_or_nonfinite_observations(tmp_path: Path) -> None:
+    targets = tmp_path / "targets.csv"
+    source = (ROOT / "calibration_targets" / "targets.csv").read_text(encoding="utf-8")
+    fields = source.splitlines()[0]
+    row = "paper,model,g,5,female,assay,speed,1.0,mm/s,sd,0.1,10,Figure 1,doi,approved,reviewer=lead;review_date=2026-08-28;allocation=calibration"
+    targets.write_text(fields + "\n" + row + "\n", encoding="utf-8")
+    metrics = tmp_path / "metrics.json"
+    metrics.write_text('{"scalar_metrics": {"other": 1.0}}', encoding="utf-8")
+    assert compare(metrics, targets, tmp_path / "partial") == "INSUFFICIENT_METRICS"
+    metrics.write_text('{"scalar_metrics": {"speed": NaN}}'.replace("NaN", '"NaN"'), encoding="utf-8")
+    assert compare(metrics, targets, tmp_path / "nonfinite") == "INSUFFICIENT_METRICS"

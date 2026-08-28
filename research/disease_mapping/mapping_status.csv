@@ -1,0 +1,7 @@
+condition_id,gene_or_phenotype,paper_provenance,neuron_provenance,mapping_status,simulation_status,scientific_scope,blocker
+dopamine_deficiency_exploratory,dopamine deficiency,"Riemensperger et al. 2011; DOI 10.1073/pnas.1010930108; PMID 21187381","FlyWire v783; PAM/PPL/PPM; top_nt=dopamine; 342 IDs; external audit commit 27cec28d5d202eb004683fb4c1a1033eec8deea0",MAPPED_EXPLORATORY,READY_TO_RUN,"computational locomotion perturbation; not biological validation","calibration targets pending review"
+pink1,PINK1 loss of function,,"No reviewed neuron-ID mapping in repository",WAITING_NEURON_EVIDENCE,WAITING_NEURON_EVIDENCE,"not simulated","cell-specific evidence and target definition"
+parkin,Parkin loss of function,,"No reviewed neuron-ID mapping in repository",WAITING_NEURON_EVIDENCE,WAITING_NEURON_EVIDENCE,"not simulated","cell-specific evidence and target definition"
+dj1,DJ-1 loss of function,,"No reviewed neuron-ID mapping in repository",WAITING_NEURON_EVIDENCE,WAITING_NEURON_EVIDENCE,"not simulated","cell-specific evidence and target definition"
+lrrk2,LRRK2 variant,,"No reviewed neuron-ID mapping in repository",WAITING_NEURON_EVIDENCE,WAITING_NEURON_EVIDENCE,"not simulated","cell-specific evidence and target definition"
+alpha_synuclein,human alpha-synuclein,,"Pan-neuronal driver is not an approved root-ID set",WAITING_NEURON_EVIDENCE,WAITING_NEURON_EVIDENCE,"not simulated","cell-specific evidence and target definition"

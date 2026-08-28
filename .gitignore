@@ -11,7 +11,17 @@ htmlcov/
 
 # Ket qua sinh tu simulation/calibration, khong commit vao source repo.
 results/
-datasets/
+# Chi theo doi metadata nho, co provenance trong datasets/. Du lieu tho va
+# artifact sinh tu simulation van nam ngoai Git.
+datasets/raw/
+datasets/generated/
+datasets/local/
+datasets/**/raw/
+datasets/**/generated/
+datasets/**/*.pdf
+datasets/**/*.xml
+datasets/**/*.zip
+datasets/**/*.tar.gz
 logs/
 cache/
 tmp/

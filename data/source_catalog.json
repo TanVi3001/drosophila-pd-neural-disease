@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0.0",
+  "catalog_id": "neural-disease-source-intake-2026-08-28",
+  "source_report": {
+    "filename": "DATASET_SOURCES_DETAILED_REPORT.md",
+    "sha256": "0ba52d63e7e78a8114a5392cfae1a84d5280a0678c590d87665351bb7542d60c",
+    "status": "AUDITED_NOT_AUTHORITATIVE",
+    "reason": "Bao cao la ban ke khai; khong thay the file du lieu goc hoac provenance cap gia tri."
+  },
+  "tracked_dataset_intake": {
+    "manifest": "../datasets/dataset_manifest.json",
+    "source_report_copy": "../datasets/source_intake/DATASET_SOURCES_DETAILED_REPORT.md",
+    "paper_registry": "../datasets/literature_phenotypes/paper_registry.csv",
+    "phenotype_records": "../datasets/literature_phenotypes/phenotype_records.csv",
+    "second_review_audit": "../datasets/literature_phenotypes/second_review_audit.csv",
+    "root_id_mapping_audit": "../datasets/literature_phenotypes/root_id_mapping_audit.csv",
+    "second_pass_sources": "../datasets/source_intake/second_pass_sources.csv",
+    "status": "CANDIDATE_REVIEW_REQUIRED",
+    "approved_calibration_targets": 0
+  },
+  "verified_external_source": {
+    "repository": "https://github.com/erojasoficial-byte/fly-brain",
+    "commit": "27cec28d5d202eb004683fb4c1a1033eec8deea0",
+    "code_license": "MIT",
+    "data_license": "CC BY-NC 4.0",
+    "license_reference": "https://home.flywire.ai/guidelines",
+    "files": [
+      {
+        "path": "brain_body_bridge.py",
+        "size": 34396,
+        "sha256": "1ea350109fc5ffbae8baa54212fedc98267d70e2ea0c72f309572d25ba8c0a3f",
+        "role": "brain-body integration source"
+      },
+      {
+        "path": "code/run_pytorch.py",
+        "size": 19180,
+        "sha256": "333c09d54ee308e78916f20cc7ebca41d41e5307c7f5d7aab011a23bfc194c5b",
+        "role": "neural runtime source"
+      },
+      {
+        "path": "data/2025_Completeness_783.csv",
+        "size": 3327347,
+        "sha256": "bbb847a4cc2caaa7a16349722d220c087317b946d148d4d592d94d250617a311",
+        "role": "FlyWire v783 neuron index and proofreading completeness"
+      },
+      {
+        "path": "data/2025_Connectivity_783.parquet",
+        "size": 100804642,
+        "sha256": "efeb23fb99098e9c390f6869969b2a121a2ee92c833cfc45ecb2c1d8e1af0347",
+        "role": "FlyWire v783 connectivity matrix"
+      },
+      {
+        "path": "data/flywire_annotations.tsv",
+        "size": 32638576,
+        "sha256": "533db093e12d8de350fd20875a967f8f74acace633ff22118eefff550d5dcbc1",
+        "role": "FlyWire v783 cell annotations"
+      },
+      {
+        "path": "data/plastic_weights.pt",
+        "size": 60369156,
+        "sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "role": "external computational checkpoint"
+      }
+    ]
+  },
+  "verified_shapes": {
+    "completeness_rows": 138639,
+    "complete_true_rows": 138639,
+    "annotation_rows": 139244,
+    "annotation_columns": 31,
+    "connectivity_rows": 15091983,
+    "connectivity_columns": [
+      "Presynaptic_ID",
+      "Postsynaptic_ID",
+      "Presynaptic_Index",
+      "Postsynaptic_Index",
+      "Connectivity",
+      "Excitatory",
+      "Excitatory x Connectivity"
+    ]
+  },
+  "not_integrated": [
+    {
+      "artifact": "experimental_locomotion_db.json",
+      "status": "MISSING_SOURCE_FILE",
+      "reason": "Khong tim thay file trong workspace; cac gia tri trong bao cao chua co provenance cap tung gia tri."
+    },
+    {
+      "artifact": "bridge_scales/*.json",
+      "status": "MISSING_SOURCE_FILES",
+      "reason": "Khong tim thay 28 file duoc bao cao; khong duoc tai tao tham so tu phan mo ta."
+    },
+    {
+      "artifact": "multi-seed and validation results",
+      "status": "MISSING_SOURCE_FILES",
+      "reason": "Khong tim thay raw runs, manifests va checksums duoc bao cao."
+    },
+    {
+      "artifact": "drug dose-response values",
+      "status": "OUT_OF_PROJECT_SCOPE_AND_UNVERIFIED",
+      "reason": "Project khong nghien cuu thuoc; khong co bang trich xuat duoc review."
+    }
+  ],
+  "scientific_scope": "Connectome va checkpoint duoc dung cho perturbation neural tinh toan. Catalog khong xac nhan mo hinh Parkinson sinh hoc, chan doan, du doan lam sang hoac dap ung thuoc."
+}

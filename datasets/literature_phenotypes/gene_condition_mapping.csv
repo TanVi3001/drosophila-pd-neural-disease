@@ -1,0 +1,7 @@
+condition_id,gene_model,literature_record_ids,neural_mapping_status,simulation_target_status,usable_now,reason
+dopamine_deficiency_exploratory,dopamine_deficiency,riemensperger_speed_day5,VERIFIED_EXPLORATORY_342_DOPAMINERGIC_ROOT_IDS,PENDING_SECOND_REVIEW,exploratory_only,FlyWire mapping is cell-class based and is not a gene-specific disease mapping.
+alpha_synuclein,human_alpha_synuclein,pokrzywa_alpha_speed_day1;pokrzywa_alpha_speed_day21,WAITING_REVIEWED_ROOT_ID_MAPPING,PENDING_UNCERTAINTY_AND_ASSAY_TRANSFER,no,Pan-neuronal expression in the paper does not identify a reviewed FlyWire root-ID set.
+parkin,parkin,dumitrescu_parkin_activity_day1;dumitrescu_parkin_activity_day45,WAITING_REVIEWED_ROOT_ID_MAPPING,NOT_DIRECTLY_COMPARABLE_DAM_COUNTS,no,TH-GAL4 defines a biological cell class but does not itself provide root IDs; DAM counts are not speed.
+pink1,pink1,pozo_pink1_distance_day28;pozo_pink1_activity_time_day28,WAITING_REVIEWED_ROOT_ID_MAPPING,PENDING_STATISTIC_AND_ASSAY_TRANSFER,no,PINK1 phenotype values are extracted but a gene-specific neural mapping and compatible simulation endpoint are not approved.
+dj1,dj1,hwang_dj1_climbing_day5,WAITING_REVIEWED_ROOT_ID_MAPPING,WAITING_NUMERIC_EXTRACTION,no,Primary figure metadata is registered; center value and uncertainty require manual figure review.
+lrrk2,lrrk2,godena_lrrk2_r1441c_climbing;godena_lrrk2_y1699c_climbing,WAITING_REVIEWED_ROOT_ID_MAPPING,WAITING_NUMERIC_EXTRACTION,no,Variant-specific climbing evidence exists but numeric center values and root-ID mapping remain unreviewed.

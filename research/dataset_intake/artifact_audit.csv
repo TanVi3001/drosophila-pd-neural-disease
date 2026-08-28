@@ -1,0 +1,14 @@
+category,artifact,expected_location,integration_status,integrity_status,license_status,allowed_use,blocker
+connectome,2025_Connectivity_783.parquet,external brain source,VERIFIED_EXTERNAL,VERIFIED_SHA256,CC BY-NC 4.0,Computational connectivity and checkpoint preparation,
+connectome,flywire_annotations.tsv,external brain source,VERIFIED_EXTERNAL,VERIFIED_SHA256,CC BY-NC 4.0,Cell annotation with explicit provenance,
+connectome,2025_Completeness_783.csv,external brain source,VERIFIED_EXTERNAL,VERIFIED_SHA256,CC BY-NC 4.0,Neuron index and completeness filter,
+connectome,sez_neurons.pickle,external brain source,NOT_INTEGRATED,MISSING_FILE,UNKNOWN,None,Source file and license not supplied
+checkpoint,plastic_weights.pt,external brain source,VERIFIED_EXTERNAL,VERIFIED_SHA256,External source manifest,Healthy computational checkpoint input,
+checkpoint,plastic_weights_fly0.pt,external brain source,NOT_INTEGRATED,MISSING_FILE,UNKNOWN,None,Source file provenance and checksum not supplied
+checkpoint,plastic_weights_fly1.pt,external brain source,NOT_INTEGRATED,MISSING_FILE,UNKNOWN,None,Source file provenance and checksum not supplied
+sensory,eye_L_0.png; eye_R_0.png; eye_L_20.png; eye_R_20.png,external brain source,NOT_INTEGRATED,MISSING_FILES,UNKNOWN,None,Files and acquisition provenance not supplied
+literature_dataset,experimental_locomotion_db.json,datasets/,NOT_INTEGRATED,MISSING_FILE,UNKNOWN,None,Original JSON and value-level provenance not supplied
+parameter_dataset,bridge_scales/*.json,data/bridge_scales/,NOT_INTEGRATED,MISSING_FILES,UNKNOWN,None,Parameters cannot be reconstructed from narrative claims
+simulation_results,multi_seed_raw.json; multi_seed_wilcoxon.json; multi_seed_summary.csv,results/,NOT_INTEGRATED,MISSING_FILES,PROJECT_GENERATED,None,Raw run manifests and checksums not supplied
+validation_results,held_out_validation_report.json,results/validation/,NOT_INTEGRATED,MISSING_FILE,PROJECT_GENERATED,None,Calibration and holdout allocations are not approved
+sensitivity_results,sobol_sensitivity_analysis.json,results/analysis/,NOT_INTEGRATED,MISSING_FILE,PROJECT_GENERATED,None,Raw evaluations and run provenance not supplied
