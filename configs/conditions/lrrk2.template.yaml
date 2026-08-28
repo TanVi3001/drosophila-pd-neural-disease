@@ -1,0 +1,10 @@
+condition_id: lrrk2_template
+gene_model: LRRK2_variant
+seed: 0
+status: WAITING_TARGET_DATA
+target_neurons: []
+target_edges: []
+full_burden: {}
+burden_curve: []
+provenance: []
+notes: "Template cho synaptic/motor-ageing hypothesis."

@@ -1,0 +1,41 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Ket qua sinh tu simulation/calibration, khong commit vao source repo.
+results/
+datasets/
+logs/
+cache/
+tmp/
+temporary/
+paper_outputs/
+
+# Du lieu lon va checkpoint can quan ly bang artifact storage hoac Git LFS.
+data/raw/
+data/generated/
+data/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.mp4
+*.avi
+*.mov
+*.npz
+*.parquet
+
+# Nguon ngoai repo, vi du phase-A-clean tren may ca nhan.
+external/
+phase-A-clean/
+
+.env
+.DS_Store
+Thumbs.db

@@ -1,0 +1,10 @@
+condition_id: pink1_template
+gene_model: PINK1_loss_of_function
+seed: 0
+status: WAITING_TARGET_DATA
+target_neurons: []
+target_edges: []
+full_burden: {}
+burden_curve: []
+provenance: []
+notes: "Template cho energy/resource hypothesis; khong tu dong suy ra neuron bi anh huong."
