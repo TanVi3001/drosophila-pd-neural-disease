@@ -10,16 +10,26 @@ from pathlib import Path
 
 REQUIRED_FILES = (
     "brain_body_bridge.py",
-    "run_pytorch.py",
+    "code/run_pytorch.py",
     "data/2025_Completeness_783.csv",
     "data/2025_Connectivity_783.parquet",
+    "data/plastic_weights.pt",
 )
-OPTIONAL_FILES = ("data/plastic_weights.pt",)
+
+
+def _license_status(root: Path) -> str:
+    license_path = root / "LICENSE"
+    if not license_path.is_file():
+        return "UNVERIFIED"
+    try:
+        text = license_path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return "UNVERIFIED"
+    return "VERIFIED_MIT" if "MIT License" in text else "UNVERIFIED"
 
 
 def inspect_brain_root(root: Path) -> dict[str, object]:
     checks = {relative: (root / relative).is_file() for relative in REQUIRED_FILES}
-    optional = {relative: (root / relative).is_file() for relative in OPTIONAL_FILES}
     missing = [relative for relative, present in checks.items() if not present]
     status = "READY" if not missing else "WAITING_BRAIN_DATA"
     return {
@@ -27,8 +37,8 @@ def inspect_brain_root(root: Path) -> dict[str, object]:
         "brain_root": str(root),
         "checked_at_utc": datetime.now(UTC).isoformat(),
         "required_files": checks,
-        "optional_files": optional,
-        "license_status": "UNVERIFIED",
+        "license_status": _license_status(root),
+        "data_license_status": "REVIEW_CC_BY_NC_4_0",
         "simulation_run": False,
         "message": (
             "Brain source da du file bat buoc; can review license va annotation truoc khi chay."
@@ -39,7 +49,8 @@ def inspect_brain_root(root: Path) -> dict[str, object]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
+    # Keep CLI help ASCII so it remains usable on Windows consoles using CP1252.
+    parser = argparse.ArgumentParser(description="Check external neural inputs without running simulation.")
     parser.add_argument("--brain-root", type=Path, required=True)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)

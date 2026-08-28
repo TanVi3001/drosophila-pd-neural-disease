@@ -13,9 +13,10 @@ def test_complete_file_shape_is_ready_but_license_stays_unverified(tmp_path: Pat
     root = tmp_path / "brain"
     for relative in (
         "brain_body_bridge.py",
-        "run_pytorch.py",
+        "code/run_pytorch.py",
         "data/2025_Completeness_783.csv",
         "data/2025_Connectivity_783.parquet",
+        "data/plastic_weights.pt",
     ):
         path = root / relative
         path.parent.mkdir(parents=True, exist_ok=True)

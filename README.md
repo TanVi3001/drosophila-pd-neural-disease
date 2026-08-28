@@ -95,5 +95,37 @@ thay thế bước kiểm tra license, annotation và calibration target.
 - [Disease profiles](docs/03_disease_profiles.md)
 - [Calibration](docs/04_calibration.md)
 - [GPU](docs/05_gpu.md)
+
+## Chay brain-body that va MP4
+
+Nguon brain public, checkpoint va checksum duoc ghi trong
+`data/SOURCE_PROVENANCE.md`. De tai nguon theo commit co dinh:
+
+```powershell
+python scripts/fetch_brain_source.py --output external/fly-brain
+python scripts/check_neural_inputs.py --brain-root external/fly-brain --output results/neural_input_status.json
+```
+
+Healthy rollout goi FlyGym/MuJoCo runner cua platform va co the xuat MP4 that:
+
+```powershell
+python scripts/run_neural_experiment.py `
+  --brain-root external/fly-brain `
+  --platform-root ..\drosophila-pd-flygym `
+  --brain-python C:\path\to\brain-env\python.exe `
+  --seed 0 --steps 1000 --device cuda `
+  --output results/healthy/seed_000 --video
+```
+
+Moi truong brain can PyTorch CUDA, pandas, pyarrow, FlyGym va MuJoCo. Cai
+phan phu thuoc Python cua repo nay bang `python -m pip install -e ".[brain,test]"`;
+ban PyTorch CUDA can chon phu hop voi driver NVIDIA.
+
+Disease config chi duoc chay khi co neuron/edge annotation, burden curve va
+target literature da review. Neu chua co, runner tra `WAITING_TARGET_DATA` va
+khong chay simulation. `run_neural_campaign.py` ho tro nhieu seed; MP4 duoc
+tao tu render MuJoCo that. Moi output chi duoc dien giai la computational
+locomotion, khong phai biological Parkinson validation, diagnosis, clinical
+prediction hay drug response.
 - [Tái lập](docs/06_tai_lap.md)
 - [Ranh giới khoa học](docs/07_ranh_gio_khoa_hoc.md)

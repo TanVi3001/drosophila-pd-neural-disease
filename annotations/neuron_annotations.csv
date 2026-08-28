@@ -1,0 +1,19 @@
+neuron_id,cell_type,neurotransmitter,region,motor_role,source
+720575940627652358,DNp09,acetylcholine,,forward locomotion,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940635872101,DNp09,acetylcholine,,forward locomotion,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940626730883,DNg97,acetylcholine,,forward locomotion,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940620300308,DNg97,acetylcholine,,forward locomotion,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940644438551,DNa01,acetylcholine,,left turning,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940627787609,DNa01,acetylcholine,,right turning,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940604737708,DNa02,acetylcholine,,left turning,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940629327659,DNa02,acetylcholine,,right turning,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940616026939,MDN,acetylcholine,,backward locomotion,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940631082808,MDN,acetylcholine,,backward locomotion,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940640331472,MDN,acetylcholine,,backward locomotion,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940610236514,MDN,acetylcholine,,backward locomotion,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940622838154,DNp01,acetylcholine,,escape,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940632499757,DNp01,glutamate,,escape,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940624319124,DNg62,acetylcholine,,grooming,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940616185531,DNg62,acetylcholine,,grooming,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940660219265,CB0701,acetylcholine,,feeding motor,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0
+720575940618238523,CB0701,acetylcholine,,feeding motor,FlyWire v783 + fly-brain brain_body_bridge.py at 27cec28d5d202eb004683fb4c1a1033eec8deea0

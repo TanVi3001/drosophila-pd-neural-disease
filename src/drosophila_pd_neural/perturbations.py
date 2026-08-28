@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable
 import math
 
 import numpy as np
@@ -31,22 +31,24 @@ def perturb_edges(
     if not np.isfinite(result).all():
         raise ValueError("weights phai huu han.")
 
-    target_neurons = set(condition.target_neurons)
-    target_edges = set(condition.target_edges)
+    target_neurons = np.asarray(condition.target_neurons, dtype=object)
     params = condition.parameters
-    for index, (pre_id, post_id) in enumerate(zip(pre.tolist(), post.tolist())):
-        factor = 1.0
-        pre_target = str(pre_id) in target_neurons
-        post_target = str(post_id) in target_neurons
-        if pre_target:
-            factor *= params.presynaptic_gain
-        if post_target:
-            factor *= params.postsynaptic_gain
-        if pre_target or post_target:
-            factor *= params.neuron_survival
-        if (str(pre_id), str(post_id)) in target_edges:
-            factor *= params.presynaptic_gain
-        result[index] *= factor
+    pre_target = np.isin(pre, target_neurons)
+    post_target = np.isin(post, target_neurons)
+    factor = np.ones(result.shape, dtype=float)
+    factor[pre_target] *= params.presynaptic_gain
+    factor[post_target] *= params.postsynaptic_gain
+    factor[pre_target | post_target] *= params.neuron_survival
+    if condition.target_edges:
+        edge_keys = np.char.add(
+            np.char.add(pre.astype(str), "\x00"), post.astype(str)
+        )
+        target_keys = np.asarray(
+            [f"{pre_id}\x00{post_id}" for pre_id, post_id in condition.target_edges],
+            dtype=str,
+        )
+        factor[np.isin(edge_keys, target_keys)] *= params.presynaptic_gain
+    result *= factor
     if not np.isfinite(result).all():
         raise ValueError("Perturbation tao ra weight khong huu han.")
     return result
