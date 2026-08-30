@@ -29,11 +29,11 @@
     },
     {
       "path": "literature_phenotypes/second_review_audit.csv",
-      "sha256": "e3b5848a56da27663e019c641f81dbf96aedbb0d15420dbbeae7d64e0c44c0c2"
+      "sha256": "1167820b8652d5f31689210f0d7fc3a2243635d0309aec88485df3d9e0daceac"
     },
     {
       "path": "literature_phenotypes/root_id_mapping_audit.csv",
-      "sha256": "64bb8be8d65fa7767352a33035567880bf5d051a05034f73e0d843b94edf9fcf"
+      "sha256": "1495afeea7f94b6c51ff49a0f853fe12a322e2923ce62208776ef84ac698d11c"
     },
     {
       "path": "source_intake/second_pass_sources.csv",
