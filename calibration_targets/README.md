@@ -44,3 +44,22 @@ Các giá trị mới trích từ paper nằm trong
 Đây là hàng đợi review, không phải input calibration. Research lead chỉ chuyển
 một record sang `targets.csv` khi paper registry, assay, statistic, uncertainty,
 sample size và mục đích `calibration` hoặc `holdout` đã được duyệt độc lập.
+
+## Target policy và staging
+
+Chính sách phê duyệt nằm tại
+[`../docs/target_approval_policy.md`](../docs/target_approval_policy.md). Các
+candidate đã review nhưng chưa đủ điều kiện được giữ trong
+[`candidate_targets_reviewed.csv`](candidate_targets_reviewed.csv); file này
+không phải input của calibration.
+
+Ngoài reviewer, ngày review và allocation, target approved phải ghi rõ trong
+`notes`:
+
+```text
+assay_transfer=allowed;sample_unit=fly
+```
+
+`sample_unit` phải phản ánh đúng unit of analysis của paper. Không copy candidate
+sang `targets.csv` nếu uncertainty hoặc sample size còn trống, statistic không
+khớp metric, hoặc assay transfer chưa được research lead phê duyệt.
