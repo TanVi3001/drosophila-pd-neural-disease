@@ -67,7 +67,7 @@ Lý do:
 
 - Cả hai chủ yếu là climbing phenotype.
 - Nếu pipeline chưa có climbing assay/metric tương ứng thì không dùng làm calibration target cho speed.
-- Có thể dùng làm holdout/validation định tính hoặc sau khi Multi-Assay/climbing module được triển khai.
+- Có thể dùng làm validation định tính; chỉ xem xét làm holdout định lượng sau khi climbing assay/metric được triển khai và target đáp ứng đầy đủ policy.
 
 ## Root-ID mapping
 
