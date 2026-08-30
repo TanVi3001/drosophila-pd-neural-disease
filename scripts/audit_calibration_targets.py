@@ -33,6 +33,26 @@ REQUIRED_COLUMNS = (
     "notes",
 )
 ALLOWED_STATUSES = {"pending", "approved", "rejected"}
+ALLOWED_TARGET_STATISTICS = {"mean", "median", "se", "sem", "sd", "iqr", "range"}
+UNCERTAINTY_STATISTICS = {"se", "sem", "sd", "iqr", "range"}
+CALIBRATION_ENDPOINTS = {
+    "mean_planar_speed_mm_s": "mm/s",
+    "median_planar_speed_mm_s": "mm/s",
+    "distance_traveled_mm": "mm",
+}
+VALIDATION_ONLY_ENDPOINTS = {
+    "activity_time_s": "s",
+    "climbing_score": None,
+    "dam_activity": None,
+}
+ALLOWED_SAMPLE_UNITS = {
+    "animal",
+    "fly",
+    "independent_experiment",
+    "independent_vial",
+    "recording",
+    "vial",
+}
 APPROVED_METADATA = (
     "paper_id",
     "gene_model",
@@ -53,6 +73,12 @@ APPROVED_METADATA = (
 _REVIEWER = re.compile(r"(?:^|;)\s*reviewer=([^;]+)", re.IGNORECASE)
 _REVIEW_DATE = re.compile(r"(?:^|;)\s*review_date=(\d{4}-\d{2}-\d{2})", re.IGNORECASE)
 _ALLOCATION = re.compile(r"(?:^|;)\s*allocation=(calibration|holdout)", re.IGNORECASE)
+_ASSAY_TRANSFER = re.compile(
+    r"(?:^|;)\s*assay_transfer=(allowed|validation_only|not_comparable)",
+    re.IGNORECASE,
+)
+_SAMPLE_UNIT = re.compile(r"(?:^|;)\s*sample_unit=([a-z_]+)", re.IGNORECASE)
+_CENTER_STATISTIC = re.compile(r"(?:^|;)\s*statistic=(mean|median)", re.IGNORECASE)
 
 
 def _value(row: dict[str, str], key: str) -> str:
@@ -61,6 +87,156 @@ def _value(row: dict[str, str], key: str) -> str:
 
 def _issue(code: str, message: str, severity: str) -> dict[str, str]:
     return {"code": code, "message": message, "severity": severity}
+
+
+def _statistic_tokens(value: str) -> set[str]:
+    """Return recognized statistic tokens without inferring missing metadata."""
+
+    normalized = re.sub(r"[^a-z0-9]+", "_", value.strip().lower())
+    aliases = {
+        "standard_deviation": "sd",
+        "standard_error": "se",
+        "interquartile_range": "iqr",
+    }
+    for source, target in aliases.items():
+        normalized = normalized.replace(source, target)
+    return set(normalized.split("_")) & ALLOWED_TARGET_STATISTICS
+
+
+def _audit_endpoint_policy(
+    row: dict[str, str],
+    *,
+    status: str,
+    severity: str,
+    notes: str,
+) -> list[dict[str, str]]:
+    """Enforce endpoint, statistic, unit, and transfer compatibility."""
+
+    issues: list[dict[str, str]] = []
+    metric = _value(row, "metric").lower()
+    unit = _value(row, "unit").lower()
+    variance_type = _value(row, "variance_type")
+    statistics = _statistic_tokens(variance_type)
+    note_statistics = _statistic_tokens(notes)
+    center_match = _CENTER_STATISTIC.search(notes)
+    center = center_match.group(1).lower() if center_match else ""
+
+    if variance_type and not statistics:
+        issues.append(
+            _issue(
+                "INVALID_VARIANCE_TYPE",
+                "variance_type phai ghi ro mean, median, SE, SEM, SD, IQR hoac range.",
+                severity,
+            )
+        )
+    if variance_type and not (statistics & UNCERTAINTY_STATISTICS):
+        issues.append(
+            _issue(
+                "MISSING_UNCERTAINTY_STATISTIC",
+                "variance_type phai ghi mot uncertainty type: SE, SEM, SD, IQR hoac range.",
+                severity,
+            )
+        )
+
+    if metric in VALIDATION_ONLY_ENDPOINTS:
+        issues.append(
+            _issue(
+                "VALIDATION_ONLY_ENDPOINT",
+                f"{metric} chi duoc dung cho validation cho den khi assay tuong ung duoc implement.",
+                severity,
+            )
+        )
+    elif metric not in CALIBRATION_ENDPOINTS:
+        issues.append(
+            _issue(
+                "UNSUPPORTED_ENDPOINT",
+                f"Endpoint {metric or '<blank>'} chua nam trong target policy.",
+                severity,
+            )
+        )
+    else:
+        expected_unit = CALIBRATION_ENDPOINTS[metric]
+        if unit and unit != expected_unit:
+            issues.append(
+                _issue(
+                    "ENDPOINT_UNIT_MISMATCH",
+                    f"{metric} phai dung don vi {expected_unit}.",
+                    severity,
+                )
+            )
+
+    if metric.startswith("mean_"):
+        if "median" in statistics or "median" in note_statistics or center == "median":
+            issues.append(
+                _issue(
+                    "STATISTIC_MISMATCH",
+                    "Mean endpoint khong duoc dung gia tri trung tam la median.",
+                    severity,
+                )
+            )
+    elif metric.startswith("median_"):
+        if not ({"iqr", "range"} & statistics):
+            issues.append(
+                _issue(
+                    "MEDIAN_SPREAD_REQUIRED",
+                    "Median endpoint phai co numeric IQR hoac range duoc paper bao cao.",
+                    severity,
+                )
+            )
+    elif metric == "distance_traveled_mm":
+        if not center:
+            issues.append(
+                _issue(
+                    "MISSING_CENTER_STATISTIC",
+                    "Distance target phai ghi statistic=mean hoac statistic=median trong notes.",
+                    severity,
+                )
+            )
+        elif center == "median" and not ({"iqr", "range"} & statistics):
+            issues.append(
+                _issue(
+                    "MEDIAN_SPREAD_REQUIRED",
+                    "Median distance target phai co numeric IQR hoac range.",
+                    severity,
+                )
+            )
+
+    assay_transfer = _ASSAY_TRANSFER.search(notes)
+    sample_unit = _SAMPLE_UNIT.search(notes)
+    if status == "approved":
+        if assay_transfer is None:
+            issues.append(
+                _issue(
+                    "MISSING_ASSAY_TRANSFER",
+                    "Approved target phai ghi assay_transfer=allowed trong notes.",
+                    "error",
+                )
+            )
+        elif assay_transfer.group(1).lower() != "allowed":
+            issues.append(
+                _issue(
+                    "ASSAY_TRANSFER_NOT_ALLOWED",
+                    "Approved calibration/holdout target phai co assay_transfer=allowed.",
+                    "error",
+                )
+            )
+        if sample_unit is None:
+            issues.append(
+                _issue(
+                    "MISSING_SAMPLE_UNIT",
+                    "Approved target phai ghi sample_unit trong notes.",
+                    "error",
+                )
+            )
+        elif sample_unit.group(1).lower() not in ALLOWED_SAMPLE_UNITS:
+            issues.append(
+                _issue(
+                    "INVALID_SAMPLE_UNIT",
+                    "sample_unit khong nam trong target policy.",
+                    "error",
+                )
+            )
+    return issues
 
 
 def _audit_numeric_field(
@@ -119,17 +295,12 @@ def _audit_row(row_number: int, row: dict[str, str]) -> dict[str, Any]:
     notes = _value(row, "notes")
     issues.extend(_audit_numeric_field(row, "sample_size", severity=severity, integer=True, positive=True))
     issues.extend(_audit_numeric_field(row, "variance", severity=severity, nonnegative=True))
-    if "median" in notes.lower() and _value(row, "metric").lower().startswith("mean_"):
-        issues.append(
-            _issue(
-                "STATISTIC_MISMATCH",
-                "Paper ghi median nhung metric dang dat ten mean_; can xac nhan phep quy doi.",
-                severity,
-            )
-        )
+    issues.extend(_audit_endpoint_policy(row, status=status, severity=severity, notes=notes))
     reviewer = _REVIEWER.search(notes)
     review_date = _REVIEW_DATE.search(notes)
     allocation = _ALLOCATION.search(notes)
+    assay_transfer = _ASSAY_TRANSFER.search(notes)
+    sample_unit = _SAMPLE_UNIT.search(notes)
     if status == "approved":
         if reviewer is None:
             issues.append(_issue("MISSING_REVIEWER", "Approved target phai ghi reviewer trong notes.", "error"))
@@ -150,6 +321,8 @@ def _audit_row(row_number: int, row: dict[str, str]) -> dict[str, Any]:
         "value": numeric_value,
         "unit": _value(row, "unit"),
         "allocation": allocation.group(1).lower() if allocation else "",
+        "assay_transfer": assay_transfer.group(1).lower() if assay_transfer else "",
+        "sample_unit": sample_unit.group(1).lower() if sample_unit else "",
         "eligible": eligible,
         "issues": issues,
     }
@@ -234,6 +407,11 @@ def audit_targets(path: Path) -> dict[str, Any]:
         },
         "blockers": sorted(set(blockers)),
         "rows": audited_rows,
+        "target_policy": {
+            "calibration_endpoints": sorted(CALIBRATION_ENDPOINTS),
+            "validation_only_endpoints": sorted(VALIDATION_ONLY_ENDPOINTS),
+            "allowed_statistics": sorted(ALLOWED_TARGET_STATISTICS),
+        },
         "scientific_scope": "Audit provenance va readiness; khong tu phe duyet target, khong chay simulation.",
     }
 
@@ -259,7 +437,19 @@ def _write_outputs(audit: dict[str, Any], output: Path) -> None:
     with (output / "target_audit.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(
             handle,
-            fieldnames=["row_number", "paper_id", "review_status", "metric", "value", "unit", "allocation", "eligible", "issues"],
+            fieldnames=[
+                "row_number",
+                "paper_id",
+                "review_status",
+                "metric",
+                "value",
+                "unit",
+                "allocation",
+                "assay_transfer",
+                "sample_unit",
+                "eligible",
+                "issues",
+            ],
         )
         writer.writeheader()
         for row in audit["rows"]:
@@ -287,11 +477,41 @@ def _write_outputs(audit: dict[str, Any], output: Path) -> None:
             "",
             "## Quy tac de sang calibration",
             "",
-            "Target approved phai co metadata, provenance, `reviewer=...`, `review_date=YYYY-MM-DD` va `allocation=calibration` hoac `allocation=holdout` trong notes.",
+            "Target approved phai co metadata, provenance, `reviewer=...`, `review_date=YYYY-MM-DD`, `allocation=calibration|holdout`, `assay_transfer=allowed` va `sample_unit=...` trong notes.",
             "Khong dung cung mot target cho ca calibration va holdout.",
         ]
     )
     (output / "target_audit.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    policy_lines = [
+        "# Báo cáo nâng cấp target policy và calibration readiness",
+        "",
+        f"**Trạng thái:** `{audit['status']}`",
+        "",
+        "Repository chưa đạt `READY_FOR_CALIBRATION` vì chưa có target approved đủ metadata, uncertainty số học, sample size số học, reviewer, review date, allocation và assay transfer được phép.",
+        "",
+        "## Dữ liệu còn thiếu chính xác",
+        "",
+        "- Riemensperger: cần metric median riêng, numeric IQR/range và quyết định assay transfer; không đổi median thành mean.",
+        "- Pokrzywa: cần numeric SE, mốc tuổi endpoint chính xác, numeric sample size theo đúng unit of analysis và `assay_transfer=allowed`.",
+        "- Pozo: cần xác nhận spread, metric `distance_traveled_mm` trong output simulation và assay transfer riêng cho distance.",
+        "- Hwang/Godena: climbing chỉ validation-only cho đến khi climbing assay được implement.",
+        "- Dumitrescu: DAM activity không được chuyển thành walking speed.",
+        "",
+        "## Ứng viên gần nhất",
+        "",
+        "- Calibration: Pokrzywa alpha-synuclein Day 21 speed, nếu exact SE và unit of analysis được xác nhận.",
+        "- Holdout: Pozo Pink1B9 Day 28 distance, nếu spread policy và simulation distance endpoint được xác nhận độc lập.",
+        "",
+        "Hai nhận định trên chỉ là xếp hạng readiness; không phê duyệt target và không phải biological validation.",
+        "",
+        "## Blocker từ audit",
+        "",
+    ]
+    policy_lines.extend(f"- {item}" for item in blockers or ["Khong co."])
+    (output / "target_policy_upgrade_report.md").write_text(
+        "\n".join(policy_lines) + "\n",
+        encoding="utf-8",
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:
