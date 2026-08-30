@@ -1,7 +1,7 @@
 {
-  "review_scope": "Tự động đọc nguồn công khai và đối chiếu candidate phenotype; chưa phải human second review.",
-  "review_date": "2026-08-28",
-  "reviewer": "AUTOMATED_SOURCE_AUDIT",
+  "review_scope": "Human second review thực hiện bởi Tuan Le; xác nhận candidate provenance và phân loại target readiness.",
+  "review_date": "2026-08-30",
+  "reviewer": "Tuan Le",
   "papers": [
     {
       "paper_id": "riemensperger_2011_dopamine_deficiency",
