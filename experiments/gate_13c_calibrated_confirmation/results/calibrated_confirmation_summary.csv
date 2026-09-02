@@ -1,0 +1,3 @@
+condition_id,burden_level,n_success,n_failed,mean_planar_speed_mm_s_mean,mean_planar_speed_mm_s_std,distance_traveled_mm_mean,distance_traveled_mm_std,displacement_mm_mean,displacement_mm_std,operator_applied_count,qc_pass_count
+alpha_synuclein,0.0,6,0,1.9241723313100378,0.1741959515868313,1.5821706760453693,0.10110217245813366,0.9620861656550189,0.08709797579341565,6,6
+alpha_synuclein,0.5,6,0,1.1818700906608746,0.12794441557099326,1.4508481179286623,0.11089279567351712,0.5909350453304373,0.06397220778549663,6,6

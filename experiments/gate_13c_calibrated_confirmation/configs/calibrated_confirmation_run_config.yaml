@@ -1,0 +1,82 @@
+schema_version: gate-13c-calibrated-confirmation-run-config-v1
+status: RUN_CALIBRATED_CONFIRMATION_RERUN
+
+source:
+  calibrated_config: experiments/gate_13b_chen_ratio_calibration/configs/calibrated_alpha_synuclein_proxy.yaml
+  gate_13b_summary: experiments/gate_13b_chen_ratio_calibration/results/chen_ratio_calibration_summary.json
+  gate_12g_summary: experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_summary.csv
+  operator_config: experiments/gate_12e_proxy_operator/configs/proxy_burden_action_operator.yaml
+  action_hook_integration_manifest: experiments/gate_12f_b_action_hook_integration/manifests/action_hook_integration_manifest.json
+  gate_13b_manifest: experiments/gate_13b_chen_ratio_calibration/manifests/chen_ratio_calibration_manifest.json
+
+external_runtime:
+  path: E:\Drosophila_Parkinson\drosophila-pd-flygym
+  brain_root: E:\Drosophila_Parkinson\external\fly-brain-audit
+  brain_python: E:\Drosophila_Parkinson\drosophila-pd-flygym\.venv\Scripts\python.exe
+  brain_root: ../external/fly-brain-audit
+  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  runner_file: scripts/run_brain_body_rollout.py
+  patch_required: true
+
+condition:
+  condition_id: alpha_synuclein
+  scope: organism_level_proxy
+  gene_specific_mapping: false
+
+locked_parameter:
+  parameter_name: proxy_burden_level
+  selected_value: 0.5
+  locked: true
+  selection_source: Gate 13B Chen-only ratio calibration
+
+confirmation_design:
+  type: independent_seed_confirmation
+  control_burden_level: 0.0
+  calibrated_burden_level: 0.5
+  seeds: [6, 7, 8, 9, 10, 11]
+  planned_runs: 12
+
+runtime:
+  step_count: 5000
+  timestep_s: 0.0001
+  duration_s: 0.5
+  preserve_physics: true
+  preserve_timestep: true
+  preserve_duration: true
+  device: cuda
+
+chen_reference:
+  metric: mean_planar_speed_mm_s
+  disease_value_mm_s: 4.875
+  control_value_mm_s: 7.275
+  ratio_target: 0.6701030927835051
+  uncertainty_type: CI95
+  uncertainty_mm_s: 0.525
+  absolute_speed_role: reference_only
+
+metric_contract:
+  required:
+    - mean_planar_speed_mm_s
+    - distance_traveled_mm
+    - displacement_mm
+  raw_metrics_preserved: true
+
+forbidden:
+  parameter_reselection: true
+  continuous_optimization: true
+  use_pozo: true
+  use_pink1: true
+  holdout_validation: true
+  ci95_to_se_conversion: true
+  distance_to_speed_conversion: true
+  gene_specific_claim: true
+  biological_validation_claim: true
+
+output_policy:
+  commit_small_metrics: true
+  commit_logs: true
+  commit_manifests: true
+  commit_large_npz: false
+  commit_videos: false
+  commit_viewer_bundle: false
+  commit_checkpoints: false
