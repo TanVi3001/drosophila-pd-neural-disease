@@ -1,0 +1,40 @@
+{
+  "claim_lock_active": true,
+  "created_at": "2026-09-02T13:54:59.253804+00:00",
+  "generated_files": [
+    "docs/release/submission_bundle.md",
+    "docs/release/reviewer_quickstart.md",
+    "docs/release/reproducibility_checklist.md",
+    "docs/release/key_artifacts_index.md",
+    "docs/release/final_project_claim.md"
+  ],
+  "git_commit": "314136afb97095213d73740012c01db8563ee2e6",
+  "large_artifacts_committed": false,
+  "no_calibration_run": true,
+  "no_new_simulation_run": true,
+  "no_raw_metric_modification": true,
+  "no_tuning_run": true,
+  "python_version": "3.12.10",
+  "schema_version": "gate-15b-release-bundle-manifest-v1",
+  "sha256": {
+    "README.md": "fa080ad7f3aa52a5b454812965b75fe1346416f883ca13647bccf5b1ee71c68e",
+    "docs/claims/claim_safe_wording_guide.md": "4b1560d028a27c153cf91eda86faafdb3f8a40ec65ab9e037e230080bc166bdf",
+    "docs/claims/current_claim_lock.md": "09cf89ae339ff7a1e497ef6c319f8fe10e4c64a9080abe10b938f5d92be39b64",
+    "docs/claims/public_abstract.md": "77812966d822830072392c00ad9bb0d32b8b36cf0f8b62d6c8a0e9f44f3cc23d",
+    "docs/holdout/gate_14c_holdout_adjudication_report.md": "96f55e5a6203b52548192a83777059730881a4affd0e0dfac76488920458a65d",
+    "docs/limitations.md": "d87ffe1fd03dbb8fe6bc2e6e92d9e25bee542aaaebf3916e65c1742507794534",
+    "docs/project_summary.md": "9f3198994d995458e3d43b2954d030f7ded15ebab6dafd4dca8d7385667546e8",
+    "docs/results_timeline.md": "9bf374283ce703c8cabadfc6b6efa6e291fc7f4381ad77d155c1431da59f7bfd"
+  },
+  "source_files": [
+    "README.md",
+    "docs/project_summary.md",
+    "docs/limitations.md",
+    "docs/results_timeline.md",
+    "docs/claims/current_claim_lock.md",
+    "docs/claims/public_abstract.md",
+    "docs/claims/claim_safe_wording_guide.md",
+    "docs/holdout/gate_14c_holdout_adjudication_report.md"
+  ],
+  "status": "RELEASE_BUNDLE_READY"
+}
