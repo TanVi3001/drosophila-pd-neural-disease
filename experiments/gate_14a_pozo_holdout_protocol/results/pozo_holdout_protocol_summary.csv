@@ -1,0 +1,2 @@
+source,model,simulation_condition,metric,disease_value_mm,control_value_mm,target_ratio,spread_reported,spread_policy,n,allocation,primary_endpoint,absolute_distance_role,locked_parameter_name,locked_parameter_value,planned_gate_14b_runs,status,notes
+Pozo 2022,Pink1B9,pink1,distance_traveled_mm,62.091,323.326,0.192038376128,61.288,kept_as_reported_IQR_minmax_not_SD_SE,21,holdout,distance_ratio_to_control,reference_only,proxy_burden_level,0.5,12,READY_FOR_GATE_14B_POZO_RATIO_HOLDOUT,No Pozo tuning; no distance-to-speed conversion; no simulation in Gate 14A.

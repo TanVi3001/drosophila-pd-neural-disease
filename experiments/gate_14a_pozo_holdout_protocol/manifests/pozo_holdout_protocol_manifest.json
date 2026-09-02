@@ -1,0 +1,103 @@
+{
+  "schema_version": "gate-14a-pozo-holdout-protocol-manifest-v1",
+  "status": "READY_FOR_GATE_14B_POZO_RATIO_HOLDOUT",
+  "created_at_utc": "2026-09-02T11:53:32.918946+00:00",
+  "git_commit": "14970642e67fde4a66c3bdd8f5b94223d7e6226c",
+  "python_version": "3.12.10",
+  "source_files": [
+    "calibration_targets/targets.csv",
+    "experiments/gate_13b_chen_ratio_calibration/configs/calibrated_alpha_synuclein_proxy.yaml",
+    "experiments/gate_13c_calibrated_confirmation/manifests/calibrated_confirmation_manifest.json",
+    "experiments/gate_12c_computational_proxy_configs/configs/pink1_proxy_condition.yaml",
+    "research/paper_review/full_target_survey_matrix.csv",
+    "research/paper_review/pozo_distance_holdout_signoff.md"
+  ],
+  "source_file_records": [
+    {
+      "path": "calibration_targets/targets.csv",
+      "present": true,
+      "sha256": "86ab6934d46146700586ac12f00bd5087fe0e198a7826dbe5d06744057761cca"
+    },
+    {
+      "path": "experiments/gate_13b_chen_ratio_calibration/configs/calibrated_alpha_synuclein_proxy.yaml",
+      "present": true,
+      "sha256": "136d593f1268905d7a36acbba695d1b9187825a43e4ab1f8c5becb69e1e86a0f"
+    },
+    {
+      "path": "experiments/gate_13c_calibrated_confirmation/manifests/calibrated_confirmation_manifest.json",
+      "present": true,
+      "sha256": "11c0df105b88d62e9e2a6da8c023c9d7f91e775a770b76ab6f4947446c194a2b"
+    },
+    {
+      "path": "experiments/gate_12c_computational_proxy_configs/configs/pink1_proxy_condition.yaml",
+      "present": true,
+      "sha256": "698b66606b64668b5ff3991881ed08b694c5be08ad39378caa0f27c1a7d78b27"
+    },
+    {
+      "path": "research/paper_review/full_target_survey_matrix.csv",
+      "present": true,
+      "sha256": "415c5dac93a1888b002f9527a14a835133e80c4aaa41aeb0c43f38fb930d6f76"
+    },
+    {
+      "path": "research/paper_review/pozo_distance_holdout_signoff.md",
+      "present": true,
+      "sha256": "4b6fdac6bfefb949f2bd1909bc08403b4c71a218eca7ba4c22c9f5ceb74e4902"
+    }
+  ],
+  "pozo_target": {
+    "paper_id": "pozo_2022_pink1_serotonin",
+    "metric": "distance_traveled_mm",
+    "disease_value_mm": 62.091,
+    "spread_reported": 61.288,
+    "spread_policy": "kept_as_reported_not_converted_to_sd_or_se",
+    "n": 21,
+    "allocation": "holdout",
+    "not_speed_target": true,
+    "provenance": "research/paper_review/pozo_distance_holdout_signoff.md"
+  },
+  "matched_control": {
+    "available": true,
+    "metric": "distance_traveled_mm",
+    "value_mm": 323.326,
+    "sample_size": 20.0,
+    "figure_table": "Figure 3B",
+    "provenance": "Same Pozo Figure 3B control cohort; PDF reports control distance 323.326 +/- 236.209 mm.",
+    "source_file": "research/paper_review/full_target_survey_matrix.csv",
+    "target_ratio": 0.19203837612811836
+  },
+  "locked_parameter": {
+    "parameter_name": "proxy_burden_level",
+    "selected_value": 0.5,
+    "source": "experiments/gate_13b_chen_ratio_calibration/configs/calibrated_alpha_synuclein_proxy.yaml"
+  },
+  "planned_gate_14b": {
+    "condition_id": "pink1",
+    "seeds": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "planned_runs": 12,
+    "control_burden_level": 0.0,
+    "holdout_burden_level": 0.5
+  },
+  "no_simulation_run": true,
+  "no_calibration_run": true,
+  "no_holdout_validation_run": true,
+  "no_pozo_tuning": true,
+  "no_parameter_reselection": true,
+  "no_distance_to_speed_conversion": true,
+  "no_spread_to_se_conversion": true,
+  "no_gene_specific_mapping": true,
+  "no_biological_validation_claim": true,
+  "large_artifacts_committed": false,
+  "output_sha256": {
+    "config": "e9593ac3fde20c3a98ad487be5c587a6caedb0cd99452f1c506fb8d6121efeb0",
+    "summary": "f1473f06eac72284e17f4b096aea4b6e15667d66195b7eca862198a637bcefad",
+    "report": "25fd11bc5707e09287a095f5fa82204b9ca5d9060a5c20ed8121c3a39e8f1ca3"
+  },
+  "scientific_boundary": "Computational locomotion holdout protocol only; not biological Parkinson validation."
+}

@@ -1,0 +1,53 @@
+schema_version: gate-14a-pozo-holdout-protocol-v1
+status: READY_FOR_GATE_14B_POZO_RATIO_HOLDOUT
+
+holdout_scope:
+  source: Pozo 2022
+  model: Pink1B9
+  simulation_condition: pink1
+  proxy_scope: organism_level_proxy
+  gene_specific_mapping: false
+  biological_validation_claim: false
+
+locked_calibration:
+  source: experiments/gate_13b_chen_ratio_calibration/configs/calibrated_alpha_synuclein_proxy.yaml
+  parameter_name: proxy_burden_level
+  selected_value: 0.5
+  no_parameter_reselection: true
+  no_pozo_tuning: true
+
+pozo_target:
+  metric: distance_traveled_mm
+  disease_value_mm: 62.091
+  spread_reported: 61.288
+  spread_policy: kept_as_reported_not_converted_to_sd_or_se
+  n: 21
+  allocation: holdout
+  not_speed_target: true
+  absolute_distance_role: reference_only
+  matched_control_value_mm: 323.326
+  disease_control_ratio: 0.192038376128
+
+holdout_endpoint_decision:
+  preferred_endpoint: distance_ratio_to_control
+  absolute_distance_role: reference_only
+  reason: "A distance ratio is preferred when the matched Pozo control provenance is available; absolute distance remains reference-only because assay duration and runtime scale are not assumed identical."
+
+gate_14b_design:
+  condition_id: pink1
+  control_burden_level: 0.0
+  holdout_burden_level: 0.5
+  seeds: [12, 13, 14, 15, 16, 17]
+  planned_runs: 12
+  no_tuning: true
+  no_calibration: true
+  no_holdout_parameter_search: true
+
+forbidden:
+  use_pozo_for_calibration: true
+  parameter_reselection: true
+  distance_to_speed_conversion: true
+  spread_to_se_conversion: true
+  alpha_synuclein_recalibration: true
+  gene_specific_claim: true
+  biological_validation_claim: true
