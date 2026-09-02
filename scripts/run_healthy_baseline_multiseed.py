@@ -35,6 +35,11 @@ if str(ROOT) not in sys.path:
 from scripts.check_neural_inputs import inspect_brain_root
 
 
+def _write_text(path: Path, content: str) -> None:
+    """Write deterministic UTF-8/LF bytes on Windows and Unix."""
+    path.write_bytes(content.encode("utf-8"))
+
+
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -305,7 +310,7 @@ def _run_seed(
     environment.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
     completed = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, check=False, env=environment)
     log_text = completed.stdout + completed.stderr
-    (output_root / "logs" / f"seed_{seed:03d}.log").write_text(log_text, encoding="utf-8")
+    _write_text(output_root / "logs" / f"seed_{seed:03d}.log", log_text)
     with (output_root / "logs" / "run.log").open("a", encoding="utf-8") as handle:
         handle.write(f"=== seed {seed} ===\n")
         handle.write(log_text)
@@ -462,7 +467,7 @@ def _runtime_summary(rows: list[dict[str, Any]], config: Mapping[str, Any]) -> d
 def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     fields = sorted({key for row in rows for key in row})
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -602,7 +607,7 @@ def _write_report(
             "",
         ]
     )
-    report_path.write_text("\n".join(lines), encoding="utf-8")
+    _write_text(report_path, "\n".join(lines))
 
 
 def _write_missing_report(report_path: Path, audit: Mapping[str, Any], config_path: Path) -> None:
@@ -625,7 +630,7 @@ def _write_missing_report(report_path: Path, audit: Mapping[str, Any], config_pa
         "Đây là computational locomotion execution gate, không phải biological Parkinson validation.",
         "",
     ]
-    report_path.write_text("\n".join(lines), encoding="utf-8")
+    _write_text(report_path, "\n".join(lines))
 
 
 def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
@@ -648,12 +653,14 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
         brain_python=brain_python,
         artifact_paths=config.get("artifact_paths") or {},
     )
-    (manifests / "external_input_audit.json").write_text(
-        json.dumps(artifact_audit, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    _write_text(
+        manifests / "external_input_audit.json",
+        json.dumps(artifact_audit, indent=2, ensure_ascii=False) + "\n",
     )
     if artifact_audit["status"] != "READY":
         _write_missing_report(DEFAULT_REPORT, artifact_audit, config_path)
-        (manifests / "healthy_baseline_manifest.json").write_text(
+        _write_text(
+            manifests / "healthy_baseline_manifest.json",
             json.dumps(
                 {
                     "schema_version": "gate-11-healthy-baseline-manifest-v1",
@@ -667,7 +674,6 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
                 ensure_ascii=False,
             )
             + "\n",
-            encoding="utf-8",
         )
         return 2
 
@@ -735,7 +741,7 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
         "scientific_scope": "Computational healthy locomotion baseline; not biological validation.",
         "data_fabricated": False,
     }
-    metrics_json.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _write_text(metrics_json, json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
     artifact_records = []
     for path in [config_path, metrics_csv, metrics_json, manifests / "external_input_audit.json"]:
         artifact_records.append({"path": _relative(path), "size": path.stat().st_size, "sha256": _sha256(path)})
@@ -773,7 +779,7 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
         "data_fabricated": False,
     }
     manifest_path = manifests / "healthy_baseline_manifest.json"
-    manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _write_text(manifest_path, json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     _write_report(report_path=DEFAULT_REPORT, manifest=manifest, rows=rows)
     return 0 if run_status == "PASS" else 1
 

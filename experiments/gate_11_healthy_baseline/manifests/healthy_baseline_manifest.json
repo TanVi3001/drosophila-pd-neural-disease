@@ -1,6 +1,6 @@
 {
   "schema_version": "gate-11-healthy-baseline-manifest-v1",
-  "created_at_utc": "2026-09-02T03:53:20.575623+00:00",
+  "created_at_utc": "2026-09-02T04:01:49.109123+00:00",
   "status": "PASS",
   "simulation_run": true,
   "condition": "healthy_baseline",
@@ -302,23 +302,23 @@
     },
     {
       "path": "experiments/gate_11_healthy_baseline/results/healthy_baseline_metrics.csv",
-      "size": 4040,
-      "sha256": "69a23eecdbca8641ab171917dab8043f8325de01f7487d8d1587d126f415bd53"
+      "size": 4033,
+      "sha256": "021c13d931ff318d772eea6fa36c02f5018342d46d9d5067671764233ec78eff"
     },
     {
       "path": "experiments/gate_11_healthy_baseline/results/healthy_baseline_metrics.json",
-      "size": 14568,
-      "sha256": "a3a822391b7d1eb65bb0a76ef1cc42bae0b89bbaa0bc99f9878a4eddab17a068"
+      "size": 14178,
+      "sha256": "08f8ee5ad13e4eca8d6552b5869e16947d64701bcca106a130fdda7a1a2faf62"
     },
     {
       "path": "experiments/gate_11_healthy_baseline/manifests/external_input_audit.json",
-      "size": 4866,
-      "sha256": "e5b663f81fcef5cfaf317b730c13434e134dc9e2ef435c04dfbde5e7267aa8ce"
+      "size": 4753,
+      "sha256": "7944148aec887b9aace40625436326d56e19cc10452ada40937a09cd14b3a29f"
     },
     {
       "path": "experiments/gate_11_healthy_baseline/logs/run.log",
-      "size": 24981,
-      "sha256": "080e52047a010c7f3243aec78a37c6965fc5219d0455d45a11ede88d6e3163d3"
+      "size": 24646,
+      "sha256": "72d6501ca510e1fee4a455709f945d71577cdb8e8695db5238d41d65289ee326"
     }
   ],
   "scientific_scope": "Healthy computational locomotion baseline only; not biological Parkinson validation.",
