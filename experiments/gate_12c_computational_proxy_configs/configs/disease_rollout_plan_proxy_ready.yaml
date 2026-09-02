@@ -1,0 +1,52 @@
+schema_version: gate-12c-proxy-ready-rollout-plan-v1
+status: READY_FOR_GATE_12D_PROXY_ROLLOUTS
+
+base_runtime:
+  source: experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json
+  step_count: 5000
+  timestep_s: 0.0001
+  duration_s: 0.5
+  preserve_physics: true
+  preserve_timestep: true
+  preserve_duration: true
+  preserve_seed_policy: true
+
+seeds:
+  values: [0, 1, 2, 3, 4, 5]
+  minimum_n: 6
+
+conditions:
+  - condition_id: alpha_synuclein
+    config: experiments/gate_12c_computational_proxy_configs/configs/alpha_synuclein_proxy_condition.yaml
+    run_status: RUN_READY_FOR_GATE_12D
+    scope: organism_level_proxy
+
+  - condition_id: pink1
+    config: experiments/gate_12c_computational_proxy_configs/configs/pink1_proxy_condition.yaml
+    run_status: RUN_READY_FOR_GATE_12D
+    scope: organism_level_proxy
+
+  - condition_id: parkin
+    config: experiments/gate_12c_computational_proxy_configs/configs/parkin_proxy_condition.yaml
+    run_status: BLOCKED
+    scope: not_ready
+
+  - condition_id: dj1
+    config: experiments/gate_12c_computational_proxy_configs/configs/dj1_proxy_condition.yaml
+    run_status: BLOCKED
+    scope: not_ready
+
+  - condition_id: lrrk2
+    config: experiments/gate_12c_computational_proxy_configs/configs/lrrk2_proxy_condition.yaml
+    run_status: BLOCKED
+    scope: not_ready
+
+metric_contract:
+  required:
+    - mean_planar_speed_mm_s
+    - distance_traveled_mm
+    - displacement_mm
+
+forbidden:
+  no_calibration: true
+  no_holdout_validation: true

@@ -1,0 +1,35 @@
+schema_version: gate-12c-proxy-condition-schema-v1
+
+allowed_scopes:
+  - organism_level_proxy
+  - class_level_proxy
+  - gene_specific
+
+run_ready_requirements:
+  common:
+    - condition_id
+    - scope
+    - burden_curve
+    - full_burden
+    - runtime_compatibility
+    - reviewer
+    - review_date
+    - provenance
+    - scientific_boundary
+  gene_specific:
+    - target_neurons_or_edges
+    - root_id_mapping_source
+    - checkpoint_mapping_provenance
+  proxy:
+    - proxy_target
+    - proxy_operator
+    - proxy_not_gene_specific_statement
+
+forbidden:
+  - fake_root_ids
+  - fake_target_neurons
+  - fake_target_edges
+  - fake_gene_specific_claim
+  - fake_checkpoint_provenance
+  - calibration_in_gate_12c
+  - holdout_validation_in_gate_12c

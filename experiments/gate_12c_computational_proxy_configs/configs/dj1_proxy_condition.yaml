@@ -1,0 +1,32 @@
+schema_version: gate-12c-proxy-condition-v1
+condition_id: dj1
+display_name: DJ-1 computational proxy
+gene_model: DJ1_loss_of_function
+scope: not_ready
+run_status: BLOCKED
+
+target_definition:
+  target_neurons: []
+  target_edges: []
+  root_id_mapping_source: NOT_AVAILABLE
+  gene_specific_mapping: false
+
+burden:
+  burden_curve: NOT_AVAILABLE
+  full_burden: NOT_AVAILABLE
+  burden_units: NOT_AVAILABLE
+
+runtime:
+  compatible_with_gate11_runtime: false
+
+provenance:
+  mapping_source: NOT_AVAILABLE
+  reviewer: CHUA_DIEN
+  review_date: CHUA_DIEN
+
+blocked_reason:
+  - missing_target_neurons_or_edges
+  - missing_burden_curve
+  - missing_full_burden
+  - missing_mapping_provenance
+  - missing_checkpoint_compatibility_review
