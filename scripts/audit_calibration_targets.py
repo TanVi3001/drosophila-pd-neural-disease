@@ -33,8 +33,17 @@ REQUIRED_COLUMNS = (
     "notes",
 )
 ALLOWED_STATUSES = {"pending", "approved", "rejected"}
-ALLOWED_TARGET_STATISTICS = {"mean", "median", "se", "sem", "sd", "iqr", "range"}
-UNCERTAINTY_STATISTICS = {"se", "sem", "sd", "iqr", "range"}
+ALLOWED_TARGET_STATISTICS = {
+    "mean",
+    "median",
+    "se",
+    "sem",
+    "sd",
+    "iqr",
+    "range",
+    "ci95",
+}
+UNCERTAINTY_STATISTICS = {"se", "sem", "sd", "iqr", "range", "ci95"}
 CALIBRATION_ENDPOINTS = {
     "mean_planar_speed_mm_s": "mm/s",
     "median_planar_speed_mm_s": "mm/s",
@@ -78,7 +87,10 @@ _ASSAY_TRANSFER = re.compile(
     re.IGNORECASE,
 )
 _SAMPLE_UNIT = re.compile(r"(?:^|;)\s*sample_unit=([a-z_]+)", re.IGNORECASE)
-_CENTER_STATISTIC = re.compile(r"(?:^|;)\s*statistic=(mean|median)", re.IGNORECASE)
+_CENTER_STATISTIC = re.compile(
+    r"(?:^|;)\s*statistic=(mean|median|paper_reported_center)",
+    re.IGNORECASE,
+)
 
 
 def _value(row: dict[str, str], key: str) -> str:
@@ -120,12 +132,14 @@ def _audit_endpoint_policy(
     note_statistics = _statistic_tokens(notes)
     center_match = _CENTER_STATISTIC.search(notes)
     center = center_match.group(1).lower() if center_match else ""
+    allocation_match = _ALLOCATION.search(notes)
+    allocation = allocation_match.group(1).lower() if allocation_match else ""
 
     if variance_type and not statistics:
         issues.append(
             _issue(
                 "INVALID_VARIANCE_TYPE",
-                "variance_type phai ghi ro mean, median, SE, SEM, SD, IQR hoac range.",
+                "variance_type phai ghi ro mean, median, SE, SEM, SD, IQR, range hoac CI95.",
                 severity,
             )
         )
@@ -133,7 +147,7 @@ def _audit_endpoint_policy(
         issues.append(
             _issue(
                 "MISSING_UNCERTAINTY_STATISTIC",
-                "variance_type phai ghi mot uncertainty type: SE, SEM, SD, IQR hoac range.",
+                "variance_type phai ghi mot uncertainty type: SE, SEM, SD, IQR, range hoac CI95.",
                 severity,
             )
         )
@@ -188,18 +202,47 @@ def _audit_endpoint_policy(
             issues.append(
                 _issue(
                     "MISSING_CENTER_STATISTIC",
-                    "Distance target phai ghi statistic=mean hoac statistic=median trong notes.",
+                    "Distance target phai ghi statistic=mean, statistic=median hoac statistic=paper_reported_center trong notes.",
                     severity,
                 )
             )
-        elif center == "median" and not ({"iqr", "range"} & statistics):
+        elif center in {"median", "paper_reported_center"} and not ({"iqr", "range"} & statistics):
             issues.append(
                 _issue(
                     "MEDIAN_SPREAD_REQUIRED",
-                    "Median distance target phai co numeric IQR hoac range.",
+                    "Median/paper-reported distance target phai co numeric IQR hoac range.",
                     severity,
                 )
             )
+        elif center == "paper_reported_center" and allocation != "holdout":
+            issues.append(
+                _issue(
+                    "PAPER_CENTER_HOLDOUT_ONLY",
+                    "paper_reported_center chi duoc dung cho distance holdout.",
+                    severity,
+                )
+            )
+
+    # A paper-reported center is a provenance-preserving holdout value. It is
+    # never a substitute for a calibration statistic, even when the endpoint
+    # itself is otherwise listed in the policy.
+    if center == "paper_reported_center" and allocation == "calibration":
+        issues.append(
+            _issue(
+                "PAPER_CENTER_HOLDOUT_ONLY",
+                "paper_reported_center chi duoc dung cho holdout, khong duoc dung cho calibration.",
+                "error" if status == "approved" else severity,
+            )
+        )
+
+    if metric == "distance_traveled_mm" and allocation == "calibration":
+        issues.append(
+            _issue(
+                "DISTANCE_HOLDOUT_ONLY",
+                "distance_traveled_mm chi duoc dung lam holdout endpoint, khong duoc dung de calibration speed.",
+                "error" if status == "approved" else severity,
+            )
+        )
 
     assay_transfer = _ASSAY_TRANSFER.search(notes)
     sample_unit = _SAMPLE_UNIT.search(notes)

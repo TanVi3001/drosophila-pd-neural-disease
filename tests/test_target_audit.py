@@ -7,22 +7,24 @@ from scripts.audit_calibration_targets import _write_outputs, audit_targets
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_current_targets_wait_for_manual_approval() -> None:
+def test_current_targets_reflect_gate_09b_approval() -> None:
     audit = audit_targets(ROOT / "calibration_targets" / "targets.csv")
-    assert audit["status"] == "WAITING_TARGET_DATA"
+    assert audit["status"] == "READY_FOR_CALIBRATION"
     assert audit["counts"]["review_status"]["pending"] == 2
-    assert audit["counts"]["eligible_approved"] == 0
+    assert audit["counts"]["review_status"]["approved"] == 2
+    assert audit["counts"]["eligible_approved"] == 2
+    assert audit["counts"]["allocation"] == {"calibration": 1, "holdout": 1}
 
 
-def test_audit_writes_empty_manifest_until_review_is_complete(tmp_path: Path) -> None:
+def test_audit_writes_gate_09b_manifest(tmp_path: Path) -> None:
     audit = audit_targets(ROOT / "calibration_targets" / "targets.csv")
     _write_outputs(audit, tmp_path)
     manifest = (tmp_path / "calibration_manifest.json").read_text(encoding="utf-8")
     policy_report = (tmp_path / "target_policy_upgrade_report.md").read_text(encoding="utf-8")
-    assert '"ready_for_calibration": false' in manifest
-    assert '"calibration": []' in manifest
-    assert '"holdout": []' in manifest
-    assert "WAITING_TARGET_DATA" in policy_report
+    assert '"ready_for_calibration": true' in manifest
+    assert '"calibration": [' in manifest
+    assert '"holdout": [' in manifest
+    assert "READY_FOR_CALIBRATION" in policy_report
     assert "Pokrzywa" in policy_report
     assert "Pozo" in policy_report
 
@@ -224,12 +226,64 @@ def test_distance_endpoint_is_separate_from_speed(tmp_path: Path) -> None:
         row["notes"] += ";statistic=mean"
     _write_policy_targets(path, rows)
     audit = audit_targets(path)
-    assert audit["status"] == "READY_FOR_CALIBRATION"
+    assert audit["status"] == "WAITING_TARGET_DATA"
+    assert any(
+        item["code"] == "DISTANCE_HOLDOUT_ONLY"
+        for item in audit["rows"][0]["issues"]
+    )
+    assert audit["rows"][1]["eligible"]
     assert not any(
         item["code"] == "UNSUPPORTED_ENDPOINT"
         for audited in audit["rows"]
         for item in audited["issues"]
     )
+
+
+def test_ci95_and_paper_reported_center_follow_gate_policy(tmp_path: Path) -> None:
+    path = tmp_path / "targets.csv"
+    fields = [
+        "paper_id", "gene_model", "genotype", "age_days", "sex", "assay", "metric", "value",
+        "unit", "variance_type", "variance", "sample_size", "figure_table", "doi_pmid",
+        "review_status", "notes",
+    ]
+    rows = [
+        {
+            "paper_id": "chen", "gene_model": "human_alpha_synuclein", "genotype": "A30P",
+            "age_days": "30", "sex": "male", "assay": "adult horizontal walking",
+            "metric": "mean_planar_speed_mm_s", "value": "4.875", "unit": "mm/s",
+            "variance_type": "CI95", "variance": "0.525", "sample_size": "20",
+            "figure_table": "Figure 4f", "doi_pmid": "doi:chen", "review_status": "approved",
+            "notes": "reviewer=lead;review_date=2026-09-02;allocation=calibration;assay_transfer=allowed;sample_unit=fly;statistic=mean",
+        },
+        {
+            "paper_id": "pozo", "gene_model": "pink1", "genotype": "Pink1B9", "age_days": "28",
+            "sex": "not_reported", "assay": "open field", "metric": "distance_traveled_mm",
+            "value": "62.091", "unit": "mm", "variance_type": "IQR_with_min_max_ranges_reported",
+            "variance": "61.288", "sample_size": "21", "figure_table": "Figure 3B",
+            "doi_pmid": "doi:pozo", "review_status": "approved",
+            "notes": "reviewer=lead;review_date=2026-09-02;allocation=holdout;assay_transfer=allowed;sample_unit=fly;statistic=paper_reported_center",
+        },
+    ]
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(rows)
+
+    audit = audit_targets(path)
+    assert audit["status"] == "READY_FOR_CALIBRATION"
+    assert all(row["eligible"] for row in audit["rows"])
+
+
+def test_paper_reported_center_is_holdout_only(tmp_path: Path) -> None:
+    path = tmp_path / "targets.csv"
+    row = _approved_policy_row(
+        paper_id="distance-cal", allocation="calibration", metric="distance_traveled_mm", unit="mm"
+    )
+    row["notes"] += ";statistic=paper_reported_center"
+    _write_policy_targets(path, [row])
+    audit = audit_targets(path)
+    assert audit["status"] == "WAITING_TARGET_DATA"
+    assert any(item["code"] == "PAPER_CENTER_HOLDOUT_ONLY" for item in audit["rows"][0]["issues"])
 
 
 def test_climbing_and_dam_endpoints_remain_validation_only(tmp_path: Path) -> None:

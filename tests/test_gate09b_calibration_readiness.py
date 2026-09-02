@@ -1,0 +1,42 @@
+from __future__ import annotations
+
+from scripts.audit_calibration_targets import audit_targets
+
+
+HEADER = (
+    "paper_id,gene_model,genotype,age_days,sex,assay,metric,value,unit,"
+    "variance_type,variance,sample_size,figure_table,doi_pmid,review_status,notes\n"
+)
+
+
+def test_gate09b_ci95_calibration_and_distance_holdout_are_ready(tmp_path):
+    targets = tmp_path / "targets.csv"
+    targets.write_text(
+        HEADER
+        + 'chen_2014_adult_walking,human_alpha_synuclein,A30P,30,male,'
+        + '"adult horizontal walking",mean_planar_speed_mm_s,4.875,mm/s,CI95,0.525,20,'
+        + 'Figure 4f,10.1111/gbb.12172; PMID:25113870; PMCID:PMC4262005,approved,'
+        + '"reviewer=project_reviewer;review_date=2026-09-02;allocation=calibration;'
+        + 'assay_transfer=allowed;sample_unit=fly;statistic=mean;'
+        + 'provenance=research/paper_review/digitized/chen_2014_adult_walking_speed.csv;'
+        + 'original_value_cm_s=0.4875;converted_value_mm_s=4.875;'
+        + 'original_uncertainty_cm_s=0.0525;converted_uncertainty_mm_s=0.525;'
+        + 'conversion=1_cm_s_10_mm_s;uncertainty_type=CI95;not_speed_target=false"\n'
+        + 'pozo_2022_pink1_serotonin,pink1,Pink1B9,28,not_reported,'
+        + '"Open-field locomotor tracking",distance_traveled_mm,62.091,mm,'
+        + 'IQR_with_min_max_ranges_reported,61.288,21,Figure 3B,'
+        + '10.3390/cells11091544; PMID:35563850,approved,'
+        + '"reviewer=project_reviewer;review_date=2026-09-02;allocation=holdout;'
+        + 'assay_transfer=allowed;sample_unit=fly;statistic=paper_reported_center;'
+        + 'spread_policy=kept_as_reported_IQR_minmax;'
+        + 'provenance=research/paper_review/gate_09_metric_review/gate_09b_completed_reviewer_signoff.md;'
+        + 'not_speed_target=true"\n',
+        encoding="utf-8",
+    )
+
+    audit = audit_targets(targets)
+
+    assert audit["status"] == "READY_FOR_CALIBRATION"
+    assert audit["counts"]["eligible_approved"] == 2
+    assert audit["counts"]["allocation"]["calibration"] == 1
+    assert audit["counts"]["allocation"]["holdout"] == 1
