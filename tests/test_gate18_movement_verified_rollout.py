@@ -18,6 +18,7 @@ def test_gate18_control_files_exist() -> None:
     for path in (CONFIG, SUMMARY, SUMMARY_CSV, MANIFEST, REPORT):
         assert path.is_file(), path
         assert path.stat().st_size > 0, path
+    assert "camera_mode: tracking" in CONFIG.read_text(encoding="utf-8")
 
 
 def test_gate18_summary_records_real_movement_and_boundary() -> None:
@@ -53,9 +54,10 @@ def test_gate18_manifest_keeps_binary_artifacts_out_of_git() -> None:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     assert manifest["status"] == "MOVEMENT_VERIFIED_ARTIFACT_PARTIAL"
     assert manifest["large_artifacts_committed"] is False
-    assert manifest["artifacts"]["viewer_bundle"] == "NOT_CREATED_NO_SPACE"
-    assert "rollout.json" in manifest["artifacts"]["deleted_after_storage_failure"]
-    assert manifest["artifacts"]["video"]["visual_qa"] == "PARTIAL_FIXED_CAMERA_FLY_LEAVES_FRAME"
+    assert manifest["artifacts"]["viewer_bundle"] == "NOT_COMPLETED_VALIDATOR_INTERRUPTED"
+    assert "rollout.json" in manifest["artifacts"]["historical_fixed_camera_run_deleted_after_storage_failure"]
+    assert manifest["artifacts"]["video"]["visual_qa"] == "PASS_TRACKING_CENTERED"
+    assert manifest["artifacts"]["video"]["camera_mode"] == "tracking"
     assert manifest["scientific_boundary"]["biological_parkinson_validation"] is False
 
 
@@ -68,4 +70,4 @@ def test_gate18_csv_has_movement_and_storage_disclosures() -> None:
     assert float(rows["walking_speed"]["value"]) > 0
     assert rows["timestamp_dt_min"]["evidence_status"] == "PASS"
     assert rows["observation_array"]["evidence_status"] == "NOT_VERIFIED"
-    assert rows["video_visual_tracking"]["evidence_status"] == "PARTIAL"
+    assert rows["video_visual_tracking"]["evidence_status"] == "PASS"

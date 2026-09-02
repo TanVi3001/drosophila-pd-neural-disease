@@ -14,9 +14,10 @@ Gate này kiểm tra một Healthy rollout thực tế trước khi chạy disea
   --brain-root 'E:\Drosophila_Parkinson\external\fly-brain-audit' `
   --platform-root 'E:\Drosophila_Parkinson\drosophila-pd-flygym' `
   --seed 0 --steps 100000 --device cuda `
-  --output 'experiments/gate_18_movement_verified_rollout/results/healthy_seed_000' `
-  --video --video-fps 30 --video-width 960 --video-height 540 `
-  --video-playback-speed 1.0 --stimulus p9 --cpg-frequency-hz 12.0
+  --output 'C:\\Temp\\drosophila_pd_gate18_tracking\\healthy_seed_000' `
+  --video --video-fps 60 --video-width 960 --video-height 540 `
+  --video-playback-speed 1.0 --video-camera-mode tracking `
+  --stimulus p9 --cpg-frequency-hz 12.0
 ```
 
 100.000 bước với timestep `0.0001 s` tương ứng khoảng 10 giây thời gian vật lý. BrainEngine ghi nhận 138.639 neuron và 15.091.983 synapse trên CUDA.
@@ -45,10 +46,10 @@ Các số trên được đọc từ `rollout.npz` và `metrics/metrics.json`; k
 MP4 đã được tạo tại:
 
 ```text
-experiments/gate_18_movement_verified_rollout/results/healthy_seed_000/flygym_rollout.mp4
+experiments/gate_18_movement_verified_rollout/results/healthy_seed_000_tracking/flygym_rollout.mp4
 ```
 
-Video H.264 có 301 frame, 30 FPS và thời lượng khoảng 10.03 giây. FlyGym mesh thật và vật liệu màu được render. Tuy nhiên QA trực quan là **PARTIAL**: camera hiện cố định, fly di chuyển ra khỏi khung hình khoảng sau 3–4 giây. Vì vậy video chứng minh renderer đã tạo frame thật, nhưng chưa đạt chất lượng demo theo dõi liên tục toàn bộ 10 giây.
+Video H.264 có 599 frame, 60 FPS và thời lượng khoảng 9.98 giây. Camera dùng chế độ tracking theo body `nmf/c_thorax`, nên fly còn trong khung hình ở đầu, giữa và cuối video. QA trực quan của camera là **PASS**. Tần số video 60 FPS cũng giúp quan sát rõ hơn các thay đổi chân giữa các frame; CPG/physics không bị thay đổi bởi camera.
 
 ## 4. Artifact và provenance
 
@@ -60,7 +61,7 @@ experiments/gate_18_movement_verified_rollout/results/movement_verified_summary.
 experiments/gate_18_movement_verified_rollout/manifests/movement_verified_rollout_manifest.json
 ```
 
-Rollout raw `rollout.npz`, `viewer_pose.json`, metrics JSON và MP4 đang tồn tại cục bộ. Do ổ E: hết dung lượng ở bước đóng gói viewer, `rollout.json` và `rollout.csv` đã được xóa để khôi phục dung lượng. Viewer bundle không được tạo. Các file nhị phân lớn không được commit vào Git.
+Rerun tracking lưu tại `C:\Temp\drosophila_pd_gate18_tracking\healthy_seed_000`; MP4 đã được sao chép vào thư mục `healthy_seed_000_tracking` trong repo để tiện demo. Rollout JSON/CSV, NPZ và metrics JSON lớn vẫn giữ ở ổ C: và không được commit vào Git. Lần tracking này bị dừng ở bước export `viewer_pose` vì validator đọc tài liệu hơn 2 GB gây tốn RAM; đây không ảnh hưởng các frame MP4 và metrics đã ghi trước đó.
 
 External FlyGym worktree đang dirty tại thời điểm chạy. Vì vậy kết quả này là runtime verification tại máy hiện tại; cần clean rerun với đủ dung lượng và manifest đầy đủ trước khi dùng làm artifact publication-grade.
 
@@ -72,5 +73,6 @@ Chưa được phép kết luận disease condition từ gate này. Trước khi
 
 1. Rerun Healthy với external worktree sạch và output root còn đủ dung lượng.
 2. Bổ sung observation recording hoặc ghi rõ contract không yêu cầu observation trong runner.
-3. Sửa camera video để fly luôn nằm trong khung hình, rồi QA lại toàn bộ video.
-4. Chỉ sau khi Healthy artifact đạt gate đầy đủ mới chạy disease condition nhiều seed.
+3. Ghi thêm observation array nếu quality gate nghiên cứu yêu cầu kiểm tra observation độc lập.
+4. Chạy lại với external worktree sạch và đủ bộ viewer artifact trước khi dùng làm artifact publication-grade.
+5. Chỉ sau khi Healthy artifact đạt gate đầy đủ mới chạy disease condition nhiều seed.

@@ -18,7 +18,8 @@ runtime:
 
 video:
   enabled: true
-  fps: 30
+  fps: 60
+  camera_mode: tracking
   width: 960
   height: 540
   playback_speed: 1.0
