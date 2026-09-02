@@ -1,0 +1,51 @@
+{
+  "claim_lock": {
+    "allowed_primary_claim": "Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and quantitative ratio mismatch.",
+    "biological_validation": false,
+    "clinical_validation": false,
+    "disease_mechanism_validation": false,
+    "drug_validation": false,
+    "gene_specific_validation": false,
+    "quantitative_pozo_validation": false
+  },
+  "final_adjudication_status": "DIRECTIONAL_CONCORDANCE_WITH_QUANTITATIVE_MISMATCH",
+  "locked_parameter": {
+    "no_parameter_reselection": true,
+    "no_pozo_tuning": true,
+    "proxy_burden_level": 0.5
+  },
+  "no_biological_validation_claim": true,
+  "no_calibration_run": true,
+  "no_gate14b_raw_result_modification": true,
+  "no_gene_specific_mapping": true,
+  "no_new_simulation_run": true,
+  "no_parameter_reselection": true,
+  "no_pozo_tuning": true,
+  "notes": [
+    "Runtime PASS means the holdout pipeline executed successfully.",
+    "Directionality PASS means distance decreased under the locked burden.",
+    "The simulated ratio remains far from the Pozo target ratio.",
+    "This supports directional phenotype concordance only."
+  ],
+  "pipeline_status": {
+    "chen_confirmation": "CHEN_CALIBRATED_CONFIRMATION_PASS",
+    "chen_ratio_calibration": "CHEN_RATIO_CALIBRATION_PASS",
+    "pozo_protocol": "READY_FOR_GATE_14B_POZO_RATIO_HOLDOUT",
+    "pozo_runtime": "POZO_HOLDOUT_RUNTIME_PASS"
+  },
+  "pozo_holdout_result": {
+    "condition_id": "pink1",
+    "control_distance_mm_mean": 1.6667898069518203,
+    "directionality_pass": true,
+    "holdout_distance_mm_mean": 1.5784617643392644,
+    "planned_runs": 12,
+    "pozo_target_ratio": 0.19203837612811836,
+    "quantitative_ratio_match": false,
+    "ratio_error": 0.7549687136415942,
+    "scope": "organism_level_proxy",
+    "simulated_distance_ratio": 0.9470070897697126,
+    "successful_runs": 12
+  },
+  "schema_version": "gate-14c-holdout-adjudication-summary-v1",
+  "status": "HOLDOUT_ADJUDICATION_COMPLETE"
+}
