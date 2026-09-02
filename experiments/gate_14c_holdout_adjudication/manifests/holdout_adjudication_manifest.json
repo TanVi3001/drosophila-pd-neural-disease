@@ -1,0 +1,47 @@
+{
+  "claim_lock_table_sha256": "9c4452acc09601a52e5685661350fde9da59e993110def3a580c5e23c67f94a9",
+  "created_at": "2026-09-02T13:11:30.902068+00:00",
+  "final_adjudication_status": "DIRECTIONAL_CONCORDANCE_WITH_QUANTITATIVE_MISMATCH",
+  "git_commit": "58383c291182d0c150312ee6f6a3bbf146f584da",
+  "large_artifacts_committed": false,
+  "no_biological_validation_claim": true,
+  "no_calibration_run": true,
+  "no_gate14b_raw_result_modification": true,
+  "no_gene_specific_mapping": true,
+  "no_new_simulation_run": true,
+  "no_parameter_reselection": true,
+  "no_pozo_tuning": true,
+  "python_version": "3.12.10",
+  "schema_version": "gate-14c-holdout-adjudication-manifest-v1",
+  "source_file_records": [
+    {
+      "path": "experiments/gate_14b_pozo_holdout_validation/results/pozo_holdout_result_summary.json",
+      "sha256": "7cc592197b11326a23cdadd99f44acbeba7ad1282659e5cef2a9e901f9ea5f4e"
+    },
+    {
+      "path": "experiments/gate_14b_pozo_holdout_validation/manifests/pozo_holdout_manifest.json",
+      "sha256": "c65bd2c1a3bd2087dd32bc64212409a680387b615f6e3c7ee08f9ae57533698a"
+    },
+    {
+      "path": "experiments/gate_14a_pozo_holdout_protocol/configs/pozo_holdout_protocol.yaml",
+      "sha256": "52956ba9272c3575ca0301dd0fafe874a63da5c26f5f96a611ac85bdccea51e6"
+    },
+    {
+      "path": "experiments/gate_13b_chen_ratio_calibration/configs/calibrated_alpha_synuclein_proxy.yaml",
+      "sha256": "136d593f1268905d7a36acbba695d1b9187825a43e4ab1f8c5becb69e1e86a0f"
+    },
+    {
+      "path": "experiments/gate_13c_calibrated_confirmation/manifests/calibrated_confirmation_manifest.json",
+      "sha256": "11c0df105b88d62e9e2a6da8c023c9d7f91e775a770b76ab6f4947446c194a2b"
+    }
+  ],
+  "source_files": [
+    "experiments/gate_14b_pozo_holdout_validation/results/pozo_holdout_result_summary.json",
+    "experiments/gate_14b_pozo_holdout_validation/manifests/pozo_holdout_manifest.json",
+    "experiments/gate_14a_pozo_holdout_protocol/configs/pozo_holdout_protocol.yaml",
+    "experiments/gate_13b_chen_ratio_calibration/configs/calibrated_alpha_synuclein_proxy.yaml",
+    "experiments/gate_13c_calibrated_confirmation/manifests/calibrated_confirmation_manifest.json"
+  ],
+  "status": "HOLDOUT_ADJUDICATION_COMPLETE",
+  "summary_json_sha256": "6da169135c427d901a950c3696749811a5b96358cfcc65def7977b4d363d1925"
+}

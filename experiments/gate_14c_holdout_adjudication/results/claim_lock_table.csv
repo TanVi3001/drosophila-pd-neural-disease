@@ -1,0 +1,9 @@
+claim,status,allowed_wording,forbidden_wording,evidence_source,notes
+Chen calibration,allowed,Chen-only ratio calibration selected proxy_burden_level 0.5,perfect calibration,Gate 13B calibrated config,Chen là calibration source; không dùng Pozo để tune.
+Chen confirmation,allowed,Independent seeded rerun confirmed the locked parameter behavior,biological validation,Gate 13C confirmation manifest,Confirmation ratio được báo cáo như computational confirmation.
+Pozo runtime,allowed,Pozo holdout runtime passed with 12/12 successful rollouts,Pozo validated model,Gate 14B result summary and manifest,"Đây là runtime result, không phải biological validation."
+Pozo directionality,allowed,Directional concordance was observed because distance decreased under burden 0.5,quantitative holdout validation,Gate 14B result summary,Directionality pass không đồng nghĩa quantitative ratio match.
+Pozo quantitative ratio,mismatch_reported,Quantitative ratio mismatch remains large,strong quantitative validation,Gate 14B result summary,Không đặt tolerance hậu nghiệm.
+Biological validation,forbidden,not applicable,biological Parkinson validation,Scientific boundary,Kết quả chỉ là computational locomotion proxy.
+Gene-specific validation,forbidden,organism-level computational proxy only,gene-specific PINK1 validation,Gate 14B scope and mapping flag,Không có gene-specific PINK1 mapping được duyệt.
+Clinical/drug claim,forbidden,not applicable,clinical validation; drug efficacy; therapeutic validation,Scientific boundary,Không phải mô hình lâm sàng hay đánh giá thuốc.
