@@ -8,6 +8,7 @@ cung cap.
 from .calibration import compute_loss
 from .models import DiseaseCondition, DiseaseProfile, NeuralParameters
 from .perturbations import perturb_edges
+from .proxy_burden_operator import apply_proxy_burden_to_action
 
 __all__ = [
     "DiseaseCondition",
@@ -15,4 +16,5 @@ __all__ = [
     "NeuralParameters",
     "compute_loss",
     "perturb_edges",
+    "apply_proxy_burden_to_action",
 ]

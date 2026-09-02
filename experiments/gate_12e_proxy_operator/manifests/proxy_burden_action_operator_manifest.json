@@ -1,0 +1,20 @@
+{
+  "schema_version": "gate-12e-proxy-burden-action-operator-manifest-v1",
+  "status": "OPERATOR_IMPLEMENTED_BUT_NOT_CONNECTED",
+  "git_commit": "72da235",
+  "created_at": "2026-09-02T00:00:00Z",
+  "python_version": "3.12.x",
+  "operator_module": "src/drosophila_pd_neural/proxy_burden_operator.py",
+  "operator_type": "amplitude_attenuation",
+  "attenuation_strength": 0.5,
+  "noise_strength": 0.0,
+  "deterministic": true,
+  "config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "smoke_test_status": "PASS",
+  "connected_to_runner": false,
+  "action_hook_location": "NOT_CONNECTED: scripts/run_disease_conditions_multiseed.py currently delegates to scripts/run_neural_experiment.py and does not pass an action operator into the FlyGym action step",
+  "no_calibration_run": true,
+  "no_holdout_validation_run": true,
+  "no_gene_specific_mapping": true,
+  "no_biological_validation_claim": true
+}
