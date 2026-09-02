@@ -1,8 +1,8 @@
 {
-  "claim_lock_table_sha256": "9c4452acc09601a52e5685661350fde9da59e993110def3a580c5e23c67f94a9",
-  "created_at": "2026-09-02T13:11:30.902068+00:00",
+  "claim_lock_table_sha256": "020bb939cb500f438182e10d9e5455172f5862822bef0a2a50a7c3d980cbc3b6",
+  "created_at": "2026-09-02T13:17:00.280580+00:00",
   "final_adjudication_status": "DIRECTIONAL_CONCORDANCE_WITH_QUANTITATIVE_MISMATCH",
-  "git_commit": "58383c291182d0c150312ee6f6a3bbf146f584da",
+  "git_commit": "2e48b434d89fcd3b84e4955d6d47633dd656ee3b",
   "large_artifacts_committed": false,
   "no_biological_validation_claim": true,
   "no_calibration_run": true,
@@ -43,5 +43,5 @@
     "experiments/gate_13c_calibrated_confirmation/manifests/calibrated_confirmation_manifest.json"
   ],
   "status": "HOLDOUT_ADJUDICATION_COMPLETE",
-  "summary_json_sha256": "6da169135c427d901a950c3696749811a5b96358cfcc65def7977b4d363d1925"
+  "summary_json_sha256": "85012e4d79f7d0b913310b9cd1e77688ff253c7f8813ed57ae5a1ffee636b314"
 }

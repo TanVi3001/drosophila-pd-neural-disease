@@ -105,6 +105,7 @@ def _write_json(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
+        newline="\n",
     )
 
 
@@ -295,6 +296,7 @@ def _write_claim_table() -> None:
                 "evidence_source",
                 "notes",
             ],
+            lineterminator="\n",
         )
         writer.writeheader()
         writer.writerows(rows)
@@ -379,7 +381,7 @@ Pozo holdout concordance, but substantial quantitative ratio mismatch.
 `DIRECTIONAL_CONCORDANCE_WITH_QUANTITATIVE_MISMATCH`
 """
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text(report, encoding="utf-8")
+    REPORT_PATH.write_text(report, encoding="utf-8", newline="\n")
 
 
 def _write_claim_document(summary: dict[str, Any], gate13c_manifest: dict[str, Any]) -> None:
@@ -436,7 +438,7 @@ Gate 14C không phải biological validation, không phải gene-specific PINK1 
 validation.
 """
     CLAIM_DOC_PATH.parent.mkdir(parents=True, exist_ok=True)
-    CLAIM_DOC_PATH.write_text(document, encoding="utf-8")
+    CLAIM_DOC_PATH.write_text(document, encoding="utf-8", newline="\n")
 
 
 def adjudicate() -> dict[str, Any]:
