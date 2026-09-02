@@ -1,0 +1,46 @@
+schema_version: gate-11-healthy-baseline-v1
+status: PLAN_ONLY_NOT_EXECUTED
+
+condition:
+  name: healthy_baseline
+  disease_layer_enabled: false
+  perturbation_config: null
+  calibration_enabled: false
+
+execution:
+  seeds: [0, 1, 2, 3, 4, 5]
+  steps: 5000
+  duration_s: 0.5
+  timestep_s: 0.0001
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+  device: cuda
+
+required_metrics:
+  - mean_planar_speed_mm_s
+  - distance_traveled_mm
+  - displacement_mm
+
+quality_checks:
+  - no_nan
+  - no_inf
+  - locomotion_detected
+  - contact_detected
+
+paths:
+  brain_root: external/fly-brain
+  platform_root: ../drosophila-pd-flygym
+  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+
+artifact_paths:
+  checkpoint: external/fly-brain/data/plastic_weights.pt
+  connectome: external/fly-brain/data/2025_Connectivity_783.parquet
+  neuron_annotations: external/fly-brain/data/flywire_annotations.tsv
+  brain_body_source: external/fly-brain/brain_body_bridge.py
+  source_manifest: external/fly-brain/source_manifest.json
+  runtime_config: experiments/gate_11_healthy_baseline/configs/healthy_baseline_multiseed.yaml
+
+output:
+  root: experiments/gate_11_healthy_baseline
+  include_video: false
+  unique_rollout_per_seed: true
