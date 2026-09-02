@@ -1,0 +1,3 @@
+objective_type,metric,target_value,target_unit,uncertainty,uncertainty_type,provenance,status,notes
+absolute,mean_planar_speed_mm_s,4.875,mm/s,0.525,CI95,calibration_targets/targets.csv,REFERENCE_ONLY,Chen absolute speed is retained as a reference target; Gate 13A does not tune a parameter and does not assume direct scale equivalence.
+ratio,mean_planar_speed_ratio_to_control,0.670103092784,dimensionless,,NOT_REPORTED,research/paper_review/digitized/chen_2014_adult_walking_speed.csv,PREFERRED_FOR_PROXY_CALIBRATION,Computed only from the matched Old A30P and Old CT rows in the same Chen digitization source; ratio is dimensionless.
