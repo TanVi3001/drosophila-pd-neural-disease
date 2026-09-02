@@ -1,0 +1,101 @@
+{
+  "schema_version": "gate-12b-disease-mapping-manifest-v1",
+  "status": "BLOCKED",
+  "conditions": [
+    {
+      "condition_id": "alpha_synuclein",
+      "config": "experiments/gate_12b_disease_mapping/configs/alpha_synuclein_condition.yaml",
+      "scope": "not_ready",
+      "run_status": "BLOCKED",
+      "required_missing": [
+        "target_neurons_or_edges",
+        "burden_curve",
+        "full_burden",
+        "mapping_provenance",
+        "checkpoint_compatibility"
+      ],
+      "source_files": [
+        "configs/conditions/alpha_synuclein.template.yaml",
+        "research/disease_mapping/disease_condition_readiness.csv",
+        "datasets/literature_phenotypes/root_id_mapping_audit.csv"
+      ]
+    },
+    {
+      "condition_id": "pink1",
+      "config": "experiments/gate_12b_disease_mapping/configs/pink1_condition.yaml",
+      "scope": "not_ready",
+      "run_status": "BLOCKED",
+      "required_missing": [
+        "target_neurons_or_edges",
+        "burden_curve",
+        "full_burden",
+        "mapping_provenance",
+        "checkpoint_compatibility"
+      ],
+      "source_files": [
+        "configs/conditions/pink1.template.yaml",
+        "research/disease_mapping/disease_condition_readiness.csv",
+        "datasets/literature_phenotypes/root_id_mapping_audit.csv"
+      ]
+    },
+    {
+      "condition_id": "parkin",
+      "config": "experiments/gate_12b_disease_mapping/configs/parkin_condition.yaml",
+      "scope": "not_ready",
+      "run_status": "BLOCKED",
+      "required_missing": [
+        "target_neurons_or_edges",
+        "burden_curve",
+        "full_burden",
+        "mapping_provenance",
+        "checkpoint_compatibility"
+      ],
+      "source_files": [
+        "configs/conditions/parkin.template.yaml",
+        "research/disease_mapping/disease_condition_readiness.csv",
+        "datasets/literature_phenotypes/root_id_mapping_audit.csv"
+      ]
+    },
+    {
+      "condition_id": "dj1",
+      "config": "experiments/gate_12b_disease_mapping/configs/dj1_condition.yaml",
+      "scope": "not_ready",
+      "run_status": "BLOCKED",
+      "required_missing": [
+        "target_neurons_or_edges",
+        "burden_curve",
+        "full_burden",
+        "mapping_provenance",
+        "checkpoint_compatibility"
+      ],
+      "source_files": [
+        "configs/conditions/dj1.template.yaml",
+        "research/disease_mapping/disease_condition_readiness.csv",
+        "datasets/literature_phenotypes/root_id_mapping_audit.csv"
+      ]
+    },
+    {
+      "condition_id": "lrrk2",
+      "config": "experiments/gate_12b_disease_mapping/configs/lrrk2_condition.yaml",
+      "scope": "not_ready",
+      "run_status": "BLOCKED",
+      "required_missing": [
+        "target_neurons_or_edges",
+        "burden_curve",
+        "full_burden",
+        "mapping_provenance",
+        "checkpoint_compatibility"
+      ],
+      "source_files": [
+        "configs/conditions/lrrk2.template.yaml",
+        "research/disease_mapping/disease_condition_readiness.csv",
+        "datasets/literature_phenotypes/root_id_mapping_audit.csv"
+      ]
+    }
+  ],
+  "no_simulation_run": true,
+  "no_calibration_run": true,
+  "no_holdout_validation_run": true,
+  "next_gate_required": "Gate 12C only after at least one condition is RUN_READY with reviewed mapping, burden and runtime provenance.",
+  "scientific_boundary": "Computational disease condition preparation only; not biological Parkinson validation, diagnosis, clinical prediction or drug-response evidence."
+}

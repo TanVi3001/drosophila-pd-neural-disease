@@ -1,0 +1,84 @@
+schema_version: gate-12b-condition-schema-v1
+description: >-
+  Schema khai bao condition benh cho Gate 12C. Day la contract review va
+  provenance; khong tu tao target neural hoac burden khoa hoc.
+
+required:
+  - condition_id
+  - gene_model
+  - scope
+  - target_definition
+  - burden
+  - runtime
+  - provenance
+  - decision
+
+condition_id:
+  type: string
+  required: true
+
+gene_model:
+  type: string
+  required: true
+
+scope:
+  type: string
+  allowed:
+    - gene_specific
+    - class_level
+    - organism_level
+    - not_ready
+  required: true
+
+target_definition:
+  required: true
+  target_neurons:
+    type: list
+    required: false
+  target_edges:
+    type: list
+    required: false
+  target_classes:
+    type: list
+    required: false
+  root_id_mapping_source:
+    required_if_scope: gene_specific
+
+burden:
+  required: true
+  burden_curve:
+    required: true
+  full_burden:
+    required: true
+  burden_units:
+    required: true
+
+runtime:
+  required: true
+  checkpoint_source:
+    required: true
+  checkpoint_sha256:
+    required_if_available: true
+  compatible_with_gate11_runtime:
+    required: true
+
+provenance:
+  required: true
+  literature_source:
+    required: true
+  mapping_source:
+    required: true
+  reviewer:
+    required_for_run_ready: true
+  review_date:
+    required_for_run_ready: true
+
+decision:
+  required: true
+  run_status:
+    allowed:
+      - RUN_READY
+      - BLOCKED
+    required: true
+  blocked_reason:
+    required_if_run_status: BLOCKED

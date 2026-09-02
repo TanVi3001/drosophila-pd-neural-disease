@@ -1,0 +1,29 @@
+schema_version: gate-12b-condition-v1
+condition_id: pink1
+gene_model: PINK1_loss_of_function
+scope: not_ready
+target_definition:
+  target_neurons: []
+  target_edges: []
+  target_classes: []
+  root_id_mapping_source: NOT_AVAILABLE
+burden:
+  burden_curve: NOT_AVAILABLE
+  full_burden: NOT_AVAILABLE
+  burden_units: NOT_AVAILABLE
+runtime:
+  checkpoint_source: NOT_AVAILABLE_DISEASE_CHECKPOINT
+  checkpoint_sha256: NOT_AVAILABLE
+  compatible_with_gate11_runtime: false
+provenance:
+  literature_source: existing_survey_or_condition_template
+  mapping_source: NOT_AVAILABLE
+  reviewer: CHUA_DIEN
+  review_date: CHUA_DIEN
+decision:
+  run_status: BLOCKED
+  blocked_reason:
+    - missing_target_neurons_or_edges
+    - missing_burden_curve
+    - missing_full_burden
+    - missing_mapping_provenance
