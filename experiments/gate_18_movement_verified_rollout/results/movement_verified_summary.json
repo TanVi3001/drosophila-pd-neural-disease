@@ -1,0 +1,78 @@
+{
+  "schema_version": "gate-18-movement-verified-summary-v1",
+  "experiment_id": "gate_18_movement_verified_healthy_10s",
+  "status": "MOVEMENT_VERIFIED_ARTIFACT_PARTIAL",
+  "simulation": {
+    "completed": true,
+    "condition": "healthy",
+    "seed": 0,
+    "steps": 100000,
+    "frame_count": 100001,
+    "timestep_s": 0.0001,
+    "duration_s": 9.999999999990033,
+    "device": "cuda",
+    "stimulus": "p9",
+    "cpg_frequency_hz": 12.0
+  },
+  "locomotion": {
+    "thorax_planar_displacement_mm": 20.3336060683156,
+    "total_distance_mm": 27.38377914055641,
+    "walking_speed_mm_s": 2.738350530553187,
+    "walking_speed_max_mm_s": 32.2898516276488,
+    "com_velocity_mean_mm_s": 3.261754719938973,
+    "heading_variance_rad2": 0.0005181498083327671,
+    "body_orientation_variance_rad2": 0.0002733643996327487,
+    "contact_any_fraction": 1.0,
+    "joint_position_max_change": 0.9549815440490499,
+    "joint_position_rms_change": 0.3469385017933963,
+    "actuator_max_change": 2.587816412072115
+  },
+  "quality_gate": {
+    "timestamp_monotonic": "PASS",
+    "fixed_timestep_consistent": "PASS",
+    "finite_rollout_arrays": "PASS",
+    "quaternion_values_finite": "PASS",
+    "joint_trajectory_change": "PASS",
+    "action_array_finite_and_changed": "PASS",
+    "ground_contact_present": "PASS",
+    "observation_array": "NOT_VERIFIED_NOT_RECORDED",
+    "symmetry_index": "UNAVAILABLE"
+  },
+  "video": {
+    "path": "experiments/gate_18_movement_verified_rollout/results/healthy_seed_000/flygym_rollout.mp4",
+    "codec": "h264",
+    "fps": 30.0,
+    "frame_count_checked": 301,
+    "duration_s": 10.03,
+    "playback_speed": 1.0,
+    "file_size_bytes": 998602,
+    "sha256": "e2840c4bd8f20ac1a65bd004aa7dc8082f3c46af580fd8dfb30d779b28084e1f",
+    "visual_qa_status": "PARTIAL_FIXED_CAMERA_FLY_LEAVES_FRAME"
+  },
+  "artifact_storage": {
+    "rollout_npz": {
+      "path": "experiments/gate_18_movement_verified_rollout/results/healthy_seed_000/rollout.npz",
+      "file_size_bytes": 558690372,
+      "sha256": "372baecd2716d509eef5cecdff2d0c9db672fb23edfff19dde8fc4d66716a495"
+    },
+    "viewer_pose": {
+      "path": "experiments/gate_18_movement_verified_rollout/results/healthy_seed_000/viewer_pose.json",
+      "file_size_bytes": 2175987638,
+      "sha256": "4f60873d00815078742adf57dd69f4193b8632f30282dd30f6e293d5cb0c12f7"
+    },
+    "metrics_json": {
+      "path": "experiments/gate_18_movement_verified_rollout/results/healthy_seed_000/metrics/metrics.json",
+      "file_size_bytes": 53329461,
+      "sha256": "947b17b278fcd4d12b7dd6b3d62c23514550add510312ce7339b0ff939038e9e"
+    },
+    "retention_note": "rollout.json và rollout.csv đã bị xóa sau khi ổ E: hết dung lượng trong bước đóng gói; không được dùng cho kết luận bổ sung",
+    "viewer_bundle_status": "BLOCKED_NO_SPACE_DURING_PLATFORM_PACKAGING"
+  },
+  "scientific_boundary": {
+    "scope": "computational locomotion runtime verification",
+    "biological_parkinson_validation": false,
+    "gene_specific_validation": false,
+    "clinical_validation": false,
+    "drug_validation": false
+  }
+}

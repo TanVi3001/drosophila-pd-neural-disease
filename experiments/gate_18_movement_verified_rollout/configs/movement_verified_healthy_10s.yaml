@@ -1,0 +1,42 @@
+schema_version: gate-18-movement-verified-rollout-v1
+experiment_id: gate_18_movement_verified_healthy_10s
+condition: healthy
+seed: 0
+
+# Thoi gian vat ly: 10 giay voi timestep 0.0001 giay.
+steps: 100000
+timestep_s: 0.0001
+duration_s: 10.0
+
+runtime:
+  platform: FlyGym/MuJoCo
+  brain_source: external/fly-brain-audit
+  brain_source_commit: 27cec28d5d202eb004683fb4c1a1033eec8deea0
+  device: cuda
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+
+video:
+  enabled: true
+  fps: 30
+  width: 960
+  height: 540
+  playback_speed: 1.0
+  physical_time_is_not_playback_time: true
+
+quality_gate:
+  require_simulation_completed: true
+  require_thorax_displacement: true
+  require_ground_contact: true
+  require_joint_trajectory_change: true
+  require_valid_action_and_observation: true
+  require_monotonic_timestamps: true
+  forbid_nan: true
+  forbid_inf: true
+
+scientific_boundary:
+  scope: computational locomotion runtime verification
+  biological_parkinson_validation: false
+  gene_specific_validation: false
+  clinical_validation: false
+  drug_validation: false
