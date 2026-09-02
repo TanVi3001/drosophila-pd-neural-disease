@@ -1,0 +1,33 @@
+{
+  "base_release_tag": "v1.0.0",
+  "boundaries": {
+    "biological_validation": false,
+    "clinical_validation": false,
+    "drug_validation": false,
+    "gene_specific_validation": false,
+    "therapeutic_validation": false
+  },
+  "claim_lock_active": true,
+  "final_claim": "Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch",
+  "key_results": {
+    "chen_selected_burden": 0.5,
+    "chen_target_ratio": 0.6701030927835051,
+    "directionality_pass": true,
+    "gate13c_confirmation_ratio": 0.6142225784195846,
+    "pozo_control_distance_mm": 1.66679,
+    "pozo_holdout_distance_mm": 1.57846,
+    "pozo_simulated_ratio": 0.947,
+    "pozo_target_ratio": 0.192,
+    "quantitative_ratio_match": false
+  },
+  "language": "vi",
+  "main_report": "docs/report/final_vietnamese_report.md",
+  "no_calibration_run": true,
+  "no_new_simulation_run": true,
+  "no_raw_metric_modification": true,
+  "no_tuning_run": true,
+  "outline": "docs/report/final_report_outline.md",
+  "schema_version": "gate-17a-final-report-summary-v1",
+  "short_summary": "docs/report/final_report_short_summary.md",
+  "status": "FINAL_REPORT_READY"
+}
