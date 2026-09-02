@@ -1,0 +1,39 @@
+schema_version: gate-13a-chen-only-objective-v1
+status: READY_FOR_GATE_13B_CHEN_RATIO_CALIBRATION
+
+calibration_scope:
+  condition_id: alpha_synuclein
+  proxy_scope: organism_level_proxy
+  gene_specific_mapping: false
+  biological_validation_claim: false
+
+source_targets:
+  chen_2014:
+    allocation: calibration
+    disease_metric: mean_planar_speed_mm_s
+    disease_value_mm_s: 4.875
+    uncertainty_type: CI95
+    uncertainty_mm_s: 0.525
+    n: 20
+    matched_control_required_for_ratio: true
+    matched_control_value_mm_s: 7.275
+    disease_to_control_ratio: 0.670103092784
+
+objective_decision:
+  preferred_objective: mean_planar_speed_ratio_to_control
+  absolute_speed_target_role: reference_only
+  reason: "Ratio objective is preferred for organism-level proxy calibration because the simulated healthy baseline scale and Chen assay scale are not directly identical."
+
+simulation_inputs:
+  gate_12g_summary: experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_summary.csv
+  use_condition: alpha_synuclein
+  control_burden_level: 0.0
+  candidate_burden_levels: [0.25, 0.5, 0.75, 1.0]
+
+forbidden:
+  use_pozo: false
+  holdout_validation: false
+  calibration_optimization_in_gate_13a: false
+  ci95_to_se_conversion: false
+  distance_to_speed_conversion: false
+  biological_validation_claim: false

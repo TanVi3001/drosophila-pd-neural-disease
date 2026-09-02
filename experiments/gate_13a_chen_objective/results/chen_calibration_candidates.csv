@@ -1,0 +1,6 @@
+condition_id,burden_level,n_success,simulated_mean_planar_speed_mm_s_mean,simulated_mean_planar_speed_mm_s_std,simulated_ratio_to_burden0,chen_absolute_target_mm_s,chen_ratio_target,absolute_speed_error,ratio_error,candidate_rank_by_ratio,usable_for_gate_13b,notes
+alpha_synuclein,0,6,1.7779315915,0.210725340995,1,4.875,0.670103092784,3.0970684085,0.329896907216,,false,Control burden 0.0 is the Gate 12G proxy reference; no burden is selected in Gate 13A.
+alpha_synuclein,0.25,6,1.46318546229,0.229246002192,0.822970618943,4.875,0.670103092784,3.41181453771,0.152867526159,2,true,Descriptive ratio ranking for Gate 13B review; it does not choose or tune a final parameter in Gate 13A.
+alpha_synuclein,0.5,6,1.04119440742,0.2638135337,0.585621186102,4.875,0.670103092784,3.83380559258,0.0844819066814,1,true,Descriptive ratio ranking for Gate 13B review; it does not choose or tune a final parameter in Gate 13A.
+alpha_synuclein,0.75,6,0.504226783259,0.339282999165,0.283603028188,4.875,0.670103092784,4.37077321674,0.386500064596,3,true,Descriptive ratio ranking for Gate 13B review; it does not choose or tune a final parameter in Gate 13A.
+alpha_synuclein,1,6,3.75631720919,1.23185009645,2.11274563495,4.875,0.670103092784,1.11868279081,1.44264254217,4,true,Descriptive ratio ranking for Gate 13B review; it does not choose or tune a final parameter in Gate 13A.

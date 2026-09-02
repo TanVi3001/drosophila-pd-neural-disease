@@ -1,0 +1,72 @@
+{
+  "schema_version": "gate-13a-chen-objective-manifest-v1",
+  "status": "READY_FOR_GATE_13B_CHEN_RATIO_CALIBRATION",
+  "created_at": "2026-09-02T09:55:01.579075+00:00",
+  "git_commit": "eafc2dbe06b839ced9628a7703cad0c5b66ef933",
+  "python_version": "3.12.10",
+  "source_files": [
+    "calibration_targets/targets.csv",
+    "research/paper_review/digitized/chen_2014_adult_walking_speed.csv",
+    "experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_summary.csv"
+  ],
+  "source_file_records": [
+    {
+      "path": "calibration_targets/targets.csv",
+      "sha256": "86ab6934d46146700586ac12f00bd5087fe0e198a7826dbe5d06744057761cca",
+      "present": true
+    },
+    {
+      "path": "research/paper_review/digitized/chen_2014_adult_walking_speed.csv",
+      "sha256": "fb9dfe70d3b3edd299bb8129685f0745289e52f07c5c9489a18ecd6325b74d98",
+      "present": true
+    },
+    {
+      "path": "experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_summary.csv",
+      "sha256": "a560a5e569250fce6691cfb043ed8c9ed85e19dba653ab4c994218bd8668fd30",
+      "present": true
+    }
+  ],
+  "chen_target": {
+    "disease_value_mm_s": 4.875,
+    "uncertainty_type": "CI95",
+    "uncertainty_mm_s": 0.525,
+    "n": 20,
+    "matched_control_value_mm_s": 7.275,
+    "ratio_target": 0.6701030927835051,
+    "disease_source_row_present": true,
+    "control_source_row_present": true
+  },
+  "objective": {
+    "preferred": "mean_planar_speed_ratio_to_control",
+    "absolute_target_role": "reference_only",
+    "candidate_count": 4,
+    "no_parameter_selected": true
+  },
+  "simulation_inputs": {
+    "gate_12g_summary": "experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_summary.csv",
+    "gate_12g_manifest_status": "INTEGRATED_PROXY_ROLLOUTS_PASS",
+    "healthy_baseline_manifest": "experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json",
+    "healthy_baseline_status": "PASS",
+    "condition_used": "alpha_synuclein",
+    "control_burden_level": 0.0,
+    "candidate_burden_levels": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ]
+  },
+  "no_calibration_run": true,
+  "no_holdout_validation_run": true,
+  "pozo_used": false,
+  "pink1_used_for_calibration": false,
+  "gene_specific_mapping": false,
+  "biological_validation_claim": false,
+  "large_artifacts_committed": false,
+  "scientific_boundary": "Gate 13A is a computational organism-level proxy objective feasibility package, not biological Parkinson validation.",
+  "outputs": {
+    "feasibility_csv": "experiments/gate_13a_chen_objective/results/chen_objective_feasibility.csv",
+    "candidates_csv": "experiments/gate_13a_chen_objective/results/chen_calibration_candidates.csv",
+    "config": "experiments/gate_13a_chen_objective/configs/chen_only_calibration_objective.yaml"
+  }
+}
