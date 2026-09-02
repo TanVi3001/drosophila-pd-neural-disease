@@ -1,0 +1,45 @@
+{
+  "schema_version": "gate-12g-integrated-proxy-rollout-manifest-v1",
+  "status": "INTEGRATED_PROXY_ROLLOUTS_PASS",
+  "created_at": "2026-09-02T09:32:52.783695+00:00",
+  "git_commit": "1e2c553872d7f9fe8ecda70c58ca692b28685486",
+  "python_version": "3.12.10",
+  "cuda_available": true,
+  "current_repo_main_commit": "055d6a395eb41b136d1c571c610b3ab02e73c678",
+  "external_runtime_path": "E:\\Drosophila_Parkinson\\drosophila-pd-flygym",
+  "external_runtime_runner_sha256": "be3b9a0af052c2cab18ec9370208ecb8c4d80e281fb7302a135383fb346fc4ac",
+  "external_patch_verified": true,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "config_sha256": "ee79b5770434d5cea8638327ea848f7c381b6ecee00e4b8a43e381911c6e16b3",
+  "metrics_csv_sha256": "11dde7e44cb1189de55a0859460fc93e986fbf9c3c14526b760f8f144108644e",
+  "metrics_json_sha256": "3bf99f7cb13280fdb2c72dfa140b1d92acdac4333c21a20f60f40b75cb6e4b30",
+  "summary_csv_sha256": "a560a5e569250fce6691cfb043ed8c9ed85e19dba653ab4c994218bd8668fd30",
+  "planned_runs": {
+    "total": 60,
+    "alpha_synuclein": 30,
+    "pink1": 30
+  },
+  "successful_runs": 60,
+  "blocked_runs": 0,
+  "failed_runs": 0,
+  "conditions_run": [
+    "alpha_synuclein",
+    "pink1"
+  ],
+  "conditions_skipped": [
+    "parkin",
+    "dj1",
+    "lrrk2"
+  ],
+  "no_calibration_run": true,
+  "no_holdout_validation_run": true,
+  "no_gene_specific_mapping": true,
+  "no_biological_validation_claim": true,
+  "large_artifacts_committed": false,
+  "scientific_boundary": "computational organism-level proxy rollout only; not biological validation",
+  "source": {
+    "healthy_baseline_manifest": "experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json",
+    "proxy_ready_plan": "experiments/gate_12c_computational_proxy_configs/configs/disease_rollout_plan_proxy_ready.yaml",
+    "operator_config": "experiments/gate_12e_proxy_operator/configs/proxy_burden_action_operator.yaml"
+  }
+}
