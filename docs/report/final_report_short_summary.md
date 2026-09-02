@@ -1,0 +1,11 @@
+# Tóm tắt báo cáo
+
+Dự án xây dựng một computational locomotion proxy ở mức organism-level để mô phỏng và đánh giá các thay đổi vận động Parkinson-like trên Drosophila. Pipeline dùng FlyGym/MuJoCo, có target audit, proxy operator, calibration, confirmation rerun, holdout adjudication và manifest/checksum để truy vết artifact. Dự án không thực hiện wet-lab và không xem mô phỏng là thay thế cho thí nghiệm trên ruồi thật.
+
+Chen 2014 được dùng làm nguồn calibration duy nhất. Disease walking speed là 4.875 mm/s, control speed là 7.275 mm/s, tạo target ratio 0.6701030927835051 với uncertainty 0.525 CI95 và n = 20 fly. Lựa chọn trên lưới rời rạc khóa `proxy_burden_level = 0.5`; Gate 13B ghi nhận simulated ratio 0.585621186102. Gate 13C rerun độc lập cho confirmation ratio 0.6142225784, ratio error 0.0558805144 và 12/12 rollout PASS.
+
+Pozo 2022 Pink1B9 được giữ ngoài calibration và dùng làm holdout ở endpoint `distance_traveled_mm`. Holdout có 12/12 rollout PASS. Khoảng cách mô phỏng là 1.57846 mm so với control 1.66679 mm, nên directionality PASS. Tuy vậy simulated ratio 0.9470 khác nhiều so với Pozo target ratio 0.1920. Kết quả này chỉ hỗ trợ directional computational phenotype concordance, không hỗ trợ quantitative ratio validation.
+
+Việc tách calibration và holdout giúp tránh dùng cùng một target để vừa chọn vừa đánh giá tham số. Manifest và checksum cho phép truy ngược phiên bản mã, tài liệu nguồn và artifact của từng gate. Các kết quả được báo cáo như kết quả tính toán có điều kiện, trong đó PASS của runtime chỉ cho biết pipeline thực thi thành công và không đồng nghĩa với việc cơ chế bệnh đã được xác nhận. Đây là cơ sở để reviewer kiểm tra lại quy trình trước khi nhóm mở rộng thời lượng mô phỏng hoặc bổ sung target độc lập.
+
+Các rollout hiện có có thời lượng ngắn khoảng 0.5 giây. Vì vậy báo cáo không diễn giải chúng như tiến triển bệnh theo thời gian. Kết quả cũng không phải biological Parkinson validation, gene-specific validation, clinical validation, drug validation hoặc therapeutic validation. Claim an toàn là: **Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch**.

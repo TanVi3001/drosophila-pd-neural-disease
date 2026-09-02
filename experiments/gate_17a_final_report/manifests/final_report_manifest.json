@@ -1,0 +1,36 @@
+{
+  "claim_lock_active": true,
+  "created_at": "2026-09-02T14:38:03.315638+00:00",
+  "generated_files": [
+    "docs/report/final_vietnamese_report.md",
+    "docs/report/final_report_short_summary.md",
+    "docs/report/final_report_outline.md",
+    "experiments/gate_17a_final_report/results/final_report_summary.json"
+  ],
+  "git_commit": "d2784ba61bc8e921f996777ebe3688c96abd0e92",
+  "large_artifacts_committed": false,
+  "no_calibration_run": true,
+  "no_new_simulation_run": true,
+  "no_raw_metric_modification": true,
+  "no_tuning_run": true,
+  "python_version": "3.12.10",
+  "schema_version": "gate-17a-final-report-manifest-v1",
+  "sha256": {
+    "docs/claims/current_claim_lock.md": "09cf89ae339ff7a1e497ef6c319f8fe10e4c64a9080abe10b938f5d92be39b64",
+    "docs/release/final_project_claim.md": "6da7918ffbeedf3d055a218f90386cd000e5e668df2d9ddf569814de32835cb7",
+    "docs/report/final_report_outline.md": "7bbe498241b6603b7dd9d8c428cc1115cb2dbd6139199475936b9afda302de8d",
+    "docs/report/final_report_short_summary.md": "b97764975d1a7c9a64135ce15c2509813ba6c018cb833e79ebd64cb1668c561c",
+    "docs/report/final_vietnamese_report.md": "61e1a47fb420d216006ba1ce244dd4c3bcd56c34b6cb33e946871222b1dd578b"
+  },
+  "source_files": [
+    "docs/claims/current_claim_lock.md",
+    "docs/release/final_project_claim.md",
+    "docs/release/release_notes_v1.0.0.md",
+    "docs/project_summary.md",
+    "docs/limitations.md",
+    "docs/results_timeline.md",
+    "experiments/gate_16a_final_release/results/final_release_summary.json",
+    "experiments/gate_14c_holdout_adjudication/results/holdout_adjudication_summary.json"
+  ],
+  "status": "FINAL_REPORT_READY"
+}
