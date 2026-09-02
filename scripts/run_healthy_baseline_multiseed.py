@@ -18,7 +18,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any, Mapping, Sequence
 
 import numpy as np
 import yaml
@@ -187,6 +187,9 @@ def _rollout_quality(
         "timestamp_monotonic": "NOT_REPORTED",
         "timestep_consistent": "NOT_REPORTED",
         "thorax_displacement_xy_mm": None,
+        "mean_planar_speed_mm_s": None,
+        "distance_traveled_mm": None,
+        "displacement_mm": None,
         "locomotion_detected": "NOT_REPORTED",
         "contact_detected": "NOT_REPORTED",
         "joint_trajectory_changes": "NOT_REPORTED",
@@ -214,7 +217,15 @@ def _rollout_quality(
 
             thorax = np.asarray(archive["thorax"], dtype=float)
             displacement = float(np.linalg.norm(thorax[-1, :2] - thorax[0, :2]))
+            planar_steps = np.linalg.norm(np.diff(thorax[:, :2], axis=0), axis=1)
+            path_length = float(np.sum(planar_steps))
             quality["thorax_displacement_xy_mm"] = displacement
+            executed_duration_s = float((expected_frames - 1) * expected_timestep_s)
+            quality["mean_planar_speed_mm_s"] = (
+                displacement / executed_duration_s if executed_duration_s > 0 else None
+            )
+            quality["distance_traveled_mm"] = path_length
+            quality["displacement_mm"] = displacement
             quality["locomotion_detected"] = (
                 "PASS"
                 if displacement > 0 and float(metrics.get("walking_speed_mm_s", 0.0)) > 0
@@ -304,9 +315,15 @@ def _run_seed(
     required_files = [output / "rollout.json", output / "rollout.npz", metrics_path]
     missing = [str(path.relative_to(output)) for path in required_files if not path.is_file()]
     metrics: dict[str, float] = {}
+    runtime_metadata: dict[str, int | float] = {}
     if metrics_path.is_file():
         try:
             metrics = _read_scalar_metrics(metrics_path)
+            document = json.loads(metrics_path.read_text(encoding="utf-8"))
+            for key in ("frame_count", "duration_s", "timestep_s"):
+                value = document.get(key)
+                if isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(float(value)):
+                    runtime_metadata[key] = int(value) if key == "frame_count" else float(value)
         except (OSError, json.JSONDecodeError, TypeError, ValueError):
             missing.append("metrics/metrics.json:invalid")
     finite, invalid_arrays = _finite_rollout(output / "rollout.npz")
@@ -348,10 +365,13 @@ def _run_seed(
         "required_metrics_present": ";".join(present_required),
         "missing_files": ";".join(missing),
         "invalid_arrays": ";".join(invalid_arrays),
+        "no_nan": "PASS" if no_nan_inf else "FAIL",
+        "no_inf": "PASS" if no_nan_inf else "FAIL",
         "no_nan_inf": "PASS" if no_nan_inf else "FAIL",
         "quality_status": quality_status,
         "metrics_path": _relative(metrics_path),
     }
+    row.update(runtime_metadata)
     row.update(quality)
     if status == "PASS" and quality_status == "FAIL":
         status = "FAILED_PHYSICAL_QC"
@@ -378,6 +398,67 @@ def _summary(rows: list[dict[str, Any]]) -> dict[str, dict[str, float | int]]:
     return result
 
 
+def _runtime_summary(rows: list[dict[str, Any]], config: Mapping[str, Any]) -> dict[str, Any]:
+    """Summarize runtime values read from each seed's metrics artifact."""
+    expected_steps = int(config["execution"]["steps"])
+    expected_frames = expected_steps + 1
+    timestep_values = [
+        float(row["timestep_s"])
+        for row in rows
+        if isinstance(row.get("timestep_s"), (int, float))
+    ]
+    duration_values = [
+        float(row["duration_s"])
+        for row in rows
+        if isinstance(row.get("duration_s"), (int, float))
+    ]
+    frame_values = [
+        int(row["frame_count"])
+        for row in rows
+        if isinstance(row.get("frame_count"), int)
+    ]
+    if not timestep_values or not duration_values or not frame_values:
+        return {
+            "step_count": expected_steps,
+            "timestep_s": "NOT_AVAILABLE",
+            "duration_s": "NOT_AVAILABLE",
+            "duration_source": "NOT_AVAILABLE",
+            "duration_consistency": "INCOMPLETE",
+            "distance_speed_consistency": "INCOMPLETE",
+        }
+    timestep = timestep_values[0]
+    duration = duration_values[0]
+    duration_consistent = (
+        len(timestep_values) == len(rows)
+        and len(duration_values) == len(rows)
+        and len(frame_values) == len(rows)
+        and all(math.isclose(value, timestep, rel_tol=0.0, abs_tol=1e-10) for value in timestep_values)
+        and all(math.isclose(value, duration, rel_tol=0.0, abs_tol=1e-10) for value in duration_values)
+        and all(value == expected_frames for value in frame_values)
+        and math.isclose(duration, expected_steps * timestep, rel_tol=0.0, abs_tol=1e-10)
+    )
+    consistency_values = []
+    for row in rows:
+        canonical_speed = row.get("mean_planar_speed_mm_s")
+        displacement = row.get("displacement_mm")
+        distance = row.get("distance_traveled_mm")
+        row_duration = row.get("duration_s")
+        if not all(isinstance(value, (int, float)) for value in (canonical_speed, displacement, distance, row_duration)):
+            continue
+        consistency_values.append(
+            math.isclose(float(canonical_speed) * float(row_duration), float(displacement), rel_tol=1e-9, abs_tol=1e-12)
+            and math.isclose(float(distance), float(row.get("total_distance_mm", distance)), rel_tol=1e-9, abs_tol=1e-12)
+        )
+    return {
+        "step_count": expected_steps,
+        "timestep_s": timestep,
+        "duration_s": duration,
+        "duration_source": "runtime_artifact:metrics/metrics.json",
+        "duration_consistency": "PASS" if duration_consistent else "INCOMPLETE",
+        "distance_speed_consistency": "PASS" if consistency_values and all(consistency_values) else "INCOMPLETE",
+    }
+
+
 def _write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     fields = sorted({key for row in rows for key in row})
     with path.open("w", encoding="utf-8", newline="") as handle:
@@ -393,7 +474,10 @@ def _write_report(
     rows: list[dict[str, Any]],
 ) -> None:
     report_path.parent.mkdir(parents=True, exist_ok=True)
-    required = manifest["metric_contract"]["required"]
+    contract = manifest["metric_contract"]
+    required = contract["required"]
+    canonical = contract.get("canonical_metrics", {})
+    runtime = manifest.get("runtime", {})
     lines = [
         "# Gate 11: Healthy Baseline Multi-Seed Report",
         "",
@@ -444,19 +528,49 @@ def _write_report(
             f"| `{metric}` | {values['n']} | {values['mean']} | "
             f"{values['sample_sd']} | {values['se']} |"
         )
-    lines.extend(["", "## Metric contract", ""])
+    lines.extend(["", "## Metric contract alignment", ""])
     for metric, present in required.items():
         lines.append(f"- `{metric}`: `{present}`.")
     lines.extend(
         [
             "",
-            "Các tên metric quan sát được được giữ nguyên theo artifact runtime. "
-            "Không tự đổi `walking_speed_mm_s` thành `mean_planar_speed_mm_s` và "
-            "không đổi `total_distance_mm` thành `distance_traveled_mm`.",
+            f"**Contract status:** `{contract['status']}`.",
+            "Các metric raw được giữ nguyên. Canonical metrics được tính hoặc kiểm tra "
+            "từ rollout thật theo công thức có provenance; không chuyển distance thành speed.",
+            "",
+        ]
+    )
+    for raw_name, canonical_name in (
+        ("walking_speed_mm_s", "mean_planar_speed_mm_s"),
+        ("total_distance_mm", "distance_traveled_mm"),
+        ("thorax_displacement_mm (không được runtime xuất trực tiếp)", "displacement_mm"),
+    ):
+        detail = canonical.get(canonical_name, {})
+        lines.extend(
+            [
+                f"- Raw runtime metric: `{raw_name}`.",
+                f"  Canonical metric: `{canonical_name}`.",
+                f"  Alias decision: `{'approved' if detail.get('alias_allowed') else 'not approved; derived'}`.",
+                f"  Reason: {detail.get('reason', 'NOT_AVAILABLE')}",
+                f"  Source/formula: `{detail.get('source', 'NOT_AVAILABLE')}`; "
+                f"`{detail.get('formula', 'NOT_AVAILABLE')}`.",
+            ]
+        )
+    lines.extend(
+        [
+            "",
+            "## Runtime duration",
+            "",
+            f"- Step count: `{runtime.get('step_count', 'NOT_AVAILABLE')}`.",
+            f"- Timestep: `{runtime.get('timestep_s', 'NOT_AVAILABLE')}` s.",
+            f"- Duration: `{runtime.get('duration_s', 'NOT_AVAILABLE')}` s.",
+            f"- Duration source: `{runtime.get('duration_source', 'NOT_AVAILABLE')}`.",
+            f"- Duration consistency check: `{runtime.get('duration_consistency', 'INCOMPLETE')}`.",
+            f"- Distance/speed consistency check: `{runtime.get('distance_speed_consistency', 'INCOMPLETE')}`.",
             "",
             "## Quality control",
             "",
-            "- Kiểm tra numeric arrays: không NaN/Inf nếu trạng thái seed là PASS.",
+            "- Mỗi seed có `no_nan=PASS` và `no_inf=PASS`; tổng hợp là không NaN/Inf.",
             "- QC trực tiếp từ rollout: timestamp, timestep, thorax displacement, "
             "contact, joint trajectory, actuator trajectory, observation state và quaternion.",
             "- Mỗi seed có thư mục rollout riêng và log riêng.",
@@ -468,12 +582,17 @@ def _write_report(
             "- Checksum chi tiết nằm trong `manifests/external_input_audit.json` và "
             "`manifests/healthy_baseline_manifest.json`.",
             "",
-            "## Giới hạn và bước tiếp theo",
+            "## Kết luận Gate 11B",
             "",
-            "Nếu metric contract còn `INCOMPLETE`, chưa được dùng baseline này để "
-            "calibration cho đến khi metric simulation tương thích được xuất trực tiếp "
-            "và được review. Kết quả này không phải biological validation và không phải "
-            "Parkinson result.",
+            "`HEALTHY_BASELINE_RUNTIME_PASS`.",
+            f"`METRIC_CONTRACT_{contract['status']}`.",
+            (
+                "`READY_FOR_DISEASE_ROLLOUTS`."
+                if contract["status"] == "PASS"
+                else "`NOT_READY_FOR_DISEASE_ROLLOUTS`."
+            ),
+            "Baseline này chỉ xác nhận computational locomotion runtime; không phải "
+            "biological validation và không phải Parkinson result.",
             "",
             "## Ranh giới khoa học",
             "",
@@ -570,9 +689,39 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
     _write_csv(metrics_csv, rows)
     required_metrics = {}
     for metric in config["required_metrics"]:
-        required_metrics[str(metric)] = "PRESENT" if all(metric in row for row in rows) else "MISSING"
+        required_metrics[str(metric)] = (
+            "PRESENT"
+            if all(isinstance(row.get(metric), (int, float)) and math.isfinite(float(row[metric])) for row in rows)
+            else "MISSING"
+        )
     run_status = "PASS" if all(row["status"] == "PASS" for row in rows) else "FAILED"
     contract_status = "PASS" if all(value == "PRESENT" for value in required_metrics.values()) else "INCOMPLETE"
+    canonical_metrics = {
+        "mean_planar_speed_mm_s": {
+            "source": "rollout.npz:thorax",
+            "unit": "mm/s",
+            "formula": "norm(final_thorax_xy - initial_thorax_xy) / ((frame_count - 1) * timestep_s)",
+            "alias_allowed": False,
+            "reason": (
+                "Derived directly from the planar thorax trajectory using the repository canonical formula. "
+                "The raw walking_speed_mm_s is mean instantaneous path speed and is retained separately."
+            ),
+        },
+        "distance_traveled_mm": {
+            "source": "total_distance_mm; verified against rollout.npz:thorax",
+            "unit": "mm",
+            "formula": "sum(norm(diff(thorax_xy)))",
+            "alias_allowed": True,
+            "reason": "The runtime total_distance_mm is the total planar XY path length.",
+        },
+        "displacement_mm": {
+            "source": "rollout.npz:thorax",
+            "unit": "mm",
+            "formula": "norm(final_thorax_xy - initial_thorax_xy)",
+            "alias_allowed": False,
+            "reason": "Derived directly as net planar thorax displacement; no distance-to-speed conversion is used.",
+        },
+    }
     payload = {
         "schema_version": "gate-11-healthy-baseline-metrics-v1",
         "created_at_utc": datetime.now(UTC).isoformat(),
@@ -581,6 +730,8 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
         "seeds": config["execution"]["seeds"],
         "rows": rows,
         "summary": _summary(rows),
+        "runtime": _runtime_summary(rows, config),
+        "metric_contract": {"status": contract_status, "canonical_metrics": canonical_metrics},
         "scientific_scope": "Computational healthy locomotion baseline; not biological validation.",
         "data_fabricated": False,
     }
@@ -605,7 +756,17 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
         "preflight_status": artifact_audit["runtime"]["status"],
         "external_artifact_status": artifact_audit["status"],
         "external_input_audit": _relative(manifests / "external_input_audit.json"),
-        "metric_contract": {"required": required_metrics, "status": contract_status},
+        "metric_contract": {
+            "required": required_metrics,
+            "status": contract_status,
+            "canonical_metrics": canonical_metrics,
+            "forbidden": [
+                "no distance_to_speed conversion",
+                "no CI95_to_SE conversion",
+                "no median_to_mean conversion",
+            ],
+        },
+        "runtime": _runtime_summary(rows, config),
         "runs": rows,
         "artifacts": artifact_records,
         "scientific_scope": "Healthy computational locomotion baseline only; not biological Parkinson validation.",

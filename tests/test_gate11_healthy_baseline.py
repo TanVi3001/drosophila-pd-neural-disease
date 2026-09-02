@@ -1,3 +1,5 @@
+import csv
+import json
 from pathlib import Path
 
 import numpy as np
@@ -9,6 +11,9 @@ from scripts.run_healthy_baseline_multiseed import _rollout_quality
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / "experiments" / "gate_11_healthy_baseline" / "configs" / "healthy_baseline_multiseed.yaml"
+METRICS_CSV = ROOT / "experiments" / "gate_11_healthy_baseline" / "results" / "healthy_baseline_metrics.csv"
+METRICS_JSON = ROOT / "experiments" / "gate_11_healthy_baseline" / "results" / "healthy_baseline_metrics.json"
+MANIFEST = ROOT / "experiments" / "gate_11_healthy_baseline" / "manifests" / "healthy_baseline_manifest.json"
 
 
 def test_gate11_config_is_healthy_only_and_uses_planned_seeds() -> None:
@@ -57,3 +62,29 @@ def test_gate11_rollout_quality_checks_real_state_channels(tmp_path: Path) -> No
     assert quality["action_trajectory_valid"] == "PASS"
     assert quality["observation_state_valid"] == "PASS"
     assert quality["quaternion_valid"] == "PASS"
+
+
+def test_gate11_aggregate_has_canonical_metrics_and_provenance() -> None:
+    assert METRICS_CSV.is_file()
+    assert METRICS_JSON.is_file()
+    assert MANIFEST.is_file()
+
+    with METRICS_CSV.open(encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    assert [int(row["seed"]) for row in rows] == [0, 1, 2, 3, 4, 5]
+    for row in rows:
+        for metric in ("mean_planar_speed_mm_s", "distance_traveled_mm", "displacement_mm"):
+            value = float(row[metric])
+            assert np.isfinite(value)
+        assert row["no_nan_inf"] == "PASS"
+        assert row["locomotion_detected"] == "PASS"
+        assert row["contact_detected"] == "PASS"
+
+    payload = json.loads(METRICS_JSON.read_text(encoding="utf-8"))
+    assert payload["metric_contract_status"] == "PASS"
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    assert manifest["metric_contract"]["status"] == "PASS"
+    for metric in ("mean_planar_speed_mm_s", "distance_traveled_mm", "displacement_mm"):
+        detail = manifest["metric_contract"]["canonical_metrics"][metric]
+        assert detail["source"]
+        assert detail["formula"]
