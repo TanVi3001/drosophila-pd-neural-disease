@@ -1,0 +1,31 @@
+schema_version: gate-12e-proxy-burden-action-operator-v1
+status: OPERATOR_IMPLEMENTED
+
+operator:
+  type: amplitude_attenuation
+  attenuation_strength: 0.5
+  noise_strength: 0.0
+  burden_range: [0.0, 1.0]
+  deterministic: true
+  mutate_in_place: false
+  clip_output: true
+
+allowed_conditions:
+  - alpha_synuclein
+  - pink1
+
+blocked_conditions:
+  - parkin
+  - dj1
+  - lrrk2
+
+scope:
+  organism_level_proxy: true
+  gene_specific_mapping: false
+  biological_validation_claim: false
+
+forbidden:
+  calibration: true
+  holdout_validation: true
+  chen_tuning: true
+  pozo_tuning: true

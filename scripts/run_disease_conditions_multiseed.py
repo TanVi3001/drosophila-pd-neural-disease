@@ -99,6 +99,8 @@ PROXY_CSV_FIELDS = (
     "quaternion_valid",
     "joint_action_trajectory_valid",
     "metric_contract_status",
+    "operator_applied",
+    "operator_config_sha256",
 )
 
 PROXY_SUMMARY_FIELDS = (
@@ -344,6 +346,42 @@ def _proxy_config_blockers(
     if not isinstance(boundary, Mapping) or not str(boundary.get("statement", "")).strip():
         blockers.append("scientific_boundary_missing")
     return blockers
+
+
+def _proxy_operator_config_blockers(path: Path) -> tuple[list[str], dict[str, Any]]:
+    """Validate an optional Gate 12E operator config without running it."""
+
+    if not path.is_file():
+        return [f"operator_config_missing:{_relative(path)}"], {}
+    try:
+        document = _load_yaml(path)
+    except (OSError, UnicodeError, ValueError, yaml.YAMLError) as exc:
+        return [f"invalid_operator_config:{exc}"], {}
+    blockers: list[str] = []
+    if document.get("status") != "OPERATOR_IMPLEMENTED":
+        blockers.append(f"operator_status={document.get('status', 'MISSING')}")
+    operator = document.get("operator")
+    if not isinstance(operator, Mapping) or operator.get("type") != "amplitude_attenuation":
+        blockers.append("operator_type_invalid")
+    else:
+        for field in ("attenuation_strength", "noise_strength"):
+            try:
+                if not math.isfinite(float(operator.get(field))):
+                    blockers.append(f"operator_{field}_not_finite")
+            except (TypeError, ValueError):
+                blockers.append(f"operator_{field}_not_numeric")
+    allowed = document.get("allowed_conditions")
+    if not isinstance(allowed, list) or not {"alpha_synuclein", "pink1"}.issubset(set(allowed)):
+        blockers.append("operator_allowed_conditions_incomplete")
+    scope = document.get("scope")
+    if not isinstance(scope, Mapping) or scope.get("organism_level_proxy") is not True:
+        blockers.append("operator_scope_not_organism_proxy")
+    if not isinstance(scope, Mapping) or scope.get("gene_specific_mapping") is not False:
+        blockers.append("operator_gene_specific_claim_not_disabled")
+    forbidden = document.get("forbidden")
+    if not isinstance(forbidden, Mapping) or forbidden.get("calibration") is not True or forbidden.get("holdout_validation") is not True:
+        blockers.append("operator_downstream_fitting_not_forbidden")
+    return blockers, document
 
 
 def _blank_row(condition_id: str, seed: int, *, steps: int, timestep_s: float, status: str, reason: str) -> dict[str, Any]:
@@ -638,6 +676,8 @@ def _proxy_blank_row(
     timestep_s: float,
     status: str,
     reason: str,
+    operator_applied: bool = False,
+    operator_config_sha256: str = "",
 ) -> dict[str, Any]:
     row = {field: "" for field in PROXY_CSV_FIELDS}
     row.update(
@@ -653,6 +693,8 @@ def _proxy_blank_row(
             "step_count": steps,
             "timestep_s": timestep_s,
             "duration_s": steps * timestep_s,
+            "operator_applied": operator_applied,
+            "operator_config_sha256": operator_config_sha256,
         }
     )
     return row
@@ -825,9 +867,26 @@ def _run_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, Any]) -> in
     )
     runtime_reasons = list(validation_reasons) + list(runtime_reasons)
 
+    operator_config_value = plan.get("operator_config")
+    if operator_config_value is None and isinstance(plan.get("operator"), Mapping):
+        operator_config_value = plan["operator"].get("config")
+    operator_config_path = (
+        _resolve(str(operator_config_value)) if operator_config_value else None
+    )
+    operator_config_sha256 = ""
+    operator_config_blockers: list[str] = []
+    if operator_config_path is not None:
+        operator_config_blockers, _ = _proxy_operator_config_blockers(operator_config_path)
+        if operator_config_path.is_file():
+            operator_config_sha256 = _sha256(operator_config_path)
+
     rows: list[dict[str, Any]] = []
     summary_rows: list[dict[str, Any]] = []
-    operator_reason = ""
+    operator_reason = (
+        "; ".join(operator_config_blockers)
+        if operator_config_blockers
+        else "proxy_burden_to_action_operator_not_connected_to_current_brain_body_runner"
+    )
     for condition in conditions:
         condition_id = str(condition.get("condition_id", "")).strip()
         scope = str(condition.get("scope", "")).strip()
@@ -841,11 +900,7 @@ def _run_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, Any]) -> in
         levels = condition.get("burden_levels")
         levels = levels if isinstance(levels, list) else []
         condition_reasons = list(runtime_reasons) + list(blockers)
-        if not condition_reasons and not operator_reason:
-            operator_reason = (
-                "proxy_burden_to_action_operator_not_connected_to_current_brain_body_runner"
-            )
-        if operator_reason and not condition_reasons:
+        if operator_reason:
             condition_reasons.append(operator_reason)
         if not levels:
             condition_reasons.append("burden_levels_missing")
@@ -864,6 +919,8 @@ def _run_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, Any]) -> in
                     timestep_s=timestep_s,
                     status="BLOCKED" if condition_reasons else "FAILED",
                     reason="; ".join(condition_reasons) or "proxy_execution_not_available",
+                    operator_applied=False,
+                    operator_config_sha256=operator_config_sha256,
                 )
                 run_rows.append(row)
             rows.extend(run_rows)
@@ -918,6 +975,9 @@ def _run_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, Any]) -> in
         "no_holdout_validation_run": True,
         "no_gene_specific_mapping": True,
         "metric_contract": list(CANONICAL_METRICS),
+        "operator_config_sha256": operator_config_sha256 or None,
+        "operator_applied": False,
+        "action_hook_connected": False,
     }
     metrics_json = results_dir / "proxy_disease_metrics.json"
     _write_text(metrics_json, json.dumps(metrics_payload, indent=2, ensure_ascii=False) + "\n")
@@ -952,6 +1012,14 @@ def _run_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, Any]) -> in
         "large_artifacts_committed": False,
         "simulation_run": successful > 0,
         "scientific_boundary": "computational proxy rollout only; not biological validation",
+        "operator_config_sha256": operator_config_sha256 or None,
+        "operator_applied": False,
+        "action_hook_connected": False,
+        "operator_status": (
+            "OPERATOR_IMPLEMENTED_BUT_NOT_CONNECTED"
+            if not operator_config_blockers
+            else "OPERATOR_CONFIG_INVALID"
+        ),
     }
     manifest_path = manifests_dir / "proxy_disease_rollout_manifest.json"
     _write_text(manifest_path, json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
