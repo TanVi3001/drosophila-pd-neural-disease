@@ -1,0 +1,113 @@
+{
+  "status": "READY",
+  "brain_source": {
+    "status": "READY",
+    "brain_root": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain",
+    "checked_at_utc": "2026-09-02T03:12:32.850613+00:00",
+    "required_files": {
+      "brain_body_bridge.py": true,
+      "code/run_pytorch.py": true,
+      "data/2025_Completeness_783.csv": true,
+      "data/2025_Connectivity_783.parquet": true,
+      "data/flywire_annotations.tsv": true,
+      "data/plastic_weights.pt": true
+    },
+    "integrity": {
+      "status": "VERIFIED_SHA256",
+      "manifest": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain\\source_manifest.json",
+      "files": {
+        "brain_body_bridge.py": {
+          "status": "PASS",
+          "size": 34396,
+          "sha256": "1ea350109fc5ffbae8baa54212fedc98267d70e2ea0c72f309572d25ba8c0a3f"
+        },
+        "code/run_pytorch.py": {
+          "status": "PASS",
+          "size": 19180,
+          "sha256": "333c09d54ee308e78916f20cc7ebca41d41e5307c7f5d7aab011a23bfc194c5b"
+        },
+        "data/2025_Completeness_783.csv": {
+          "status": "PASS",
+          "size": 3327347,
+          "sha256": "bbb847a4cc2caaa7a16349722d220c087317b946d148d4d592d94d250617a311"
+        },
+        "data/2025_Connectivity_783.parquet": {
+          "status": "PASS",
+          "size": 100804642,
+          "sha256": "efeb23fb99098e9c390f6869969b2a121a2ee92c833cfc45ecb2c1d8e1af0347"
+        },
+        "data/flywire_annotations.tsv": {
+          "status": "PASS",
+          "size": 32638576,
+          "sha256": "533db093e12d8de350fd20875a967f8f74acace633ff22118eefff550d5dcbc1"
+        },
+        "data/plastic_weights.pt": {
+          "status": "PASS",
+          "size": 60369156,
+          "sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691"
+        }
+      },
+      "message": "Tat ca file bat buoc khop size va SHA256 trong manifest."
+    },
+    "license_status": "VERIFIED_MIT",
+    "data_license_status": "REVIEW_CC_BY_NC_4_0",
+    "simulation_run": false,
+    "message": "Tat ca file bat buoc khop size va SHA256 trong manifest."
+  },
+  "platform_runner": {
+    "path": "E:\\Drosophila_Parkinson\\drosophila-pd-flygym\\scripts\\run_brain_body_rollout.py",
+    "status": "PASS"
+  },
+  "runtime": {
+    "status": "PASS",
+    "python": "E:\\Drosophila_Parkinson\\drosophila-pd-flygym\\.venv\\Scripts\\python.exe",
+    "return_code": 0,
+    "stdout": "3.12.10\n2.5.1+cu121\navailable\n3.9.0",
+    "stderr": ""
+  },
+  "artifacts": {
+    "checkpoint": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain\\data\\plastic_weights.pt",
+      "relative_path": "external/fly-brain/data/plastic_weights.pt",
+      "status": "PRESENT",
+      "size": 60369156,
+      "sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691"
+    },
+    "connectome": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain\\data\\2025_Connectivity_783.parquet",
+      "relative_path": "external/fly-brain/data/2025_Connectivity_783.parquet",
+      "status": "PRESENT",
+      "size": 100804642,
+      "sha256": "efeb23fb99098e9c390f6869969b2a121a2ee92c833cfc45ecb2c1d8e1af0347"
+    },
+    "neuron_annotations": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain\\data\\flywire_annotations.tsv",
+      "relative_path": "external/fly-brain/data/flywire_annotations.tsv",
+      "status": "PRESENT",
+      "size": 32638576,
+      "sha256": "533db093e12d8de350fd20875a967f8f74acace633ff22118eefff550d5dcbc1"
+    },
+    "brain_body_source": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain\\brain_body_bridge.py",
+      "relative_path": "external/fly-brain/brain_body_bridge.py",
+      "status": "PRESENT",
+      "size": 34396,
+      "sha256": "1ea350109fc5ffbae8baa54212fedc98267d70e2ea0c72f309572d25ba8c0a3f"
+    },
+    "source_manifest": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain\\source_manifest.json",
+      "relative_path": "external/fly-brain/source_manifest.json",
+      "status": "PRESENT",
+      "size": 1561,
+      "sha256": "426b85612864401e2d794147e44768b16d3b9801a0543478fd4c50e9c2d90073"
+    },
+    "runtime_config": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\experiments\\gate_11_healthy_baseline\\configs\\healthy_baseline_multiseed.yaml",
+      "relative_path": "experiments/gate_11_healthy_baseline/configs/healthy_baseline_multiseed.yaml",
+      "status": "PRESENT",
+      "size": 1206,
+      "sha256": "8d07cd651bae575a9749e426db14c0c9a6122bb3468d49341a0f834dbdc631ed"
+    }
+  },
+  "simulation_run": false
+}
