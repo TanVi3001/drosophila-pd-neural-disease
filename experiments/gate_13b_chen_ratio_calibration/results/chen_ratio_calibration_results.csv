@@ -1,0 +1,6 @@
+condition_id,burden_level,n_success,simulated_speed_mean,simulated_speed_std,simulated_ratio_to_burden0,chen_ratio_target,ratio_error,chen_absolute_speed_target_mm_s,absolute_speed_error,rank,selected,usable_for_calibration,notes
+alpha_synuclein,0,6,1.7779315915,0.210725340995,1,0.670103092784,0.329896907216,4.875,3.0970684085,,false,false,Control burden 0.0; used only to normalize the Chen ratio and is never selected.
+alpha_synuclein,0.25,6,1.46318546229,0.229246002192,0.822970618943,0.670103092784,0.152867526159,4.875,3.41181453771,2,false,true,Discrete candidate from Gate 12G; no new simulation was run.
+alpha_synuclein,0.5,6,1.04119440742,0.2638135337,0.585621186102,0.670103092784,0.0844819066814,4.875,3.83380559258,1,true,true,Discrete candidate from Gate 12G; no new simulation was run.
+alpha_synuclein,0.75,6,0.504226783259,0.339282999165,0.283603028188,0.670103092784,0.386500064596,4.875,4.37077321674,3,false,true,Discrete candidate from Gate 12G; no new simulation was run.
+alpha_synuclein,1,6,3.75631720919,1.23185009645,2.11274563495,0.670103092784,1.44264254217,4.875,1.11868279081,4,false,true,Discrete candidate from Gate 12G; no new simulation was run.

@@ -1,0 +1,41 @@
+schema_version: gate-13b-chen-ratio-calibration-config-v1
+status: RUN_CHEN_ONLY_RATIO_CALIBRATION
+
+calibration_scope:
+  condition_id: alpha_synuclein
+  proxy_scope: organism_level_proxy
+  gene_specific_mapping: false
+  biological_validation_claim: false
+
+source:
+  gate_13a_objective: experiments/gate_13a_chen_objective/configs/chen_only_calibration_objective.yaml
+  gate_13a_candidates: experiments/gate_13a_chen_objective/results/chen_calibration_candidates.csv
+  gate_12g_summary: experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_summary.csv
+  gate_12g_metrics: experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_metrics.csv
+  operator_config: experiments/gate_12e_proxy_operator/configs/proxy_burden_action_operator.yaml
+
+chen_target:
+  metric: mean_planar_speed_ratio_to_control
+  disease_value_mm_s: 4.875
+  control_value_mm_s: 7.275
+  ratio_target: 0.6701030927835051
+  uncertainty_type: CI95
+  uncertainty_mm_s: 0.525
+  n: 20
+
+calibration_method:
+  type: discrete_grid_selection
+  control_burden_level: 0.0
+  candidate_burden_levels: [0.25, 0.5, 0.75, 1.0]
+  objective: minimize_absolute_ratio_error
+  absolute_speed_role: reference_only
+  continuous_optimization: false
+
+forbidden:
+  use_pozo: true
+  use_pink1_for_calibration: true
+  holdout_validation: true
+  ci95_to_se_conversion: true
+  distance_to_speed_conversion: true
+  biological_validation_claim: true
+  gene_specific_claim: true

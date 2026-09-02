@@ -1,0 +1,19 @@
+{
+  "schema_version": "gate-13b-chen-ratio-calibration-summary-v1",
+  "status": "CHEN_RATIO_CALIBRATION_PASS",
+  "chen_ratio_target": 0.6701030927835051,
+  "selected_burden_level": 0.5,
+  "selected_simulated_ratio": 0.5856211861021032,
+  "selected_ratio_error": 0.08448190668140187,
+  "selected_absolute_speed_error_reference_only": 3.8338055925783694,
+  "calibration_method": "discrete_grid_selection",
+  "source_gate_12g_summary": "experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_summary.csv",
+  "source_gate_13a_objective": "experiments/gate_13a_chen_objective/configs/chen_only_calibration_objective.yaml",
+  "pozo_used": false,
+  "pink1_used_for_calibration": false,
+  "no_holdout_validation_run": true,
+  "no_new_simulation_run": true,
+  "gene_specific_mapping": false,
+  "biological_validation_claim": false,
+  "selected_parameter": "proxy_burden_level"
+}
