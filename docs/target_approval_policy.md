@@ -19,10 +19,13 @@ Các nhãn statistic được phép ghi nhận là:
 - `SD`: độ lệch chuẩn.
 - `IQR`: khoảng tứ phân vị.
 - `range`: khoảng giá trị được paper báo cáo.
+- `CI95`: khoảng tin cậy 95 phần trăm được paper hoặc quy trình digitization
+  báo cáo.
 
-Không đổi `median` thành `mean`; không đổi `SE`/`SEM`, `SD`, `IQR` hoặc
-`range` sang loại khác nếu paper không cung cấp phép chuyển đổi. Một target
-approved phải có uncertainty số học và tên loại uncertainty rõ ràng.
+Không đổi `median` thành `mean`; không đổi `CI95` thành `SE`; không đổi
+`SE`/`SEM`, `SD`, `IQR` hoặc `range` sang loại khác nếu paper không cung cấp
+phép chuyển đổi. Một target approved phải có uncertainty số học và tên loại
+uncertainty rõ ràng.
 
 Với schema hiện tại, trường `variance` lưu một độ rộng/spread số học đã được
 paper báo cáo. Nếu nguồn báo hai cận thay vì một độ rộng, phải giữ target ở
@@ -35,7 +38,7 @@ hiệu hai cận.
 | --- | --- | --- | --- |
 | `mean_planar_speed_mm_s` | `mm/s` | Calibration-eligible | Giá trị trung tâm phải là mean; không dùng median. |
 | `median_planar_speed_mm_s` | `mm/s` | Calibration-eligible theo policy | Phải có numeric IQR hoặc range; simulation cũng phải xuất metric cùng tên trước khi chạy loss. |
-| `distance_traveled_mm` | `mm` | Calibration-eligible theo policy | Là endpoint distance riêng, không đổi thành speed; notes phải ghi `statistic=mean` hoặc `statistic=median`. |
+| `distance_traveled_mm` | `mm` | Calibration-eligible theo policy | Là endpoint distance riêng, không đổi thành speed; notes phải ghi `statistic=mean`, `statistic=median` hoặc `statistic=paper_reported_center` cho holdout. |
 | `activity_time_s` | `s` | Validation-only | Không đổi thành speed hoặc pause fraction nếu chưa có assay implementation và transfer rule. |
 | `climbing_score` | Theo assay | Validation-only | Chỉ được calibration khi climbing assay và metric được implement, kiểm thử và phê duyệt. |
 | `DAM_activity` | Theo assay | Validation-only | Beam-break count/relative activity không phải planar walking speed. |
@@ -60,6 +63,11 @@ Research lead chỉ được chọn `allowed` khi:
 4. Thời lượng, cửa sổ quan sát và điều kiện assay đã được ghi nhận.
 5. Không cần suy ra climbing, DAM count hoặc activity time thành speed.
 6. Khác biệt tuổi, giới tính, genotype và môi trường được ghi trong limitation.
+
+Với distance/path-length holdout, `statistic=paper_reported_center` được phép
+khi artifact giữ nguyên cách nguồn mô tả center nhưng không phân loại center là
+mean hay median. Nhãn này chỉ được dùng cho holdout distance và không được dùng
+để suy ra mean/median hoặc chuyển distance thành speed.
 
 Nếu chỉ dùng để đối chiếu định tính, ghi `assay_transfer=validation_only`. Nếu
 không thể so sánh, ghi `assay_transfer=not_comparable`. Hai trạng thái này
@@ -112,7 +120,11 @@ hai allocation này.
 
 Các candidate hiện có vẫn chưa đủ điều kiện approved. Riemensperger thiếu
 numeric median spread; Pokrzywa thiếu exact SE và numeric unit of analysis;
-Pozo cần xác nhận spread và simulation distance endpoint. Hwang/Godena chỉ
-validation-only, còn Dumitrescu DAM không tương thích với speed.
+Hwang/Godena chỉ validation-only, còn Dumitrescu DAM không tương thích với
+speed. Sau Gate 09B, Chen 2014 được reviewer ký cho calibration và Pozo 2022
+được reviewer ký cho distance holdout; các row này phải được audit lại với
+provenance và allocation tương ứng.
 
-Trạng thái kỳ vọng sau khi áp dụng policy là `WAITING_TARGET_DATA`.
+Pokrzywa vẫn pending vì thiếu exact independent-vial count. Riemensperger vẫn
+pending vì chưa có numeric spread cho median. Trạng thái readiness được xác
+định bởi audit script sau khi target rows được cập nhật.

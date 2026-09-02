@@ -33,8 +33,8 @@ REQUIRED_COLUMNS = (
     "notes",
 )
 ALLOWED_STATUSES = {"pending", "approved", "rejected"}
-ALLOWED_TARGET_STATISTICS = {"mean", "median", "se", "sem", "sd", "iqr", "range"}
-UNCERTAINTY_STATISTICS = {"se", "sem", "sd", "iqr", "range"}
+ALLOWED_TARGET_STATISTICS = {"mean", "median", "se", "sem", "sd", "iqr", "range", "ci95"}
+UNCERTAINTY_STATISTICS = {"se", "sem", "sd", "iqr", "range", "ci95"}
 CALIBRATION_ENDPOINTS = {
     "mean_planar_speed_mm_s": "mm/s",
     "median_planar_speed_mm_s": "mm/s",
@@ -78,7 +78,10 @@ _ASSAY_TRANSFER = re.compile(
     re.IGNORECASE,
 )
 _SAMPLE_UNIT = re.compile(r"(?:^|;)\s*sample_unit=([a-z_]+)", re.IGNORECASE)
-_CENTER_STATISTIC = re.compile(r"(?:^|;)\s*statistic=(mean|median)", re.IGNORECASE)
+_CENTER_STATISTIC = re.compile(
+    r"(?:^|;)\s*statistic=(mean|median|paper_reported_center)",
+    re.IGNORECASE,
+)
 
 
 def _value(row: dict[str, str], key: str) -> str:
@@ -125,7 +128,7 @@ def _audit_endpoint_policy(
         issues.append(
             _issue(
                 "INVALID_VARIANCE_TYPE",
-                "variance_type phai ghi ro mean, median, SE, SEM, SD, IQR hoac range.",
+                "variance_type phai ghi ro mean, median, SE, SEM, SD, IQR, range hoac CI95.",
                 severity,
             )
         )
@@ -133,7 +136,7 @@ def _audit_endpoint_policy(
         issues.append(
             _issue(
                 "MISSING_UNCERTAINTY_STATISTIC",
-                "variance_type phai ghi mot uncertainty type: SE, SEM, SD, IQR hoac range.",
+                "variance_type phai ghi mot uncertainty type: SE, SEM, SD, IQR, range hoac CI95.",
                 severity,
             )
         )
@@ -200,6 +203,16 @@ def _audit_endpoint_policy(
                     severity,
                 )
             )
+        elif center == "paper_reported_center":
+            allocation_match = _ALLOCATION.search(notes)
+            if not allocation_match or allocation_match.group(1).lower() != "holdout":
+                issues.append(
+                    _issue(
+                        "PAPER_CENTER_HOLDOUT_ONLY",
+                        "paper_reported_center chi duoc dung cho distance holdout.",
+                        severity,
+                    )
+                )
 
     assay_transfer = _ASSAY_TRANSFER.search(notes)
     sample_unit = _SAMPLE_UNIT.search(notes)
