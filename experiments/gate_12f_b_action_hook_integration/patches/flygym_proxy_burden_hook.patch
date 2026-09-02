@@ -1,0 +1,141 @@
+diff --git a/scripts/run_brain_body_rollout.py b/scripts/run_brain_body_rollout.py
+--- a/scripts/run_brain_body_rollout.py
++++ b/scripts/run_brain_body_rollout.py
+@@ -147,1 +147,38 @@
++def _load_proxy_operator(
++    config_path: Path | None, source_path: Path | None
++) -> tuple[Any | None, dict[str, Any] | None, str | None]:
++    """Load the optional disease-repository action adapter."""
++
++    if config_path is None:
++        return None, None, None
++    if source_path is not None:
++        source = _resolve(source_path)
++        if (source / "src" / "drosophila_pd_neural").is_dir():
++            source = source / "src"
++        if not (source / "drosophila_pd_neural").is_dir():
++            raise BrainBodyRunError(
++                "Proxy adapter source must contain drosophila_pd_neural: "
++                f"{source}"
++            )
++        if str(source) not in sys.path:
++            sys.path.insert(0, str(source))
++    try:
++        import yaml
++        from drosophila_pd_neural.action_hook_adapter import (
++            apply_proxy_operator_to_locomotion_action,
++        )
++    except (ImportError, ModuleNotFoundError) as exc:
++        raise BrainBodyRunError(
++            "Proxy adapter is enabled but drosophila_pd_neural is unavailable. "
++            "Pass --proxy-operator-source pointing to the disease repository."
++        ) from exc
++    if not config_path.is_file():
++        raise BrainBodyRunError(f"Proxy operator config was not found: {config_path}")
++    document = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
++    if not isinstance(document, dict):
++        raise BrainBodyRunError("Proxy operator config must be a mapping.")
++    config_sha256 = hashlib.sha256(config_path.read_bytes()).hexdigest()
++    return apply_proxy_operator_to_locomotion_action, document, config_sha256
++
++
+ def _require_brain_files(root: Path) -> None:
+@@ -213,2 +213,6 @@
+     cpg_frequency_hz: float = 12.0,
++    proxy_operator: Any | None = None,
++    proxy_operator_config: dict[str, Any] | None = None,
++    proxy_burden_level: float = 0.0,
++    proxy_operator_config_sha256: str | None = None,
+ ) -> dict[str, Any]:
+@@ -391,3 +391,9 @@
+                 "is not biological Parkinson validation or clinical evidence."
+             ),
++            "proxy_burden_operator_enabled": proxy_operator is not None,
++            "operator_applied": False,
++            "burden_level": float(proxy_burden_level),
++            "operator_config_sha256": proxy_operator_config_sha256,
++            "joint_angles_before_sha256": None,
++            "joint_angles_after_sha256": None,
+         }
+@@ -401,6 +401,8 @@
+             timestep=float(simulation.timestep),
+             simulation_metadata=metadata,
+         )
+         recorder.record()
+         action_history: list[Any] = []
++        first_action_before_hash: str | None = None
++        last_action_after_hash: str | None = None
+         print(
+@@ -428,3 +428,22 @@
+                     ),
+                 )
++            if proxy_operator is not None:
++                if proxy_operator_config is None:
++                    raise BrainBodyRunError(
++                        "Proxy operator is enabled without an operator config."
++                    )
++                action_before = np.asarray(action.joint_angles, dtype=np.float64).copy()
++                action = proxy_operator(
++                    action,
++                    burden_level=proxy_burden_level,
++                    operator_config=proxy_operator_config,
++                    seed=seed + step_index,
++                )
++                action_after = np.asarray(action.joint_angles, dtype=np.float64)
++                before_hash = hashlib.sha256(action_before.tobytes()).hexdigest()
++                after_hash = hashlib.sha256(action_after.tobytes()).hexdigest()
++                if first_action_before_hash is None:
++                    first_action_before_hash = before_hash
++                last_action_after_hash = after_hash
++                metadata["operator_applied"] = True
+             action_history.append(controller_action)
+@@ -516,2 +516,9 @@
+         # Snapshot summary values before releasing the in-memory frame objects.
++        metadata["joint_angles_before_sha256"] = first_action_before_hash
++        metadata["joint_angles_after_sha256"] = last_action_after_hash
++        metadata["operator_action_hash_scope"] = (
++            "first action after controller/layer and last action before write"
++            if proxy_operator is not None
++            else "not_applicable"
++        )
+         # Downstream analysis reads the exported files, but this report still
+@@ -504,3 +504,9 @@
+             "viewer_bundle": str(bundle_archive),
+             "scientific_scope": metadata["scientific_scope"],
++            "proxy_burden_operator_enabled": proxy_operator is not None,
++            "operator_applied": bool(metadata["operator_applied"]),
++            "burden_level": float(proxy_burden_level),
++            "operator_config_sha256": proxy_operator_config_sha256,
++            "joint_angles_before_sha256": first_action_before_hash,
++            "joint_angles_after_sha256": last_action_after_hash,
+         }
+@@ -671,3 +671,7 @@
+     parser.add_argument("--condition", choices=("healthy", "computational_pd_like_demo"), default="healthy")
+     parser.add_argument("--disease-config", type=Path, default=DEFAULT_DISEASE_CONFIG)
++    parser.add_argument("--enable-proxy-burden-operator", action="store_true", help="Apply the disease-repository proxy adapter at the real action hook.")
++    parser.add_argument("--proxy-operator-config", type=Path, default=None)
++    parser.add_argument("--proxy-operator-source", type=Path, default=None)
++    parser.add_argument("--proxy-burden", type=float, default=0.0)
+     parser.add_argument("--seed", type=int, default=0)
+@@ -731,4 +731,14 @@
+     root = _brain_root(args)
+     output = _resolve(args.output)
+     disease_config = _resolve(args.disease_config)
++    if args.enable_proxy_burden_operator and args.proxy_operator_config is None:
++        parser.error("--enable-proxy-burden-operator requires --proxy-operator-config")
++    proxy_operator = None
++    proxy_operator_config = None
++    proxy_operator_config_sha256 = None
++    if args.enable_proxy_burden_operator:
++        proxy_operator, proxy_operator_config, proxy_operator_config_sha256 = _load_proxy_operator(
++            _resolve(args.proxy_operator_config),
++            args.proxy_operator_source,
++        )
+     video_output = None
+@@ -770,2 +770,6 @@
+             cpg_frequency_hz=args.cpg_frequency_hz,
++            proxy_operator=proxy_operator,
++            proxy_operator_config=proxy_operator_config,
++            proxy_burden_level=args.proxy_burden,
++            proxy_operator_config_sha256=proxy_operator_config_sha256,
+         )

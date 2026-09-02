@@ -1,0 +1,35 @@
+schema_version: gate-12f-b-action-hook-integration-v1
+status: INTEGRATION_ATTEMPT
+
+current_repo:
+  path: E:\Drosophila_Parkinson\drosophila-pd-neural-disease
+  operator_module: src/drosophila_pd_neural/proxy_burden_operator.py
+  adapter_module: src/drosophila_pd_neural/action_hook_adapter.py
+
+external_runtime:
+  path: E:\Drosophila_Parkinson\drosophila-pd-flygym
+  runner_file: scripts/run_brain_body_rollout.py
+  hook_discovered: true
+
+hook:
+  action_producer: HybridTurningController.step
+  action_type: LocomotionAction
+  joint_angles_shape: [42]
+  adhesion_onoff_shape: [6]
+  integration_point: before_apply_locomotion_action
+  physics_step: simulation.step
+
+operator:
+  config: experiments/gate_12e_proxy_operator/configs/proxy_burden_action_operator.yaml
+  applies_to: joint_angles
+  modifies_adhesion_onoff: false
+  burden_range: [0.0, 1.0]
+
+forbidden:
+  full_rollout: true
+  calibration: true
+  holdout_validation: true
+  chen_tuning: true
+  pozo_tuning: true
+  biological_validation_claim: true
+  gene_specific_claim: true
