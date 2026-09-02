@@ -11,8 +11,10 @@ import math
 import os
 from pathlib import Path
 import platform
+import shutil
 import subprocess
 import sys
+import tempfile
 from typing import Any, Mapping, Sequence
 
 import yaml
@@ -52,6 +54,14 @@ def _is_proxy_run_config(plan: Mapping[str, Any]) -> bool:
 
     return str(plan.get("schema_version", "")).startswith(
         "gate-12d-proxy-rollout-run-config-"
+    )
+
+
+def _is_integrated_proxy_run_config(plan: Mapping[str, Any]) -> bool:
+    """Return whether a plan requests Gate 12G's real action-hook runs."""
+
+    return str(plan.get("schema_version", "")).startswith(
+        "gate-12g-integrated-proxy-rollout-config-"
     )
 CSV_FIELDS = (
     "condition_id",
@@ -119,6 +129,54 @@ PROXY_SUMMARY_FIELDS = (
     "qc_pass_count",
     "failed_count",
     "status",
+)
+
+INTEGRATED_PROXY_CSV_FIELDS = (
+    "condition_id",
+    "scope",
+    "gene_specific_mapping",
+    "burden_level",
+    "burden_label",
+    "seed",
+    "run_status",
+    "skip_reason",
+    "step_count",
+    "timestep_s",
+    "duration_s",
+    "operator_applied",
+    "operator_config_sha256",
+    "action_changed_for_positive_burden",
+    "burden_zero_identity_pass",
+    "adhesion_onoff_unchanged",
+    "mean_planar_speed_mm_s",
+    "distance_traveled_mm",
+    "displacement_mm",
+    "walking_speed_mm_s_raw",
+    "total_distance_mm_raw",
+    "thorax_displacement_mm_raw",
+    "no_nan",
+    "no_inf",
+    "locomotion_detected",
+    "contact_detected",
+    "timestamp_valid",
+    "quaternion_valid",
+    "joint_action_trajectory_valid",
+    "metric_contract_status",
+)
+
+INTEGRATED_PROXY_SUMMARY_FIELDS = (
+    "condition_id",
+    "burden_level",
+    "burden_label",
+    "n_success",
+    "mean_planar_speed_mm_s_mean",
+    "mean_planar_speed_mm_s_std",
+    "distance_traveled_mm_mean",
+    "distance_traveled_mm_std",
+    "displacement_mm_mean",
+    "displacement_mm_std",
+    "operator_applied_count",
+    "qc_pass_count",
 )
 
 
@@ -814,6 +872,668 @@ def _write_proxy_report(
     _write_text(path, "\n".join(lines) + "\n")
 
 
+def _integrated_proxy_blank_row(
+    *,
+    condition_id: str,
+    burden_level: float,
+    burden_label: str,
+    seed: int,
+    steps: int,
+    timestep_s: float,
+    status: str,
+    reason: str,
+    operator_config_sha256: str,
+) -> dict[str, Any]:
+    row = {field: "" for field in INTEGRATED_PROXY_CSV_FIELDS}
+    row.update(
+        {
+            "condition_id": condition_id,
+            "scope": "organism_level_proxy",
+            "gene_specific_mapping": False,
+            "burden_level": burden_level,
+            "burden_label": burden_label,
+            "seed": seed,
+            "run_status": status,
+            "skip_reason": reason,
+            "step_count": steps,
+            "timestep_s": timestep_s,
+            "duration_s": steps * timestep_s,
+            "operator_config_sha256": operator_config_sha256,
+        }
+    )
+    return row
+
+
+def _external_patch_verified(runner: Path) -> bool:
+    """Check the committed integration markers in the external runner."""
+
+    try:
+        source = runner.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return False
+    required = (
+        "--enable-proxy-burden-operator",
+        "proxy_operator=proxy_operator",
+        "proxy_operator_config=proxy_operator_config",
+        "apply_locomotion_action(simulation, fly.name, action)",
+    )
+    return all(marker in source for marker in required)
+
+
+def _git_ref(ref: str) -> str:
+    result = subprocess.run(
+        ["git", "rev-parse", ref], cwd=ROOT, capture_output=True, text=True, check=False
+    )
+    return result.stdout.strip() if result.returncode == 0 else "UNKNOWN"
+
+
+def _run_integrated_proxy_seed(
+    *,
+    condition_id: str,
+    burden_level: float,
+    burden_label: str,
+    seed: int,
+    steps: int,
+    timestep_s: float,
+    device: str,
+    brain_root: Path,
+    platform_root: Path,
+    brain_python: Path,
+    runner: Path,
+    operator_config: Path,
+    adapter_source: Path,
+    temporary_root: Path,
+    log_path: Path,
+    operator_config_sha256: str,
+) -> dict[str, Any]:
+    """Run one real FlyGym rollout and retain only its measured row."""
+
+    run_output = (
+        temporary_root
+        / condition_id
+        / f"burden_{burden_level:.2f}"
+        / f"seed_{seed:03d}"
+    )
+    row = _integrated_proxy_blank_row(
+        condition_id=condition_id,
+        burden_level=burden_level,
+        burden_label=burden_label,
+        seed=seed,
+        steps=steps,
+        timestep_s=timestep_s,
+        status="FAILED",
+        reason="",
+        operator_config_sha256=operator_config_sha256,
+    )
+    command = [
+        str(brain_python if brain_python.is_file() else sys.executable),
+        str(runner),
+        "--brain-root",
+        str(brain_root),
+        "--condition",
+        "healthy",
+        "--seed",
+        str(seed),
+        "--steps",
+        str(steps),
+        "--device",
+        device,
+        "--output",
+        str(run_output),
+        "--enable-proxy-burden-operator",
+        "--proxy-operator-config",
+        str(operator_config),
+        "--proxy-operator-source",
+        str(adapter_source),
+        "--proxy-burden",
+        str(burden_level),
+    ]
+    environment = os.environ.copy()
+    environment.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=platform_root,
+            capture_output=True,
+            text=True,
+            check=False,
+            env=environment,
+        )
+        log = (
+            f"=== condition={condition_id} burden={burden_level} seed={seed} "
+            f"return_code={completed.returncode} ===\n"
+            + completed.stdout
+            + completed.stderr
+        )
+        with log_path.open("a", encoding="utf-8") as handle:
+            handle.write(log)
+            if log and not log.endswith("\n"):
+                handle.write("\n")
+        if completed.returncode != 0:
+            row["skip_reason"] = f"external_runner_return_code={completed.returncode}"
+            return row
+
+        metrics_path = run_output / "metrics" / "metrics.json"
+        rollout_path = run_output / "rollout.npz"
+        summary_path = run_output / "brain_body_summary.json"
+        required_files = (metrics_path, rollout_path, summary_path)
+        missing = [str(path.relative_to(run_output)) for path in required_files if not path.is_file()]
+        if missing:
+            row["skip_reason"] = "missing_artifact=" + ";".join(missing)
+            return row
+
+        metrics, metrics_finite = _read_finite_metrics(metrics_path)
+        finite, invalid_arrays = _finite_rollout(rollout_path)
+        quality = _rollout_quality(
+            rollout_path,
+            expected_frames=steps + 1,
+            expected_timestep_s=timestep_s,
+            metrics=metrics,
+        )
+        try:
+            summary = json.loads(summary_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError, TypeError):
+            summary = {}
+
+        operator_enabled = summary.get("proxy_burden_operator_enabled") is True
+        operator_applied = summary.get("operator_applied") is True
+        before_hash = summary.get("joint_angles_first_before_sha256") or summary.get("joint_angles_before_sha256")
+        after_hash = summary.get("joint_angles_first_after_sha256") or summary.get("joint_angles_after_sha256")
+        hashes_present = isinstance(before_hash, str) and isinstance(after_hash, str) and bool(before_hash) and bool(after_hash)
+        action_changed = bool(hashes_present and before_hash != after_hash)
+        adhesion_before_hash = summary.get("adhesion_onoff_first_before_sha256")
+        adhesion_after_hash = summary.get("adhesion_onoff_first_after_sha256")
+        adhesion_hashes_present = (
+            isinstance(adhesion_before_hash, str)
+            and isinstance(adhesion_after_hash, str)
+            and bool(adhesion_before_hash)
+            and bool(adhesion_after_hash)
+        )
+        adhesion_unchanged = adhesion_hashes_present and adhesion_before_hash == adhesion_after_hash
+        if burden_level == 0.0:
+            identity_check: Any = "PASS" if hashes_present and before_hash == after_hash else "FAIL"
+            positive_action_check: Any = False
+        else:
+            identity_check = "NOT_APPLICABLE"
+            positive_action_check = action_changed
+
+        numeric_qc = finite and metrics_finite
+        required_present = all(quality.get(metric) is not None for metric in CANONICAL_METRICS)
+        physical_qc = all(
+            quality.get(key) == "PASS"
+            for key in (
+                "timestamp_monotonic",
+                "timestep_consistent",
+                "locomotion_detected",
+                "contact_detected",
+                "quaternion_valid",
+                "joint_trajectory_changes",
+                "action_trajectory_valid",
+                "observation_state_valid",
+            )
+        )
+        operator_qc = (
+            operator_enabled
+            and operator_applied
+            and adhesion_unchanged
+            and (identity_check == "PASS" if burden_level == 0.0 else positive_action_check)
+        )
+        if numeric_qc and required_present and physical_qc and operator_qc:
+            row.update(
+                {
+                    "run_status": "PASS",
+                    "operator_applied": True,
+                    "action_changed_for_positive_burden": positive_action_check,
+                    "burden_zero_identity_pass": identity_check,
+                    "adhesion_onoff_unchanged": "PASS" if adhesion_unchanged else "FAIL",
+                    "mean_planar_speed_mm_s": quality["mean_planar_speed_mm_s"],
+                    "distance_traveled_mm": quality["distance_traveled_mm"],
+                    "displacement_mm": quality["displacement_mm"],
+                    "walking_speed_mm_s_raw": metrics.get("walking_speed_mm_s", ""),
+                    "total_distance_mm_raw": metrics.get("total_distance_mm", ""),
+                    "thorax_displacement_mm_raw": quality["thorax_displacement_xy_mm"],
+                    "no_nan": "PASS",
+                    "no_inf": "PASS",
+                    "locomotion_detected": quality["locomotion_detected"],
+                    "contact_detected": quality["contact_detected"],
+                    "timestamp_valid": quality["timestamp_monotonic"],
+                    "quaternion_valid": quality["quaternion_valid"],
+                    "joint_action_trajectory_valid": quality["action_trajectory_valid"],
+                    "metric_contract_status": "PASS",
+                }
+            )
+            return row
+
+        reasons: list[str] = []
+        if invalid_arrays:
+            reasons.append("invalid_arrays=" + ";".join(invalid_arrays))
+        if not numeric_qc:
+            reasons.append("numeric_qc_failed")
+        if not required_present:
+            reasons.append("canonical_metrics_missing")
+        if not physical_qc:
+            reasons.append("physical_qc_failed")
+        if not operator_enabled:
+            reasons.append("operator_enabled_flag_missing")
+        if not operator_applied:
+            reasons.append("operator_applied_flag_missing")
+        if not adhesion_unchanged:
+            reasons.append("adhesion_onoff_changed_or_hash_missing")
+        if burden_level == 0.0 and identity_check != "PASS":
+            reasons.append("burden_zero_identity_failed")
+        if burden_level > 0.0 and not positive_action_check:
+            reasons.append("positive_burden_action_unchanged")
+        row["skip_reason"] = ";".join(reasons) or "integrated_rollout_quality_gate_failed"
+        return row
+    except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
+        row["skip_reason"] = f"runner_or_artifact_error={exc}"
+        return row
+    finally:
+        # The large rollout, viewer, and checkpoint artifacts are measured
+        # locally and deliberately not retained in the small Gate 12G result.
+        shutil.rmtree(run_output, ignore_errors=True)
+
+
+def _write_integrated_proxy_report(
+    path: Path,
+    *,
+    status: str,
+    plan: Mapping[str, Any],
+    manifest: Mapping[str, Any],
+    rows: Sequence[Mapping[str, Any]],
+    summary_rows: Sequence[Mapping[str, Any]],
+    blockers: Sequence[str],
+) -> None:
+    healthy_manifest: dict[str, Any] = {}
+    source = plan.get("source")
+    if isinstance(source, Mapping):
+        healthy_path = _resolve(str(source.get("healthy_baseline_manifest", "")))
+        if healthy_path.is_file():
+            try:
+                healthy_manifest = json.loads(healthy_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                healthy_manifest = {}
+
+    def mean_for(metric: str) -> str:
+        values = [
+            float(item[metric])
+            for item in healthy_manifest.get("runs", [])
+            if isinstance(item.get(metric), (int, float)) and math.isfinite(float(item[metric]))
+        ]
+        return f"{sum(values) / len(values):.9g}" if values else "NOT_REPORTED"
+
+    lines = [
+        "# Gate 12G - Integrated Proxy Disease Rollout Report",
+        "",
+        f"**Trạng thái:** `{status}`",
+        "",
+        "Báo cáo này ghi nhận rollout computational của proxy organism-level qua action hook FlyGym thật.",
+        "Không phải biological Parkinson validation, không phải chẩn đoán, dự đoán lâm sàng hoặc đánh giá thuốc.",
+        "",
+        "## Phạm vi và đầu vào",
+        "",
+        "- Condition chạy: `alpha_synuclein`, `pink1`.",
+        "- Scope: `organism_level_proxy`; không có gene-specific mapping.",
+        "- Condition nền của runner: `healthy`; proxy được áp ở action-level hook.",
+        "- Calibration, holdout validation, Chen tuning và Pozo tuning: `OFF`.",
+        f"- Planned runs: `{manifest.get('planned_runs', {}).get('total', 0)}`.",
+        "",
+        "## Runtime và operator",
+        "",
+        f"- CUDA available: `{manifest.get('cuda_available')}`.",
+        f"- External patch verified: `{manifest.get('external_patch_verified')}`.",
+        f"- Operator config SHA256: `{manifest.get('operator_config_sha256')}`.",
+        "- Operator chỉ thay đổi `joint_angles`; `adhesion_onoff` không bị thay đổi.",
+        "- burden=0 kiểm tra identity; burden>0 yêu cầu action hash thay đổi.",
+        "",
+        "## Kết quả theo burden",
+        "",
+        "| Condition | Burden | PASS | Speed mean (mm/s) | Distance mean (mm) | Displacement mean (mm) | QC |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for item in summary_rows:
+        def fmt(key: str) -> str:
+            value = item.get(key, "")
+            return f"{float(value):.9g}" if isinstance(value, (int, float)) else (str(value) or "NOT_REPORTED")
+
+        lines.append(
+            f"| `{item['condition_id']}` | {item['burden_level']} | {item['n_success']} | "
+            f"{fmt('mean_planar_speed_mm_s_mean')} | {fmt('distance_traveled_mm_mean')} | "
+            f"{fmt('displacement_mm_mean')} | {item['qc_pass_count']} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Healthy baseline tham chiếu",
+            "",
+            f"- Healthy mean_planar_speed_mm_s: `{mean_for('mean_planar_speed_mm_s')}`.",
+            f"- Healthy distance_traveled_mm: `{mean_for('distance_traveled_mm')}`.",
+            f"- Healthy displacement_mm: `{mean_for('displacement_mm')}`.",
+            "- Các giá trị trên chỉ là tham chiếu computational; không được diễn giải như biological effect.",
+            "",
+            "## Blockers hoặc lỗi",
+            "",
+        ]
+    )
+    if blockers:
+        lines.extend(f"- `{reason}`." for reason in blockers)
+    else:
+        failed = [str(row.get("skip_reason", "")) for row in rows if row.get("run_status") != "PASS" and row.get("skip_reason")]
+        lines.extend(f"- `{reason}`." for reason in failed[:20])
+        if not failed:
+            lines.append("- Không có blocker runtime nào được ghi nhận.")
+    lines.extend(
+        [
+            "",
+            "## Giới hạn khoa học",
+            "",
+            "- Đây là organism-level computational proxy rollout, không phải mapping gene-specific.",
+            "- Proxy burden là dimensionless và chưa được dùng để fit Chen hoặc đánh giá Pozo.",
+            "- Thời lượng mô phỏng theo Gate 11 khoảng 0.5 giây; không phải diễn tiến bệnh theo thời gian sinh học.",
+            "- Không có calibration, holdout validation hoặc biological Parkinson validation trong Gate 12G.",
+            "",
+            "## Final status",
+            "",
+            f"`{status}`.",
+        ]
+    )
+    _write_text(path, "\n".join(lines) + "\n")
+
+
+def _run_integrated_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, Any]) -> int:
+    """Run Gate 12G through the real external FlyGym action hook."""
+
+    configured_default = ROOT / "experiments/gate_12_disease_rollouts"
+    output_root = _resolve(args.output)
+    if output_root == configured_default.resolve():
+        output_root = ROOT / "experiments/gate_12g_integrated_proxy_rollouts"
+    results_dir = output_root / "results"
+    manifests_dir = output_root / "manifests"
+    logs_dir = output_root / "logs"
+    for directory in (results_dir, manifests_dir, logs_dir):
+        directory.mkdir(parents=True, exist_ok=True)
+    log_path = logs_dir / "run.log"
+    _write_text(log_path, "# Gate 12G integrated proxy disease rollout log\n")
+
+    source = plan.get("source") if isinstance(plan.get("source"), Mapping) else {}
+    external = plan.get("external_runtime") if isinstance(plan.get("external_runtime"), Mapping) else {}
+    runtime = plan.get("runtime") if isinstance(plan.get("runtime"), Mapping) else {}
+    operator = plan.get("operator") if isinstance(plan.get("operator"), Mapping) else {}
+    seeds_block = plan.get("seeds") if isinstance(plan.get("seeds"), Mapping) else {}
+    seed_values = [int(value) for value in seeds_block.get("values", [])]
+    steps = int(runtime.get("step_count", 0))
+    timestep_s = float(runtime.get("timestep_s", 0.0))
+    device = str(runtime.get("device", plan.get("device", "cuda")))
+    conditions = plan.get("conditions_to_run") if isinstance(plan.get("conditions_to_run"), list) else []
+    skipped_conditions = plan.get("conditions_to_skip") if isinstance(plan.get("conditions_to_skip"), list) else []
+
+    default_brain = (ROOT / "external/fly-brain").resolve()
+    default_platform = (ROOT.parent / "drosophila-pd-flygym").resolve()
+    configured_brain = str(external.get("brain_root", "")).strip()
+    configured_platform = str(external.get("path", "")).strip()
+    brain_root = _resolve(configured_brain) if configured_brain and _resolve(args.brain_root) == default_brain else _resolve(args.brain_root)
+    platform_root = _resolve(configured_platform) if configured_platform and _resolve(args.platform_root) == default_platform else _resolve(args.platform_root)
+    configured_python = str(external.get("brain_python", "")).strip()
+    if args.brain_python:
+        brain_python = _resolve(args.brain_python)
+    elif configured_python:
+        brain_python = _resolve(configured_python)
+    else:
+        brain_python = platform_root / ".venv/Scripts/python.exe"
+
+    runner_value = str(external.get("runner_file", "scripts/run_brain_body_rollout.py")).strip()
+    runner = (platform_root / runner_value).resolve()
+    operator_value = str(source.get("operator_config", "")).strip()
+    operator_config = _resolve(operator_value) if operator_value else ROOT / "missing-operator-config.yaml"
+    operator_config_sha256 = _sha256(operator_config) if operator_config.is_file() else ""
+    adapter_source = ROOT
+
+    blockers: list[str] = []
+    if not runner.is_file():
+        blockers.append(f"external_runner_missing:{runner}")
+    if not _external_patch_verified(runner):
+        blockers.append("external_action_hook_patch_not_verified")
+    if not operator_config.is_file():
+        blockers.append(f"operator_config_missing:{_relative(operator_config)}")
+    else:
+        operator_blockers, _ = _proxy_operator_config_blockers(operator_config)
+        blockers.extend(operator_blockers)
+    proxy_plan_value = str(source.get("proxy_ready_plan", "")).strip()
+    proxy_plan_path = _resolve(proxy_plan_value) if proxy_plan_value else ROOT / "missing-proxy-plan.yaml"
+    if not proxy_plan_path.is_file():
+        blockers.append(f"proxy_ready_plan_missing:{_relative(proxy_plan_path)}")
+    healthy_manifest_value = str(source.get("healthy_baseline_manifest", "")).strip()
+    healthy_manifest_path = _resolve(healthy_manifest_value) if healthy_manifest_value else ROOT / "missing-healthy-manifest.json"
+    healthy_manifest: dict[str, Any] = {}
+    if not healthy_manifest_path.is_file():
+        blockers.append(f"healthy_baseline_manifest_missing:{_relative(healthy_manifest_path)}")
+    else:
+        try:
+            healthy_manifest = json.loads(healthy_manifest_path.read_text(encoding="utf-8"))
+            if healthy_manifest.get("status") != "PASS":
+                blockers.append("healthy_baseline_manifest_not_pass")
+        except (OSError, json.JSONDecodeError):
+            blockers.append("healthy_baseline_manifest_invalid")
+    runtime_ok, runtime_reasons, cuda_available = _runtime_probe(
+        brain_root=brain_root,
+        platform_root=platform_root,
+        brain_python=brain_python,
+        device=device,
+    )
+    if not runtime_ok:
+        blockers.extend(runtime_reasons)
+    elif runtime_reasons:
+        blockers.extend(runtime_reasons)
+
+    expected_conditions = {"alpha_synuclein", "pink1"}
+    configured_conditions = {str(item.get("condition_id", "")).strip() for item in conditions if isinstance(item, Mapping)}
+    missing_conditions = sorted(expected_conditions - configured_conditions)
+    if missing_conditions:
+        blockers.append("configured_conditions_missing=" + ";".join(missing_conditions))
+    if not seed_values:
+        blockers.append("seed_values_missing")
+    if steps <= 0 or timestep_s <= 0:
+        blockers.append("invalid_runtime_steps_or_timestep")
+    if not isinstance(operator.get("apply_to"), str) or operator.get("apply_to") != "joint_angles":
+        blockers.append("operator_apply_to_must_be_joint_angles")
+    if operator.get("modifies_adhesion_onoff") is not False:
+        blockers.append("operator_must_preserve_adhesion_onoff")
+
+    rows: list[dict[str, Any]] = []
+    temporary_parent = ROOT / "temporary"
+    temporary_parent.mkdir(parents=True, exist_ok=True)
+    temporary_root = Path(tempfile.mkdtemp(prefix="gate12g-", dir=temporary_parent))
+    try:
+        for condition in conditions:
+            if not isinstance(condition, Mapping):
+                continue
+            condition_id = str(condition.get("condition_id", "")).strip()
+            scope = str(condition.get("scope", "")).strip()
+            levels = condition.get("burden_levels") if isinstance(condition.get("burden_levels"), list) else []
+            for raw_level in levels:
+                level = float(raw_level)
+                label = "burden_" + f"{level:.2f}"
+                for seed in seed_values:
+                    if blockers:
+                        row = _integrated_proxy_blank_row(
+                            condition_id=condition_id,
+                            burden_level=level,
+                            burden_label=label,
+                            seed=seed,
+                            steps=steps,
+                            timestep_s=timestep_s,
+                            status="BLOCKED",
+                            reason="; ".join(blockers),
+                            operator_config_sha256=operator_config_sha256,
+                        )
+                        row["scope"] = scope
+                    else:
+                        row = _run_integrated_proxy_seed(
+                            condition_id=condition_id,
+                            burden_level=level,
+                            burden_label=label,
+                            seed=seed,
+                            steps=steps,
+                            timestep_s=timestep_s,
+                            device=device,
+                            brain_root=brain_root,
+                            platform_root=platform_root,
+                            brain_python=brain_python,
+                            runner=runner,
+                            operator_config=operator_config,
+                            adapter_source=adapter_source,
+                            temporary_root=temporary_root,
+                            log_path=log_path,
+                            operator_config_sha256=operator_config_sha256,
+                        )
+                        row["scope"] = scope
+                    rows.append(row)
+    finally:
+        shutil.rmtree(temporary_root, ignore_errors=True)
+
+    summary_rows: list[dict[str, Any]] = []
+    for condition in conditions:
+        if not isinstance(condition, Mapping):
+            continue
+        condition_id = str(condition.get("condition_id", "")).strip()
+        scope = str(condition.get("scope", "")).strip()
+        levels = condition.get("burden_levels") if isinstance(condition.get("burden_levels"), list) else []
+        for raw_level in levels:
+            level = float(raw_level)
+            matching = [
+                row for row in rows
+                if row.get("condition_id") == condition_id and math.isclose(float(row.get("burden_level", -1)), level)
+            ]
+            pass_rows = [row for row in matching if row.get("run_status") == "PASS"]
+            summary: dict[str, Any] = {
+                "condition_id": condition_id,
+                "burden_level": level,
+                "burden_label": "burden_" + f"{level:.2f}",
+                "n_success": len(pass_rows),
+                "operator_applied_count": sum(row.get("operator_applied") is True for row in pass_rows),
+                "qc_pass_count": sum(row.get("metric_contract_status") == "PASS" for row in pass_rows),
+            }
+            for metric in CANONICAL_METRICS:
+                mean, std = _sample_mean_std(pass_rows, metric)
+                summary[f"{metric}_mean"] = mean if mean is not None else ""
+                summary[f"{metric}_std"] = std if std is not None else ""
+            summary_rows.append(summary)
+
+    total_planned = len(rows)
+    successful = sum(row.get("run_status") == "PASS" for row in rows)
+    failed = sum(row.get("run_status") == "FAILED" for row in rows)
+    blocked = sum(row.get("run_status") == "BLOCKED" for row in rows)
+    if successful == total_planned and total_planned == 60:
+        status = "INTEGRATED_PROXY_ROLLOUTS_PASS"
+    elif successful:
+        status = "INTEGRATED_PROXY_ROLLOUTS_PARTIAL"
+    else:
+        status = "INTEGRATED_PROXY_ROLLOUTS_BLOCKED"
+
+    metrics_csv = results_dir / "integrated_proxy_disease_metrics.csv"
+    with metrics_csv.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=INTEGRATED_PROXY_CSV_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+    summary_csv = results_dir / "integrated_proxy_disease_summary.csv"
+    with summary_csv.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=INTEGRATED_PROXY_SUMMARY_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(summary_rows)
+    metrics_payload = {
+        "schema_version": "gate-12g-integrated-proxy-disease-metrics-v1",
+        "created_at_utc": datetime.now(UTC).isoformat(),
+        "status": status,
+        "simulation_data_fabricated": False,
+        "rows": rows,
+        "planned_runs": total_planned,
+        "successful_runs": successful,
+        "failed_runs": failed,
+        "blocked_runs": blocked,
+        "no_calibration_run": True,
+        "no_holdout_validation_run": True,
+        "no_gene_specific_mapping": True,
+        "metric_contract": list(CANONICAL_METRICS),
+        "operator_config_sha256": operator_config_sha256,
+        "operator_applied": successful > 0,
+        "action_hook_connected": _external_patch_verified(runner),
+    }
+    metrics_json = results_dir / "integrated_proxy_disease_metrics.json"
+    _write_text(metrics_json, json.dumps(metrics_payload, indent=2, ensure_ascii=False) + "\n")
+
+    planned_by_condition = {
+        condition_id: sum(
+            len(item.get("burden_levels", [])) for item in conditions
+            if isinstance(item, Mapping) and item.get("condition_id") == condition_id
+        ) * len(seed_values)
+        for condition_id in ("alpha_synuclein", "pink1")
+    }
+    manifest = {
+        "schema_version": "gate-12g-integrated-proxy-rollout-manifest-v1",
+        "status": status,
+        "created_at": datetime.now(UTC).isoformat(),
+        "git_commit": _git_commit(),
+        "python_version": platform.python_version(),
+        "cuda_available": cuda_available,
+        "current_repo_main_commit": _git_ref("main"),
+        "external_runtime_path": str(platform_root),
+        "external_runtime_runner_sha256": _sha256(runner) if runner.is_file() else "",
+        "external_patch_verified": _external_patch_verified(runner),
+        "operator_config_sha256": operator_config_sha256,
+        "config_sha256": _sha256(_resolve(args.config)),
+        "metrics_csv_sha256": _sha256(metrics_csv),
+        "metrics_json_sha256": _sha256(metrics_json),
+        "summary_csv_sha256": _sha256(summary_csv),
+        "planned_runs": {"total": total_planned, **planned_by_condition},
+        "successful_runs": successful,
+        "blocked_runs": blocked,
+        "failed_runs": failed,
+        "conditions_run": [str(item.get("condition_id", "")) for item in conditions if isinstance(item, Mapping)],
+        "conditions_skipped": [str(item.get("condition_id", "")) for item in skipped_conditions if isinstance(item, Mapping)],
+        "no_calibration_run": True,
+        "no_holdout_validation_run": True,
+        "no_gene_specific_mapping": True,
+        "no_biological_validation_claim": True,
+        "large_artifacts_committed": False,
+        "scientific_boundary": "computational organism-level proxy rollout only; not biological validation",
+        "source": {
+            "healthy_baseline_manifest": _relative(healthy_manifest_path),
+            "proxy_ready_plan": _relative(proxy_plan_path),
+            "operator_config": _relative(operator_config),
+        },
+    }
+    manifest_path = manifests_dir / "integrated_proxy_rollout_manifest.json"
+    _write_text(manifest_path, json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+    _write_text(
+        log_path,
+        log_path.read_text(encoding="utf-8")
+        + "\n".join(
+            [
+                f"status={status}",
+                f"planned_runs={total_planned}",
+                f"successful_runs={successful}",
+                f"failed_runs={failed}",
+                f"blocked_runs={blocked}",
+                f"blockers={' ; '.join(blockers)}",
+                "simulation_data_fabricated=False",
+                "no_calibration_run=True",
+                "no_holdout_validation_run=True",
+                "",
+            ]
+        ),
+    )
+    _write_integrated_proxy_report(
+        ROOT / "docs/disease_rollouts/gate_12g_integrated_proxy_rollout_report.md",
+        status=status,
+        plan=plan,
+        manifest=manifest,
+        rows=rows,
+        summary_rows=summary_rows,
+        blockers=blockers,
+    )
+    return 0
+
+
 def _run_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, Any]) -> int:
     """Run or conservatively block the Gate 12D proxy matrix."""
 
@@ -1055,6 +1775,8 @@ def _run_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, Any]) -> in
 def run_campaign(args: argparse.Namespace) -> int:
     plan_path = _resolve(args.config)
     plan = _load_yaml(plan_path)
+    if _is_integrated_proxy_run_config(plan):
+        return _run_integrated_proxy_campaign(args, plan)
     if _is_proxy_run_config(plan):
         return _run_proxy_campaign(args, plan)
     proxy_plan = _is_proxy_plan(plan)

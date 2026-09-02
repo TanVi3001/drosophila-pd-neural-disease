@@ -1,0 +1,80 @@
+schema_version: gate-12g-integrated-proxy-rollout-config-v1
+status: RUN_INTEGRATED_PROXY_ROLLOUTS
+
+source:
+  healthy_baseline_manifest: experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json
+  proxy_ready_plan: experiments/gate_12c_computational_proxy_configs/configs/disease_rollout_plan_proxy_ready.yaml
+  operator_config: experiments/gate_12e_proxy_operator/configs/proxy_burden_action_operator.yaml
+  action_hook_contract: experiments/gate_12f_action_hook_discovery/action_hook_contract.yaml
+  action_hook_integration_manifest: experiments/gate_12f_b_action_hook_integration/manifests/action_hook_integration_manifest.json
+
+external_runtime:
+  path: ../drosophila-pd-flygym
+  brain_root: ../external/fly-brain-audit
+  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  runner_file: scripts/run_brain_body_rollout.py
+  patch_required: true
+
+runtime:
+  step_count: 5000
+  timestep_s: 0.0001
+  duration_s: 0.5
+  preserve_physics: true
+  preserve_timestep: true
+  preserve_duration: true
+  preserve_seed_policy: true
+  device: cuda
+
+seeds:
+  values: [0, 1, 2, 3, 4, 5]
+
+conditions_to_run:
+  - condition_id: alpha_synuclein
+    scope: organism_level_proxy
+    gene_specific_mapping: false
+    burden_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+  - condition_id: pink1
+    scope: organism_level_proxy
+    gene_specific_mapping: false
+    burden_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+
+conditions_to_skip:
+  - condition_id: parkin
+    reason: BLOCKED_IN_GATE_12C
+  - condition_id: dj1
+    reason: BLOCKED_IN_GATE_12C
+  - condition_id: lrrk2
+    reason: BLOCKED_IN_GATE_12C
+
+operator:
+  apply_to: joint_angles
+  modifies_adhesion_onoff: false
+  require_operator_applied_flag: true
+  require_action_changed_for_positive_burden: true
+  require_burden_zero_identity: true
+
+metric_contract:
+  required:
+    - mean_planar_speed_mm_s
+    - distance_traveled_mm
+    - displacement_mm
+  raw_metrics_preserved: true
+
+forbidden:
+  calibration: true
+  holdout_validation: true
+  chen_tuning: true
+  pozo_tuning: true
+  gene_specific_claim: true
+  biological_validation_claim: true
+  distance_to_speed_conversion: true
+  ci95_to_se_conversion: true
+
+output_policy:
+  commit_small_metrics: true
+  commit_logs: true
+  commit_manifests: true
+  commit_large_npz: false
+  commit_videos: false
+  commit_viewer_bundle: false
+  commit_checkpoints: false
