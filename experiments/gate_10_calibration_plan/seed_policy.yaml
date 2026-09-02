@@ -1,0 +1,23 @@
+schema_version: gate-10-seed-policy-v1
+status: PLAN_ONLY
+
+seed_policy:
+  healthy_baseline:
+    seeds: [0, 1, 2, 3, 4, 5]
+    minimum_n: 6
+  disease_conditions:
+    seeds: [0, 1, 2, 3, 4, 5]
+    minimum_n: 6
+  calibration:
+    random_seeds: [0, 1, 2, 3, 4, 5]
+    optimization_seed: 0
+  holdout_validation:
+    seeds: [0, 1, 2, 3, 4, 5]
+
+reproducibility:
+  record_python_version: true
+  record_package_versions: true
+  record_git_commit: true
+  record_config_hash: true
+  record_checkpoint_hash: true
+  record_artifact_hashes: true

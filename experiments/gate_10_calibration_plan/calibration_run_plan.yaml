@@ -1,0 +1,53 @@
+schema_version: gate-10-calibration-run-plan-v1
+status: PLAN_ONLY_NOT_EXECUTED
+
+# Gate 09B target set. These values are signed literature targets; this file
+# defines how they will be used and does not execute calibration.
+calibration_target:
+  paper_id: chen_2014_adult_walking
+  metric: mean_planar_speed_mm_s
+  value: 4.875
+  unit: mm/s
+  uncertainty_type: CI95
+  uncertainty: 0.525
+  sample_size: 20
+  sample_unit: fly
+  allocation: calibration
+  use_for_calibration: true
+
+holdout_target:
+  paper_id: pozo_2022_pink1_serotonin
+  metric: distance_traveled_mm
+  value: 62.091
+  unit: mm
+  uncertainty_type: IQR_with_min_max_ranges_reported
+  uncertainty: 61.288
+  sample_size: 21
+  sample_unit: fly
+  allocation: holdout
+  use_for_calibration: false
+  use_for_holdout_validation: true
+
+calibration_rules:
+  optimize_against: chen_2014_adult_walking
+  do_not_optimize_against:
+    - pozo_2022_pink1_serotonin
+  preserve_physics: true
+  preserve_timestep: true
+  preserve_duration: true
+  preserve_seed_policy: true
+  no_holdout_tuning: true
+
+simulation_metric_contract:
+  required_calibration_metric: mean_planar_speed_mm_s
+  required_holdout_metric: distance_traveled_mm
+  forbidden_conversions:
+    - distance_to_speed
+    - CI95_to_SE_without_policy
+    - median_to_mean
+
+execution_status:
+  healthy_baseline_run: false
+  disease_run: false
+  calibration_run: false
+  holdout_validation_run: false
