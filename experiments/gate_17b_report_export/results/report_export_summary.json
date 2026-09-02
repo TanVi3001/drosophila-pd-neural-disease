@@ -1,0 +1,23 @@
+{
+  "boundaries": {
+    "biological_validation": false,
+    "clinical_validation": false,
+    "drug_validation": false,
+    "gene_specific_validation": false,
+    "therapeutic_validation": false
+  },
+  "claim_lock_active": true,
+  "docx": "experiments/gate_17b_report_export/results/final_vietnamese_report.docx",
+  "final_claim": "Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch",
+  "no_calibration_run": true,
+  "no_new_simulation_run": true,
+  "no_raw_metric_modification": true,
+  "no_tuning_run": true,
+  "pdf": "experiments/gate_17b_report_export/results/final_vietnamese_report.pdf",
+  "pdf_page_count": 6,
+  "schema_version": "gate-17b-report-export-summary-v1",
+  "source_markdown": "docs/report/final_vietnamese_report.md",
+  "status": "REPORT_EXPORT_PARTIAL",
+  "visual_qa_note": "LibreOffice/soffice is not installed; DOCX visual render was not available.",
+  "visual_qa_status": "PARTIAL_DOCX_RENDERER_UNAVAILABLE"
+}
