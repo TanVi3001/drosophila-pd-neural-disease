@@ -38,7 +38,7 @@ hiệu hai cận.
 | --- | --- | --- | --- |
 | `mean_planar_speed_mm_s` | `mm/s` | Calibration-eligible | Giá trị trung tâm phải là mean; không dùng median. |
 | `median_planar_speed_mm_s` | `mm/s` | Calibration-eligible theo policy | Phải có numeric IQR hoặc range; simulation cũng phải xuất metric cùng tên trước khi chạy loss. |
-| `distance_traveled_mm` | `mm` | Calibration-eligible theo policy | Là endpoint distance riêng, không đổi thành speed; notes phải ghi `statistic=mean`, `statistic=median` hoặc `statistic=paper_reported_center` cho holdout. |
+| `distance_traveled_mm` | `mm` | Holdout-only | Là endpoint distance riêng; không đổi thành speed và không dùng cho calibration speed; `paper_reported_center` chỉ được dùng cho holdout. |
 | `activity_time_s` | `s` | Validation-only | Không đổi thành speed hoặc pause fraction nếu chưa có assay implementation và transfer rule. |
 | `climbing_score` | Theo assay | Validation-only | Chỉ được calibration khi climbing assay và metric được implement, kiểm thử và phê duyệt. |
 | `DAM_activity` | Theo assay | Validation-only | Beam-break count/relative activity không phải planar walking speed. |
@@ -128,3 +128,26 @@ provenance và allocation tương ứng.
 Pokrzywa vẫn pending vì thiếu exact independent-vial count. Riemensperger vẫn
 pending vì chưa có numeric spread cho median. Trạng thái readiness được xác
 định bởi audit script sau khi target rows được cập nhật.
+## Gate 09B approved target policies
+
+### Adult horizontal walking speed / velocity
+
+- Adult horizontal walking speed/velocity may be used as a computational calibration endpoint.
+- Physical unit conversion from `cm/s` to `mm/s` is allowed.
+- Conversion rule: `1 cm/s = 10 mm/s`.
+- `CI95` is retained as `CI95`.
+- `CI95` must not be relabeled as `SE`.
+- This approval supports computational calibration readiness only.
+
+### Distance/path-length holdout endpoint
+
+- `distance_traveled_mm` may be used as a computational holdout endpoint.
+- `distance_traveled_mm` must not be used for speed calibration.
+- `IQR_with_min_max_ranges_reported` is retained as paper-reported spread.
+- IQR/min-max must not be relabeled as SD or SE.
+- This approval supports computational holdout readiness only.
+
+### Human signoff requirement
+
+- Approved targets require reviewer, review date, allocation, assay transfer, sample unit, numeric value, numeric uncertainty, numeric sample size, and provenance.
+- Targets missing any required field must remain pending.

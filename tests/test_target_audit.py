@@ -226,7 +226,12 @@ def test_distance_endpoint_is_separate_from_speed(tmp_path: Path) -> None:
         row["notes"] += ";statistic=mean"
     _write_policy_targets(path, rows)
     audit = audit_targets(path)
-    assert audit["status"] == "READY_FOR_CALIBRATION"
+    assert audit["status"] == "WAITING_TARGET_DATA"
+    assert any(
+        item["code"] == "DISTANCE_HOLDOUT_ONLY"
+        for item in audit["rows"][0]["issues"]
+    )
+    assert audit["rows"][1]["eligible"]
     assert not any(
         item["code"] == "UNSUPPORTED_ENDPOINT"
         for audited in audit["rows"]
