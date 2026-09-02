@@ -1,0 +1,38 @@
+schema_version: gate-12f-a-action-hook-contract-v1
+status: DISCOVERED
+
+discovery:
+  method: static_code_inspection
+  simulation_run: false
+  source_repository: ../drosophila-pd-flygym
+  source_repository_commit: 3ceb8ce
+  source_worktree_dirty: true
+
+action_pipeline:
+  action_source_file: ../drosophila-pd-flygym/scripts/run_brain_body_rollout.py
+  action_source_symbol: flygym_demo.complex_terrain.HybridTurningController.step
+  action_hook_file: ../drosophila-pd-flygym/scripts/run_brain_body_rollout.py
+  action_hook_symbol: "_run_simulation: layer.apply_to_action(controller_action, ActionPerturbationContext(...))"
+  simulation_step_call: "../drosophila-pd-flygym/scripts/run_brain_body_rollout.py:_run_simulation: simulation.step()"
+  action_type: flygym_demo.complex_terrain.common.LocomotionAction
+  action_shape: joint_angles=(42,), adhesion_onoff=(6,)
+  action_range: UNKNOWN; LocomotionAction does not enforce a numeric range. The actuator forcerange (-65, 65) is a force range, not a joint-angle action range.
+  action_write_call: flygym_demo.complex_terrain.common.apply_locomotion_action
+  mutation_allowed: false
+  action_trajectory_recorded_directly: false
+  action_trajectory_observation: rollout.npz actuator arrays are recorder observations, not the controller action object itself.
+
+operator_integration_contract:
+  operator_module: src/drosophila_pd_neural/proxy_burden_operator.py
+  integration_point: "../drosophila-pd-flygym/scripts/run_brain_body_rollout.py:_run_simulation after controller.step and before apply_locomotion_action"
+  required_behavior:
+    - burden_0_identity
+    - same_shape_output
+    - finite_output
+    - deterministic_for_same_seed
+    - no_in_place_mutation
+  current_connection: not_connected_from_disease_repository_orchestrator
+
+readiness:
+  ready_for_gate_12f_b_integration: true
+  blocker: NONE; the real platform action hook was discovered, but Gate 12F-B must explicitly pass and apply the operator at this hook.
