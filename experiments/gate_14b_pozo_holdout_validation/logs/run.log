@@ -1,0 +1,781 @@
+# Gate 14B Pozo ratio holdout validation log
+=== condition=pink1 burden=0.0 seed=12 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:13:47.792696+00:00",
+  "condition": "healthy",
+  "seed": 12,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 0.8704613776980336,
+  "duration_wall_s": 123.94345449999673,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_012/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_012/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_012/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_012/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_012/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_012\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.0,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "63e72f319348f4273cbf75c8d5cfbf5de4aa7594111b8c4edc985292e1dee418",
+  "joint_angles_after_sha256": "70325a6c3cafe697abfa24bd09ad285a7ed5e1152b5eb12d8dc0213da2fe2dde",
+  "joint_angles_first_before_sha256": "63e72f319348f4273cbf75c8d5cfbf5de4aa7594111b8c4edc985292e1dee418",
+  "joint_angles_first_after_sha256": "63e72f319348f4273cbf75c8d5cfbf5de4aa7594111b8c4edc985292e1dee418",
+  "adhesion_onoff_first_before_sha256": "7b9453f4b6c2ef939d3959400b0ef356025da295b5402bab5e3ec0312f166c52",
+  "adhesion_onoff_first_after_sha256": "7b9453f4b6c2ef939d3959400b0ef356025da295b5402bab5e3ec0312f166c52"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.00\seed_012
+=== condition=pink1 burden=0.0 seed=13 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:16:07.915767+00:00",
+  "condition": "healthy",
+  "seed": 13,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 1.0183180168786852,
+  "duration_wall_s": 124.51650200004224,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_013/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_013/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_013/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_013/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_013/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_013\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.0,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "cb4f2c5fa8d39b64ba121be231b342280cf6ddbc3359d94d3d6c9de11e3d6dea",
+  "joint_angles_after_sha256": "35c42dbd975a55989eea6b7af439b8bb874e617a605d84c02120e99fd9ccb690",
+  "joint_angles_first_before_sha256": "cb4f2c5fa8d39b64ba121be231b342280cf6ddbc3359d94d3d6c9de11e3d6dea",
+  "joint_angles_first_after_sha256": "cb4f2c5fa8d39b64ba121be231b342280cf6ddbc3359d94d3d6c9de11e3d6dea",
+  "adhesion_onoff_first_before_sha256": "720f38c53dc2c0bd04f77ab4f1e2876b59a4c2db97c8fb75758818b6d73919b5",
+  "adhesion_onoff_first_after_sha256": "720f38c53dc2c0bd04f77ab4f1e2876b59a4c2db97c8fb75758818b6d73919b5"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.00\seed_013
+=== condition=pink1 burden=0.0 seed=14 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:18:22.132662+00:00",
+  "condition": "healthy",
+  "seed": 14,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 0.9146653606711351,
+  "duration_wall_s": 118.51749240001664,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_014/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_014/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_014/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_014/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_014/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_014\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.0,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "ddd3e4c76d8e06f158ec9decd9666fcb8e11e118176c3160f30d0245f68adbea",
+  "joint_angles_after_sha256": "9a8d69bda089e895b4b36c6d20e260cc7f2d783a139c048d355355d363b2922d",
+  "joint_angles_first_before_sha256": "ddd3e4c76d8e06f158ec9decd9666fcb8e11e118176c3160f30d0245f68adbea",
+  "joint_angles_first_after_sha256": "ddd3e4c76d8e06f158ec9decd9666fcb8e11e118176c3160f30d0245f68adbea",
+  "adhesion_onoff_first_before_sha256": "529917abd38b8f5ebabdbee9a65f0436c79a46b1ca6bdeaf5c94aa34fd36cf20",
+  "adhesion_onoff_first_after_sha256": "529917abd38b8f5ebabdbee9a65f0436c79a46b1ca6bdeaf5c94aa34fd36cf20"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.00\seed_014
+=== condition=pink1 burden=0.0 seed=15 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:20:34.990446+00:00",
+  "condition": "healthy",
+  "seed": 15,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 0.9969226937995312,
+  "duration_wall_s": 117.12135830003535,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_015/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_015/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_015/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_015/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_015/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_015\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.0,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "ecc7623f96b3b3f8493de88984b57dd9f639dddd98e0b0649a9cf28b3130d079",
+  "joint_angles_after_sha256": "8bd7caff90e5d85ae9f74060ddc38ef3b5594c81a5d83ace448e43dc0bb0ebf1",
+  "joint_angles_first_before_sha256": "ecc7623f96b3b3f8493de88984b57dd9f639dddd98e0b0649a9cf28b3130d079",
+  "joint_angles_first_after_sha256": "ecc7623f96b3b3f8493de88984b57dd9f639dddd98e0b0649a9cf28b3130d079",
+  "adhesion_onoff_first_before_sha256": "11635df4532364e5fa01ac9540563d9a833f881994f4d2f3ae2a2e9c87680163",
+  "adhesion_onoff_first_after_sha256": "11635df4532364e5fa01ac9540563d9a833f881994f4d2f3ae2a2e9c87680163"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.00\seed_015
+=== condition=pink1 burden=0.0 seed=16 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:22:47.548425+00:00",
+  "condition": "healthy",
+  "seed": 16,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 1.0867976375484094,
+  "duration_wall_s": 117.96690470003523,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_016/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_016/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_016/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_016/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_016/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_016\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.0,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "645f86fe9e6c417b061a4ee3470e6a7f1dad1480df6c1d07138c5a0c70c622af",
+  "joint_angles_after_sha256": "a7229bd66019f5ea207288c2016ef2985dccee0ebbedf679c8b73a525ce89f2d",
+  "joint_angles_first_before_sha256": "645f86fe9e6c417b061a4ee3470e6a7f1dad1480df6c1d07138c5a0c70c622af",
+  "joint_angles_first_after_sha256": "645f86fe9e6c417b061a4ee3470e6a7f1dad1480df6c1d07138c5a0c70c622af",
+  "adhesion_onoff_first_before_sha256": "8a1c237eeddbb37833e111ce6a13a83aa02d51a2296c5c26e7c71127702b0b83",
+  "adhesion_onoff_first_after_sha256": "8a1c237eeddbb37833e111ce6a13a83aa02d51a2296c5c26e7c71127702b0b83"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.00\seed_016
+=== condition=pink1 burden=0.0 seed=17 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:24:55.506636+00:00",
+  "condition": "healthy",
+  "seed": 17,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 1.0427996264058994,
+  "duration_wall_s": 114.45700100000249,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_017/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_017/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_017/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_017/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.00/seed_017/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.00\\seed_017\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.0,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "5ce2d1aace8b1dc8c22d25d76ea7f0d9b548b88658704b65d26757556b80511d",
+  "joint_angles_after_sha256": "d06fdb34ae6d574c5b7380e59373f8b5000d5e0b7487549cd9ee8a9eeca0bcba",
+  "joint_angles_first_before_sha256": "5ce2d1aace8b1dc8c22d25d76ea7f0d9b548b88658704b65d26757556b80511d",
+  "joint_angles_first_after_sha256": "5ce2d1aace8b1dc8c22d25d76ea7f0d9b548b88658704b65d26757556b80511d",
+  "adhesion_onoff_first_before_sha256": "961c1469042f2131b2369abc38437141c272d6f134805bb8d0fe0a4689dfe4cb",
+  "adhesion_onoff_first_after_sha256": "961c1469042f2131b2369abc38437141c272d6f134805bb8d0fe0a4689dfe4cb"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.00\seed_017
+=== condition=pink1 burden=0.5 seed=12 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:27:02.978875+00:00",
+  "condition": "healthy",
+  "seed": 12,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 0.6286731469605792,
+  "duration_wall_s": 113.42083229997661,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_012/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_012/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_012/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_012/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_012/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_012\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.5,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "63e72f319348f4273cbf75c8d5cfbf5de4aa7594111b8c4edc985292e1dee418",
+  "joint_angles_after_sha256": "37f2fa2035912776d9a0cbd26e2f5df8457d9e6afb1932934783af1e838ae4d0",
+  "joint_angles_first_before_sha256": "63e72f319348f4273cbf75c8d5cfbf5de4aa7594111b8c4edc985292e1dee418",
+  "joint_angles_first_after_sha256": "c0c7f308fe62da4238ce5265f7b3c1df41d4fe59935568d8fb28a1d1077e59a7",
+  "adhesion_onoff_first_before_sha256": "7b9453f4b6c2ef939d3959400b0ef356025da295b5402bab5e3ec0312f166c52",
+  "adhesion_onoff_first_after_sha256": "7b9453f4b6c2ef939d3959400b0ef356025da295b5402bab5e3ec0312f166c52"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.50\seed_012
+=== condition=pink1 burden=0.5 seed=13 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:29:09.513342+00:00",
+  "condition": "healthy",
+  "seed": 13,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 0.6608615845192906,
+  "duration_wall_s": 111.72567939996952,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_013/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_013/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_013/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_013/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_013/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_013\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.5,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "cb4f2c5fa8d39b64ba121be231b342280cf6ddbc3359d94d3d6c9de11e3d6dea",
+  "joint_angles_after_sha256": "58e3a30fb0f5e38ebf2db18a7cd9fcb63b0c79b753cf4f9d35ea67cb73b45b0d",
+  "joint_angles_first_before_sha256": "cb4f2c5fa8d39b64ba121be231b342280cf6ddbc3359d94d3d6c9de11e3d6dea",
+  "joint_angles_first_after_sha256": "bb2c0c14a514906c3ec3995cc0effe1cec799344070a48f73ae7d78bd3f05fa2",
+  "adhesion_onoff_first_before_sha256": "720f38c53dc2c0bd04f77ab4f1e2876b59a4c2db97c8fb75758818b6d73919b5",
+  "adhesion_onoff_first_after_sha256": "720f38c53dc2c0bd04f77ab4f1e2876b59a4c2db97c8fb75758818b6d73919b5"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.50\seed_013
+=== condition=pink1 burden=0.5 seed=14 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:32:04.116057+00:00",
+  "condition": "healthy",
+  "seed": 14,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 0.5979143681601012,
+  "duration_wall_s": 159.9988589999848,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_014/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_014/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_014/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_014/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_014/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_014\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.5,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "ddd3e4c76d8e06f158ec9decd9666fcb8e11e118176c3160f30d0245f68adbea",
+  "joint_angles_after_sha256": "963284c7f0aeb73968bd459698c0bb44a21979bdfe69c460d7b07b25c65417dc",
+  "joint_angles_first_before_sha256": "ddd3e4c76d8e06f158ec9decd9666fcb8e11e118176c3160f30d0245f68adbea",
+  "joint_angles_first_after_sha256": "5c317173be32c93cf9cba7a0e6ab1a9d8610a628cbb9e9bea443a8683b624633",
+  "adhesion_onoff_first_before_sha256": "529917abd38b8f5ebabdbee9a65f0436c79a46b1ca6bdeaf5c94aa34fd36cf20",
+  "adhesion_onoff_first_after_sha256": "529917abd38b8f5ebabdbee9a65f0436c79a46b1ca6bdeaf5c94aa34fd36cf20"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.50\seed_014
+=== condition=pink1 burden=0.5 seed=15 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:34:42.354099+00:00",
+  "condition": "healthy",
+  "seed": 15,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 0.6714778706693025,
+  "duration_wall_s": 135.09403370000655,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_015/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_015/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_015/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_015/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_015/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_015\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.5,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "ecc7623f96b3b3f8493de88984b57dd9f639dddd98e0b0649a9cf28b3130d079",
+  "joint_angles_after_sha256": "61bb3a69995af669a786c81c4426a5391fcd32ea40b6c9747901ace25132cf69",
+  "joint_angles_first_before_sha256": "ecc7623f96b3b3f8493de88984b57dd9f639dddd98e0b0649a9cf28b3130d079",
+  "joint_angles_first_after_sha256": "20f4fb30a776610e64d449c3717b0881aa6a421cde922009f63ee7f94f468127",
+  "adhesion_onoff_first_before_sha256": "11635df4532364e5fa01ac9540563d9a833f881994f4d2f3ae2a2e9c87680163",
+  "adhesion_onoff_first_after_sha256": "11635df4532364e5fa01ac9540563d9a833f881994f4d2f3ae2a2e9c87680163"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.50\seed_015
+=== condition=pink1 burden=0.5 seed=16 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:37:39.776035+00:00",
+  "condition": "healthy",
+  "seed": 16,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 0.6427787445436485,
+  "duration_wall_s": 158.38948650000384,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_016/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_016/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_016/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_016/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_016/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_016\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.5,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "645f86fe9e6c417b061a4ee3470e6a7f1dad1480df6c1d07138c5a0c70c622af",
+  "joint_angles_after_sha256": "8144744d5e6f0c511b78909fda619f043f2b660f2498a5d892b5adc37b135942",
+  "joint_angles_first_before_sha256": "645f86fe9e6c417b061a4ee3470e6a7f1dad1480df6c1d07138c5a0c70c622af",
+  "joint_angles_first_after_sha256": "b198369ac3b69f55276c0c0a1f0c14162dc903a1defacb5d5b56a7bb72ed1c6a",
+  "adhesion_onoff_first_before_sha256": "8a1c237eeddbb37833e111ce6a13a83aa02d51a2296c5c26e7c71127702b0b83",
+  "adhesion_onoff_first_after_sha256": "8a1c237eeddbb37833e111ce6a13a83aa02d51a2296c5c26e7c71127702b0b83"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.50\seed_016
+=== condition=pink1 burden=0.5 seed=17 return_code=0 ===
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\drosophila-pd-neural-disease\external\fly-brain\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 5000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 1000/5000
+Progress: 2000/5000
+Progress: 3000/5000
+Progress: 4000/5000
+Progress: 5000/5000
+{
+  "created_at": "2026-09-02T12:39:58.955106+00:00",
+  "condition": "healthy",
+  "seed": 17,
+  "steps": 5000,
+  "frame_count": 5001,
+  "brain_device": "cuda",
+  "cpg_frequency_hz": 12.0,
+  "brain_neuron_count": 138639,
+  "brain_synapse_count": 15091983,
+  "thorax_displacement_xy_mm": 0.5648003014984154,
+  "duration_wall_s": 121.37727689999156,
+  "rollout_files": {
+    "rollout_json": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_017/rollout.json",
+    "rollout_csv": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_017/rollout.csv",
+    "rollout_npz": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_017/rollout.npz",
+    "metadata": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_017/metadata.json",
+    "manifest": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/gate14b-ynwp_116/pink1/burden_0.50/seed_017/manifest.json"
+  },
+  "analysis_files": {
+    "metrics_json": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\metrics\\metrics.json",
+    "metrics_csv": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\metrics\\metrics.csv",
+    "figure_speed": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\figures\\speed.png",
+    "figure_trajectory": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\figures\\trajectory.png",
+    "figure_orientation": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\figures\\orientation.png",
+    "figure_joint_velocity": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\figures\\joint_velocity.png",
+    "figure_joint_acceleration": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\figures\\joint_acceleration.png",
+    "figure_contact_ratio": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\figures\\contact_ratio.png",
+    "figure_comparison": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\figures\\comparison.png",
+    "summary": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\report\\summary.md",
+    "dashboard": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\report\\dashboard.html"
+  },
+  "biomarker_count": 11,
+  "viewer_pose": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\viewer_pose.json",
+  "viewer_bundle": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\temporary\\gate14b-ynwp_116\\pink1\\burden_0.50\\seed_017\\viewer_bundle.zip",
+  "scientific_scope": "Real brain-body computational locomotion rollout. The condition is not biological Parkinson validation or clinical evidence.",
+  "proxy_burden_operator_enabled": true,
+  "operator_applied": true,
+  "burden_level": 0.5,
+  "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
+  "joint_angles_before_sha256": "5ce2d1aace8b1dc8c22d25d76ea7f0d9b548b88658704b65d26757556b80511d",
+  "joint_angles_after_sha256": "513054c22fa970063e760a4137ef469c7a84001e8bfc35ce3c59a026a7572873",
+  "joint_angles_first_before_sha256": "5ce2d1aace8b1dc8c22d25d76ea7f0d9b548b88658704b65d26757556b80511d",
+  "joint_angles_first_after_sha256": "4ef7fa6235c23cdfc071dc23e554cff874d2e21376fbf4a12b21b251528f96d8",
+  "adhesion_onoff_first_before_sha256": "961c1469042f2131b2369abc38437141c272d6f134805bb8d0fe0a4689dfe4cb",
+  "adhesion_onoff_first_after_sha256": "961c1469042f2131b2369abc38437141c272d6f134805bb8d0fe0a4689dfe4cb"
+}
+READY: E:\Drosophila_Parkinson\drosophila-pd-neural-disease\temporary\gate14b-ynwp_116\pink1\burden_0.50\seed_017

@@ -1,0 +1,41 @@
+{
+  "schema_version": "gate-14b-pozo-holdout-result-summary-v1",
+  "execution_status": "POZO_HOLDOUT_RUNTIME_PASS",
+  "scientific_status": "POZO_RATIO_HOLDOUT_CONCORDANCE_REPORTED",
+  "condition_id": "pink1",
+  "proxy_scope": "organism_level_proxy",
+  "gene_specific_mapping": false,
+  "biological_validation_claim": false,
+  "locked_parameter": {
+    "proxy_burden_level": 0.5
+  },
+  "planned_runs": 12,
+  "successful_runs": 12,
+  "failed_runs": 0,
+  "blocked_runs": 0,
+  "control_burden_level": 0.0,
+  "holdout_burden_level": 0.5,
+  "mean_distance_control": 1.6667898069518203,
+  "mean_distance_holdout": 1.5784617643392644,
+  "simulated_distance_ratio": 0.9470070897697126,
+  "pozo_target_ratio": 0.19203837612811836,
+  "ratio_error": 0.7549687136415942,
+  "directionality_pass": true,
+  "absolute_distance_reference_only": {
+    "pozo_disease_value_mm": 62.091,
+    "simulated_holdout_distance_mm": 1.5784617643392644,
+    "absolute_distance_error_reference_only": 60.512538235660735
+  },
+  "no_parameter_reselection": true,
+  "no_pozo_tuning": true,
+  "no_calibration_run": true,
+  "no_distance_to_speed_conversion": true,
+  "no_spread_to_se_conversion": true,
+  "no_biological_validation_claim": true,
+  "simulation_data_fabricated": false,
+  "notes": [
+    "Pozo is used only as holdout.",
+    "Absolute distance is reference-only because simulation runtime and assay scale are not directly identical.",
+    "Scientific interpretation must use the locked protocol and cannot add a post-hoc ratio tolerance."
+  ]
+}
