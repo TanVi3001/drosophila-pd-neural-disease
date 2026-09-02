@@ -1,0 +1,35 @@
+schema_version: gate-13b-calibrated-alpha-synuclein-proxy-v1
+status: CHEN_RATIO_CALIBRATED
+
+condition_id: alpha_synuclein
+scope: organism_level_proxy
+gene_specific_mapping: false
+biological_validation_claim: false
+
+calibration_source:
+  paper: Chen 2014
+  allocation: calibration
+  metric: mean_planar_speed_ratio_to_control
+  disease_value_mm_s: 4.875
+  control_value_mm_s: 7.275
+  ratio_target: 0.6701030927835051
+  uncertainty_type: CI95
+  uncertainty_mm_s: 0.525
+  ci95_converted_to_se: false
+
+selected_parameter:
+  parameter_name: proxy_burden_level
+  selected_value: 0.5
+  selection_method: discrete_grid_min_absolute_ratio_error
+  source_data: experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_summary.csv
+
+operator:
+  source_config: experiments/gate_12e_proxy_operator/configs/proxy_burden_action_operator.yaml
+  applies_to: joint_angles
+  modifies_adhesion_onoff: false
+
+forbidden_downstream:
+  tune_on_pozo: true
+  tune_on_holdout: true
+  claim_biological_validation: true
+  claim_gene_specific_mapping: true

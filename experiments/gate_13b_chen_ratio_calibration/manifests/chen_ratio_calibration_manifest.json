@@ -1,0 +1,57 @@
+{
+  "schema_version": "gate-13b-chen-ratio-calibration-manifest-v1",
+  "status": "CHEN_RATIO_CALIBRATION_PASS",
+  "created_at": "2026-09-02T10:20:43.997613+00:00",
+  "git_commit": "dcf356485865460843c648c0a021fedb446545f7",
+  "python_version": "3.12.10",
+  "source_files": [
+    "experiments/gate_13a_chen_objective/configs/chen_only_calibration_objective.yaml",
+    "experiments/gate_13a_chen_objective/results/chen_calibration_candidates.csv",
+    "experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_summary.csv",
+    "experiments/gate_12e_proxy_operator/configs/proxy_burden_action_operator.yaml"
+  ],
+  "source_file_records": [
+    {
+      "path": "experiments/gate_13a_chen_objective/configs/chen_only_calibration_objective.yaml",
+      "present": true,
+      "sha256": "ab1c98cebe111c2b50ec653a4aa4a7837dfce3e6a22a0dd91274220f88c174ee"
+    },
+    {
+      "path": "experiments/gate_13a_chen_objective/results/chen_calibration_candidates.csv",
+      "present": true,
+      "sha256": "9c8672b8135ed156a890526bd58ddd19c590b160eec375a791a656972c4f3a4d"
+    },
+    {
+      "path": "experiments/gate_12g_integrated_proxy_rollouts/results/integrated_proxy_disease_summary.csv",
+      "present": true,
+      "sha256": "a560a5e569250fce6691cfb043ed8c9ed85e19dba653ab4c994218bd8668fd30"
+    },
+    {
+      "path": "experiments/gate_12e_proxy_operator/configs/proxy_burden_action_operator.yaml",
+      "present": true,
+      "sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5"
+    }
+  ],
+  "config_sha256": "4ff39b30d6cf9d5fa2afcac5ea855bb1b08113ce76f81737ffbb9673c03d98f3",
+  "results_csv_sha256": "e5db1cf6d2fae47c626f10429664b32cbeadaab91f655e020067b89e6667722e",
+  "summary_json_sha256": "46e901c688d02ff7744648d40df2d1a49e12892c0d2cc9490f8fc121e0933425",
+  "calibrated_config_sha256": "6a1a4b101851580b05d0a227da3cb491fd56e02210faa26a3b70eb4d7c26e413",
+  "chen_target": {
+    "ratio_target": 0.6701030927835051,
+    "disease_value_mm_s": 4.875,
+    "control_value_mm_s": 7.275,
+    "uncertainty_type": "CI95",
+    "uncertainty_mm_s": 0.525
+  },
+  "selected_parameter": {
+    "proxy_burden_level": 0.5,
+    "ratio_error": 0.08448190668140187
+  },
+  "no_pozo_used": true,
+  "no_pink1_calibration": true,
+  "no_holdout_validation_run": true,
+  "no_new_simulation_run": true,
+  "no_gene_specific_mapping": true,
+  "no_biological_validation_claim": true,
+  "large_artifacts_committed": false
+}
