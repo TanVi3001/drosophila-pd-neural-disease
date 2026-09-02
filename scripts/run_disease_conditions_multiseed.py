@@ -45,6 +45,14 @@ def _is_proxy_plan(plan: Mapping[str, Any]) -> bool:
     return str(plan.get("schema_version", "")).startswith(
         "gate-12c-proxy-ready-rollout-plan-"
     )
+
+
+def _is_proxy_run_config(plan: Mapping[str, Any]) -> bool:
+    """Return whether a config requests the Gate 12D proxy matrix."""
+
+    return str(plan.get("schema_version", "")).startswith(
+        "gate-12d-proxy-rollout-run-config-"
+    )
 CSV_FIELDS = (
     "condition_id",
     "seed",
@@ -65,6 +73,50 @@ CSV_FIELDS = (
     "quaternion_valid",
     "joint_action_trajectory_valid",
     "metric_contract_status",
+)
+
+PROXY_CSV_FIELDS = (
+    "condition_id",
+    "scope",
+    "gene_specific_mapping",
+    "burden_level",
+    "burden_label",
+    "seed",
+    "run_status",
+    "skip_reason",
+    "step_count",
+    "timestep_s",
+    "duration_s",
+    *CANONICAL_METRICS,
+    "walking_speed_mm_s_raw",
+    "total_distance_mm_raw",
+    "thorax_displacement_mm_raw",
+    "no_nan",
+    "no_inf",
+    "locomotion_detected",
+    "contact_detected",
+    "timestamp_valid",
+    "quaternion_valid",
+    "joint_action_trajectory_valid",
+    "metric_contract_status",
+)
+
+PROXY_SUMMARY_FIELDS = (
+    "condition_id",
+    "scope",
+    "burden_level",
+    "burden_label",
+    "planned_seed_count",
+    "n_success",
+    "mean_planar_speed_mm_s_mean",
+    "mean_planar_speed_mm_s_std",
+    "distance_traveled_mm_mean",
+    "distance_traveled_mm_std",
+    "displacement_mm_mean",
+    "displacement_mm_std",
+    "qc_pass_count",
+    "failed_count",
+    "status",
 )
 
 
@@ -561,9 +613,382 @@ def _write_report(
     _write_text(path, "\n".join(lines) + "\n")
 
 
+def _proxy_burden_label(document: Mapping[str, Any], level: float) -> str:
+    burden = document.get("burden")
+    curve = burden.get("burden_curve") if isinstance(burden, Mapping) else None
+    if isinstance(curve, list):
+        for point in curve:
+            if isinstance(point, Mapping):
+                try:
+                    if math.isclose(float(point.get("level")), float(level), rel_tol=0.0, abs_tol=1e-12):
+                        return str(point.get("label", "")).strip() or f"level_{level:g}"
+                except (TypeError, ValueError):
+                    continue
+    return f"level_{level:g}"
+
+
+def _proxy_blank_row(
+    *,
+    condition_id: str,
+    scope: str,
+    burden_level: float,
+    burden_label: str,
+    seed: int,
+    steps: int,
+    timestep_s: float,
+    status: str,
+    reason: str,
+) -> dict[str, Any]:
+    row = {field: "" for field in PROXY_CSV_FIELDS}
+    row.update(
+        {
+            "condition_id": condition_id,
+            "scope": scope,
+            "gene_specific_mapping": False,
+            "burden_level": burden_level,
+            "burden_label": burden_label,
+            "seed": seed,
+            "run_status": status,
+            "skip_reason": reason,
+            "step_count": steps,
+            "timestep_s": timestep_s,
+            "duration_s": steps * timestep_s,
+        }
+    )
+    return row
+
+
+def _sample_mean_std(rows: Sequence[Mapping[str, Any]], metric: str) -> tuple[float | None, float | None]:
+    values = [
+        float(row[metric])
+        for row in rows
+        if row.get("run_status") == "PASS" and isinstance(row.get(metric), (int, float))
+    ]
+    if not values:
+        return None, None
+    mean = sum(values) / len(values)
+    variance = sum((value - mean) ** 2 for value in values) / (len(values) - 1) if len(values) > 1 else 0.0
+    return mean, math.sqrt(variance)
+
+
+def _write_proxy_report(
+    path: Path,
+    *,
+    status: str,
+    runtime_reasons: Sequence[str],
+    operator_reason: str,
+    summaries: Sequence[Mapping[str, Any]],
+) -> None:
+    lines = [
+        "# Gate 12D — Actual Proxy Disease Multi-Seed Rollouts",
+        "",
+        f"**Trạng thái:** `{status}`",
+        "",
+        "## Input status",
+        "",
+        "- Gate 12C đã mở khóa `alpha_synuclein` và `pink1` ở scope `organism_level_proxy`.",
+        "- Gate 11 healthy baseline pass.",
+        "- Metric contract pass.",
+        "- Audit `READY_FOR_CALIBRATION`.",
+        "",
+        "## Scope",
+        "",
+        "Gate 12D chỉ dành cho computational proxy rollout. Không calibration, không holdout validation, không dùng Chen/Pozo để tune, không gene-specific mapping và không biological validation.",
+        "",
+        "## Runtime",
+        "",
+        "- Seeds: `0–5`.",
+        "- Step count: `5000`.",
+        "- Timestep: `0.0001 s`.",
+        "- Duration: khoảng `0.5 s`.",
+        "- Physics được khai báo giữ nguyên theo Gate 11.",
+    ]
+    if runtime_reasons:
+        lines.extend(["", "## Runtime blocker", "", "- `" + "; ".join(runtime_reasons) + "`"])
+    if operator_reason:
+        lines.extend(["", "## Proxy execution blocker", "", f"- `{operator_reason}`"])
+    lines.extend(
+        [
+            "",
+            "## Conditions",
+            "",
+            "| Condition | Scope | Planned runs | Successful | Failed | Blocked | Status |",
+            "| --- | --- | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    for condition_id in ("alpha_synuclein", "pink1"):
+        matching = [item for item in summaries if item.get("condition_id") == condition_id]
+        planned = sum(int(item.get("planned_seed_count", 0)) for item in matching)
+        successful = sum(int(item.get("n_success", 0)) for item in matching)
+        failed = sum(int(item.get("failed_count", 0)) for item in matching)
+        blocked = planned - successful - failed
+        condition_status = "PASS" if successful == planned else "BLOCKED" if successful == 0 else "PARTIAL"
+        lines.append(
+            f"| `{condition_id}` | `organism_level_proxy` | {planned} | {successful} | {failed} | {blocked} | `{condition_status}` |"
+        )
+    lines.extend(["", "## Metric summary", ""])
+    if not any(int(item.get("n_success", 0)) > 0 for item in summaries):
+        lines.append("Chưa có metric disease thật: tất cả proxy run bị chặn trước simulation. Không tạo metric giả.")
+    else:
+        lines.extend(
+            [
+                "| Condition | Burden | Mean planar speed (mm/s) | Distance (mm) | Displacement (mm) | QC pass |",
+                "| --- | ---: | ---: | ---: | ---: | ---: |",
+            ]
+        )
+        for item in summaries:
+            def fmt(metric: str) -> str:
+                mean = item.get(f"{metric}_mean")
+                std = item.get(f"{metric}_std")
+                return f"{mean:.6g} ± {std:.6g}" if isinstance(mean, float) and isinstance(std, float) else "NOT_REPORTED"
+            lines.append(
+                f"| `{item['condition_id']}` | {item['burden_level']} | {fmt('mean_planar_speed_mm_s')} | {fmt('distance_traveled_mm')} | {fmt('displacement_mm')} | {item.get('qc_pass_count', 0)} |"
+            )
+    lines.extend(
+        [
+            "",
+            "## Healthy comparison",
+            "",
+            "Chưa thực hiện so sánh disease với Healthy vì chưa có proxy rollout PASS.",
+            "",
+            "## Skipped conditions",
+            "",
+            "- `parkin`: `BLOCKED_IN_GATE_12C`.",
+            "- `dj1`: `BLOCKED_IN_GATE_12C`.",
+            "- `lrrk2`: `BLOCKED_IN_GATE_12C`.",
+            "",
+            "## Limitations",
+            "",
+            "- Alpha-synuclein và PINK1 chỉ là organism-level computational proxy, không phải gene-specific mapping.",
+            "- Burden level dimensionless chưa phải calibration value và chưa được dùng để tune theo Chen/Pozo.",
+            "- Runtime hiện chưa chứng minh action-level operator kết nối burden proxy vào brain-body runner.",
+            "- Đây không phải biological Parkinson validation, clinical prediction, chẩn đoán hoặc drug validation.",
+            "",
+            "## Final status",
+            "",
+            f"`{status}`.",
+        ]
+    )
+    _write_text(path, "\n".join(lines) + "\n")
+
+
+def _run_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, Any]) -> int:
+    """Run or conservatively block the Gate 12D proxy matrix."""
+
+    configured_default = ROOT / "experiments/gate_12_disease_rollouts"
+    output_root = _resolve(args.output)
+    if output_root == configured_default.resolve():
+        output_root = ROOT / "experiments/gate_12d_proxy_rollouts"
+    results_dir = output_root / "results"
+    manifests_dir = output_root / "manifests"
+    logs_dir = output_root / "logs"
+    for directory in (results_dir, manifests_dir, logs_dir):
+        directory.mkdir(parents=True, exist_ok=True)
+    _write_text(logs_dir / "run.log", "# Gate 12D proxy disease rollout log\n")
+
+    runtime = plan.get("runtime")
+    runtime = runtime if isinstance(runtime, Mapping) else {}
+    steps = int(runtime.get("step_count", 0))
+    timestep_s = float(runtime.get("timestep_s", 0.0))
+    seeds = plan.get("seeds")
+    seeds = seeds if isinstance(seeds, Mapping) else {}
+    seed_values = [int(seed) for seed in seeds.get("values", [])]
+    conditions = plan.get("conditions_to_run")
+    conditions = conditions if isinstance(conditions, list) else []
+    skipped_conditions = plan.get("conditions_to_skip")
+    skipped_conditions = skipped_conditions if isinstance(skipped_conditions, list) else []
+
+    healthy_source = plan.get("source_configs", {})
+    healthy_source = healthy_source if isinstance(healthy_source, Mapping) else {}
+    healthy_manifest_path = _resolve(str(healthy_source.get("healthy_baseline_manifest", "")))
+    healthy_manifest: dict[str, Any] = {}
+    validation_reasons: list[str] = []
+    if not healthy_manifest_path.is_file():
+        validation_reasons.append(f"healthy_manifest_missing:{_relative(healthy_manifest_path)}")
+    else:
+        try:
+            healthy_manifest = json.loads(healthy_manifest_path.read_text(encoding="utf-8"))
+            if healthy_manifest.get("status") != "PASS":
+                validation_reasons.append("healthy_manifest_not_pass")
+        except (OSError, json.JSONDecodeError):
+            validation_reasons.append("healthy_manifest_invalid")
+
+    brain_root = _resolve(args.brain_root)
+    platform_root = _resolve(args.platform_root)
+    brain_python = _resolve(args.brain_python) if args.brain_python else platform_root / ".venv/Scripts/python.exe"
+    device = str(plan.get("device", "cuda"))
+    runtime_ok, runtime_reasons, cuda_available = _runtime_probe(
+        brain_root=brain_root,
+        platform_root=platform_root,
+        brain_python=brain_python,
+        device=device,
+    )
+    runtime_reasons = list(validation_reasons) + list(runtime_reasons)
+
+    rows: list[dict[str, Any]] = []
+    summary_rows: list[dict[str, Any]] = []
+    operator_reason = ""
+    for condition in conditions:
+        condition_id = str(condition.get("condition_id", "")).strip()
+        scope = str(condition.get("scope", "")).strip()
+        condition_path = _resolve(str(condition.get("config", "")))
+        blockers, document = _config_blockers(
+            condition_id=condition_id,
+            config_path=condition_path,
+            mapping_scope=scope,
+            proxy_mode=True,
+        )
+        levels = condition.get("burden_levels")
+        levels = levels if isinstance(levels, list) else []
+        condition_reasons = list(runtime_reasons) + list(blockers)
+        if not condition_reasons and not operator_reason:
+            operator_reason = (
+                "proxy_burden_to_action_operator_not_connected_to_current_brain_body_runner"
+            )
+        if operator_reason and not condition_reasons:
+            condition_reasons.append(operator_reason)
+        if not levels:
+            condition_reasons.append("burden_levels_missing")
+        for raw_level in levels:
+            level = float(raw_level)
+            label = _proxy_burden_label(document, level)
+            run_rows: list[dict[str, Any]] = []
+            for seed in seed_values:
+                row = _proxy_blank_row(
+                    condition_id=condition_id,
+                    scope=scope,
+                    burden_level=level,
+                    burden_label=label,
+                    seed=seed,
+                    steps=steps,
+                    timestep_s=timestep_s,
+                    status="BLOCKED" if condition_reasons else "FAILED",
+                    reason="; ".join(condition_reasons) or "proxy_execution_not_available",
+                )
+                run_rows.append(row)
+            rows.extend(run_rows)
+            summary: dict[str, Any] = {
+                "condition_id": condition_id,
+                "scope": scope,
+                "burden_level": level,
+                "burden_label": label,
+                "planned_seed_count": len(seed_values),
+                "n_success": 0,
+                "qc_pass_count": 0,
+                "failed_count": sum(row["run_status"] == "FAILED" for row in run_rows),
+                "status": "BLOCKED" if condition_reasons else "FAILED",
+            }
+            for metric in CANONICAL_METRICS:
+                mean, std = _sample_mean_std(run_rows, metric)
+                summary[f"{metric}_mean"] = mean if mean is not None else ""
+                summary[f"{metric}_std"] = std if std is not None else ""
+            summary_rows.append(summary)
+
+    total_planned = len(rows)
+    successful = sum(row["run_status"] == "PASS" for row in rows)
+    failed = sum(row["run_status"] == "FAILED" for row in rows)
+    blocked = sum(row["run_status"] == "BLOCKED" for row in rows)
+    status = "PROXY_ROLLOUTS_PASS" if successful == total_planned and total_planned else (
+        "PROXY_ROLLOUTS_PARTIAL" if successful else "PROXY_ROLLOUTS_BLOCKED"
+    )
+
+    metrics_csv = results_dir / "proxy_disease_metrics.csv"
+    with metrics_csv.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=PROXY_CSV_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(rows)
+
+    summary_csv = results_dir / "proxy_disease_summary.csv"
+    with summary_csv.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=PROXY_SUMMARY_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(summary_rows)
+
+    metrics_payload = {
+        "schema_version": "gate-12d-proxy-disease-metrics-v1",
+        "created_at_utc": datetime.now(UTC).isoformat(),
+        "status": status,
+        "simulation_data_fabricated": False,
+        "rows": rows,
+        "planned_runs": total_planned,
+        "successful_runs": successful,
+        "failed_runs": failed,
+        "blocked_runs": blocked,
+        "no_calibration_run": True,
+        "no_holdout_validation_run": True,
+        "no_gene_specific_mapping": True,
+        "metric_contract": list(CANONICAL_METRICS),
+    }
+    metrics_json = results_dir / "proxy_disease_metrics.json"
+    _write_text(metrics_json, json.dumps(metrics_payload, indent=2, ensure_ascii=False) + "\n")
+
+    proxy_plan_path = _resolve(str(healthy_source.get("proxy_ready_plan", "")))
+    manifest = {
+        "schema_version": "gate-12d-proxy-disease-rollout-manifest-v1",
+        "status": status,
+        "created_at": datetime.now(UTC).isoformat(),
+        "git_commit": _git_commit(),
+        "python_version": platform.python_version(),
+        "cuda_available": cuda_available,
+        "config_sha256": _sha256(_resolve(args.config)),
+        "metrics_csv_sha256": _sha256(metrics_csv),
+        "metrics_json_sha256": _sha256(metrics_json),
+        "summary_csv_sha256": _sha256(summary_csv),
+        "source_healthy_baseline_manifest": _relative(healthy_manifest_path),
+        "source_proxy_ready_plan": _relative(proxy_plan_path),
+        "conditions_run": [str(item.get("condition_id", "")) for item in conditions],
+        "conditions_skipped": [str(item.get("condition_id", "")) for item in skipped_conditions],
+        "planned_runs": {
+            "total": total_planned,
+            "alpha_synuclein": sum(len(condition.get("burden_levels", [])) for condition in conditions if condition.get("condition_id") == "alpha_synuclein") * len(seed_values),
+            "pink1": sum(len(condition.get("burden_levels", [])) for condition in conditions if condition.get("condition_id") == "pink1") * len(seed_values),
+        },
+        "successful_runs": {"total": successful},
+        "failed_runs": {"total": failed},
+        "blocked_runs": {"total": blocked},
+        "no_calibration_run": True,
+        "no_holdout_validation_run": True,
+        "no_gene_specific_mapping": True,
+        "large_artifacts_committed": False,
+        "simulation_run": successful > 0,
+        "scientific_boundary": "computational proxy rollout only; not biological validation",
+    }
+    manifest_path = manifests_dir / "proxy_disease_rollout_manifest.json"
+    _write_text(manifest_path, json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+    _write_text(
+        logs_dir / "run.log",
+        "\n".join(
+            [
+                "# Gate 12D proxy disease rollout log",
+                f"status={status}",
+                f"planned_runs={total_planned}",
+                f"successful_runs={successful}",
+                f"failed_runs={failed}",
+                f"blocked_runs={blocked}",
+                f"runtime_reasons={' ; '.join(runtime_reasons)}",
+                f"operator_reason={operator_reason}",
+                "simulation_data_fabricated=False",
+                "no_calibration_run=True",
+                "no_holdout_validation_run=True",
+                "",
+            ]
+        ),
+    )
+    _write_proxy_report(
+        ROOT / "docs/disease_rollouts/gate_12d_proxy_disease_rollout_report.md",
+        status=status.replace("PROXY_ROLLOUTS", "PROXY_DISEASE_ROLLOUTS"),
+        runtime_reasons=runtime_reasons,
+        operator_reason=operator_reason,
+        summaries=summary_rows,
+    )
+    return 0
+
+
 def run_campaign(args: argparse.Namespace) -> int:
     plan_path = _resolve(args.config)
     plan = _load_yaml(plan_path)
+    if _is_proxy_run_config(plan):
+        return _run_proxy_campaign(args, plan)
     proxy_plan = _is_proxy_plan(plan)
     healthy_manifest_path = _resolve(args.healthy_manifest)
     healthy_manifest = json.loads(healthy_manifest_path.read_text(encoding="utf-8"))

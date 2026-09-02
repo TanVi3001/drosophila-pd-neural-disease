@@ -1,0 +1,43 @@
+{
+  "schema_version": "gate-12d-proxy-disease-rollout-manifest-v1",
+  "status": "PROXY_ROLLOUTS_BLOCKED",
+  "created_at": "2026-09-02T05:15:09.684473+00:00",
+  "git_commit": "fab5b54d6358cd54207a10d5d962296c30efe1b0",
+  "python_version": "3.12.10",
+  "cuda_available": true,
+  "config_sha256": "e97be51401d1f96cf13540eb447924b4023c24b0a30305c7d8ec953baef6fac8",
+  "metrics_csv_sha256": "9805742ebf15e04974e0dc9e11f4bd5a00c4d1b9c1fb931206419f004680879a",
+  "metrics_json_sha256": "69c2fe07734ac68c900c8c706efa842f6b6f4e76638883ca0c8d3c9297ef72bb",
+  "summary_csv_sha256": "251efd08b00b6baf3633c89ebd69fc0b2e408f4fe97ed06e4d2f667a3048ebee",
+  "source_healthy_baseline_manifest": "experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json",
+  "source_proxy_ready_plan": "experiments/gate_12c_computational_proxy_configs/configs/disease_rollout_plan_proxy_ready.yaml",
+  "conditions_run": [
+    "alpha_synuclein",
+    "pink1"
+  ],
+  "conditions_skipped": [
+    "parkin",
+    "dj1",
+    "lrrk2"
+  ],
+  "planned_runs": {
+    "total": 60,
+    "alpha_synuclein": 30,
+    "pink1": 30
+  },
+  "successful_runs": {
+    "total": 0
+  },
+  "failed_runs": {
+    "total": 0
+  },
+  "blocked_runs": {
+    "total": 60
+  },
+  "no_calibration_run": true,
+  "no_holdout_validation_run": true,
+  "no_gene_specific_mapping": true,
+  "large_artifacts_committed": false,
+  "simulation_run": false,
+  "scientific_boundary": "computational proxy rollout only; not biological validation"
+}

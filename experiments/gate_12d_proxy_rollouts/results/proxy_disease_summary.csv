@@ -1,0 +1,11 @@
+condition_id,scope,burden_level,burden_label,planned_seed_count,n_success,mean_planar_speed_mm_s_mean,mean_planar_speed_mm_s_std,distance_traveled_mm_mean,distance_traveled_mm_std,displacement_mm_mean,displacement_mm_std,qc_pass_count,failed_count,status
+alpha_synuclein,organism_level_proxy,0.0,no_burden,6,0,,,,,,,0,0,BLOCKED
+alpha_synuclein,organism_level_proxy,0.25,mild_proxy_burden,6,0,,,,,,,0,0,BLOCKED
+alpha_synuclein,organism_level_proxy,0.5,moderate_proxy_burden,6,0,,,,,,,0,0,BLOCKED
+alpha_synuclein,organism_level_proxy,0.75,high_proxy_burden,6,0,,,,,,,0,0,BLOCKED
+alpha_synuclein,organism_level_proxy,1.0,full_proxy_burden,6,0,,,,,,,0,0,BLOCKED
+pink1,organism_level_proxy,0.0,no_burden,6,0,,,,,,,0,0,BLOCKED
+pink1,organism_level_proxy,0.25,mild_proxy_burden,6,0,,,,,,,0,0,BLOCKED
+pink1,organism_level_proxy,0.5,moderate_proxy_burden,6,0,,,,,,,0,0,BLOCKED
+pink1,organism_level_proxy,0.75,high_proxy_burden,6,0,,,,,,,0,0,BLOCKED
+pink1,organism_level_proxy,1.0,full_proxy_burden,6,0,,,,,,,0,0,BLOCKED
