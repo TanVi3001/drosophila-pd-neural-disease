@@ -1,6 +1,6 @@
 {
   "claim_lock_active": true,
-  "created_at": "2026-09-02T13:54:59.253804+00:00",
+  "created_at": "2026-09-02T14:00:28.804862+00:00",
   "generated_files": [
     "docs/release/submission_bundle.md",
     "docs/release/reviewer_quickstart.md",
@@ -8,7 +8,7 @@
     "docs/release/key_artifacts_index.md",
     "docs/release/final_project_claim.md"
   ],
-  "git_commit": "314136afb97095213d73740012c01db8563ee2e6",
+  "git_commit": "a1f0fc909047ae05ce0c5876d7465c949c662745",
   "large_artifacts_committed": false,
   "no_calibration_run": true,
   "no_new_simulation_run": true,

@@ -2,8 +2,7 @@
 
 ## Allowed final claim
 
-Chen-calibrated organism-level computational locomotion proxy with directional
-Pozo holdout concordance and substantial quantitative ratio mismatch.
+Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch.
 
 ## Expanded version
 

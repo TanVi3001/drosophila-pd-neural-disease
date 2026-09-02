@@ -165,8 +165,7 @@ Drosophila Parkinson-like Locomotion Proxy
 
 ## Current evidence level
 
-Chen-calibrated organism-level computational locomotion proxy with directional
-Pozo holdout concordance and substantial quantitative ratio mismatch.
+Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch.
 
 ## Included components
 
@@ -193,8 +192,10 @@ Pozo holdout concordance and substantial quantitative ratio mismatch.
 
 ## Boundary
 
-This is not biological Parkinson validation, gene-specific validation, clinical
-validation, drug validation, or therapeutic validation.
+This is not biological validation, not gene-specific validation, not clinical validation, not drug validation, or therapeutic validation.
+
+Gate 15B does not run new simulation, calibration, or tuning and does not
+modify raw metrics or previous gate manifests.
 """,
         "reviewer_quickstart.md": """# Reviewer Quickstart
 
@@ -258,8 +259,7 @@ not need to rerun GPU by default.
 
 ## Allowed final claim
 
-Chen-calibrated organism-level computational locomotion proxy with directional
-Pozo holdout concordance and substantial quantitative ratio mismatch.
+Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch.
 
 ## Expanded version
 
