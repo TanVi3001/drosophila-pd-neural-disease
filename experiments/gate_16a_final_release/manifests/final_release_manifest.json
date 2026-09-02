@@ -1,0 +1,39 @@
+{
+  "claim_lock_active": true,
+  "created_at": "2026-09-02T14:11:49.325607+00:00",
+  "generated_files": [
+    "docs/release/release_notes_v1.0.0.md",
+    "docs/release/final_release_checklist.md",
+    "experiments/gate_16a_final_release/results/final_release_summary.json"
+  ],
+  "git_commit": "e739db9643eb4b347ccf64704c1013c97c14aba2",
+  "large_artifacts_committed": false,
+  "no_calibration_run": true,
+  "no_new_simulation_run": true,
+  "no_raw_metric_modification": true,
+  "no_tuning_run": true,
+  "python_version": "3.12.10",
+  "release_version": "v1.0.0",
+  "schema_version": "gate-16a-final-release-manifest-v1",
+  "sha256": {
+    "README.md": "fa080ad7f3aa52a5b454812965b75fe1346416f883ca13647bccf5b1ee71c68e",
+    "docs/claims/current_claim_lock.md": "09cf89ae339ff7a1e497ef6c319f8fe10e4c64a9080abe10b938f5d92be39b64",
+    "docs/release/final_project_claim.md": "6da7918ffbeedf3d055a218f90386cd000e5e668df2d9ddf569814de32835cb7",
+    "docs/release/final_release_checklist.md": "9803be484ec6ae42b8dd4963d492f160c7043901e3019f8e139d0ff90fd00e66",
+    "docs/release/key_artifacts_index.md": "2abbb292108a592f43e753aef7c7ae7862781e90f84b01bcac14c1e9e9faea32",
+    "docs/release/release_notes_v1.0.0.md": "48712bf39d0cf56b9a8849fd14cf148025fe1150bee5a2722318adda645552b6",
+    "docs/release/reproducibility_checklist.md": "f2e5d51516db4ca55e20fe043d938eed465762a4d04a345229047e118007930b",
+    "docs/release/reviewer_quickstart.md": "527f7fd9e0fc6c418b946cac8415feb1c271c48b3e9e8c68af145278dfd5a350",
+    "docs/release/submission_bundle.md": "82087ac7cde761c1e120c9886e390c67343eba1e87857d029a903f235dddbf05"
+  },
+  "source_files": [
+    "README.md",
+    "docs/release/submission_bundle.md",
+    "docs/release/reviewer_quickstart.md",
+    "docs/release/reproducibility_checklist.md",
+    "docs/release/key_artifacts_index.md",
+    "docs/release/final_project_claim.md",
+    "docs/claims/current_claim_lock.md"
+  ],
+  "status": "FINAL_RELEASE_READY"
+}
