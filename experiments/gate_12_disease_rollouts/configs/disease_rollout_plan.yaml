@@ -1,0 +1,97 @@
+schema_version: gate-12-disease-rollout-plan-v1
+status: PLAN_AND_RUN_IF_ARTIFACTS_AVAILABLE
+
+base_runtime:
+  source: experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json
+  step_count: 5000
+  timestep_s: 0.0001
+  duration_s: 0.5
+  age_days: 20.0
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+  device: cuda
+  preserve_physics: true
+  preserve_timestep: true
+  preserve_duration: true
+  preserve_seed_policy: true
+
+seeds:
+  values: [0, 1, 2, 3, 4, 5]
+  minimum_n: 6
+
+metric_contract:
+  required:
+    - mean_planar_speed_mm_s
+    - distance_traveled_mm
+    - displacement_mm
+  quality_checks:
+    - no_nan
+    - no_inf
+    - locomotion_detected
+    - contact_detected
+    - timestamp_valid
+    - quaternion_valid
+    - joint_action_trajectory_valid
+
+conditions:
+  - condition_id: alpha_synuclein
+    config_path: configs/conditions/alpha_synuclein.template.yaml
+    priority: 1
+    intended_scope: computational_perturbation
+    run_decision: RUN_IF_RUNTIME_AVAILABLE
+    calibration: false
+    holdout_validation: false
+    notes: "Priority disease condition. Do not claim biological validation."
+
+  - condition_id: pink1
+    config_path: configs/conditions/pink1.template.yaml
+    priority: 2
+    intended_scope: computational_perturbation
+    run_decision: RUN_IF_RUNTIME_AVAILABLE
+    calibration: false
+    holdout_validation: false
+    notes: "Priority disease condition. Do not tune to Pozo."
+
+  - condition_id: parkin
+    config_path: configs/conditions/parkin.template.yaml
+    priority: 3
+    intended_scope: mapping_dependent
+    run_decision: RUN_ONLY_IF_MAPPING_AND_CHECKPOINT_PROVENANCE_AVAILABLE
+    calibration: false
+    holdout_validation: false
+    notes: "Skip if mapping/checkpoint provenance is missing."
+
+  - condition_id: dj1
+    config_path: configs/conditions/dj1.template.yaml
+    priority: 4
+    intended_scope: mapping_dependent
+    run_decision: RUN_ONLY_IF_MAPPING_AND_CHECKPOINT_PROVENANCE_AVAILABLE
+    calibration: false
+    holdout_validation: false
+    notes: "Skip if mapping/checkpoint provenance is missing."
+
+  - condition_id: lrrk2
+    config_path: configs/conditions/lrrk2.template.yaml
+    priority: 5
+    intended_scope: mapping_dependent
+    run_decision: RUN_ONLY_IF_MAPPING_AND_CHECKPOINT_PROVENANCE_AVAILABLE
+    calibration: false
+    holdout_validation: false
+    notes: "Skip if mapping/checkpoint provenance is missing."
+
+forbidden_uses:
+  - no_calibration
+  - no_holdout_validation
+  - no_pozo_tuning
+  - no_chen_tuning
+  - no_distance_to_speed_conversion
+  - no_biological_validation_claim
+
+output_policy:
+  commit_small_metrics: true
+  commit_logs: true
+  commit_manifests: true
+  commit_large_npz: false
+  commit_videos: false
+  commit_viewer_bundle: false
+  commit_checkpoints: false
