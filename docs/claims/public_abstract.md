@@ -25,5 +25,6 @@ chưa phải biological, gene-specific, clinical hoặc therapeutic validation.
 
 ## Scientific boundary
 
-Abstract này không tuyên bố mô hình gene-specific, không tuyên bố biological
-Parkinson validation và không thay thế thí nghiệm wet-lab.
+Abstract này không tuyên bố mô hình gene-specific, không thay thế thí nghiệm
+wet-lab. English boundary: `not biological validation`, `not gene-specific
+validation`, `not clinical validation`, and `not drug validation`.

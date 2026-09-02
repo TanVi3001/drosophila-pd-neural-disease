@@ -64,6 +64,9 @@ Không được diễn giải kết quả là:
 - quantitative Pozo validation;
 - bằng chứng đã xác nhận cơ chế Parkinson.
 
+English boundary: `not biological Parkinson validation`, `not gene-specific
+validation`, `not clinical validation`, and `not drug validation`.
+
 Pozo là holdout độc lập, không được dùng để calibration hoặc tune lại
 `proxy_burden_level`.
 
