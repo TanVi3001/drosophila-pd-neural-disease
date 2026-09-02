@@ -1,0 +1,38 @@
+schema_version: gate-10-artifact-requirements-v1
+status: PLAN_ONLY
+
+required_external_artifacts:
+  - name: connectome_edge_list
+    required_for: disease_layer_mapping
+    status: REQUIRED_EXTERNAL
+    checksum_required: true
+  - name: flywire_annotation_table
+    required_for: neuron_mapping
+    status: REQUIRED_EXTERNAL
+    checksum_required: true
+  - name: plastic_weights_pt
+    required_for: brain_body_runtime
+    status: REQUIRED_EXTERNAL
+    checksum_required: true
+  - name: brain_body_source
+    required_for: simulation_runtime
+    status: REQUIRED_EXTERNAL
+    checksum_required: true
+  - name: checkpoint
+    required_for: simulation_runtime
+    status: REQUIRED_EXTERNAL
+    checksum_required: true
+  - name: bridge_scales
+    required_for: connectome_to_body_bridge
+    status: REQUIRED_EXTERNAL
+    checksum_required: true
+  - name: experimental_locomotion_db_json
+    required_for: comparison_database
+    status: REQUIRED_EXTERNAL
+    checksum_required: true
+
+policy:
+  do_not_commit_large_artifacts_to_git: true
+  use_external_storage_or_release_assets: true
+  require_license_notes: true
+  require_sha256: true

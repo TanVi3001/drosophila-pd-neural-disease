@@ -1,0 +1,34 @@
+schema_version: gate-10-metric-contract-v1
+status: PLAN_ONLY
+
+required_metrics:
+  calibration:
+    - mean_planar_speed_mm_s
+  holdout:
+    - distance_traveled_mm
+  baseline_quality:
+    - finite_position_check
+    - finite_velocity_check
+    - locomotion_detected
+    - contact_detected
+
+optional_metrics:
+  - displacement_mm
+  - path_length_mm
+  - mean_body_height_mm
+  - orientation_yaw_rad
+
+forbidden_inference:
+  - pause_fraction_if_not_recorded
+  - symmetry_index_if_not_recorded
+  - raw_action_command_if_not_recorded
+  - orientation_stability_if_not_defined
+
+metric_rules:
+  mean_planar_speed_mm_s:
+    unit: mm/s
+    allowed_for_calibration: true
+  distance_traveled_mm:
+    unit: mm
+    allowed_for_holdout: true
+    allowed_for_speed_calibration: false
