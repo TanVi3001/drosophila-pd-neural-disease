@@ -1,0 +1,29 @@
+{
+  "base_main_commit": "e739db9",
+  "boundaries": {
+    "biological_validation": false,
+    "clinical_validation": false,
+    "drug_validation": false,
+    "gene_specific_validation": false,
+    "quantitative_pozo_validation": false,
+    "therapeutic_validation": false
+  },
+  "claim_lock_active": true,
+  "final_claim": "Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch",
+  "key_results": {
+    "chen_selected_burden": 0.5,
+    "gate13c_confirmation_ratio": 0.6142225784,
+    "pozo_directionality_pass": true,
+    "pozo_quantitative_ratio_match": false,
+    "pozo_simulated_ratio": 0.947,
+    "pozo_target_ratio": 0.192
+  },
+  "no_calibration_run": true,
+  "no_new_simulation_run": true,
+  "no_raw_metric_modification": true,
+  "no_tuning_run": true,
+  "release_bundle_ready": true,
+  "release_version": "v1.0.0",
+  "schema_version": "gate-16a-final-release-summary-v1",
+  "status": "FINAL_RELEASE_READY"
+}
