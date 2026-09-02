@@ -1,0 +1,11 @@
+# Gate 12D proxy disease rollout log
+status=PROXY_ROLLOUTS_BLOCKED
+planned_runs=60
+successful_runs=0
+failed_runs=0
+blocked_runs=60
+runtime_reasons=
+operator_reason=proxy_burden_to_action_operator_not_connected_to_current_brain_body_runner
+simulation_data_fabricated=False
+no_calibration_run=True
+no_holdout_validation_run=True
