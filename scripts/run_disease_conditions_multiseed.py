@@ -37,6 +37,14 @@ CANONICAL_METRICS = (
     "distance_traveled_mm",
     "displacement_mm",
 )
+
+
+def _is_proxy_plan(plan: Mapping[str, Any]) -> bool:
+    """Return whether a plan uses the Gate 12C proxy contract."""
+
+    return str(plan.get("schema_version", "")).startswith(
+        "gate-12c-proxy-ready-rollout-plan-"
+    )
 CSV_FIELDS = (
     "condition_id",
     "seed",
@@ -168,7 +176,7 @@ def _runtime_probe(
 
 
 def _config_blockers(
-    *, condition_id: str, config_path: Path, mapping_scope: str
+    *, condition_id: str, config_path: Path, mapping_scope: str, proxy_mode: bool = False
 ) -> tuple[list[str], dict[str, Any]]:
     if not config_path.is_file():
         return [f"missing_condition_template:{_relative(config_path)}"], {}
@@ -180,6 +188,17 @@ def _config_blockers(
     declared_id = str(document.get("condition_id", "")).strip()
     if declared_id not in {condition_id, f"{condition_id}_template"}:
         blockers.append(f"condition_id_mismatch={declared_id or 'MISSING'}")
+
+    is_proxy_config = proxy_mode or str(document.get("schema_version", "")).startswith(
+        "gate-12c-proxy-condition-"
+    )
+    if is_proxy_config:
+        return _proxy_config_blockers(
+            condition_id=condition_id,
+            document=document,
+            initial_blockers=blockers,
+        ), document
+
     status = str(document.get("status", "")).strip()
     if not status or status.startswith("WAITING") or "TEMPLATE" in status.upper():
         blockers.append(f"condition_status={status or 'MISSING'}")
@@ -200,6 +219,79 @@ def _config_blockers(
     elif mapping_scope == "organism_level":
         blockers.append("organism_level_scope_not_allowed_for_neural_rollout")
     return blockers, document
+
+
+def _proxy_config_blockers(
+    *, condition_id: str, document: Mapping[str, Any], initial_blockers: Sequence[str]
+) -> list[str]:
+    """Validate Gate 12C proxy readiness without requiring fake neural targets."""
+
+    blockers = list(initial_blockers)
+    status = str(document.get("run_status", "")).strip()
+    if status != "RUN_READY_FOR_GATE_12D":
+        blockers.append(f"condition_status={status or 'MISSING'}")
+
+    scope = str(document.get("scope", "")).strip()
+    target_definition = document.get("target_definition")
+    target_definition = target_definition if isinstance(target_definition, Mapping) else {}
+    burden = document.get("burden")
+    burden = burden if isinstance(burden, Mapping) else {}
+    runtime = document.get("runtime")
+    runtime = runtime if isinstance(runtime, Mapping) else {}
+    provenance = document.get("provenance")
+    provenance = provenance if isinstance(provenance, Mapping) else {}
+
+    if scope in {"organism_level_proxy", "class_level_proxy"}:
+        if not str(target_definition.get("proxy_target", "")).strip():
+            blockers.append("proxy_target_missing")
+        operator = document.get("proxy_operator")
+        if not isinstance(operator, Mapping) or str(operator.get("type", "")).strip() != "disease_layer_burden_proxy":
+            blockers.append("proxy_operator_invalid")
+        if operator.get("biological_mapping_claim") is not False:
+            blockers.append("biological_mapping_claim_not_false")
+        if target_definition.get("gene_specific_mapping") is not False:
+            blockers.append("gene_specific_mapping_not_false")
+        if target_definition.get("target_neurons") not in ([], None):
+            blockers.append("proxy_target_neurons_must_be_empty")
+        if target_definition.get("target_edges") not in ([], None):
+            blockers.append("proxy_target_edges_must_be_empty")
+    elif scope == "gene_specific":
+        if not (target_definition.get("target_neurons") or target_definition.get("target_edges")):
+            blockers.append("target_neurons_or_edges_missing")
+        if not str(target_definition.get("root_id_mapping_source", "")).strip() or str(
+            target_definition.get("root_id_mapping_source", "")
+        ).strip() == "NOT_AVAILABLE":
+            blockers.append("root_id_mapping_source_missing")
+        if not str(provenance.get("checkpoint_mapping_provenance", "")).strip():
+            blockers.append("checkpoint_mapping_provenance_missing")
+    else:
+        blockers.append(f"proxy_scope_invalid={scope or 'MISSING'}")
+
+    curve = burden.get("burden_curve")
+    if not isinstance(curve, list) or not curve:
+        blockers.append("burden_curve_missing")
+    full_burden = burden.get("full_burden")
+    if full_burden in (None, "", "NOT_AVAILABLE"):
+        blockers.append("full_burden_missing")
+    else:
+        try:
+            if not math.isfinite(float(full_burden)):
+                blockers.append("full_burden_not_finite")
+        except (TypeError, ValueError):
+            blockers.append("full_burden_not_numeric")
+
+    if runtime.get("compatible_with_gate11_runtime") is not True:
+        blockers.append("gate11_runtime_incompatible")
+    if not str(provenance.get("mapping_source", "")).strip():
+        blockers.append("proxy_provenance_missing")
+    if not str(provenance.get("reviewer", "")).strip() or str(provenance.get("reviewer", "")).strip() == "CHUA_DIEN":
+        blockers.append("proxy_reviewer_missing")
+    if not str(provenance.get("review_date", "")).strip() or str(provenance.get("review_date", "")).strip() == "CHUA_DIEN":
+        blockers.append("proxy_review_date_missing")
+    boundary = document.get("scientific_boundary")
+    if not isinstance(boundary, Mapping) or not str(boundary.get("statement", "")).strip():
+        blockers.append("scientific_boundary_missing")
+    return blockers
 
 
 def _blank_row(condition_id: str, seed: int, *, steps: int, timestep_s: float, status: str, reason: str) -> dict[str, Any]:
@@ -263,7 +355,7 @@ def _run_seed(
         "--platform-root", str(platform_root),
         "--brain-python", str(brain_python),
         "--config", str(config_path),
-        "--age-days", str(float(runtime["age_days"])),
+        "--age-days", str(float(runtime.get("age_days", 20.0))),
         "--seed", str(seed),
         "--steps", str(steps),
         "--device", str(runtime.get("device", "cuda")),
@@ -472,6 +564,7 @@ def _write_report(
 def run_campaign(args: argparse.Namespace) -> int:
     plan_path = _resolve(args.config)
     plan = _load_yaml(plan_path)
+    proxy_plan = _is_proxy_plan(plan)
     healthy_manifest_path = _resolve(args.healthy_manifest)
     healthy_manifest = json.loads(healthy_manifest_path.read_text(encoding="utf-8"))
     if healthy_manifest.get("status") != "PASS":
@@ -506,16 +599,43 @@ def run_campaign(args: argparse.Namespace) -> int:
     summaries: list[dict[str, Any]] = []
     for condition in plan.get("conditions", []):
         condition_id = str(condition["condition_id"])
-        if condition.get("calibration") is not False or condition.get("holdout_validation") is not False:
+        if condition.get("calibration", False) or condition.get("holdout_validation", False):
             raise RuntimeError(f"Gate 12 condition {condition_id} bat calibration/holdout flag.")
-        config_path = _resolve(condition.get("config_path", f"configs/conditions/{condition_id}.yaml"))
-        mapping_scope, mapping_provenance, mapping_reason = _mapping_details(condition_id, mapping)
-        blockers, condition_document = _config_blockers(
-            condition_id=condition_id, config_path=config_path, mapping_scope=mapping_scope
+        config_value = condition.get(
+            "config",
+            condition.get("config_path", f"configs/conditions/{condition_id}.yaml"),
         )
+        config_path = _resolve(config_value)
+        mapping_scope, mapping_provenance, mapping_reason = _mapping_details(condition_id, mapping)
+        if proxy_plan:
+            # Gate 12C proxy scope is explicitly reviewed in the proxy config;
+            # the old gene-mapping CSV must not block an organism-level proxy.
+            mapping_scope = str(condition.get("scope", "not_available")).strip() or "not_available"
+            mapping_provenance = []
+            mapping_reason = ""
+        blockers, condition_document = _config_blockers(
+            condition_id=condition_id,
+            config_path=config_path,
+            mapping_scope=mapping_scope,
+            proxy_mode=proxy_plan,
+        )
+        if proxy_plan and str(condition.get("run_status", "")).strip() != "RUN_READY_FOR_GATE_12D":
+            blockers.append("condition_declared_not_run_ready")
         provenance = list(mapping_provenance) + [
-            str(item) for item in condition_document.get("provenance", []) if str(item).strip()
+            str(item)
+            for item in (
+                condition_document.get("provenance", [])
+                if isinstance(condition_document.get("provenance", []), list)
+                else []
+            )
+            if str(item).strip()
         ]
+        if proxy_plan and isinstance(condition_document.get("provenance"), Mapping):
+            provenance = [
+                str(value)
+                for value in condition_document["provenance"].values()
+                if str(value).strip()
+            ]
         reason_parts = []
         if not runtime_ok:
             reason_parts.append("MISSING_RUNTIME_ARTIFACT: " + "; ".join(runtime_reasons))
@@ -583,6 +703,7 @@ def run_campaign(args: argparse.Namespace) -> int:
         "created_at_utc": datetime.now(UTC).isoformat(),
         "status": status,
         "simulation_data_fabricated": False,
+        "no_gene_specific_mapping": proxy_plan,
         "no_calibration": True,
         "no_holdout_validation": True,
         "forbidden_uses": plan.get("forbidden_uses", []),
@@ -615,6 +736,7 @@ def run_campaign(args: argparse.Namespace) -> int:
         "metrics_csv_sha256": _sha256(metrics_csv),
         "metrics_json_sha256": _sha256(metrics_json),
         "metric_contract": list(CANONICAL_METRICS),
+        "no_gene_specific_mapping": proxy_plan,
         "forbidden_uses": plan.get("forbidden_uses", []),
         "conditions": summaries,
         "external_artifact_audit": external_summary,

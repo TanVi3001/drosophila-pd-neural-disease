@@ -1,0 +1,59 @@
+schema_version: gate-12c-proxy-condition-v1
+condition_id: alpha_synuclein
+display_name: alpha-synuclein computational proxy
+gene_model: human_alpha_synuclein
+scope: organism_level_proxy
+run_status: RUN_READY_FOR_GATE_12D
+
+target_definition:
+  proxy_target: global_locomotor_output_proxy
+  target_neurons: []
+  target_edges: []
+  target_classes: []
+  root_id_mapping_source: NOT_AVAILABLE
+  gene_specific_mapping: false
+
+proxy_operator:
+  type: disease_layer_burden_proxy
+  description: Dimensionless computational perturbation used to test locomotor sensitivity before calibration.
+  biological_mapping_claim: false
+
+burden:
+  burden_curve:
+    - level: 0.0
+      label: no_burden
+    - level: 0.25
+      label: mild_proxy_burden
+    - level: 0.5
+      label: moderate_proxy_burden
+    - level: 0.75
+      label: high_proxy_burden
+    - level: 1.0
+      label: full_proxy_burden
+  full_burden: 1.0
+  burden_units: dimensionless_proxy_level
+  calibrated: false
+
+runtime:
+  compatible_with_gate11_runtime: true
+  preserve_physics: true
+  preserve_timestep: true
+  preserve_duration: true
+  preserve_seed_policy: true
+
+metrics:
+  required:
+    - mean_planar_speed_mm_s
+    - distance_traveled_mm
+    - displacement_mm
+
+provenance:
+  literature_target_used_for_tuning: false
+  calibration_target_used: false
+  holdout_target_used: false
+  mapping_source: computational_proxy_no_root_ids
+  reviewer: Lê Tấn Vĩ
+  review_date: "2026-09-02"
+
+scientific_boundary:
+  statement: This is an organism-level computational proxy, not a gene-specific biological mapping.
