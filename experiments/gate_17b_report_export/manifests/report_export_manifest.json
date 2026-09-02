@@ -1,0 +1,31 @@
+{
+  "claim_lock_active": true,
+  "created_at": "2026-09-02T16:06:41.306563+00:00",
+  "generated_files": [
+    "experiments/gate_17b_report_export/results/final_vietnamese_report.docx",
+    "experiments/gate_17b_report_export/results/final_vietnamese_report.pdf",
+    "experiments/gate_17b_report_export/results/report_export_summary.json"
+  ],
+  "git_commit": "dc9812187e6be8ef4d30c567ed02686855ddbf64",
+  "large_artifacts_committed": false,
+  "no_calibration_run": true,
+  "no_new_simulation_run": true,
+  "no_raw_metric_modification": true,
+  "no_tuning_run": true,
+  "python_version": "3.12.10",
+  "schema_version": "gate-17b-report-export-manifest-v1",
+  "sha256": {
+    "docs/report/export_readme.md": "7b7d4781cf54bcaa46b920a60aa877225b3019fed33f32dbd263fe3de0a5022b",
+    "docs/report/final_vietnamese_report.md": "61e1a47fb420d216006ba1ce244dd4c3bcd56c34b6cb33e946871222b1dd578b",
+    "experiments/gate_17b_report_export/results/final_vietnamese_report.docx": "4657925ffa29f0b21f2f61d002868d7b0cbe4a8c1f9d5ac56e2b2c3475169773",
+    "experiments/gate_17b_report_export/results/final_vietnamese_report.pdf": "62e7f601ee1811211eaa631669a0d773fbcc3d80dd597365c071a885d028a1ee",
+    "experiments/gate_17b_report_export/results/report_export_summary.json": "ed665346e92adaba58906bbaa853286bc575e1df6e9a26ddfb3b21a3ce4dba75"
+  },
+  "source_files": [
+    "docs/report/final_vietnamese_report.md",
+    "docs/report/export_readme.md"
+  ],
+  "status": "REPORT_EXPORT_PARTIAL",
+  "visual_qa_note": "LibreOffice/soffice is not installed; DOCX visual render was not available.",
+  "visual_qa_status": "PARTIAL_DOCX_RENDERER_UNAVAILABLE"
+}
