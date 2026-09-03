@@ -1,0 +1,77 @@
+schema_version: gate-20-disease-exploratory-proxy-multiseed-v1
+experiment_id: gate_20_disease_exploratory_proxy_multiseed
+status: RUN_ORGANISM_LEVEL_PROXY_ONLY
+
+paths:
+  healthy_baseline_summary: results/healthy_baseline_gate19/healthy_baseline_summary.json
+  brain_root: ../external/fly-brain-audit
+  platform_root: ../drosophila-pd-flygym
+  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  operator_config: experiments/gate_12e_proxy_operator/configs/proxy_burden_action_operator.yaml
+  output_root: results/disease_exploratory_gate20
+
+runtime:
+  seeds: [0, 1, 2, 3, 4]
+  steps: 100000
+  timestep_s: 0.0001
+  duration_s: 10.0
+  device: cuda
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+  preserve_physics: true
+  preserve_timestep: true
+  preserve_duration: true
+  preserve_seed_policy: true
+
+conditions:
+  - condition_id: alpha_synuclein
+    scope: organism_level_proxy
+    gene_specific_mapping: false
+    burden_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+  - condition_id: pink1
+    scope: organism_level_proxy
+    gene_specific_mapping: false
+    burden_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+
+operator:
+  type: amplitude_attenuation
+  apply_to: joint_angles
+  preserves_adhesion_onoff: true
+  deterministic_seeded: true
+  predeclared_grid: true
+  fitted_in_gate_20: false
+
+metrics:
+  required:
+    - walking_speed_mm_s
+    - mean_planar_speed_mm_s
+    - distance_traveled_mm
+    - displacement_mm
+    - com_velocity_mean_mm_s
+    - heading_variance_rad2
+    - body_orientation_variance_rad2
+    - contact_ratio
+    - joint_rms_velocity
+
+quality_gate:
+  require_monotonic_timestamps: true
+  require_fixed_timestep: true
+  require_locomotion: true
+  require_contact: true
+  require_joint_trajectory_change: true
+  require_action_trajectory_change: true
+  require_quaternion_validity: true
+  require_operator_metadata: true
+  require_positive_burden_action_change: true
+  require_zero_burden_identity: true
+  forbid_nan: true
+  forbid_inf: true
+
+scientific_boundary:
+  scope: organism-level computational exploratory proxy
+  gene_specific_mapping: false
+  biological_parkinson_validation: false
+  clinical_validation: false
+  drug_validation: false
+  calibration_run: false
+  holdout_validation: false

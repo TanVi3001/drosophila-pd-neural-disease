@@ -1,0 +1,61 @@
+schema_version: gate-19-healthy-baseline-multiseed-v1
+experiment_id: gate_19_healthy_baseline_multiseed
+condition: healthy
+disease_layer_enabled: false
+perturbation: none
+calibration_enabled: false
+holdout_enabled: false
+
+paths:
+  brain_root: ../external/fly-brain-audit
+  platform_root: ../drosophila-pd-flygym
+  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  raw_output_root: D:/Bookdata/drosophila_pd_gate19_run2
+  summary_output_root: results/healthy_baseline_gate19
+
+execution:
+  seeds: [0, 1, 2, 3, 4]
+  steps: 100000
+  timestep_s: 0.0001
+  duration_s: 10.0
+  device: cuda
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+
+video:
+  enabled: true
+  representative_seed: 0
+  fps: 60
+  width: 960
+  height: 540
+  playback_speed: 1.0
+  camera_mode: tracking
+  tracking_body: nmf/c_thorax
+
+required_metrics:
+  - walking_speed_mm_s
+  - mean_planar_speed_mm_s
+  - distance_traveled_mm
+  - displacement_mm
+  - com_velocity_mean_mm_s
+  - heading_variance_rad2
+  - body_orientation_variance_rad2
+  - contact_ratio
+  - joint_rms_velocity
+
+quality_gate:
+  require_monotonic_timestamps: true
+  require_fixed_timestep: true
+  require_locomotion: true
+  require_contact: true
+  require_joint_trajectory_change: true
+  require_action_trajectory_change: true
+  require_quaternion_validity: true
+  forbid_nan: true
+  forbid_inf: true
+
+scientific_boundary:
+  scope: computational healthy locomotion baseline
+  biological_parkinson_validation: false
+  clinical_validation: false
+  drug_validation: false
