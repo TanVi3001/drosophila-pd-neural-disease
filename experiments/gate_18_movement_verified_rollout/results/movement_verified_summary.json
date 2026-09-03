@@ -1,0 +1,80 @@
+{
+  "schema_version": "gate-18-movement-verified-summary-v1",
+  "experiment_id": "gate_18_movement_verified_healthy_10s",
+  "status": "MOVEMENT_VERIFIED_ARTIFACT_PARTIAL",
+  "simulation": {
+    "completed": true,
+    "condition": "healthy",
+    "seed": 0,
+    "steps": 100000,
+    "frame_count": 100001,
+    "timestep_s": 0.0001,
+    "duration_s": 9.999999999990033,
+    "device": "cuda",
+    "stimulus": "p9",
+    "cpg_frequency_hz": 12.0
+  },
+  "locomotion": {
+    "thorax_planar_displacement_mm": 20.3336060683156,
+    "total_distance_mm": 27.38377914055641,
+    "walking_speed_mm_s": 2.738350530553187,
+    "walking_speed_max_mm_s": 32.2898516276488,
+    "com_velocity_mean_mm_s": 3.261754719938973,
+    "heading_variance_rad2": 0.0005181498083327671,
+    "body_orientation_variance_rad2": 0.0002733643996327487,
+    "contact_any_fraction": 1.0,
+    "joint_position_max_change": 0.9549815440490499,
+    "joint_position_rms_change": 0.3469385017933963,
+    "actuator_max_change": 2.587816412072115
+  },
+  "quality_gate": {
+    "timestamp_monotonic": "PASS",
+    "fixed_timestep_consistent": "PASS",
+    "finite_rollout_arrays": "PASS",
+    "quaternion_values_finite": "PASS",
+    "joint_trajectory_change": "PASS",
+    "action_array_finite_and_changed": "PASS",
+    "ground_contact_present": "PASS",
+    "observation_array": "NOT_VERIFIED_NOT_RECORDED",
+    "symmetry_index": "UNAVAILABLE"
+  },
+  "video": {
+    "path": "experiments/gate_18_movement_verified_rollout/results/healthy_seed_000_tracking/flygym_rollout.mp4",
+    "source_runtime_path": "C:\\Temp\\drosophila_pd_gate18_tracking\\healthy_seed_000\\flygym_rollout.mp4",
+    "codec": "h264",
+    "fps": 60.0,
+    "frame_count_checked": 599,
+    "duration_s": 9.98,
+    "playback_speed": 1.0,
+    "file_size_bytes": 8311484,
+    "sha256": "14d501cc0d8c8c688c24c088b69fa4f6ff116a50234fdbd479dbf2324bf5b08e",
+    "camera_mode": "tracking",
+    "tracking_body": "nmf/c_thorax",
+    "visual_qa_status": "PASS_TRACKING_CENTERED"
+  },
+  "artifact_storage": {
+    "rollout_npz": {
+      "path": "C:\\Temp\\drosophila_pd_gate18_tracking\\healthy_seed_000\\rollout.npz",
+      "file_size_bytes": 558690372,
+      "sha256": "372baecd2716d509eef5cecdff2d0c9db672fb23edfff19dde8fc4d66716a495"
+    },
+    "viewer_pose": {
+      "path": "C:\\Temp\\drosophila_pd_gate18_tracking\\healthy_seed_000\\viewer_pose.json",
+      "status": "NOT_CREATED_VALIDATOR_INTERRUPTED"
+    },
+    "metrics_json": {
+      "path": "C:\\Temp\\drosophila_pd_gate18_tracking\\healthy_seed_000\\metrics\\metrics.json",
+      "file_size_bytes": 53329461,
+      "sha256": "947b17b278fcd4d12b7dd6b3d62c23514550add510312ce7339b0ff939038e9e"
+    },
+    "retention_note": "Tracking rerun giữ rollout.json, rollout.csv và rollout.npz trên ổ C:; viewer_pose chưa được tạo vì validator bị dừng khi đọc tài liệu rất lớn. Lần fixed-camera cũ trên ổ E: đã mất rollout.json/rollout.csv do hết dung lượng.",
+    "viewer_bundle_status": "NOT_COMPLETED_VALIDATOR_INTERRUPTED"
+  },
+  "scientific_boundary": {
+    "scope": "computational locomotion runtime verification",
+    "biological_parkinson_validation": false,
+    "gene_specific_validation": false,
+    "clinical_validation": false,
+    "drug_validation": false
+  }
+}

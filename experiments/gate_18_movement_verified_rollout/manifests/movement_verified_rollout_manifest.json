@@ -1,0 +1,93 @@
+{
+  "schema_version": "gate-18-movement-verified-rollout-manifest-v1",
+  "experiment_id": "gate_18_movement_verified_healthy_10s",
+  "status": "MOVEMENT_VERIFIED_ARTIFACT_PARTIAL",
+  "config": "experiments/gate_18_movement_verified_rollout/configs/movement_verified_healthy_10s.yaml",
+  "condition": "healthy",
+  "seed": 0,
+  "steps": 100000,
+  "timestep_s": 0.0001,
+  "duration_s": 9.999999999990033,
+  "runtime": {
+    "platform": "FlyGym/MuJoCo",
+    "device": "cuda",
+    "brain_source": "external/fly-brain-audit",
+    "brain_source_commit": "27cec28d5d202eb004683fb4c1a1033eec8deea0",
+    "brain_checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+    "flygym_repository_commit": "3ceb8ce441e2eb40bc6c0b6b7be14c1c1aaecf06",
+    "flygym_worktree_dirty": true,
+    "brain_neuron_count": 138639,
+    "brain_synapse_count": 15091983,
+    "video_camera_mode": "tracking"
+  },
+  "quality_gate": {
+    "simulation_completed": "PASS",
+    "thorax_displacement": "PASS",
+    "walking_speed": "PASS",
+    "timestamp_monotonic": "PASS",
+    "nan_inf": "PASS",
+    "quaternion_values": "PASS",
+    "joint_trajectory": "PASS",
+    "action_array": "PASS",
+    "observation_array": "NOT_VERIFIED_NOT_RECORDED",
+    "ground_contact": "PASS",
+    "symmetry_index": "UNAVAILABLE"
+  },
+  "artifacts": {
+    "video": {
+      "path": "experiments/gate_18_movement_verified_rollout/results/healthy_seed_000_tracking/flygym_rollout.mp4",
+      "source_runtime_path": "C:\\Temp\\drosophila_pd_gate18_tracking\\healthy_seed_000\\flygym_rollout.mp4",
+      "size_bytes": 8311484,
+      "sha256": "14d501cc0d8c8c688c24c088b69fa4f6ff116a50234fdbd479dbf2324bf5b08e",
+      "fps": 60.0,
+      "frame_count": 599,
+      "camera_mode": "tracking",
+      "tracking_body": "nmf/c_thorax",
+      "visual_qa": "PASS_TRACKING_CENTERED"
+    },
+    "rollout_npz": {
+      "path": "C:\\Temp\\drosophila_pd_gate18_tracking\\healthy_seed_000\\rollout.npz",
+      "size_bytes": 558690372,
+      "sha256": "372baecd2716d509eef5cecdff2d0c9db672fb23edfff19dde8fc4d66716a495"
+    },
+    "viewer_pose": {
+      "path": "C:\\Temp\\drosophila_pd_gate18_tracking\\healthy_seed_000\\viewer_pose.json",
+      "status": "NOT_CREATED_VALIDATOR_INTERRUPTED"
+    },
+    "metrics_json": {
+      "path": "C:\\Temp\\drosophila_pd_gate18_tracking\\healthy_seed_000\\metrics\\metrics.json",
+      "size_bytes": 53329461,
+      "sha256": "947b17b278fcd4d12b7dd6b3d62c23514550add510312ce7339b0ff939038e9e"
+    },
+    "metrics_summary": "experiments/gate_18_movement_verified_rollout/results/movement_verified_summary.json",
+    "tracking_runtime_output_root": "C:\\Temp\\drosophila_pd_gate18_tracking\\healthy_seed_000",
+    "tracking_raw_artifacts_available": [
+      "rollout.json",
+      "rollout.csv",
+      "rollout.npz",
+      "metrics/metrics.json",
+      "metrics/metrics.csv"
+    ],
+    "historical_fixed_camera_run_deleted_after_storage_failure": [
+      "rollout.json",
+      "rollout.csv"
+    ],
+    "viewer_bundle": "NOT_COMPLETED_VALIDATOR_INTERRUPTED"
+  },
+  "metrics": {
+    "walking_speed_mm_s": 2.738350530553187,
+    "total_distance_mm": 27.38377914055641,
+    "com_velocity_mean_mm_s": 3.261754719938973,
+    "thorax_planar_displacement_mm": 20.3336060683156,
+    "contact_any_fraction": 1.0
+  },
+  "scientific_boundary": {
+    "computational_locomotion_experiment": true,
+    "biological_parkinson_validation": false,
+    "clinical_prediction": false,
+    "drug_response": false
+  },
+  "large_artifacts_committed": false,
+  "provenance_note": "Manifest mô tả artifact thật tại máy chạy; các file nhị phân lớn không được đưa vào Git.",
+  "source_integrity_note": "External FlyGym worktree đang dirty tại thời điểm chạy nên cần clean rerun trước khi dùng làm artifact publication-grade."
+}

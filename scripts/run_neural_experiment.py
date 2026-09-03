@@ -263,6 +263,8 @@ def run_experiment(args: argparse.Namespace) -> int:
                         str(args.video_height),
                         "--video-playback-speed",
                         str(args.video_playback_speed),
+                        "--video-camera-mode",
+                        args.video_camera_mode,
                     ]
                 )
             if args.compare_to:
@@ -332,6 +334,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--video-width", type=int, default=640)
     parser.add_argument("--video-height", type=int, default=360)
     parser.add_argument("--video-playback-speed", type=float, default=0.2)
+    parser.add_argument(
+        "--video-camera-mode",
+        choices=("tracking", "fixed"),
+        default="tracking",
+        help="Che do video; tracking bam theo thorax, fixed giu camera the gioi.",
+    )
     parser.add_argument("--cpg-frequency-hz", type=float, default=12.0)
     parser.add_argument("--compare-to", type=Path, default=None)
     return parser
