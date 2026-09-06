@@ -1,0 +1,64 @@
+schema_version: literature-constrained-experiment-v1
+experiment_id: pozo_2022_pink1_distance_holdout
+scientific_scope: organism_level_computational_proxy
+allocation: holdout
+
+source:
+  paper_id: pozo_2022_pink1_serotonin
+  record_id: pozo_pink1_distance_day28
+  figure_table: Figure 3B
+  provenance:
+    - calibration_targets/targets.csv
+    - research/paper_review/pozo_distance_holdout_signoff.md
+
+endpoint:
+  literature:
+    metric: distance_traveled_mm
+    unit: mm
+    statistic: mean
+  virtual:
+    metric: distance_traveled_mm
+    unit: mm
+    statistic: mean
+  bridge:
+    type: identity
+
+target:
+  csv: calibration_targets/targets.csv
+  paper_id: pozo_2022_pink1_serotonin
+
+proxy:
+  type: amplitude_attenuation
+  scope: organism_level_proxy
+  gene_specific_mapping: false
+  parameters:
+    attenuation_strength: 0.5
+    noise_strength: 0.0
+
+runtime:
+  condition_id: pink1
+  baseline_condition_id: healthy
+  seeds: [0, 1, 2, 3, 4]
+  steps: 5000
+  timestep_s: 0.0001
+  duration_s: 0.5
+  device: cuda
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+  video:
+    enabled: true
+    fps: 60
+    width: 960
+    height: 540
+    playback_speed: 1.0
+
+runner:
+  entrypoint: scripts/run_neural_experiment.py
+  platform_root: ../drosophila-pd-flygym
+  brain_root: external/fly-brain
+
+outputs:
+  metrics: metrics/metrics.json
+  rollout_manifest: manifest.json
+  video: flygym_rollout.mp4
+  comparison: comparison/pozo_distance.csv

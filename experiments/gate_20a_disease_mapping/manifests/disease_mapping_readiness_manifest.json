@@ -1,0 +1,199 @@
+{
+  "schema_version": "gate-20a-disease-mapping-readiness-v1",
+  "created_at_utc": "2026-09-06T19:42:20.524534+00:00",
+  "status": "DISEASE_MAPPING_BLOCKED",
+  "requested_condition_count": 5,
+  "requested_ready_count": 0,
+  "exploratory_reference_ready_count": 1,
+  "conditions": [
+    {
+      "condition_id": "alpha_synuclein",
+      "requested_for_step_06": true,
+      "mapping_status": "WAITING_REVIEWED_ROOT_ID_MAPPING",
+      "mapping_scope": "unresolved",
+      "gene_specific_mapping": false,
+      "mapping_identifier_present": false,
+      "root_id_source_present": true,
+      "cell_type_or_scope_present": true,
+      "driver_scope_present": true,
+      "connectome_version_present": true,
+      "mapping_review_status": "WAITING_REVIEWED_ROOT_ID_MAPPING",
+      "mapping_review_decision": "PENDING_HUMAN_SIGNOFF",
+      "reviewer_2_present": true,
+      "review_date_valid": true,
+      "config_path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\configs\\conditions\\alpha_synuclein.template.yaml",
+      "status": "WAITING_REVIEWED_MAPPING",
+      "blockers": [
+        "reviewed root-ID or edge-ID mapping is missing",
+        "condition target_neurons/target_edges is missing",
+        "condition burden_curve is missing",
+        "condition perturbation_rule/full_burden is missing",
+        "condition provenance is missing"
+      ],
+      "simulation_run": false,
+      "data_fabricated": false
+    },
+    {
+      "condition_id": "pink1",
+      "requested_for_step_06": true,
+      "mapping_status": "MODEL_SCOPE_NOT_CELL_SPECIFIC",
+      "mapping_scope": "unresolved",
+      "gene_specific_mapping": false,
+      "mapping_identifier_present": false,
+      "root_id_source_present": true,
+      "cell_type_or_scope_present": true,
+      "driver_scope_present": true,
+      "connectome_version_present": true,
+      "mapping_review_status": "MODEL_SCOPE_NOT_CELL_SPECIFIC",
+      "mapping_review_decision": "PENDING_HUMAN_SIGNOFF",
+      "reviewer_2_present": true,
+      "review_date_valid": true,
+      "config_path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\configs\\conditions\\pink1.template.yaml",
+      "status": "WAITING_MODEL_SCOPE_REVIEW",
+      "blockers": [
+        "reviewed root-ID or edge-ID mapping is missing",
+        "condition target_neurons/target_edges is missing",
+        "condition burden_curve is missing",
+        "condition perturbation_rule/full_burden is missing",
+        "condition provenance is missing"
+      ],
+      "simulation_run": false,
+      "data_fabricated": false
+    },
+    {
+      "condition_id": "parkin",
+      "requested_for_step_06": true,
+      "mapping_status": "WAITING_REVIEWED_ROOT_ID_MAPPING",
+      "mapping_scope": "unresolved",
+      "gene_specific_mapping": false,
+      "mapping_identifier_present": false,
+      "root_id_source_present": true,
+      "cell_type_or_scope_present": true,
+      "driver_scope_present": true,
+      "connectome_version_present": true,
+      "mapping_review_status": "WAITING_REVIEWED_ROOT_ID_MAPPING",
+      "mapping_review_decision": "PENDING_HUMAN_SIGNOFF",
+      "reviewer_2_present": true,
+      "review_date_valid": true,
+      "config_path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\configs\\conditions\\parkin.template.yaml",
+      "status": "WAITING_REVIEWED_MAPPING",
+      "blockers": [
+        "reviewed root-ID or edge-ID mapping is missing",
+        "condition target_neurons/target_edges is missing",
+        "condition burden_curve is missing",
+        "condition perturbation_rule/full_burden is missing",
+        "condition provenance is missing"
+      ],
+      "simulation_run": false,
+      "data_fabricated": false
+    },
+    {
+      "condition_id": "dj1",
+      "requested_for_step_06": true,
+      "mapping_status": "NOT_MAPPABLE_FROM_PAPER",
+      "mapping_scope": "unresolved",
+      "gene_specific_mapping": false,
+      "mapping_identifier_present": false,
+      "root_id_source_present": true,
+      "cell_type_or_scope_present": true,
+      "driver_scope_present": true,
+      "connectome_version_present": true,
+      "mapping_review_status": "NOT_MAPPABLE_FROM_PAPER",
+      "mapping_review_decision": "PENDING_HUMAN_SIGNOFF",
+      "reviewer_2_present": true,
+      "review_date_valid": true,
+      "config_path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\configs\\conditions\\dj1.template.yaml",
+      "status": "WAITING_MODEL_SCOPE_REVIEW",
+      "blockers": [
+        "reviewed root-ID or edge-ID mapping is missing",
+        "condition target_neurons/target_edges is missing",
+        "condition burden_curve is missing",
+        "condition perturbation_rule/full_burden is missing",
+        "condition provenance is missing"
+      ],
+      "simulation_run": false,
+      "data_fabricated": false
+    },
+    {
+      "condition_id": "lrrk2",
+      "requested_for_step_06": true,
+      "mapping_status": "NOT_MAPPABLE_TO_CURRENT_CONNECTOME",
+      "mapping_scope": "unresolved",
+      "gene_specific_mapping": false,
+      "mapping_identifier_present": false,
+      "root_id_source_present": true,
+      "cell_type_or_scope_present": true,
+      "driver_scope_present": true,
+      "connectome_version_present": true,
+      "mapping_review_status": "NOT_MAPPABLE_TO_CURRENT_CONNECTOME",
+      "mapping_review_decision": "PENDING_HUMAN_SIGNOFF",
+      "reviewer_2_present": true,
+      "review_date_valid": true,
+      "config_path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\configs\\conditions\\lrrk2.template.yaml",
+      "status": "WAITING_MODEL_SCOPE_REVIEW",
+      "blockers": [
+        "reviewed root-ID or edge-ID mapping is missing",
+        "condition target_neurons/target_edges is missing",
+        "condition burden_curve is missing",
+        "condition perturbation_rule/full_burden is missing",
+        "condition provenance is missing"
+      ],
+      "simulation_run": false,
+      "data_fabricated": false
+    },
+    {
+      "condition_id": "dopamine_deficiency_exploratory",
+      "requested_for_step_06": false,
+      "mapping_status": "CLASS_LEVEL_EXPLORATORY_ONLY",
+      "mapping_scope": "class_level_exploratory",
+      "gene_specific_mapping": false,
+      "mapping_identifier_present": false,
+      "root_id_source_present": true,
+      "cell_type_or_scope_present": true,
+      "driver_scope_present": true,
+      "connectome_version_present": true,
+      "mapping_review_status": "MISSING",
+      "mapping_review_decision": "MISSING",
+      "reviewer_2_present": true,
+      "review_date_valid": true,
+      "config_path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\configs\\conditions\\dopamine_deficiency.exploratory.yaml",
+      "status": "READY_EXPLORATORY_CLASS_LEVEL",
+      "blockers": [],
+      "simulation_run": false,
+      "data_fabricated": false
+    }
+  ],
+  "inputs": {
+    "plan": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\experiments\\gate_20a_disease_mapping\\configs\\disease_mapping_review_plan.yaml",
+      "sha256": "6e1306c62866bc8568816a2570454ad18a1355693ea8d9deaab26dfeec99e931"
+    },
+    "root_id_mapping_audit": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\datasets\\literature_phenotypes\\root_id_mapping_audit.csv",
+      "sha256": "1495afeea7f94b6c51ff49a0f853fe12a322e2923ce62208776ef84ac698d11c"
+    },
+    "mapping_status": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\research\\disease_mapping\\mapping_status.csv",
+      "sha256": "a346c064c795616f2ed4c748adb5821779d159646643fd45817fca3189b5f305"
+    },
+    "gene_specific_mapping_review": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\research\\disease_mapping\\gene_specific_mapping_review.csv",
+      "sha256": "e672d8a539d7677a325fc370bfe7e568805d0fe38960dcb3ba2112d2969e2351"
+    }
+  },
+  "no_root_id_inference": true,
+  "no_simulation_run": true,
+  "no_calibration_run": true,
+  "no_holdout_validation_run": true,
+  "data_fabricated": false,
+  "scientific_scope": "Disease mapping readiness audit; no gene-specific or biological Parkinson validation.",
+  "policy": {
+    "infer_root_ids_from_gene_name": false,
+    "infer_gene_specific_scope_from_class_level": false,
+    "allow_organism_level_proxy_as_gene_specific": false,
+    "simulate_when_mapping_blocked": false,
+    "fabricate_mapping_or_burden": false
+  },
+  "report": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\experiments\\gate_20a_disease_mapping\\results\\disease_mapping_readiness.md",
+  "table": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\experiments\\gate_20a_disease_mapping\\results\\disease_mapping_readiness.csv"
+}

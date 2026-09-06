@@ -1,0 +1,35 @@
+schema_version: publication-pipeline-v1
+experiment_id: drosophila_pd_neural_first_publication_pipeline
+
+protocol:
+  healthy_seeds: [0, 1, 2, 3, 4]
+  disease_seeds: [0, 1, 2, 3, 4]
+  steps: 100000
+  timestep_s: 0.0001
+  duration_s: 10.0
+  device: cuda
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+  calibration_target: Chen_2014_adult_horizontal_walking_speed
+  holdout_target: Pozo_2022_Pink1B9_distance_traveled
+
+conditions:
+  - alpha_synuclein
+  - pink1
+  - parkin
+  - dj1
+  - lrrk2
+
+paths:
+  healthy_summary: results/healthy_baseline_gate19/healthy_baseline_summary.json
+  calibration_audit: results/calibration_readiness/target_audit.json
+  branch_output: results/publication_pipeline/step_06_disease
+  artifact_output: results/publication_pipeline/artifact_package
+
+scientific_boundary:
+  scope: neural-first computational locomotion pipeline
+  gene_specific_validation: false
+  biological_parkinson_validation: false
+  clinical_validation: false
+  drug_validation: false
+  fabricated_data: false

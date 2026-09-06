@@ -1,0 +1,63 @@
+schema_version: healthy-baseline-protocol-1
+experiment_id: healthy_baseline_reproducible
+scientific_scope: computational_locomotion_baseline
+
+condition:
+  name: healthy
+  disease_layer_enabled: false
+  perturbation_config: null
+  calibration_enabled: false
+
+execution:
+  seeds: [0, 1, 2, 3, 4]
+  steps: 5000
+  expected_frame_count: 5001
+  duration_s: 0.5
+  timestep_s: 0.0001
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+  brain_device: cuda
+
+video:
+  representative_seed: 0
+  fps: 60
+  width: 960
+  height: 540
+  playback_speed: 0.04
+  note: The approximately 12-second MP4 replays 0.5 seconds of simulation.
+
+runtime_lock:
+  python: 3.12.10
+  flygym: 2.1.0
+  mujoco: 3.9.0
+  torch: 2.5.1+cu121
+  cuda_runtime: "12.1"
+  gpu: NVIDIA GeForce RTX 3050 6GB Laptop GPU
+
+neural_source_lock:
+  repository: https://github.com/tuanwannafly/fly-brain.git
+  commit: 27cec28d5d202eb004683fb4c1a1033eec8deea0
+  neuron_count: 138639
+  synapse_count: 15091983
+  descending_neurons_mapped: 18
+  checkpoint_sha256: d51dcd247354fd92b8f5b2703f06fa9e85cf1eb485cd4f1eb5e15c20e9293e7d
+
+quality_requirements:
+  timestamp_strictly_monotonic: true
+  all_numeric_arrays_finite: true
+  thorax_planar_displacement_positive: true
+  walking_speed_positive: true
+  foot_contact_frame_fraction_min: 0.5
+  joint_position_range_positive: true
+  joint_velocity_rms_positive: true
+  quaternion_norm_tolerance: 0.001
+  manifest_hashes_valid: true
+  unique_rollout_per_seed: true
+
+statistics:
+  unit_of_analysis: rollout_seed
+  descriptive_statistics: [mean, sample_sd, se]
+  confidence_interval: bootstrap_percentile_95
+  bootstrap_samples: 10000
+  bootstrap_rng_seed: 0
+  limitation: Five seeds support baseline QC but do not establish biological validation.

@@ -1,4 +1,5 @@
 import csv
+import hashlib
 import json
 from pathlib import Path
 
@@ -7,6 +8,8 @@ import yaml
 
 from scripts.run_healthy_baseline_multiseed import _load_config
 from scripts.run_healthy_baseline_multiseed import _rollout_quality
+from scripts.run_healthy_baseline_multiseed import _discard_raw_artifacts
+from scripts.run_healthy_baseline_multiseed import build_parser
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,6 +65,37 @@ def test_gate11_rollout_quality_checks_real_state_channels(tmp_path: Path) -> No
     assert quality["action_trajectory_valid"] == "PASS"
     assert quality["observation_state_valid"] == "PASS"
     assert quality["quaternion_valid"] == "PASS"
+
+
+def test_gate11_discard_raw_writes_hash_manifest_before_removal(tmp_path: Path) -> None:
+    output_root = tmp_path / "baseline"
+    output = output_root / "results" / "seed_000"
+    output.mkdir(parents=True)
+    raw = output / "rollout.npz"
+    raw.write_bytes(b"raw-rollout")
+
+    manifest_path, count, total_bytes = _discard_raw_artifacts(
+        output=output,
+        output_root=output_root,
+        seed=0,
+    )
+
+    assert not output.exists()
+    assert manifest_path.is_file()
+    payload = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert payload["deleted_after_qc"] is True
+    assert payload["artifacts"] == [{
+        "path": "rollout.npz",
+        "size_bytes": len(b"raw-rollout"),
+        "sha256": _sha256(raw) if raw.exists() else hashlib.sha256(b"raw-rollout").hexdigest(),
+    }]
+    assert count == 1
+    assert total_bytes == len(b"raw-rollout")
+
+
+def test_gate11_discard_raw_flag_is_opt_in() -> None:
+    assert build_parser().parse_args([]).discard_raw is False
+    assert build_parser().parse_args(["--discard-raw"]).discard_raw is True
 
 
 def test_gate11_aggregate_has_canonical_metrics_and_provenance() -> None:
