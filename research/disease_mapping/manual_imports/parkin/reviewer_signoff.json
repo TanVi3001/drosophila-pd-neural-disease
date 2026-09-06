@@ -1,0 +1,12 @@
+{
+  "condition_id": "parkin",
+  "reviewer_1": "Le Tan Vi",
+  "reviewer_2": "To Dang Minh Tuan",
+  "review_date": "2026-09-07",
+  "decision": "APPROVED_FOR_CLASS_LEVEL_EXPLORATORY",
+  "mapping_level": "DRIVER_OR_CLASS_LEVEL",
+  "gene_specific_mapping": false,
+  "allowed_rollout_scope": "CLASS_LEVEL_EXPLORATORY_ONLY",
+  "human_notes": "Filtered FlyWire DAN/top_nt=dopamine evidence is approved only for dopaminergic neuron class-level exploratory mapping. It is not a Parkin gene-specific map and TH/ple equivalence is not asserted as gene-specific evidence.",
+  "human_review_notes": "Approved as DAN/dopaminergic class-level exploratory mapping from FlyWire annotations v2.1.0 snapshot v783. This approval allows class-level exploratory rollout only. It is not Parkin gene-specific validation, biological Parkinson validation, clinical validation, or drug validation."
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "gate-20b-source-manifest-v1",
+  "condition_id": "lrrk2",
+  "source_name": "Imai et al. 2008, LRRK2 locomotion study",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2268198/",
+  "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2268198/",
+    "https://github.com/flyconnectome/flywire_annotations",
+    "https://codex.flywire.ai/faq"
+  ],
+  "source_file": "annotations/neuron_annotations.csv",
+  "source_sha256": "033a273772202a8277e715a4016708c9a6bc5682c541b0a6834fd3e764416840",
+  "source_status": "REFERENCE_ONLY_NO_CONDITION_SPECIFIC_EXPORT",
+  "query_or_export_source": "FlyWire annotations repository and Codex query/export were checked as permitted sources; no condition-specific export is present locally.",
+  "query_string": "NOT_EXECUTED_NO_CONDITION_SPECIFIC_EXPORT",
+  "query_date": "",
+  "connectome_name": "FlyWire",
+  "connectome_version": "FlyWire v783 brain-only",
+  "mapping_level": "WAITING_VNC_CONNECTOME_MAPPING",
+  "gene_specific_mapping": false,
+  "mapping_export": "research/disease_mapping/exports/lrrk2/mapping_export.csv",
+  "export_sha256": "4d3397df9a1b9b52eda1abd0cf1d2bfd772ce217b3d02f6523b468c6ba299870",
+  "reviewer_1": "",
+  "reviewer_2": "Tuan Le",
+  "review_date": "2026-09-06",
+  "decision": "WAITING_VNC_CONNECTOME_MAPPING",
+  "human_signoff": "PENDING_HUMAN_SIGNOFF",
+  "large_external_dump_committed": false,
+  "blocker": "The cited scope requires motor-neuron/VNC coverage that is not present in the current brain-only catalog.",
+  "notes": "The public source is recorded for provenance; it does not establish this condition's neuron target."
+}

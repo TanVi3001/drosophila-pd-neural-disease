@@ -1,0 +1,6 @@
+condition_id,status,approved_condition,mapping_level,mapping_identifier_count,root_id_count,edge_id_count,import_row_count,reviewer_2,review_date,blockers
+alpha_synuclein,BLOCKED_NO_MANUAL_IMPORT,False,PAN_NEURONAL_ORGANISM_LEVEL,0,0,0,0,Tuan Le,2026-09-06,chưa có Codex/FlyWire/paper mapping export cục bộ; chưa có reviewer_signoff.json cho condition; Gate 20B chỉ cung cấp provenance reference-only với 0 identifier
+pink1,BLOCKED_NO_MANUAL_IMPORT,False,WHOLE_ANIMAL_ORGANISM_LEVEL,0,0,0,0,Tuan Le,2026-09-06,chưa có Codex/FlyWire/paper mapping export cục bộ; chưa có reviewer_signoff.json cho condition; Gate 20B chỉ cung cấp provenance reference-only với 0 identifier
+parkin,APPROVED,True,DRIVER_OR_CLASS_LEVEL,330,330,0,330,To Dang Minh Tuan,2026-09-07,
+dj1,BLOCKED_NO_MANUAL_IMPORT,False,NOT_MAPPABLE_FROM_PAPER,0,0,0,0,Tuan Le,2026-09-06,chưa có Codex/FlyWire/paper mapping export cục bộ; chưa có reviewer_signoff.json cho condition; Gate 20B chỉ cung cấp provenance reference-only với 0 identifier
+lrrk2,BLOCKED_NO_MANUAL_IMPORT,False,WAITING_VNC_CONNECTOME_MAPPING,0,0,0,0,Tuan Le,2026-09-06,chưa có Codex/FlyWire/paper mapping export cục bộ; chưa có reviewer_signoff.json cho condition; Gate 20B chỉ cung cấp provenance reference-only với 0 identifier

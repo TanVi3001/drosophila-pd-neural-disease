@@ -1,0 +1,22 @@
+{
+  "schema_version": "gate-20b-mapping-review-v1",
+  "condition_id": "pink1",
+  "mapping_level": "WHOLE_ANIMAL_ORGANISM_LEVEL",
+  "gene_specific_mapping": false,
+  "mapping_identifier_count": 0,
+  "root_id_count": 0,
+  "edge_id_count": 0,
+  "decision": "MODEL_SCOPE_NOT_CELL_SPECIFIC",
+  "allowed_rollout_scope": "ORGANISM_LEVEL_PROXY_ONLY",
+  "connectome_version": "FlyWire v783 brain",
+  "source_export_path": "research/disease_mapping/exports/pink1/mapping_export.csv",
+  "source_manifest_path": "research/disease_mapping/exports/pink1/source_manifest.json",
+  "source_sha256": "033a273772202a8277e715a4016708c9a6bc5682c541b0a6834fd3e764416840",
+  "export_sha256": "b37740cc474f2bf31101eb8fdeee8c3e76582e6034ac4f962e02936bdda2f64d",
+  "reviewer_1": "",
+  "reviewer_2": "Tuan Le",
+  "review_date": "2026-09-06",
+  "human_signoff": "PENDING_HUMAN_SIGNOFF",
+  "blocker": "The whole-animal mutant does not identify a reviewed neuron or edge intervention.",
+  "notes": "No root_id or edge_id is asserted. The local annotation table is a reference source, not a condition-specific driver-to-root export. Do not infer identifiers from gene, phenotype, driver name, or paper behavior."
+}
