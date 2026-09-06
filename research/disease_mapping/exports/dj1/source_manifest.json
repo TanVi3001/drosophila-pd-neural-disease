@@ -1,0 +1,31 @@
+{
+  "schema_version": "gate-20b-source-manifest-v1",
+  "condition_id": "dj1",
+  "source_name": "Tanti et al. 2005, DJ-1 behavioral mutant study",
+  "source_url": "https://doi.org/10.1016/j.gene.2005.06.040",
+  "source_urls": [
+    "https://doi.org/10.1016/j.gene.2005.06.040",
+    "https://github.com/flyconnectome/flywire_annotations",
+    "https://codex.flywire.ai/faq"
+  ],
+  "source_file": "annotations/neuron_annotations.csv",
+  "source_sha256": "033a273772202a8277e715a4016708c9a6bc5682c541b0a6834fd3e764416840",
+  "source_status": "REFERENCE_ONLY_NO_CONDITION_SPECIFIC_EXPORT",
+  "query_or_export_source": "FlyWire annotations repository and Codex query/export were checked as permitted sources; no condition-specific export is present locally.",
+  "query_string": "NOT_EXECUTED_NO_CONDITION_SPECIFIC_EXPORT",
+  "query_date": "",
+  "connectome_name": "FlyWire",
+  "connectome_version": "FlyWire v783 brain",
+  "mapping_level": "NOT_MAPPABLE_FROM_PAPER",
+  "gene_specific_mapping": false,
+  "mapping_export": "research/disease_mapping/exports/dj1/mapping_export.csv",
+  "export_sha256": "999780c01598b011a778236f1e535961edd0f97aa2832ae1e5ba457fa6115017",
+  "reviewer_1": "",
+  "reviewer_2": "Tuan Le",
+  "review_date": "2026-09-06",
+  "decision": "NOT_MAPPABLE_FROM_PAPER",
+  "human_signoff": "PENDING_HUMAN_SIGNOFF",
+  "large_external_dump_committed": false,
+  "blocker": "Behavioral evidence does not specify a neuron or edge intervention.",
+  "notes": "The public source is recorded for provenance; it does not establish this condition's neuron target."
+}

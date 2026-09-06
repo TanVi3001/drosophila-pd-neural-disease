@@ -1,0 +1,22 @@
+{
+  "schema_version": "gate-20b-mapping-review-v1",
+  "condition_id": "alpha_synuclein",
+  "mapping_level": "PAN_NEURONAL_ORGANISM_LEVEL",
+  "gene_specific_mapping": false,
+  "mapping_identifier_count": 0,
+  "root_id_count": 0,
+  "edge_id_count": 0,
+  "decision": "MODEL_SCOPE_NOT_CELL_SPECIFIC",
+  "allowed_rollout_scope": "ORGANISM_LEVEL_PROXY_ONLY",
+  "connectome_version": "FlyWire v783 brain",
+  "source_export_path": "research/disease_mapping/exports/alpha_synuclein/mapping_export.csv",
+  "source_manifest_path": "research/disease_mapping/exports/alpha_synuclein/source_manifest.json",
+  "source_sha256": "033a273772202a8277e715a4016708c9a6bc5682c541b0a6834fd3e764416840",
+  "export_sha256": "e18dde5193f399910d9e61b69e299da084ed96a7174dbba1e46895356e8ebaca",
+  "reviewer_1": "",
+  "reviewer_2": "Tuan Le",
+  "review_date": "2026-09-06",
+  "human_signoff": "PENDING_HUMAN_SIGNOFF",
+  "blocker": "Pan-neuronal expression does not identify a reviewed condition-specific root-ID set.",
+  "notes": "No root_id or edge_id is asserted. The local annotation table is a reference source, not a condition-specific driver-to-root export. Do not infer identifiers from gene, phenotype, driver name, or paper behavior."
+}

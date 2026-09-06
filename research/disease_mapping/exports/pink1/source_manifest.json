@@ -1,0 +1,31 @@
+{
+  "schema_version": "gate-20b-source-manifest-v1",
+  "condition_id": "pink1",
+  "source_name": "Clark et al. 2006, PINK1 model",
+  "source_url": "https://pubmed.ncbi.nlm.nih.gov/16672981/",
+  "source_urls": [
+    "https://pubmed.ncbi.nlm.nih.gov/16672981/",
+    "https://github.com/flyconnectome/flywire_annotations",
+    "https://codex.flywire.ai/faq"
+  ],
+  "source_file": "annotations/neuron_annotations.csv",
+  "source_sha256": "033a273772202a8277e715a4016708c9a6bc5682c541b0a6834fd3e764416840",
+  "source_status": "REFERENCE_ONLY_NO_CONDITION_SPECIFIC_EXPORT",
+  "query_or_export_source": "FlyWire annotations repository and Codex query/export were checked as permitted sources; no condition-specific export is present locally.",
+  "query_string": "NOT_EXECUTED_NO_CONDITION_SPECIFIC_EXPORT",
+  "query_date": "",
+  "connectome_name": "FlyWire",
+  "connectome_version": "FlyWire v783 brain",
+  "mapping_level": "WHOLE_ANIMAL_ORGANISM_LEVEL",
+  "gene_specific_mapping": false,
+  "mapping_export": "research/disease_mapping/exports/pink1/mapping_export.csv",
+  "export_sha256": "b37740cc474f2bf31101eb8fdeee8c3e76582e6034ac4f962e02936bdda2f64d",
+  "reviewer_1": "",
+  "reviewer_2": "Tuan Le",
+  "review_date": "2026-09-06",
+  "decision": "MODEL_SCOPE_NOT_CELL_SPECIFIC",
+  "human_signoff": "PENDING_HUMAN_SIGNOFF",
+  "large_external_dump_committed": false,
+  "blocker": "The whole-animal mutant does not identify a reviewed neuron or edge intervention.",
+  "notes": "The public source is recorded for provenance; it does not establish this condition's neuron target."
+}

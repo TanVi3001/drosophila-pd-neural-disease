@@ -1,0 +1,22 @@
+{
+  "schema_version": "gate-20b-mapping-review-v1",
+  "condition_id": "parkin",
+  "mapping_level": "DRIVER_OR_CLASS_LEVEL",
+  "gene_specific_mapping": false,
+  "mapping_identifier_count": 0,
+  "root_id_count": 0,
+  "edge_id_count": 0,
+  "decision": "WAITING_REVIEWED_ROOT_ID_MAPPING",
+  "allowed_rollout_scope": "CLASS_LEVEL_EXPLORATORY_ONLY",
+  "connectome_version": "FlyWire v783 brain",
+  "source_export_path": "research/disease_mapping/exports/parkin/mapping_export.csv",
+  "source_manifest_path": "research/disease_mapping/exports/parkin/source_manifest.json",
+  "source_sha256": "033a273772202a8277e715a4016708c9a6bc5682c541b0a6834fd3e764416840",
+  "export_sha256": "90f725fb6967703ea5494acca9d271c9ba5f1c2a1e1fba0134fb6fc75da7288d",
+  "reviewer_1": "",
+  "reviewer_2": "Tuan Le",
+  "review_date": "2026-09-06",
+  "human_signoff": "PENDING_HUMAN_SIGNOFF",
+  "blocker": "TH-GAL4 describes a class, but no reviewed TH-GAL4-to-FlyWire export is present.",
+  "notes": "No root_id or edge_id is asserted. The local annotation table is a reference source, not a condition-specific driver-to-root export. Do not infer identifiers from gene, phenotype, driver name, or paper behavior."
+}

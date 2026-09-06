@@ -1,0 +1,31 @@
+{
+  "schema_version": "gate-20b-source-manifest-v1",
+  "condition_id": "parkin",
+  "source_name": "Sang et al. 2007, Parkin RNAi study",
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6673194/",
+  "source_urls": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC6673194/",
+    "https://github.com/flyconnectome/flywire_annotations",
+    "https://codex.flywire.ai/faq"
+  ],
+  "source_file": "annotations/neuron_annotations.csv",
+  "source_sha256": "033a273772202a8277e715a4016708c9a6bc5682c541b0a6834fd3e764416840",
+  "source_status": "REFERENCE_ONLY_NO_CONDITION_SPECIFIC_EXPORT",
+  "query_or_export_source": "FlyWire annotations repository and Codex query/export were checked as permitted sources; no condition-specific export is present locally.",
+  "query_string": "NOT_EXECUTED_NO_CONDITION_SPECIFIC_EXPORT",
+  "query_date": "",
+  "connectome_name": "FlyWire",
+  "connectome_version": "FlyWire v783 brain",
+  "mapping_level": "DRIVER_OR_CLASS_LEVEL",
+  "gene_specific_mapping": false,
+  "mapping_export": "research/disease_mapping/exports/parkin/mapping_export.csv",
+  "export_sha256": "90f725fb6967703ea5494acca9d271c9ba5f1c2a1e1fba0134fb6fc75da7288d",
+  "reviewer_1": "",
+  "reviewer_2": "Tuan Le",
+  "review_date": "2026-09-06",
+  "decision": "WAITING_REVIEWED_ROOT_ID_MAPPING",
+  "human_signoff": "PENDING_HUMAN_SIGNOFF",
+  "large_external_dump_committed": false,
+  "blocker": "TH-GAL4 describes a class, but no reviewed TH-GAL4-to-FlyWire export is present.",
+  "notes": "The public source is recorded for provenance; it does not establish this condition's neuron target."
+}
