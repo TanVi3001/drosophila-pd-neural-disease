@@ -1,0 +1,12 @@
+{
+  "condition_id": "parkin",
+  "reviewer_1": "",
+  "reviewer_2": "",
+  "review_date": "",
+  "decision": "PENDING_HUMAN_SIGNOFF",
+  "mapping_level": "CLASS_LEVEL_EXPLORATORY_ONLY",
+  "gene_specific_mapping": false,
+  "allowed_rollout_scope": "CLASS_LEVEL_EXPLORATORY_ONLY",
+  "human_notes": "Filtered FlyWire DAN/top_nt=dopamine evidence is imported for review only. It is not a Parkin gene-specific map and TH/ple equivalence remains unapproved.",
+  "human_review_notes": "A real reviewer_2, review date, and explicit class-level decision are required before any promotion."
+}

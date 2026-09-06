@@ -1,6 +1,6 @@
 {
   "schema_version": "gate-20c-mapping-acquisition-manifest-v1",
-  "created_at_utc": "2026-09-06T20:31:56.043043+00:00",
+  "created_at_utc": "2026-09-06T20:48:10.766576+00:00",
   "status": "MAPPING_ACQUISITION_BLOCKED",
   "summary": "experiments/gate_20c_mapping_acquisition/results/gate20c_mapping_acquisition_summary.json",
   "report": "docs/disease_mapping/gate_20c_mapping_acquisition_report.md",
@@ -28,6 +28,8 @@
     "research/disease_mapping/exports/pink1/mapping_review.json": "c22fb88aa412d221cc47294030aaa8697bbed3ef7f37195bfb55d78a0601b989",
     "research/disease_mapping/exports/pink1/source_manifest.json": "44ca027caf4840157880acef52393bd86fab08446cbf61aed50f4f3daef82b98",
     "research/disease_mapping/gene_specific_mapping_review.csv": "de2495cbe283b2235f47ae3c6c68296c0c9d79074414ad0014d53e300a1a0ff2",
+    "research/disease_mapping/manual_imports/parkin/codex_export.csv": "4e381aa1e8d9f9e57e9961f8890e1132ad6b9d6a34e9e6c1e69c0effe21d68c8",
+    "research/disease_mapping/manual_imports/parkin/reviewer_signoff.json": "a2f32798028dd857ba67e99c5cc89c5436d79d38edd2dda14ceba8ca182af6c8",
     "research/disease_mapping/mapping_status.csv": "b93df31b897631bdaee706244ac38e920cb56419c68d406b3103a303c263c0c3"
   },
   "large_external_dumps_committed": false,

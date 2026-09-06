@@ -247,7 +247,8 @@ def _signoff(condition_id: str) -> tuple[dict[str, Any], list[str], Path | None]
         errors.append("thiếu allowed_rollout_scope")
     if "gene_specific_mapping" not in document:
         errors.append("thiếu gene_specific_mapping")
-    if not str(document.get("human_notes", "")).strip():
+    human_notes = str(document.get("human_notes") or document.get("human_review_notes") or "").strip()
+    if not human_notes:
         errors.append("thiếu human_notes")
     return document, errors, path
 
@@ -444,7 +445,7 @@ def _build_report(summary: Mapping[str, Any]) -> str:
             "",
             "## Có thể đạt 5/5 approved ngay không?",
             "",
-            "**Không.** Package hiện không chứa export mapping condition-specific có root ID/edge ID thật và reviewer signoff tương ứng cho cả năm condition. Vì vậy hệ thống giữ `0/5`, không tạo ID tổng hợp và không nâng trạng thái bằng suy luận.",
+            "**Không.** Parkin hiện có filtered export 330 root ID ở mức DAN/dopaminergic từ FlyWire để review, nhưng chưa có reviewer signoff hợp lệ; bốn condition còn lại chưa có export tương ứng. Vì vậy hệ thống giữ `0/5`, không tạo ID tổng hợp và không nâng trạng thái bằng suy luận.",
             "",
             "Để một condition được tính là approved, cần đồng thời có identifier thật, cell type/class, driver hoặc anatomy scope, connectome version, source URL, query/export source, SHA-256 của artifact, reviewer_2, review_date, signoff hợp lệ và YAML condition đã có target/provenance/burden tương thích.",
             "",

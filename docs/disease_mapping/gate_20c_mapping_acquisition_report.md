@@ -17,13 +17,13 @@
 | --- | ---: | ---: | --- | --- |
 | `alpha_synuclein` | không | `0` | `MODEL_SCOPE_NOT_CELL_SPECIFIC` | `BLOCKED_NO_MANUAL_IMPORT` |
 | `pink1` | không | `0` | `MODEL_SCOPE_NOT_CELL_SPECIFIC` | `BLOCKED_NO_MANUAL_IMPORT` |
-| `parkin` | không | `0` | `WAITING_REVIEWED_ROOT_ID_MAPPING` | `BLOCKED_NO_MANUAL_IMPORT` |
+| `parkin` | có | `330` | `PENDING_HUMAN_SIGNOFF` | `BLOCKED_SIGNOFF_NOT_APPROVED` |
 | `dj1` | không | `0` | `NOT_MAPPABLE_FROM_PAPER` | `BLOCKED_NO_MANUAL_IMPORT` |
 | `lrrk2` | không | `0` | `WAITING_VNC_CONNECTOME_MAPPING` | `BLOCKED_NO_MANUAL_IMPORT` |
 
 ## Có thể đạt 5/5 approved ngay không?
 
-**Không.** Package hiện không chứa export mapping condition-specific có root ID/edge ID thật và reviewer signoff tương ứng cho cả năm condition. Vì vậy hệ thống giữ `0/5`, không tạo ID tổng hợp và không nâng trạng thái bằng suy luận.
+**Không.** Parkin hiện có filtered export 330 root ID ở mức DAN/dopaminergic từ FlyWire để review, nhưng chưa có reviewer signoff hợp lệ; bốn condition còn lại chưa có export tương ứng. Vì vậy hệ thống giữ `0/5`, không tạo ID tổng hợp và không nâng trạng thái bằng suy luận.
 
 Để một condition được tính là approved, cần đồng thời có identifier thật, cell type/class, driver hoặc anatomy scope, connectome version, source URL, query/export source, SHA-256 của artifact, reviewer_2, review_date, signoff hợp lệ và YAML condition đã có target/provenance/burden tương thích.
 

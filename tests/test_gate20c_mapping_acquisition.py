@@ -29,7 +29,7 @@ def test_gate20c_package_and_manual_import_slots_exist() -> None:
         assert (directory / "README.md").is_file()
 
 
-def test_gate20c_keeps_valid_zero_approval_state_without_manual_evidence() -> None:
+def test_gate20c_keeps_valid_zero_approval_state_without_human_signoff() -> None:
     summary = _json(SUMMARY_PATH)
     assert summary["schema_version"] == "gate-20c-mapping-acquisition-summary-v1"
     assert summary["status"] == "MAPPING_ACQUISITION_BLOCKED"
@@ -50,9 +50,17 @@ def test_gate20c_each_condition_has_no_approved_mapping_without_import() -> None
     for condition, result in summary["condition_statuses"].items():
         assert result["condition_id"] == condition
         assert result["approved_condition"] is False
-        assert result["mapping_identifier_count"] == 0
-        assert result["manual_import_files"] == []
         assert result["no_identifier_inference"] is True
+        if condition == "parkin":
+            assert result["mapping_identifier_count"] == 330
+            assert result["root_id_count"] == 330
+            assert result["manual_import_files"]
+            assert result["signoff_file"]
+            assert result["status"] == "BLOCKED_SIGNOFF_NOT_APPROVED"
+            assert result["decision"] == "PENDING_HUMAN_SIGNOFF"
+        else:
+            assert result["mapping_identifier_count"] == 0
+            assert result["manual_import_files"] == []
 
 
 def test_gate20c_manifest_hashes_and_boundaries() -> None:
@@ -87,6 +95,26 @@ def test_gate20c_condition_table_has_five_blocked_rows() -> None:
     assert len(rows) == 5
     assert {row["condition_id"] for row in rows} == CONDITIONS
     assert all(row["approved_condition"].lower() == "false" for row in rows)
+
+
+def test_gate20d_parkin_export_contains_real_class_level_ids_only() -> None:
+    path = MANUAL_ROOT / "parkin/codex_export.csv"
+    with path.open(encoding="utf-8-sig", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    assert len(rows) == 330
+    assert all(row["condition_id"] == "parkin" for row in rows)
+    assert all(row["root_id"] and row["cell_class"] == "DAN" for row in rows)
+    assert all(not row["edge_id"] for row in rows)
+    assert all(row["source_sha256"] and len(row["source_sha256"]) == 64 for row in rows)
+    assert all("not a Parkin gene-specific mapping" in row["notes"] for row in rows)
+
+
+def test_gate20d_pending_signoff_cannot_be_promoted() -> None:
+    signoff = _json(MANUAL_ROOT / "parkin/reviewer_signoff.json")
+    assert signoff["decision"] == "PENDING_HUMAN_SIGNOFF"
+    assert signoff["reviewer_2"] == ""
+    assert signoff["review_date"] == ""
+    assert signoff["gene_specific_mapping"] is False
 
 
 def test_gate20c_rejects_placeholder_and_incomplete_mapping_evidence() -> None:
