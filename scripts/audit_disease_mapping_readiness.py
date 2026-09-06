@@ -149,6 +149,8 @@ def _audit_condition(
         status = "WAITING_MODEL_SCOPE_REVIEW"
     elif blockers:
         status = "WAITING_REVIEWED_MAPPING"
+    elif class_level:
+        status = "READY_EXPLORATORY_CLASS_LEVEL"
     elif approved:
         status = "READY_FOR_DISEASE_BRANCH"
     else:
@@ -208,7 +210,11 @@ def build_audit(
             )
         )
     requested_rows = [row for row in output_rows if row["requested_for_step_06"]]
-    ready_requested = [row for row in requested_rows if row["status"] == "READY_FOR_DISEASE_BRANCH"]
+    ready_requested = [
+        row
+        for row in requested_rows
+        if row["status"] in {"READY_FOR_DISEASE_BRANCH", "READY_EXPLORATORY_CLASS_LEVEL"}
+    ]
     exploratory_ready = [row for row in output_rows if row["status"] == "READY_EXPLORATORY_CLASS_LEVEL"]
     status = "READY_FOR_STEP_06" if ready_requested else "DISEASE_MAPPING_BLOCKED"
     return {

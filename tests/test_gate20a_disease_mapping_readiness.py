@@ -10,14 +10,19 @@ ROOT_AUDIT = ROOT / "datasets/literature_phenotypes/root_id_mapping_audit.csv"
 MAPPING_STATUS = ROOT / "research/disease_mapping/mapping_status.csv"
 
 
-def test_gate20a_keeps_gene_conditions_blocked_without_reviewed_mapping() -> None:
+def test_gate20a_allows_signed_class_level_parkin_readiness() -> None:
     audit = build_audit(plan_path=PLAN, root_audit_path=ROOT_AUDIT, mapping_status_path=MAPPING_STATUS)
 
-    assert audit["status"] == "DISEASE_MAPPING_BLOCKED"
-    assert audit["requested_ready_count"] == 0
+    assert audit["status"] == "READY_FOR_STEP_06"
+    assert audit["requested_ready_count"] == 1
     requested = [row for row in audit["conditions"] if row["requested_for_step_06"]]
     assert len(requested) == 5
-    assert all(row["status"] in {"WAITING_REVIEWED_MAPPING", "WAITING_MODEL_SCOPE_REVIEW"} for row in requested)
+    statuses = {row["condition_id"]: row["status"] for row in requested}
+    assert statuses["parkin"] == "READY_EXPLORATORY_CLASS_LEVEL"
+    assert all(
+        statuses[condition] in {"WAITING_REVIEWED_MAPPING", "WAITING_MODEL_SCOPE_REVIEW"}
+        for condition in {"alpha_synuclein", "pink1", "dj1", "lrrk2"}
+    )
     assert all(row["mapping_review_status"] != "APPROVED" for row in requested)
 
 

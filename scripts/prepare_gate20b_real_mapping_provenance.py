@@ -360,7 +360,17 @@ def _validate_condition_configs(records: list[dict[str, Any]]) -> None:
         serialized_targets = json.dumps(target_neurons + target_edges, ensure_ascii=False)
         if any(token.lower() in serialized_targets.lower() for token in PLACEHOLDER_IDS):
             raise ValueError(f"Placeholder mapping ID found in {config_path}")
-        if int(record["mapping_identifier_count"]) == 0 and (target_neurons or target_edges):
+        class_level_config = (
+            config.get("mapping_status") == "APPROVED_FOR_CLASS_LEVEL_EXPLORATORY"
+            and config.get("mapping_level") == "DRIVER_OR_CLASS_LEVEL"
+            and config.get("gene_specific_mapping") is False
+            and config.get("allowed_rollout_scope") == "CLASS_LEVEL_EXPLORATORY_ONLY"
+        )
+        if (
+            int(record["mapping_identifier_count"]) == 0
+            and (target_neurons or target_edges)
+            and not class_level_config
+        ):
             raise ValueError(f"Config has targets but mapping export has no identifiers: {config_path}")
         approved = str(record["decision"]).startswith("APPROVED")
         if approved:

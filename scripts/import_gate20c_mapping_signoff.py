@@ -294,9 +294,191 @@ def _config_errors(condition_id: str, root_ids: list[str], edge_ids: list[str]) 
     if not (config.get("full_burden") or config.get("perturbation_rule")):
         errors.append("condition YAML chưa có full_burden/perturbation_rule")
     expected = set(str(item) for item in root_ids + edge_ids)
-    if expected and not expected.intersection(str(item) for item in config_targets):
+    declared_targets: set[str] = set()
+    for item in config_targets:
+        if isinstance(item, Mapping):
+            for key in ("root_id", "edge_id"):
+                value = str(item.get(key, "")).strip()
+                if value:
+                    declared_targets.add(value)
+        else:
+            declared_targets.add(str(item))
+    if expected and not expected.intersection(declared_targets):
         errors.append("target trong YAML không khớp mapping import")
     return errors
+
+
+def _write_class_level_parkin_config(
+    rows: list[dict[str, str]], signoff: Mapping[str, Any]
+) -> None:
+    """Materialize only the reviewed Parkin class-level target list."""
+
+    roots, edges = _unique_identifiers(rows)
+    if not roots or edges:
+        return
+    target_rows = {row.get("root_id", "").strip(): row for row in rows}
+    target_neurons = [
+        {
+            "root_id": root_id,
+            "cell_class": target_rows[root_id].get("cell_class", ""),
+            "cell_type": target_rows[root_id].get("cell_type", ""),
+            "driver_scope": target_rows[root_id].get("driver_scope", ""),
+            "anatomy_scope": target_rows[root_id].get("anatomy_scope", ""),
+            "connectome_name": target_rows[root_id].get("connectome_name", ""),
+            "connectome_version": target_rows[root_id].get("connectome_version", ""),
+            "mapping_level": str(signoff.get("mapping_level", "")),
+            "provenance": "research/disease_mapping/manual_imports/parkin/codex_export.csv",
+        }
+        for root_id in roots
+    ]
+    first = target_rows[roots[0]]
+    export_path = MANUAL_ROOT / "parkin/codex_export.csv"
+    document = {
+        "condition_id": "parkin_template",
+        "gene_model": "parkin_loss_of_function",
+        "seed": 0,
+        "status": "READY_FOR_CLASS_LEVEL_EXPLORATORY",
+        "mapping_status": str(signoff.get("decision", "")),
+        "decision": str(signoff.get("decision", "")),
+        "mapping_level": str(signoff.get("mapping_level", "")),
+        "gene_specific_mapping": False,
+        "allowed_rollout_scope": str(signoff.get("allowed_rollout_scope", "")),
+        "target_neurons": target_neurons,
+        "target_edges": [],
+        "full_burden": 1.0,
+        "burden_curve": [
+            {"burden": 0.0, "label": "control"},
+            {"burden": 0.25, "label": "low"},
+            {"burden": 0.5, "label": "medium"},
+            {"burden": 0.75, "label": "high"},
+            {"burden": 1.0, "label": "full"},
+        ],
+        "provenance": {
+            "mapping_export": _relative(export_path),
+            "reviewer_signoff": _relative(MANUAL_ROOT / "parkin/reviewer_signoff.json"),
+            "source_url": first.get("source_url", ""),
+            "connectome_name": first.get("connectome_name", ""),
+            "connectome_version": first.get("connectome_version", ""),
+            "source_sha256": first.get("source_sha256", ""),
+            "filtered_export_sha256": _sha256(export_path),
+            "review_status": str(signoff.get("decision", "")),
+            "reviewer_1": str(signoff.get("reviewer_1", "")),
+            "reviewer_2": str(signoff.get("reviewer_2", "")),
+            "review_date": str(signoff.get("review_date") or signoff.get("date") or ""),
+            "gate": "Gate 20E",
+            "scientific_boundary": "DAN/dopaminergic class-level exploratory mapping only; not Parkin gene-specific validation.",
+        },
+        "notes": "Class-level exploratory Parkin mapping only; no gene-specific or biological validation claim.",
+    }
+    path = _config_path("parkin")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        yaml.safe_dump(document, sort_keys=False, allow_unicode=True),
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
+def _promote_parkin_primary_records(
+    rows: list[dict[str, str]], signoff: Mapping[str, Any]
+) -> None:
+    """Synchronize primary review tables with explicit class-level signoff."""
+
+    roots, edges = _unique_identifiers(rows)
+    if not roots or edges:
+        return
+    export_path = MANUAL_ROOT / "parkin/codex_export.csv"
+    filtered_hash = _sha256(export_path)
+    source_sha = rows[0].get("source_sha256", "")
+    reviewer = str(signoff.get("reviewer_2", "")).strip()
+    review_date = str(signoff.get("review_date") or signoff.get("date") or "").strip()
+    driver_scope = rows[0].get("driver_scope", "")
+    connectome = rows[0].get("connectome_version", "")
+    provenance = (
+        f"{_relative(export_path)}; source_sha256={source_sha}; "
+        f"filtered_export_sha256={filtered_hash}"
+    )
+
+    root_rows = _read_csv(ROOT_AUDIT_PATH)
+    for row in root_rows:
+        if row.get("condition_id") != "parkin":
+            continue
+        row.update(
+            {
+                "root_id": ";".join(roots),
+                "neuron_name": f"DAN class ({len(roots)} imported root IDs)",
+                "cell_type": "DAN",
+                "driver_scope": driver_scope,
+                "connectome_version": connectome,
+                "root_id_source": provenance,
+                "mapping_status": "CLASS_LEVEL_EXPLORATORY_ONLY",
+                "notes": "Explicit Gate 20E signoff approves this DAN/dopaminergic class-level export only; it is not a Parkin gene-specific mapping.",
+                "root_id_status": "CLASS_LEVEL_EXPLORATORY_ONLY",
+                "mapping_decision": "APPROVED_FOR_CLASS_LEVEL_EXPLORATORY",
+            }
+        )
+    if root_rows:
+        _write_csv(ROOT_AUDIT_PATH, root_rows, list(root_rows[0]))
+
+    status_rows = _read_csv(MAPPING_STATUS_PATH)
+    for row in status_rows:
+        if row.get("condition_id") != "parkin":
+            continue
+        row.update(
+            {
+                "paper_provenance": "Sang et al. 2007 Parkin RNAi study; reviewed FlyWire class-level export",
+                "neuron_provenance": provenance,
+                "mapping_status": "MAPPED_EXPLORATORY",
+                "simulation_status": "READY_FOR_CLASS_LEVEL_EXPLORATORY",
+                "scientific_scope": "computational DAN/dopaminergic class-level exploratory mapping; not gene-specific or biological validation",
+                "blocker": "gene-specific mapping remains blocked; class-level exploratory scope only",
+                "mapping_level": "DRIVER_OR_CLASS_LEVEL",
+                "mapping_identifier_count": str(len(roots)),
+                "disease_rollout_readiness": "READY_FOR_CLASS_LEVEL_EXPLORATORY",
+                "reviewer_2": reviewer,
+                "review_date": review_date,
+                "updated_by_gate": "Gate_20E",
+            }
+        )
+    if status_rows:
+        _write_csv(MAPPING_STATUS_PATH, status_rows, list(status_rows[0]))
+
+    review_rows = _read_csv(REVIEW_PATH)
+    for row in review_rows:
+        if row.get("condition_id") != "parkin":
+            continue
+        row.update(
+            {
+                "literature_neural_scope": "FlyWire DAN/dopaminergic class-level export; TH/ple equivalence not asserted",
+                "requested_model_scope": "class-level exploratory only",
+                "connectome_version": connectome,
+                "mapping_identifier_type": "root_id",
+                "mapping_identifier_count": str(len(roots)),
+                "mapping_identifier_source": provenance,
+                "driver_scope": driver_scope,
+                "reviewer_2": reviewer,
+                "review_date": review_date,
+                "mapping_status": "CLASS_LEVEL_EXPLORATORY_ONLY",
+                "decision": "APPROVED_FOR_CLASS_LEVEL_EXPLORATORY",
+                "allowed_use": "CLASS_LEVEL_EXPLORATORY_ONLY",
+                "blockers_vi": "Không phải mapping gene-specific; chỉ được dùng cho exploratory class-level rollout.",
+                "source_export_path": _relative(export_path),
+                "source_manifest_path": _relative(MANUAL_ROOT / "parkin/reviewer_signoff.json"),
+            }
+        )
+    if review_rows:
+        _write_csv(REVIEW_PATH, review_rows, list(review_rows[0]))
+
+
+def _refresh_dataset_manifest_hash() -> None:
+    path = ROOT / "datasets/dataset_manifest.json"
+    if not path.is_file():
+        return
+    document = _load_json(path)
+    for record in document.get("files", []):
+        if record.get("path") == "literature_phenotypes/root_id_mapping_audit.csv":
+            record["sha256"] = _sha256(ROOT / "datasets/literature_phenotypes/root_id_mapping_audit.csv")
+    _write_json(path, document)
 
 
 def _condition_result(condition_id: str) -> dict[str, Any]:
@@ -358,6 +540,8 @@ def _condition_result(condition_id: str) -> dict[str, Any]:
         "edge_ids": edges,
         "decision": decision,
         "mapping_level": mapping_level,
+        "gene_specific_mapping": bool(signoff.get("gene_specific_mapping", False)),
+        "allowed_rollout_scope": str(signoff.get("allowed_rollout_scope", "")).strip(),
         "reviewer_2": reviewer_2,
         "review_date": review_date,
         "status": status,
@@ -465,6 +649,17 @@ def _build_report(summary: Mapping[str, Any]) -> str:
             "Gate 20C chỉ là cổng thu nhận và kiểm tra provenance mapping. Nó không phải xác nhận cơ chế bệnh, không tạo disease metrics, không thay thế thí nghiệm trên ruồi thật và không phải công cụ chẩn đoán hay đánh giá thuốc.",
         ]
     )
+    if summary["approved_condition_count"]:
+        # The historical Gate 20D paragraph says 0/5; remove it after a
+        # validated signoff so the generated report reflects the current gate.
+        lines = [line for line in lines if "`0/5`" not in line]
+        lines.extend(
+            [
+                "Parkin is approved only for class-level exploratory mapping. "
+                "The 330 IDs are not a Parkin gene-specific map.",
+                "The other four conditions remain unapproved; this is not 5/5.",
+            ]
+        )
     return "\n".join(lines) + "\n"
 
 
@@ -479,7 +674,7 @@ def _build_summary(condition_results: list[Mapping[str, Any]], table_path: Path)
         "approved_condition_count": approved,
         "reviewed_condition_count": reviewed,
         "all_five_conditions_approved": approved == 5,
-        "disease_mapping_status": "DISEASE_MAPPING_READY" if approved else "DISEASE_MAPPING_BLOCKED",
+        "disease_mapping_status": "READY_FOR_STEP_06" if approved else "DISEASE_MAPPING_BLOCKED",
         "condition_statuses": {str(item["condition_id"]): dict(item) for item in condition_results},
         "condition_table": _relative(table_path),
         "no_new_simulation_run": True,
@@ -498,6 +693,23 @@ def run(*, apply_approved: bool = False) -> int:
     QUERY_ROOT.mkdir(parents=True, exist_ok=True)
     OUTPUT_ROOT.joinpath("results").mkdir(parents=True, exist_ok=True)
     OUTPUT_ROOT.joinpath("manifests").mkdir(parents=True, exist_ok=True)
+    parkin_paths = _manual_files("parkin")
+    parkin_rows, parkin_table_errors = _read_manual_rows(parkin_paths)
+    parkin_signoff, parkin_signoff_errors, _ = _signoff("parkin")
+    parkin_metadata_errors = _metadata_errors("parkin", parkin_rows) if parkin_paths else []
+    if (
+        parkin_paths
+        and not parkin_table_errors
+        and not parkin_metadata_errors
+        and not parkin_signoff_errors
+        and parkin_signoff.get("decision") == "APPROVED_FOR_CLASS_LEVEL_EXPLORATORY"
+        and parkin_signoff.get("mapping_level") == "DRIVER_OR_CLASS_LEVEL"
+        and parkin_signoff.get("gene_specific_mapping") is False
+        and parkin_signoff.get("allowed_rollout_scope") == "CLASS_LEVEL_EXPLORATORY_ONLY"
+    ):
+        _write_class_level_parkin_config(parkin_rows, parkin_signoff)
+        _promote_parkin_primary_records(parkin_rows, parkin_signoff)
+        _refresh_dataset_manifest_hash()
     condition_results = [_condition_result(condition) for condition in CONDITION_IDS]
     if apply_approved and any(item["approved_condition"] for item in condition_results):
         raise NotImplementedError(

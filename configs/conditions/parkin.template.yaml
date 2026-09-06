@@ -1,10 +1,3340 @@
 condition_id: parkin_template
 gene_model: parkin_loss_of_function
 seed: 0
-status: WAITING_TARGET_DATA
-target_neurons: []
+status: READY_FOR_CLASS_LEVEL_EXPLORATORY
+mapping_status: APPROVED_FOR_CLASS_LEVEL_EXPLORATORY
+decision: APPROVED_FOR_CLASS_LEVEL_EXPLORATORY
+mapping_level: DRIVER_OR_CLASS_LEVEL
+gene_specific_mapping: false
+allowed_rollout_scope: CLASS_LEVEL_EXPLORATORY_ONLY
+target_neurons:
+- root_id: '720575940604479590'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940604728800'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940604861356'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940605113376'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940605221065'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940605280201'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940605891040'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940606196098'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940606598089'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940606909826'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940607066123'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940607287561'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940607511900'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940607794443'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940608071435'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940608166748'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940608168028'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940608186498'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940608429835'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940608442633'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940609180611'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940609414468'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940610181496'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940610430254'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940610523746'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940610569028'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940610934114'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940611129698'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940611789810'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940611918578'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940612586981'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940612623474'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940612643954'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940612755618'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940612802479'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940612857878'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940612920999'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940613155490'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940613338152'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940613426838'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940613529770'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940613647007'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940613732271'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940614293485'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940614629799'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940614677810'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940614759029'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940614991221'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940615405718'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940615607975'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940615682246'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940615750562'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940615816498'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940615953202'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940616312949'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940616643924'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940616682838'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940616882757'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940616986769'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940617145561'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940617242841'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940617466395'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940617553809'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940617691170'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940617701633'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940617903643'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940618130833'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940618744118'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940618775943'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940618842929'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940618910075'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940618943389'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619101062'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619244248'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619245016'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619251416'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619299054'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619301185'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619322328'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619402576'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619506993'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619676224'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619785492'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619823536'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619824244'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619844261'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619893419'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940619917248'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620260800'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620341931'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620352646'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620379233'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620390822'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620423533'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620424813'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620488513'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620497217'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620576238'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620585710'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620681837'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620812865'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620922790'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940620938150'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621040737'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621072816'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621082996'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621085622'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621136519'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621165488'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621166256'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621216982'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621226405'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621245124'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621284446'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621397253'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621434145'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621462512'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621504794'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621617286'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621811803'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621825630'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621861637'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621900321'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940621945855'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622100774'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622107869'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622338269'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622384227'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622387981'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622410189'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622495092'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622701808'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622879891'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622944403'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622950605'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940622996941'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940623082665'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940623201023'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940623398524'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940623442173'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940623456915'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940623696647'
+  cell_class: DAN
+  cell_type: CB2730
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940623792055'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940623979593'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624206728'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624317419'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624406986'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624442564'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624545940'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624629223'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624658215'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624661031'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624687850'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624742414'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940624859725'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625128067'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625185613'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625338249'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625343550'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625352456'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625525265'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625568186'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625615248'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625683716'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625898633'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625926693'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940625931266'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940626022074'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940626071482'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940626135122'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940626158364'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940626300444'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940626420045'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940626455326'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940626506472'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940626555800'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940626878460'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627103877'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627110931'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627194501'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627390507'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627532104'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627542415'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627549205'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627565820'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627594568'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627644584'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627680516'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627741799'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940627954375'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628094663'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628427369'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628526735'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628549379'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628615683'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628687207'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628708139'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628743362'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628836412'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628933419'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940628996455'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940629188507'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940629190615'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940629235047'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940629379415'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940629564286'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940629579836'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940629774891'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940629960192'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630076887'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630166267'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630318951'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630397527'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630446329'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630465398'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630498811'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630500293'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630536441'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630650063'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630684943'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630691159'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630722956'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630777631'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630794703'
+  cell_class: DAN
+  cell_type: CB2730
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630816207'
+  cell_class: DAN
+  cell_type: CB2730
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630828485'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630868271'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630892631'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630913221'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630996684'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940630998287'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631005046'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631017258'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631095087'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631117586'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631118610'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631184439'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631198776'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631222841'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631274794'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631443304'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631576903'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631577901'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631636035'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631688808'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631730349'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631745367'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631758393'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631843724'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940631844492'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940632107335'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940632344290'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940632541523'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940632872365'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633142498'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633145996'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633163711'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633406745'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633515490'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633541857'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633573783'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633688476'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633733401'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633816857'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940633832628'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940634475119'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940634551959'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940634640023'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940634652523'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940634655851'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940634953079'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940635356316'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940635779959'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940635789431'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940635838655'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940636309093'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940636355685'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940636461710'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940636659886'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940637109214'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940637114334'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940637390302'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940637391582'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940637439465'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940637672425'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940637928164'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940638048070'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940638163940'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940638548021'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940638940469'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940639075150'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940639077283'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940639358579'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940639566406'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940639684696'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940640048768'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940640747864'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940640770957'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940641062901'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940641509595'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940642592416'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940642603464'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940642631387'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940642733216'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940642744264'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940643311501'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940643542688'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940643543200'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940643790536'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940643950190'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940644146724'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940644747828'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940645158179'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940645932579'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940646288419'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940646564916'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940646582836'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940646852660'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940647147908'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940647165828'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940648330105'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940649649785'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940649658745'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940649675897'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940650745977'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940653360289'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940654661281'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940658674049'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940660053121'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
+- root_id: '720575940660271745'
+  cell_class: DAN
+  cell_type: ''
+  driver_scope: Parkin literature TH-GAL4 context; imported scope is DAN/top_nt=dopamine;
+    TH/ple equivalence not asserted
+  anatomy_scope: central
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  mapping_level: DRIVER_OR_CLASS_LEVEL
+  provenance: research/disease_mapping/manual_imports/parkin/codex_export.csv
 target_edges: []
-full_burden: {}
-burden_curve: []
-provenance: []
-notes: "Template cho mitochondrial/motor-maintenance hypothesis."
+full_burden: 1.0
+burden_curve:
+- burden: 0.0
+  label: control
+- burden: 0.25
+  label: low
+- burden: 0.5
+  label: medium
+- burden: 0.75
+  label: high
+- burden: 1.0
+  label: full
+provenance:
+  mapping_export: research/disease_mapping/manual_imports/parkin/codex_export.csv
+  reviewer_signoff: research/disease_mapping/manual_imports/parkin/reviewer_signoff.json
+  source_url: https://raw.githubusercontent.com/flyconnectome/flywire_annotations/v2.1.0/supplemental_files/Supplemental_file1_neuron_annotations.tsv
+  connectome_name: FlyWire FAFB
+  connectome_version: v783 (annotations release v2.1.0)
+  source_sha256: 30be6c73975a70c56d930e27911f36455d3886e15abf383b78edd2a5d679e0b6
+  filtered_export_sha256: 4e381aa1e8d9f9e57e9961f8890e1132ad6b9d6a34e9e6c1e69c0effe21d68c8
+  review_status: APPROVED_FOR_CLASS_LEVEL_EXPLORATORY
+  reviewer_1: Le Tan Vi
+  reviewer_2: To Dang Minh Tuan
+  review_date: '2026-09-07'
+  gate: Gate 20E
+  scientific_boundary: DAN/dopaminergic class-level exploratory mapping only; not
+    Parkin gene-specific validation.
+notes: Class-level exploratory Parkin mapping only; no gene-specific or biological
+  validation claim.

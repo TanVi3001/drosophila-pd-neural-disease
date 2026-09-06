@@ -33,7 +33,7 @@
     },
     {
       "path": "literature_phenotypes/root_id_mapping_audit.csv",
-      "sha256": "e5b2570387c3507c62fae9c7cf0dc25103a48c22918e14ba8610fc38ceff030c"
+      "sha256": "ded52b5479ac543ddb9aa870443c639eba7669a7767c1d04cb25b82b60badd77"
     },
     {
       "path": "source_intake/second_pass_sources.csv",
