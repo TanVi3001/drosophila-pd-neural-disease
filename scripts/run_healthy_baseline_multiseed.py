@@ -16,6 +16,7 @@ import json
 import math
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 from typing import Any, Mapping, Sequence
@@ -65,6 +66,43 @@ def _relative(path: Path) -> str:
         return path.resolve().relative_to(ROOT.resolve()).as_posix()
     except ValueError:
         return str(path.resolve())
+
+
+def _artifact_records(root: Path) -> list[dict[str, Any]]:
+    """Return a hash manifest for a completed raw rollout directory."""
+    records: list[dict[str, Any]] = []
+    if not root.is_dir():
+        return records
+    for path in sorted(root.rglob("*")):
+        if not path.is_file():
+            continue
+        records.append(
+            {
+                "path": path.relative_to(root).as_posix(),
+                "size_bytes": path.stat().st_size,
+                "sha256": _sha256(path),
+            }
+        )
+    return records
+
+
+def _discard_raw_artifacts(*, output: Path, output_root: Path, seed: int) -> tuple[Path, int, int]:
+    """Hash and remove one successful raw rollout after all QC has passed."""
+    records = _artifact_records(output)
+    manifest_path = output_root / "manifests" / f"seed_{seed:03d}_raw_artifacts.json"
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "schema_version": "gate-11-raw-artifact-manifest-v1",
+        "seed": seed,
+        "raw_output": _relative(output),
+        "deleted_after_qc": True,
+        "artifacts": records,
+        "total_size_bytes": sum(int(record["size_bytes"]) for record in records),
+        "data_fabricated": False,
+    }
+    _write_text(manifest_path, json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
+    shutil.rmtree(output)
+    return manifest_path, len(records), int(payload["total_size_bytes"])
 
 
 def _load_config(path: Path) -> dict[str, Any]:
@@ -289,6 +327,7 @@ def _run_seed(
     platform_root: Path,
     brain_python: Path,
     output_root: Path,
+    retain_raw: bool,
 ) -> dict[str, Any]:
     execution = config["execution"]
     output = output_root / "results" / f"seed_{seed:03d}"
@@ -382,6 +421,21 @@ def _run_seed(
         status = "FAILED_PHYSICAL_QC"
     row["status"] = status
     row.update(metrics)
+    row["raw_artifacts_retained"] = True
+    row["raw_artifact_manifest"] = ""
+    row["raw_artifact_count"] = 0
+    row["raw_artifact_bytes"] = 0
+    required_complete = len(present_required) == len(required_metrics)
+    if not retain_raw and status == "PASS" and quality_status == "PASS" and required_complete:
+        raw_manifest, artifact_count, artifact_bytes = _discard_raw_artifacts(
+            output=output,
+            output_root=output_root,
+            seed=seed,
+        )
+        row["raw_artifacts_retained"] = False
+        row["raw_artifact_manifest"] = _relative(raw_manifest)
+        row["raw_artifact_count"] = artifact_count
+        row["raw_artifact_bytes"] = artifact_bytes
     return row
 
 
@@ -483,6 +537,12 @@ def _write_report(
     required = contract["required"]
     canonical = contract.get("canonical_metrics", {})
     runtime = manifest.get("runtime", {})
+    storage = manifest.get("storage_policy", {})
+    storage_note = (
+        "- Raw rollout thành công được hash rồi xóa sau QC; manifest per-seed vẫn được giữ."
+        if storage.get("discard_raw_requested")
+        else "- Mỗi seed có thư mục rollout raw riêng để tái kiểm tra."
+    )
     lines = [
         "# Gate 11: Healthy Baseline Multi-Seed Report",
         "",
@@ -498,6 +558,8 @@ def _write_report(
         f"- Git commit: `{manifest['git_commit']}`.",
         f"- Runtime preflight: `{manifest['preflight_status']}`.",
         f"- External artifact audit: `{manifest['external_artifact_status']}`.",
+        f"- Raw artifact policy: `discard_requested={storage.get('discard_raw_requested', 'NOT_AVAILABLE')}; "
+        f"any_raw_retained={storage.get('raw_artifacts_retained', 'NOT_AVAILABLE')}`.",
         "- Disease Layer: `OFF`.",
         "- Calibration: `OFF`.",
         "- Video: `NOT_REQUESTED` để tránh đưa artifact lớn vào baseline commit.",
@@ -578,7 +640,8 @@ def _write_report(
             "- Mỗi seed có `no_nan=PASS` và `no_inf=PASS`; tổng hợp là không NaN/Inf.",
             "- QC trực tiếp từ rollout: timestamp, timestep, thorax displacement, "
             "contact, joint trajectory, actuator trajectory, observation state và quaternion.",
-            "- Mỗi seed có thư mục rollout riêng và log riêng.",
+            storage_note,
+            "- Log mỗi seed và log tổng hợp được giữ trong `logs/`.",
             "- Log tổng hợp: `experiments/gate_11_healthy_baseline/logs/run.log`.",
             "",
             "## External artifact provenance",
@@ -646,6 +709,7 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
     manifests.mkdir(parents=True, exist_ok=True)
     logs.mkdir(parents=True, exist_ok=True)
     results.mkdir(parents=True, exist_ok=True)
+    retain_raw = not bool(getattr(overrides, "discard_raw", False))
 
     artifact_audit = _artifact_audit(
         brain_root=brain_root,
@@ -686,6 +750,7 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
             platform_root=platform_root,
             brain_python=brain_python,
             output_root=output_root,
+            retain_raw=retain_raw,
         )
         rows.append(row)
         print(f"seed={seed} status={row['status']} metrics={row['required_metric_status']}")
@@ -702,6 +767,19 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
         )
     run_status = "PASS" if all(row["status"] == "PASS" for row in rows) else "FAILED"
     contract_status = "PASS" if all(value == "PRESENT" for value in required_metrics.values()) else "INCOMPLETE"
+    raw_retained_by_seed = {
+        str(row["seed"]): bool(row.get("raw_artifacts_retained", True)) for row in rows
+    }
+    storage_policy = {
+        "raw_artifacts_retained": any(raw_retained_by_seed.values()),
+        "raw_artifacts_retained_by_seed": raw_retained_by_seed,
+        "discard_raw_requested": not retain_raw,
+        "discard_raw_successful_seeds": not retain_raw,
+        "failed_or_qc_incomplete_seeds_retained": True,
+        "raw_artifact_manifests": [
+            row["raw_artifact_manifest"] for row in rows if row.get("raw_artifact_manifest")
+        ],
+    }
     canonical_metrics = {
         "mean_planar_speed_mm_s": {
             "source": "rollout.npz:thorax",
@@ -737,13 +815,27 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
         "rows": rows,
         "summary": _summary(rows),
         "runtime": _runtime_summary(rows, config),
+        "storage_policy": storage_policy,
         "metric_contract": {"status": contract_status, "canonical_metrics": canonical_metrics},
         "scientific_scope": "Computational healthy locomotion baseline; not biological validation.",
         "data_fabricated": False,
     }
     _write_text(metrics_json, json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
     artifact_records = []
-    for path in [config_path, metrics_csv, metrics_json, manifests / "external_input_audit.json"]:
+    retained_artifact_paths = [config_path, metrics_csv, metrics_json, manifests / "external_input_audit.json"]
+    retained_artifact_paths.extend(
+        ROOT / row["raw_artifact_manifest"]
+        for row in rows
+        if row.get("raw_artifact_manifest") and not Path(str(row["raw_artifact_manifest"])).is_absolute()
+    )
+    retained_artifact_paths.extend(
+        Path(str(row["raw_artifact_manifest"]))
+        for row in rows
+        if row.get("raw_artifact_manifest") and Path(str(row["raw_artifact_manifest"])).is_absolute()
+    )
+    for path in retained_artifact_paths:
+        if not path.is_file():
+            continue
         artifact_records.append({"path": _relative(path), "size": path.stat().st_size, "sha256": _sha256(path)})
     manifest = {
         "schema_version": "gate-11-healthy-baseline-manifest-v1",
@@ -762,6 +854,7 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
         "preflight_status": artifact_audit["runtime"]["status"],
         "external_artifact_status": artifact_audit["status"],
         "external_input_audit": _relative(manifests / "external_input_audit.json"),
+        "storage_policy": storage_policy,
         "metric_contract": {
             "required": required_metrics,
             "status": contract_status,
@@ -790,6 +883,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--brain-root", type=Path, default=None)
     parser.add_argument("--platform-root", type=Path, default=None)
     parser.add_argument("--brain-python", type=Path, default=None)
+    parser.add_argument(
+        "--discard-raw",
+        action="store_true",
+        help=(
+            "Hash and remove raw rollout artifacts after a seed passes all numeric, "
+            "metric and physical QC checks. Failed seeds are retained."
+        ),
+    )
     return parser
 
 

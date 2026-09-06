@@ -7,6 +7,7 @@ cung cap.
 
 from .calibration import compute_loss
 from .action_hook_adapter import apply_proxy_operator_to_locomotion_action
+from .literature_experiment import input_manifest, validate_experiment_plan
 from .models import DiseaseCondition, DiseaseProfile, NeuralParameters
 from .perturbations import perturb_edges
 from .proxy_burden_operator import apply_proxy_burden_to_action
@@ -16,7 +17,9 @@ __all__ = [
     "DiseaseProfile",
     "NeuralParameters",
     "compute_loss",
+    "input_manifest",
     "apply_proxy_operator_to_locomotion_action",
     "perturb_edges",
     "apply_proxy_burden_to_action",
+    "validate_experiment_plan",
 ]

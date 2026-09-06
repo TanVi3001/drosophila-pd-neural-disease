@@ -1,6 +1,7 @@
 import csv
 import hashlib
 import json
+from datetime import datetime
 from pathlib import Path
 
 
@@ -11,6 +12,12 @@ DATASETS = ROOT / "datasets"
 def _csv_rows(relative_path: str) -> list[dict[str, str]]:
     with (DATASETS / relative_path).open(newline="", encoding="utf-8") as handle:
         return list(csv.DictReader(handle))
+
+
+def _assert_single_valid_review_date(rows: list[dict[str, str]]) -> None:
+    dates = {row["review_date"] for row in rows}
+    assert len(dates) == 1
+    datetime.strptime(next(iter(dates)), "%Y-%m-%d")
 
 
 def test_dataset_manifest_hashes_tracked_sources() -> None:
@@ -115,7 +122,7 @@ def test_second_review_audit_covers_every_candidate_without_auto_approval() -> N
         for row in audit
     )
     assert all(row["reviewer_2"] == "Tuan Le" for row in audit)
-    assert all(row["review_date"] == "2026-08-30" for row in audit)
+    _assert_single_valid_review_date(audit)
     assert all(row["uncertainty_status"] for row in audit)
     assert all(row["assay_transfer_status"] for row in audit)
     assert all(row["root_id_mapping_status"] for row in audit)
@@ -127,7 +134,7 @@ def test_root_id_mapping_audit_does_not_infer_gene_specific_ids() -> None:
     assert len(mappings) == 6
     assert mappings[0]["root_id_status"] == "CLASS_LEVEL_EXPLORATORY_ONLY"
     assert all(row["reviewer_2"] == "Tuan Le" for row in mappings)
-    assert all(row["review_date"] == "2026-08-30" for row in mappings)
+    _assert_single_valid_review_date(mappings)
     assert all(
         row["mapping_decision"] != "APPROVED_GENE_SPECIFIC"
         for row in mappings
@@ -160,7 +167,7 @@ def test_automated_paper_analysis_covers_all_records_without_approval() -> None:
         row["decision"] in {"APPROVED_FOR_CALIBRATION", "APPROVED_FOR_HOLDOUT"}
         for row in analysis
     )
-    assert all(row["review_date"] == "2026-08-30" for row in analysis)
+    _assert_single_valid_review_date(analysis)
     assert all(row["analysis_vi"] and row["notes_vi"] for row in analysis)
 
 

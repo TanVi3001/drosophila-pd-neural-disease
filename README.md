@@ -181,6 +181,31 @@ không tạo simulation giả.
 8. Adjudicate claim trước khi viết báo cáo hoặc bản thảo.
 9. Đưa rollout thật sang platform `drosophila-pd-flygym` để phân tích.
 
+## Literature-constrained experiment registry
+
+Pipeline mới bắt đầu bằng một preflight có kiểm soát để nối paper, target đã
+review, assay bridge, proxy, runtime và artifact contract. Preflight không chạy
+FlyGym và không tạo metrics/video:
+
+```powershell
+py -3.12 scripts/prepare_literature_constrained_experiment.py `
+  --config experiments/literature_constrained/configs/chen_alpha_syn_calibration.yaml `
+  --output results/literature_constrained/chen_alpha_syn_calibration
+```
+
+Protocol mẫu Pozo được giữ độc lập làm holdout:
+
+```powershell
+py -3.12 scripts/prepare_literature_constrained_experiment.py `
+  --config experiments/literature_constrained/configs/pozo_pink1_holdout.yaml `
+  --output results/literature_constrained/pozo_pink1_holdout
+```
+
+`READY_FOR_RUNTIME` chỉ xác nhận protocol và provenance đã qua preflight. Muốn
+chạy simulation vẫn phải dùng brain source/checkpoint và runner FlyGym hợp lệ.
+Chi tiết contract nằm tại
+[`docs/literature_constrained_pipeline.md`](docs/literature_constrained_pipeline.md).
+
 ## Repository map
 
 - `docs/claims/`: claim lock và hướng dẫn wording.

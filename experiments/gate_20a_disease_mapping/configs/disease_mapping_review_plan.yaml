@@ -1,0 +1,31 @@
+schema_version: gate-20a-disease-mapping-review-v1
+experiment_id: gate_20a_disease_mapping_review
+conditions:
+  - alpha_synuclein
+  - pink1
+  - parkin
+  - dj1
+  - lrrk2
+exploratory_reference:
+  - dopamine_deficiency_exploratory
+required_mapping_fields:
+  - condition_id
+  - root_id_or_edge_ids
+  - cell_type_or_scope
+  - driver_scope
+  - connectome_version
+  - root_id_source
+  - reviewer_2
+  - review_date
+  - mapping_status
+required_condition_fields:
+  - target_neurons_or_edges
+  - perturbation_rule
+  - burden_curve
+  - provenance
+policy:
+  infer_root_ids_from_gene_name: false
+  infer_gene_specific_scope_from_class_level: false
+  allow_organism_level_proxy_as_gene_specific: false
+  simulate_when_mapping_blocked: false
+  fabricate_mapping_or_burden: false

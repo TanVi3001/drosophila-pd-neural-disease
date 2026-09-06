@@ -1,0 +1,69 @@
+schema_version: literature-constrained-experiment-v1
+experiment_id: chen_2014_alpha_syn_ratio_calibration
+scientific_scope: organism_level_computational_proxy
+allocation: calibration
+
+source:
+  paper_id: chen_2014_adult_walking
+  record_id: chen_2014_adult_walking_speed
+  figure_table: Figure 4f
+  provenance:
+    - calibration_targets/targets.csv
+    - research/paper_review/digitized/chen_2014_adult_walking_speed.csv
+
+endpoint:
+  literature:
+    metric: mean_walking_velocity_cm_s
+    unit: cm/s
+    statistic: mean
+  virtual:
+    metric: mean_planar_speed_mm_s
+    unit: mm/s
+    statistic: mean
+  bridge:
+    type: physical_unit_conversion
+    source_unit: cm/s
+    target_unit: mm/s
+    factor: 10.0
+    rationale: "Cùng họ speed/velocity; chỉ đổi cm/s sang mm/s."
+    provenance: "Chen target notes and calibration target policy."
+
+target:
+  csv: calibration_targets/targets.csv
+  paper_id: chen_2014_adult_walking
+
+proxy:
+  type: amplitude_attenuation
+  scope: organism_level_proxy
+  gene_specific_mapping: false
+  parameters:
+    attenuation_strength: 0.5
+    noise_strength: 0.0
+
+runtime:
+  condition_id: alpha_synuclein
+  baseline_condition_id: healthy
+  seeds: [0, 1, 2, 3, 4]
+  steps: 5000
+  timestep_s: 0.0001
+  duration_s: 0.5
+  device: cuda
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+  video:
+    enabled: true
+    fps: 60
+    width: 960
+    height: 540
+    playback_speed: 1.0
+
+runner:
+  entrypoint: scripts/run_neural_experiment.py
+  platform_root: ../drosophila-pd-flygym
+  brain_root: external/fly-brain
+
+outputs:
+  metrics: metrics/metrics.json
+  rollout_manifest: manifest.json
+  video: flygym_rollout.mp4
+  comparison: comparison/chen_ratio.csv

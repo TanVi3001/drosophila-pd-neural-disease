@@ -1,0 +1,25 @@
+schema_version: gate-20b-mapping-adjudication-v1
+experiment_id: gate_20b_mapping_adjudication
+conditions:
+  - alpha_synuclein
+  - pink1
+  - parkin
+  - dj1
+  - lrrk2
+required_evidence:
+  - paper_or_assay_scope
+  - root_id_or_edge_id_export
+  - cell_type_or_scope
+  - driver_scope
+  - connectome_version
+  - export_provenance
+  - reviewer_2
+  - review_date
+approval_policy:
+  approved_requires_nonempty_identifier_export: true
+  class_level_is_gene_specific: false
+  whole_animal_is_neuron_mapping: false
+  behavioral_phenotype_implies_root_ids: false
+  brain_only_can_replace_vnc: false
+  missing_evidence_status: PENDING_HUMAN_SIGNOFF
+  no_simulation_until_approved: true
