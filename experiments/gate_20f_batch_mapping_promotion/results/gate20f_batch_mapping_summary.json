@@ -1,0 +1,105 @@
+{
+  "schema_version": "gate-20f-batch-mapping-promotion-summary-v1",
+  "gate": "Gate 20F",
+  "created_date": "2026-09-07",
+  "status": "MAPPING_ACQUISITION_READY",
+  "approved_condition_count": 1,
+  "reviewed_condition_count": 5,
+  "all_five_conditions_approved": false,
+  "disease_mapping_status": "READY_FOR_STEP_06",
+  "condition_statuses": {
+    "alpha_synuclein": {
+      "status": "BLOCKED_NO_MANUAL_IMPORT",
+      "approved_condition": false,
+      "mapping_identifier_count": 0,
+      "mapping_level": "PAN_NEURONAL_ORGANISM_LEVEL",
+      "decision": "MODEL_SCOPE_NOT_CELL_SPECIFIC",
+      "manual_import_files": [],
+      "reviewer_signoff": null,
+      "blockers": [
+        "no condition-specific root_id or edge_id export",
+        "reviewer_signoff.json missing",
+        "pan-neuronal reference is not a reviewed disease mapping"
+      ]
+    },
+    "pink1": {
+      "status": "BLOCKED_NO_MANUAL_IMPORT",
+      "approved_condition": false,
+      "mapping_identifier_count": 0,
+      "mapping_level": "WHOLE_ANIMAL_ORGANISM_LEVEL",
+      "decision": "MODEL_SCOPE_NOT_CELL_SPECIFIC",
+      "manual_import_files": [],
+      "reviewer_signoff": null,
+      "blockers": [
+        "no condition-specific root_id or edge_id export",
+        "reviewer_signoff.json missing",
+        "whole-animal genotype does not identify a neural intervention"
+      ]
+    },
+    "parkin": {
+      "status": "APPROVED",
+      "approved_condition": true,
+      "mapping_identifier_count": 330,
+      "mapping_level": "DRIVER_OR_CLASS_LEVEL",
+      "decision": "APPROVED_FOR_CLASS_LEVEL_EXPLORATORY",
+      "gene_specific_mapping": false,
+      "allowed_rollout_scope": "CLASS_LEVEL_EXPLORATORY_ONLY",
+      "manual_import_files": [
+        "research/disease_mapping/manual_imports/parkin/codex_export.csv"
+      ],
+      "reviewer_signoff": "research/disease_mapping/manual_imports/parkin/reviewer_signoff.json",
+      "reviewer_2": "To Dang Minh Tuan",
+      "review_date": "2026-09-07",
+      "blockers": []
+    },
+    "dj1": {
+      "status": "BLOCKED_NO_MANUAL_IMPORT",
+      "approved_condition": false,
+      "mapping_identifier_count": 0,
+      "mapping_level": "NOT_MAPPABLE_FROM_PAPER",
+      "decision": "NOT_MAPPABLE_FROM_PAPER",
+      "manual_import_files": [],
+      "reviewer_signoff": null,
+      "blockers": [
+        "no condition-specific root_id or edge_id export",
+        "reviewer_signoff.json missing",
+        "behavioral phenotype does not identify a neural intervention"
+      ]
+    },
+    "lrrk2": {
+      "status": "BLOCKED_NO_MANUAL_IMPORT",
+      "approved_condition": false,
+      "mapping_identifier_count": 0,
+      "mapping_level": "WAITING_VNC_CONNECTOME_MAPPING",
+      "decision": "WAITING_VNC_CONNECTOME_MAPPING",
+      "manual_import_files": [],
+      "reviewer_signoff": null,
+      "blockers": [
+        "no condition-specific root_id or edge_id export",
+        "reviewer_signoff.json missing",
+        "current source is brain-only while rollout needs VNC/motor-neuron mapping"
+      ]
+    }
+  },
+  "manual_imports_checked": {
+    "alpha_synuclein": "research/disease_mapping/manual_imports/alpha_synuclein/",
+    "pink1": "research/disease_mapping/manual_imports/pink1/",
+    "parkin": "research/disease_mapping/manual_imports/parkin/",
+    "dj1": "research/disease_mapping/manual_imports/dj1/",
+    "lrrk2": "research/disease_mapping/manual_imports/lrrk2/"
+  },
+  "promotion_policy": "Promote only with real mapping evidence and reviewer signoff; preserve unsupported conditions as blocked.",
+  "no_new_simulation_run": true,
+  "no_calibration_run": true,
+  "no_tuning_run": true,
+  "no_raw_metric_modification": true,
+  "no_root_id_inference": true,
+  "data_fabricated": false,
+  "boundaries": {
+    "biological_validation": false,
+    "gene_specific_validation_by_default": false,
+    "clinical_validation": false,
+    "drug_validation": false,
+    "disease_mechanism_validation": false
+  }
+}

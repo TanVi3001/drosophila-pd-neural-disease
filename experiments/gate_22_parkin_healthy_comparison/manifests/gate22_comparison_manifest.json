@@ -1,0 +1,73 @@
+{
+  "schema_version": "gate-22-parkin-healthy-comparison-v1",
+  "created_at_utc": "2026-09-07T05:29:07.685503+00:00",
+  "status": "PARKIN_HEALTHY_COMPARISON_PASS",
+  "planned_pair_count": 25,
+  "observed_pair_count": 25,
+  "comparison_row_count": 55,
+  "passed_comparison_rows": 55,
+  "failed_comparison_rows": 0,
+  "seeds_used": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "healthy_seed_5_excluded": true,
+  "burden_levels": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "primary_metrics": [
+    "mean_planar_speed_mm_s",
+    "distance_traveled_mm",
+    "displacement_mm"
+  ],
+  "secondary_metrics": [
+    "walking_speed_mm_s",
+    "com_velocity_mean_mm_s",
+    "heading_variance_rad2",
+    "body_orientation_variance_rad2",
+    "stride_frequency_hz",
+    "step_frequency_hz",
+    "trajectory_curvature_mean_rad_per_mm",
+    "walking_speed_max_mm_s"
+  ],
+  "blockers": [],
+  "gene_specific_mapping": false,
+  "mapping_scope": "class_level_exploratory",
+  "calibration_run": false,
+  "holdout_validation_run": false,
+  "simulation_run": false,
+  "gpu_run": false,
+  "data_fabricated": false,
+  "config": "experiments/gate_22_parkin_healthy_comparison/configs/parkin_healthy_comparison.yaml",
+  "config_sha256": "0166133d882ccd6595ca6c71cbf517b3814ff5ec2b6ccd05212e670ac904fb80",
+  "sources": {
+    "healthy_metrics": {
+      "path": "experiments/gate_11_healthy_baseline/results/healthy_baseline_metrics.csv",
+      "sha256": "021c13d931ff318d772eea6fa36c02f5018342d46d9d5067671764233ec78eff"
+    },
+    "healthy_manifest": {
+      "path": "experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json",
+      "sha256": "10c094e94b0cfef7c10ab0dcabc6ebb6f3b12ed3f9d94ade911170b3729369db"
+    },
+    "parkin_metrics": {
+      "path": "experiments/gate_21_parkin_class_level_rollout/manifests/gate21_execution_metrics.csv",
+      "sha256": "a4c3aed32268ac30a7dcc7f1b34fc347020002f7e46ac393ff5c038c1c7dda80"
+    },
+    "parkin_manifest": {
+      "path": "experiments/gate_21_parkin_class_level_rollout/manifests/gate21_execution_manifest.json",
+      "sha256": "9bdf62afe54bff61796013fe6dc829c29ff379d82335e09629fccc395b6e40e0"
+    }
+  },
+  "artifacts": {
+    "comparison_csv": "experiments/gate_22_parkin_healthy_comparison/manifests/gate22_comparison.csv",
+    "summary_json": "experiments/gate_22_parkin_healthy_comparison/manifests/gate22_comparison_summary.json",
+    "report": "docs/disease_rollouts/gate_22_parkin_healthy_comparison_report.md"
+  }
+}

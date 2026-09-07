@@ -1,0 +1,19 @@
+{
+  "schema_version": "gate-21-parkin-class-level-exploratory-protocol-v1",
+  "gate": "Gate 21",
+  "status": "PROTOCOL_DEFINED",
+  "condition_id": "parkin",
+  "mapping_scope": "class_level_exploratory",
+  "gene_specific_mapping": false,
+  "planned_seeds": [0, 1, 2, 3, 4],
+  "planned_burden_levels": [0.0, 0.25, 0.5, 0.75, 1.0],
+  "planned_rollout_count": 25,
+  "video_seeds": [0],
+  "video_burdens": [0.0, 1.0],
+  "calibration_run": false,
+  "holdout_validation_run": false,
+  "tuning_run": false,
+  "simulation_data_fabricated": false,
+  "raw_artifacts_committed": false,
+  "scientific_boundary": "Class-level exploratory Parkin proxy only; not gene-specific or biological Parkinson validation."
+}
