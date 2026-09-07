@@ -1,0 +1,13 @@
+{
+  "analysis_only": true,
+  "generated_templates": [
+    "submission/gate_28_archive_metadata/CITATION.cff.template",
+    "submission/gate_28_archive_metadata/zenodo.json.template",
+    "submission/gate_28_archive_metadata/data_availability_statement.md",
+    "docs/publication/gate_28_archive_metadata.md"
+  ],
+  "no_external_upload": true,
+  "result": "experiments/gate_28_archive_metadata/results/archive_metadata_audit.json",
+  "schema_version": "gate-28-archive-metadata-manifest-v1",
+  "status": "ARCHIVE_METADATA_PENDING_HUMAN_DECISIONS"
+}

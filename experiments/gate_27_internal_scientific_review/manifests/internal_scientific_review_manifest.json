@@ -1,0 +1,40 @@
+{
+  "analysis_only": true,
+  "human_scientific_review_completed": false,
+  "report": "docs/publication/gate_27_internal_scientific_review.md",
+  "result": "experiments/gate_27_internal_scientific_review/results/internal_scientific_review_audit.json",
+  "schema_version": "gate-27-internal-review-manifest-v1",
+  "source_artifacts": [
+    {
+      "path": "experiments/gate_24_concordance/manifests/gate24_concordance_manifest.json",
+      "role": "frozen_source",
+      "sha256": "48bad5200dff6bcd17df5a90b2af5c9d4a58398a7d66bd2820954bafa1f2d7ef",
+      "size_bytes": 5378
+    },
+    {
+      "path": "experiments/gate_25_reproducibility_freeze/manifests/reproducibility_freeze_manifest.json",
+      "role": "frozen_source",
+      "sha256": "61c38311152bb467620ba2e6a3b56305aa0e248a80bd1c42035ca904d289f39c",
+      "size_bytes": 2466
+    },
+    {
+      "path": "experiments/gate_26_submission_package/manifests/submission_package_manifest.json",
+      "role": "frozen_source",
+      "sha256": "1c4e017a0525f88b6bdbe336eb6186b7056873e09b3cbdaa71c1b73f8b6344be",
+      "size_bytes": 6658
+    },
+    {
+      "path": "submission/gate_26/manuscript_vi.md",
+      "role": "frozen_source",
+      "sha256": "afa1f1ad5826a95b35b3b21503fdb7ae0f14d365bcbec23b884db5d38c70fa22",
+      "size_bytes": 3696
+    },
+    {
+      "path": "docs/claims/current_claim_lock.md",
+      "role": "frozen_source",
+      "sha256": "09cf89ae339ff7a1e497ef6c319f8fe10e4c64a9080abe10b938f5d92be39b64",
+      "size_bytes": 1988
+    }
+  ],
+  "status": "INTERNAL_REVIEW_PACKAGE_READY"
+}

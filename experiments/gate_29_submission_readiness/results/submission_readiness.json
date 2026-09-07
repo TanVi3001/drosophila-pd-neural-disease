@@ -1,0 +1,15 @@
+{
+  "external_submission_executed": false,
+  "required_missing_fields": [
+    "target_venue",
+    "author_order_and_affiliations",
+    "corresponding_author",
+    "funding_statement",
+    "conflict_of_interest_statement",
+    "supervisor_and_coauthor_approval",
+    "venue_specific_formatting"
+  ],
+  "schema_version": "gate-29-submission-readiness-v1",
+  "scientific_scope": "bounded computational locomotion proxy",
+  "status": "SUBMISSION_METADATA_PENDING_HUMAN_SIGNOFF"
+}

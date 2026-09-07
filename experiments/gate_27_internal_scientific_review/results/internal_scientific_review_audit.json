@@ -1,0 +1,15 @@
+{
+  "biological_parkinson_validation": false,
+  "claim_lock_verified": true,
+  "gene_specific_validation": false,
+  "human_scientific_review_completed": false,
+  "pozo_directionality": "PASS",
+  "pozo_quantitative_ratio": "MISMATCH",
+  "required_human_reviews": [
+    "Methods/statistics review by a domain reviewer",
+    "Claim/limitation review by supervisor or corresponding author",
+    "Authorship, contribution and conflict-of-interest confirmation"
+  ],
+  "schema_version": "gate-27-internal-review-audit-v1",
+  "status": "INTERNAL_REVIEW_PACKAGE_READY"
+}

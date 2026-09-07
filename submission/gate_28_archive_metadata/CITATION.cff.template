@@ -1,0 +1,11 @@
+# CITATION.cff template - complete only after author confirmation
+cff-version: 1.2.0
+message: "If you use this software, please cite it after author approval."
+title: "Drosophila Parkinson-like Locomotion Proxy"
+version: "TO_BE_ASSIGNED_AT_RELEASE"
+date-released: "TO_BE_ASSIGNED_AT_RELEASE"
+authors:
+  - family-names: "AUTHOR_FAMILY_NAME_REQUIRED"
+    given-names: "AUTHOR_GIVEN_NAMES_REQUIRED"
+repository-code: "https://github.com/TanVi3001/drosophila-pd-neural-disease"
+license: "LICENSE_DECISION_REQUIRED"

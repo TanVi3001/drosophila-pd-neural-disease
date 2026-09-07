@@ -1,0 +1,13 @@
+# Fill with real, approved submission metadata only.
+target_venue: TARGET_VENUE_REQUIRED
+article_type: ORIGINAL_RESEARCH_OR_SOFTWARE_REQUIRED
+corresponding_author: NAME_EMAIL_REQUIRED
+authors:
+  - name: AUTHOR_NAME_REQUIRED
+    affiliation: AFFILIATION_REQUIRED
+    orcid: OPTIONAL_ORCID
+funding_statement: FUNDING_OR_NO_FUNDING_DECLARATION_REQUIRED
+conflict_of_interest_statement: COI_DECLARATION_REQUIRED
+ethics_statement: NOT_APPLICABLE_OR_APPROVED_STATEMENT_REQUIRED
+supervisor_approval: PENDING
+coauthor_approval: PENDING

@@ -1,0 +1,13 @@
+{
+  "analysis_only": true,
+  "external_submission_executed": false,
+  "generated_templates": [
+    "submission/gate_29_submission_metadata/submission_metadata_template.yaml",
+    "submission/gate_29_submission_metadata/cover_letter_template.md",
+    "submission/gate_29_submission_metadata/contributions_template.md",
+    "docs/publication/gate_29_submission_readiness.md"
+  ],
+  "result": "experiments/gate_29_submission_readiness/results/submission_readiness.json",
+  "schema_version": "gate-29-submission-readiness-manifest-v1",
+  "status": "SUBMISSION_METADATA_PENDING_HUMAN_SIGNOFF"
+}
