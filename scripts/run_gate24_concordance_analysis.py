@@ -15,16 +15,27 @@ import math
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / "experiments/gate_24_concordance/configs/concordance_analysis.yaml"
 DEFAULT_OUTPUT = ROOT / "experiments/gate_24_concordance/results"
 DEFAULT_REPORT = ROOT / "docs/concordance/gate_24_concordance_report.md"
+
+
+def _matplotlib_pyplot() -> Any:
+    """Load the optional plotting backend only when figures are requested."""
+    try:
+        import matplotlib
+
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+    except ModuleNotFoundError as exc:
+        raise RuntimeError(
+            "Matplotlib is required to generate Gate 24 PNG figures. "
+            "Install it with: python -m pip install -e \".[analysis]\"."
+        ) from exc
+    return plt
 
 
 def _sha256(path: Path) -> str:
@@ -296,6 +307,7 @@ def _write_text(path: Path, content: str) -> None:
 
 
 def _plot_chen(path: Path, documents: Mapping[str, Any]) -> None:
+    plt = _matplotlib_pyplot()
     gate13b = documents["gate13b"]
     gate13c = documents["gate13c"]
     labels = ["Chen target", "Gate 13B selected", "Gate 13C confirmation"]
@@ -315,6 +327,7 @@ def _plot_chen(path: Path, documents: Mapping[str, Any]) -> None:
 
 
 def _plot_gate22(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
+    plt = _matplotlib_pyplot()
     fig, axes = plt.subplots(1, 3, figsize=(13, 4.2))
     labels = {
         "mean_planar_speed_mm_s": "Planar speed (mm/s)",
@@ -340,6 +353,7 @@ def _plot_gate22(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
 
 
 def _plot_pozo(path: Path, documents: Mapping[str, Any]) -> None:
+    plt = _matplotlib_pyplot()
     gate23 = documents["gate23"]
     labels = ["Simulated ratio", "Pozo target ratio"]
     values = [gate23["simulated_distance_ratio"], gate23["pozo_target_ratio"]]
@@ -357,6 +371,7 @@ def _plot_pozo(path: Path, documents: Mapping[str, Any]) -> None:
 
 
 def _plot_directionality(path: Path, documents: Mapping[str, Any]) -> None:
+    plt = _matplotlib_pyplot()
     gate23 = documents["gate23"]
     labels = ["Control", "Burden 0.5"]
     values = [gate23["mean_distance_control_mm"], gate23["mean_distance_holdout_mm"]]
@@ -373,6 +388,7 @@ def _plot_directionality(path: Path, documents: Mapping[str, Any]) -> None:
 
 
 def _plot_qc(path: Path, concordance: Sequence[Mapping[str, Any]]) -> None:
+    plt = _matplotlib_pyplot()
     statuses = {"PASS": "#3a9d5d", "MISMATCH": "#c34a36", "NOT_AVAILABLE": "#777777"}
     fig, ax = plt.subplots(figsize=(11, 4.2))
     ax.axis("off")
