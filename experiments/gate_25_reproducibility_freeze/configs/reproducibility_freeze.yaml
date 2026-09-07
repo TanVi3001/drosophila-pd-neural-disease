@@ -1,0 +1,70 @@
+schema_version: gate-25-reproducibility-freeze-config-v1
+freeze_date: "2026-09-07"
+evidence_anchor_commit: "73ca686"
+status: REPRODUCIBILITY_FREEZE_COMPLETE
+
+analysis_only: true
+run_gpu: false
+run_simulation: false
+run_calibration: false
+run_holdout_validation: false
+run_tuning: false
+
+required_gates:
+  - gate: gate_11_healthy_baseline
+    manifest: experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json
+    expected_status: PASS
+    scope: healthy_computational_locomotion
+  - gate: gate_13b_chen_ratio_calibration
+    manifest: experiments/gate_13b_chen_ratio_calibration/manifests/chen_ratio_calibration_manifest.json
+    expected_status: CHEN_RATIO_CALIBRATION_PASS
+    scope: organism_level_proxy_calibration
+  - gate: gate_13c_calibrated_confirmation
+    manifest: experiments/gate_13c_calibrated_confirmation/manifests/calibrated_confirmation_manifest.json
+    expected_status: CHEN_CALIBRATED_CONFIRMATION_PASS
+    scope: organism_level_proxy_confirmation
+  - gate: gate_21_parkin_class_level_rollout
+    manifest: experiments/gate_21_parkin_class_level_rollout/manifests/gate21_execution_manifest.json
+    expected_status: PARKIN_CLASS_LEVEL_EXPLORATORY_ROLLOUTS_PASS
+    scope: class_level_exploratory
+  - gate: gate_22_parkin_healthy_comparison
+    manifest: experiments/gate_22_parkin_healthy_comparison/manifests/gate22_comparison_manifest.json
+    expected_status: PARKIN_HEALTHY_COMPARISON_PASS
+    scope: class_level_exploratory
+  - gate: gate_23_pozo_holdout_validation
+    manifest: experiments/gate_23_pozo_holdout_validation/manifests/gate23_pozo_holdout_manifest.json
+    expected_status: POZO_HOLDOUT_MISMATCH
+    scope: organism_level_proxy_holdout
+  - gate: gate_24_concordance
+    manifest: experiments/gate_24_concordance/manifests/gate24_concordance_manifest.json
+    expected_status: CONCORDANCE_REPORT_COMPLETE
+    scope: claim_safe_concordance_analysis
+
+environment_sources:
+  - pyproject.toml
+  - .github/workflows/tests.yml
+  - .gitattributes
+  - docs/claims/current_claim_lock.md
+  - docs/report/bao_cao_toan_bo_gate_va_trang_thai_project_vi.pdf
+
+forbidden_artifact_suffixes:
+  - .avi
+  - .ckpt
+  - .mov
+  - .mp4
+  - .npz
+  - .parquet
+  - .pth
+  - .pt
+  - .safetensors
+
+claim_lock:
+  allowed: >-
+    Chen-calibrated organism-level computational locomotion proxy with
+    directional Pozo holdout concordance and substantial quantitative ratio mismatch.
+  forbidden:
+    - biological Parkinson validation
+    - gene-specific validation
+    - clinical validation
+    - drug efficacy validation
+    - quantitatively validated holdout model
