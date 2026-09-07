@@ -1,0 +1,46 @@
+{
+  "status": "PARKIN_HEALTHY_COMPARISON_PASS",
+  "planned_pair_count": 25,
+  "observed_pair_count": 25,
+  "comparison_row_count": 55,
+  "passed_comparison_rows": 55,
+  "failed_comparison_rows": 0,
+  "seeds_used": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "healthy_seed_5_excluded": true,
+  "burden_levels": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "primary_metrics": [
+    "mean_planar_speed_mm_s",
+    "distance_traveled_mm",
+    "displacement_mm"
+  ],
+  "secondary_metrics": [
+    "walking_speed_mm_s",
+    "com_velocity_mean_mm_s",
+    "heading_variance_rad2",
+    "body_orientation_variance_rad2",
+    "stride_frequency_hz",
+    "step_frequency_hz",
+    "trajectory_curvature_mean_rad_per_mm",
+    "walking_speed_max_mm_s"
+  ],
+  "blockers": [],
+  "gene_specific_mapping": false,
+  "mapping_scope": "class_level_exploratory",
+  "calibration_run": false,
+  "holdout_validation_run": false,
+  "simulation_run": false,
+  "gpu_run": false,
+  "data_fabricated": false
+}
