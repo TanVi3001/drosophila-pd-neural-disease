@@ -1,0 +1,39 @@
+gate: Gate 24
+name: Concordance analysis and claim-safe publication evidence
+analysis_only: true
+run_gpu: false
+run_simulation: false
+run_calibration: false
+run_holdout_validation: false
+run_tuning: false
+primary_metrics:
+  - mean_planar_speed_mm_s
+  - distance_traveled_mm
+  - displacement_mm
+sources:
+  gate13b_config: experiments/gate_13b_chen_ratio_calibration/configs/calibrated_alpha_synuclein_proxy.yaml
+  gate13b_manifest: experiments/gate_13b_chen_ratio_calibration/manifests/chen_ratio_calibration_manifest.json
+  gate13b_summary: experiments/gate_13b_chen_ratio_calibration/results/chen_ratio_calibration_summary.json
+  gate13b_results: experiments/gate_13b_chen_ratio_calibration/results/chen_ratio_calibration_results.csv
+  gate13c_config: experiments/gate_13c_calibrated_confirmation/configs/calibrated_confirmation_run_config.yaml
+  gate13c_manifest: experiments/gate_13c_calibrated_confirmation/manifests/calibrated_confirmation_manifest.json
+  gate13c_metrics: experiments/gate_13c_calibrated_confirmation/results/calibrated_confirmation_metrics.csv
+  gate13c_summary: experiments/gate_13c_calibrated_confirmation/results/calibrated_confirmation_summary.csv
+  healthy_manifest: experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json
+  healthy_metrics: experiments/gate_11_healthy_baseline/results/healthy_baseline_metrics.csv
+  gate21_manifest: experiments/gate_21_parkin_class_level_rollout/manifests/gate21_execution_manifest.json
+  gate21_metrics: experiments/gate_21_parkin_class_level_rollout/manifests/gate21_execution_metrics.csv
+  gate22_manifest: experiments/gate_22_parkin_healthy_comparison/manifests/gate22_comparison_manifest.json
+  gate22_summary: experiments/gate_22_parkin_healthy_comparison/manifests/gate22_comparison_summary.json
+  gate22_metrics: experiments/gate_22_parkin_healthy_comparison/manifests/gate22_comparison.csv
+  gate23_manifest: experiments/gate_23_pozo_holdout_validation/manifests/gate23_pozo_holdout_manifest.json
+  gate23_summary: experiments/gate_23_pozo_holdout_validation/manifests/gate23_pozo_holdout_summary.json
+  gate23_config: experiments/gate_23_pozo_holdout_validation/configs/pozo_holdout_validation.yaml
+claim_lock:
+  permitted: Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch.
+  forbidden:
+    - biological Parkinson validation
+    - gene-specific PINK1 validation
+    - quantitative Pozo validation
+    - clinical validation
+    - drug efficacy validation
