@@ -18,9 +18,9 @@ source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3021077/
 source_sha256: ded52b5479ac543ddb9aa870443c639eba7669a7767c1d04cb25b82b60badd77
 mapping_export_sha256: 8a74ec0c036215a3ff12af69c5acbc6332d6ce7aaf27c735097a874fd57797ec
 reviewer_1: Tuan Le
-reviewer_2: NOT_RECORDED
-review_date: '2026-09-06'
-decision: PENDING_HUMAN_REVIEW
+reviewer_2: To Dang Minh Tuan
+review_date: '2026-09-07'
+decision: APPROVED_FOR_DOPAMINE_CLASS_LEVEL_EXPLORATORY
 allowed_rollout_scope: CLASS_LEVEL_EXPLORATORY_ONLY
 limitations:
   - >-
