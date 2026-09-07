@@ -1,0 +1,12 @@
+{
+  "analysis_only": true,
+  "no_external_publication_by_script": true,
+  "report": "docs/publication/gate_37_acceptance_final_archive.md",
+  "result": "experiments/gate_37_acceptance_archive/results/acceptance_archive_status.json",
+  "schema_version": "gate-37-manifest-v1",
+  "status": "WAITING_FOR_ACCEPTANCE",
+  "templates": [
+    "submission/gate_37_acceptance_archive/acceptance_record.local.yaml.example",
+    "submission/gate_37_acceptance_archive/camera_ready_checklist.md"
+  ]
+}

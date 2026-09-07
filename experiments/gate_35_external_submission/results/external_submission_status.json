@@ -1,0 +1,9 @@
+{
+  "blockers": [
+    "submission_receipt.local.json is absent"
+  ],
+  "external_submission_by_script": false,
+  "schema_version": "gate-35-status-v1",
+  "status": "EXTERNAL_SUBMISSION_PENDING_CORRESPONDING_AUTHOR",
+  "submission_recorded": false
+}

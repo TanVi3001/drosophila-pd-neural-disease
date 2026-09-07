@@ -1,0 +1,9 @@
+{
+  "blockers": [
+    "publication_signoff.local.yaml is absent"
+  ],
+  "completed": false,
+  "external_action": false,
+  "schema_version": "gate-31-status-v1",
+  "status": "WAITING_AUTHORIZED_INTERNAL_SIGNOFF"
+}

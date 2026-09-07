@@ -1,0 +1,11 @@
+{
+  "analysis_only": true,
+  "no_external_release_by_script": true,
+  "report": "docs/publication/gate_34_public_archive_release.md",
+  "result": "experiments/gate_34_public_archive/results/public_archive_status.json",
+  "schema_version": "gate-34-manifest-v1",
+  "status": "ARCHIVE_RELEASE_PENDING_AUTHORIZATION",
+  "templates": [
+    "submission/gate_34_public_archive/archive_receipt.local.yaml.example"
+  ]
+}

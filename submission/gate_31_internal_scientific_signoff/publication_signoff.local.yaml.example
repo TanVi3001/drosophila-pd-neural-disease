@@ -1,0 +1,15 @@
+# Copy to publication_signoff.local.yaml after real approval. Do not commit it.
+internal_signoff:
+  scientific_reviewer: {name: PENDING, role: PENDING, date: YYYY-MM-DD, decision: pending}
+  methods_reviewer: {name: PENDING, role: PENDING, date: YYYY-MM-DD, decision: pending}
+  corresponding_author: {name: PENDING, role: PENDING, date: YYYY-MM-DD, decision: pending}
+all_authors_approved: false
+scientific_confirmations: {methods_figures_reviewed: false, pozo_mismatch_retained: false, claim_lock_accepted: false}
+publication_metadata:
+  license_identifier: PENDING
+  target_venue: PENDING
+  corresponding_author: PENDING
+  authors: [{name: PENDING, affiliation: PENDING, orcid: OPTIONAL}]
+  funding_statement: PENDING
+  conflict_of_interest_statement: PENDING
+  ethics_statement: PENDING

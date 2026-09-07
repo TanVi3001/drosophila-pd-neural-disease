@@ -1,0 +1,11 @@
+{
+  "analysis_only": true,
+  "report": "docs/publication/gate_33_venue_specific_manuscript.md",
+  "result": "experiments/gate_33_venue_manuscript/results/venue_manuscript_status.json",
+  "schema_version": "gate-33-manifest-v1",
+  "status": "VENUE_MANUSCRIPT_TEMPLATE_READY",
+  "templates": [
+    "submission/gate_33_venue_manuscript/manuscript_en_venue_template.md",
+    "submission/gate_33_venue_manuscript/references.bib.template"
+  ]
+}

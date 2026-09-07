@@ -1,0 +1,239 @@
+{
+  "analysis_only": true,
+  "artifacts": [
+    {
+      "path": "experiments/gate_31_internal_scientific_signoff/configs/publication_control_plane.yaml",
+      "role": "publication_control_plane",
+      "sha256": "04ec0762766bc9c92253cdd4e52bf37b7380b4724df0d8f63eceb8ef5f006dc8",
+      "size_bytes": 1217
+    },
+    {
+      "path": "experiments/gate_26_submission_package/manifests/submission_package_manifest.json",
+      "role": "publication_control_plane",
+      "sha256": "1c4e017a0525f88b6bdbe336eb6186b7056873e09b3cbdaa71c1b73f8b6344be",
+      "size_bytes": 6658
+    },
+    {
+      "path": "experiments/gate_30_publication_handoff/manifests/publication_handoff_manifest.json",
+      "role": "publication_control_plane",
+      "sha256": "ec63a78f287da6c8becb18e1539ef0955441253e5afee22cf7d81a674b7a968f",
+      "size_bytes": 5356
+    },
+    {
+      "path": "submission/gate_26/manuscript_vi.md",
+      "role": "publication_control_plane",
+      "sha256": "afa1f1ad5826a95b35b3b21503fdb7ae0f14d365bcbec23b884db5d38c70fa22",
+      "size_bytes": 3696
+    },
+    {
+      "path": "docs/claims/current_claim_lock.md",
+      "role": "publication_control_plane",
+      "sha256": "09cf89ae339ff7a1e497ef6c319f8fe10e4c64a9080abe10b938f5d92be39b64",
+      "size_bytes": 1988
+    },
+    {
+      "path": "experiments/gate_31_internal_scientific_signoff/results/internal_signoff_status.json",
+      "role": "publication_control_plane",
+      "sha256": "1affb60a91753e311b8397fcc871f7e47c38344c4c12dd1a46b4a50ae1de6dfe",
+      "size_bytes": 213
+    },
+    {
+      "path": "experiments/gate_31_internal_scientific_signoff/manifests/internal_signoff_manifest.json",
+      "role": "publication_control_plane",
+      "sha256": "ed354f7bf22bb9384efef97e81180362233e444463c8498188b41e5aea9bbfbd",
+      "size_bytes": 1342
+    },
+    {
+      "path": "docs/publication/gate_31_internal_scientific_signoff.md",
+      "role": "publication_control_plane",
+      "sha256": "906ca0d2fa113e82457b3f7939930df2ddef4c8fada3e2fe40933d7d164c890b",
+      "size_bytes": 374
+    },
+    {
+      "path": "experiments/gate_32_metadata_finalization/results/metadata_finalization_status.json",
+      "role": "publication_control_plane",
+      "sha256": "c42154b389d536b91cec5e6eebc36c35f3322e767c43c1297c5cdc6191a7a30b",
+      "size_bytes": 234
+    },
+    {
+      "path": "experiments/gate_32_metadata_finalization/manifests/metadata_finalization_manifest.json",
+      "role": "publication_control_plane",
+      "sha256": "58fe236487a8a5d4cda0b5f2b5737b57c4bbf5ba2a1d1e1c4eafc69498c5498c",
+      "size_bytes": 288
+    },
+    {
+      "path": "docs/publication/gate_32_metadata_finalization.md",
+      "role": "publication_control_plane",
+      "sha256": "f14d6f34e1b79e8ef0caba11ed902031e773e0f8e37ef58f099d1aab3d6a6e1b",
+      "size_bytes": 232
+    },
+    {
+      "path": "experiments/gate_33_venue_manuscript/results/venue_manuscript_status.json",
+      "role": "publication_control_plane",
+      "sha256": "e394276d9c3ca2ab9fc2a1e66643ea7690ce61701aeb91699058f038348ddc9d",
+      "size_bytes": 184
+    },
+    {
+      "path": "experiments/gate_33_venue_manuscript/manifests/venue_manuscript_manifest.json",
+      "role": "publication_control_plane",
+      "sha256": "c868d9e88dffb825c7ca2bb4bd68ff5ee247c84591859cfeb1d02450b5a428b7",
+      "size_bytes": 439
+    },
+    {
+      "path": "docs/publication/gate_33_venue_specific_manuscript.md",
+      "role": "publication_control_plane",
+      "sha256": "ca75a3363925d5fb510defb8127d98f8d67428f85c6e5d74c7b2c3d06a031dd9",
+      "size_bytes": 195
+    },
+    {
+      "path": "submission/gate_33_venue_manuscript/manuscript_en_venue_template.md",
+      "role": "publication_control_plane",
+      "sha256": "8e9e8f6fd8cf3a52d472ae7a76e22ab815e7821c933501d7f55753e7f00f5538",
+      "size_bytes": 364
+    },
+    {
+      "path": "submission/gate_33_venue_manuscript/references.bib.template",
+      "role": "publication_control_plane",
+      "sha256": "1f2e0800cd0eeaf61a35a8776f6d34768ecb76f30c7f025759329014cccadd97",
+      "size_bytes": 235
+    },
+    {
+      "path": "experiments/gate_34_public_archive/results/public_archive_status.json",
+      "role": "publication_control_plane",
+      "sha256": "30f703a8bb20ab227c1cf9ed4db1a6090ed5b30c5c5f2e74029d69a1e12fec10",
+      "size_bytes": 237
+    },
+    {
+      "path": "experiments/gate_34_public_archive/manifests/public_archive_manifest.json",
+      "role": "publication_control_plane",
+      "sha256": "a5c59d90cc5e4958bea751af51a4889831695cea36046d68c57aeb72f3f6579c",
+      "size_bytes": 413
+    },
+    {
+      "path": "docs/publication/gate_34_public_archive_release.md",
+      "role": "publication_control_plane",
+      "sha256": "f19c5c66fe25855f5eda88da0f36b2ab5a3cbfac1f4120ce92827ddbb6617fb6",
+      "size_bytes": 170
+    },
+    {
+      "path": "submission/gate_34_public_archive/archive_receipt.local.yaml.example",
+      "role": "publication_control_plane",
+      "sha256": "926aa0aae90dc3a025c3943374ba69aa96f7506dda70e2ad4abdacdd6d39c84c",
+      "size_bytes": 108
+    },
+    {
+      "path": "experiments/gate_35_external_submission/results/external_submission_status.json",
+      "role": "publication_control_plane",
+      "sha256": "080ee3ce80450030fe5cc4c8d61c04c0211b71d555930b23fc8be0d682732e4d",
+      "size_bytes": 249
+    },
+    {
+      "path": "experiments/gate_35_external_submission/manifests/external_submission_manifest.json",
+      "role": "publication_control_plane",
+      "sha256": "1d8592a3f40da04c1de7cf6edfb61d7d653c59062c595d51097a8633bb20bf9d",
+      "size_bytes": 442
+    },
+    {
+      "path": "docs/publication/gate_35_external_submission.md",
+      "role": "publication_control_plane",
+      "sha256": "271cbb6c69ddcd99bd2ea6454a52f97a333cbbca45b7ed426018f7c0941333a9",
+      "size_bytes": 172
+    },
+    {
+      "path": "submission/gate_35_external_submission/submission_receipt.local.json.example",
+      "role": "publication_control_plane",
+      "sha256": "0a1f4be7e05003630a9dd0cfe0a403b664a5980d39f007c1b263a077753c11ec",
+      "size_bytes": 119
+    },
+    {
+      "path": "experiments/gate_36_reviewer_response/results/reviewer_response_status.json",
+      "role": "publication_control_plane",
+      "sha256": "a092f501643636d907428564ac7fdba5933802346bad6e1ddda6558fd4156088",
+      "size_bytes": 234
+    },
+    {
+      "path": "experiments/gate_36_reviewer_response/manifests/reviewer_response_manifest.json",
+      "role": "publication_control_plane",
+      "sha256": "1f5957652ba15b7a897a255ca16566d3be7795712e1309de378044a0951a2bd7",
+      "size_bytes": 453
+    },
+    {
+      "path": "docs/publication/gate_36_reviewer_response_revision.md",
+      "role": "publication_control_plane",
+      "sha256": "96fa2d2d8fe747f4049ff60c75e7318eddfe813ae050ee20cea236da7d9a6f1c",
+      "size_bytes": 167
+    },
+    {
+      "path": "submission/gate_36_reviewer_response/editorial_decision.local.yaml.example",
+      "role": "publication_control_plane",
+      "sha256": "023039441f6467f9a5f4fab237949b6ba692546f7fc2a02e0a556161f37c636f",
+      "size_bytes": 125
+    },
+    {
+      "path": "submission/gate_36_reviewer_response/reviewer_response_ledger.md",
+      "role": "publication_control_plane",
+      "sha256": "4fa28a39983b7b6d442572c0116e41733671c76874f5cdaabbc8b60258e273f1",
+      "size_bytes": 287
+    },
+    {
+      "path": "experiments/gate_37_acceptance_archive/results/acceptance_archive_status.json",
+      "role": "publication_control_plane",
+      "sha256": "86479d4b4bd71eeae0ed1e153b6be9d5e88c845fc2d633aa2003b3fb5ddf784b",
+      "size_bytes": 223
+    },
+    {
+      "path": "experiments/gate_37_acceptance_archive/manifests/acceptance_archive_manifest.json",
+      "role": "publication_control_plane",
+      "sha256": "6e3fdb055238fbc94d6614d34236bfea7697ee02809204e5dff9c165f7af74cf",
+      "size_bytes": 489
+    },
+    {
+      "path": "docs/publication/gate_37_acceptance_final_archive.md",
+      "role": "publication_control_plane",
+      "sha256": "b4b5f348cf6bf43f28c096080f15315b8f29fe009ac656e135f0ff790d4a19a8",
+      "size_bytes": 175
+    },
+    {
+      "path": "submission/gate_37_acceptance_archive/acceptance_record.local.yaml.example",
+      "role": "publication_control_plane",
+      "sha256": "f6d4140c301fc552aa3e96001eca56930de31d410284d58444c58204eed718cd",
+      "size_bytes": 154
+    },
+    {
+      "path": "submission/gate_37_acceptance_archive/camera_ready_checklist.md",
+      "role": "publication_control_plane",
+      "sha256": "3c529f597dcd000037214891ff1094e9ebfe654549d9e7ac642aca5cdcc19d5c",
+      "size_bytes": 242
+    },
+    {
+      "path": "submission/gate_31_internal_scientific_signoff/publication_signoff.local.yaml.example",
+      "role": "publication_control_plane",
+      "sha256": "dd5b1943d2d1738c59e33c4cc7b60389568e7053d0b0b9783723de589187874a",
+      "size_bytes": 791
+    },
+    {
+      "path": "experiments/gate_37_acceptance_archive/results/publication_control_plane_status.json",
+      "role": "publication_control_plane",
+      "sha256": "d69dea8bcfc6ab413f1849d326002228b9c0f13087102f0e42c914ed0a0ff2ff",
+      "size_bytes": 686
+    }
+  ],
+  "gate_statuses": {
+    "gate_31": "WAITING_AUTHORIZED_INTERNAL_SIGNOFF",
+    "gate_32": "WAITING_APPROVED_PUBLICATION_METADATA",
+    "gate_33": "VENUE_MANUSCRIPT_TEMPLATE_READY",
+    "gate_34": "ARCHIVE_RELEASE_PENDING_AUTHORIZATION",
+    "gate_35": "EXTERNAL_SUBMISSION_PENDING_CORRESPONDING_AUTHOR",
+    "gate_36": "WAITING_FOR_EDITORIAL_DECISION",
+    "gate_37": "WAITING_FOR_ACCEPTANCE"
+  },
+  "no_calibration": true,
+  "no_external_release": true,
+  "no_external_submission": true,
+  "no_gpu": true,
+  "no_holdout_validation": true,
+  "no_simulation": true,
+  "no_tuning": true,
+  "schema_version": "gates-31-37-manifest-v1",
+  "status": "PUBLICATION_CONTROL_PLANE_READY"
+}

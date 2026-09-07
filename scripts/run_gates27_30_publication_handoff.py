@@ -444,6 +444,8 @@ authorization. The scientific claim stays bounded to a computational proxy.
 
 def _write_publication_readme() -> Path:
     path = DOCS_ROOT / "README.md"
+    if path.is_file() and "# Publication Handoff Gates 27--37" in path.read_text(encoding="utf-8"):
+        return path
     _write_text(
         path,
         """# Publication Handoff Gates 27--30

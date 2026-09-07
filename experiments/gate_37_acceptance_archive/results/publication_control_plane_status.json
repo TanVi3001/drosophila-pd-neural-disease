@@ -1,0 +1,16 @@
+{
+  "gate_statuses": {
+    "gate_31": "WAITING_AUTHORIZED_INTERNAL_SIGNOFF",
+    "gate_32": "WAITING_APPROVED_PUBLICATION_METADATA",
+    "gate_33": "VENUE_MANUSCRIPT_TEMPLATE_READY",
+    "gate_34": "ARCHIVE_RELEASE_PENDING_AUTHORIZATION",
+    "gate_35": "EXTERNAL_SUBMISSION_PENDING_CORRESPONDING_AUTHOR",
+    "gate_36": "WAITING_FOR_EDITORIAL_DECISION",
+    "gate_37": "WAITING_FOR_ACCEPTANCE"
+  },
+  "next_required_human_file": "submission/gate_31_internal_scientific_signoff/publication_signoff.local.yaml",
+  "no_external_release_created": true,
+  "no_external_submission_executed": true,
+  "schema_version": "gates-31-37-status-v1",
+  "status": "PUBLICATION_CONTROL_PLANE_READY"
+}

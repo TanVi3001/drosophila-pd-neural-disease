@@ -1,0 +1,11 @@
+{
+  "analysis_only": true,
+  "no_external_submission_by_script": true,
+  "report": "docs/publication/gate_35_external_submission.md",
+  "result": "experiments/gate_35_external_submission/results/external_submission_status.json",
+  "schema_version": "gate-35-manifest-v1",
+  "status": "EXTERNAL_SUBMISSION_PENDING_CORRESPONDING_AUTHOR",
+  "templates": [
+    "submission/gate_35_external_submission/submission_receipt.local.json.example"
+  ]
+}
