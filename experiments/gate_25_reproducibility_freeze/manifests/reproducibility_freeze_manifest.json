@@ -1,0 +1,65 @@
+{
+  "analysis_only": true,
+  "artifacts": {
+    "checksums": "experiments/gate_25_reproducibility_freeze/manifests/checksums.sha256",
+    "environment_lock": "experiments/gate_25_reproducibility_freeze/results/environment_lock.json",
+    "inventory": "experiments/gate_25_reproducibility_freeze/results/freeze_inventory.csv",
+    "readme": "docs/reproducibility/README.md",
+    "report": "docs/reproducibility/gate_25_reproducibility_freeze_report.md"
+  },
+  "biological_parkinson_validation": false,
+  "evidence_anchor_commit": "73ca686",
+  "freeze_date": "2026-09-07",
+  "gene_specific_validation": false,
+  "generated_artifacts": [
+    {
+      "artifact_id": "gate25_config",
+      "group": "gate25_generated",
+      "path": "experiments/gate_25_reproducibility_freeze/configs/reproducibility_freeze.yaml",
+      "sha256": "b2fb7e8a5eaac2ff4f5bd356fb983c0b0d9d901de4caf244ffc6d866ee090495",
+      "size_bytes": 2596,
+      "status": "LOCKED"
+    },
+    {
+      "artifact_id": "freeze_inventory",
+      "group": "gate25_generated",
+      "path": "experiments/gate_25_reproducibility_freeze/results/freeze_inventory.csv",
+      "sha256": "181462170e676a82650e35ac07a2bea5004ad857b388d69467a6a0611f27cffe",
+      "size_bytes": 4907,
+      "status": "GENERATED"
+    },
+    {
+      "artifact_id": "environment_lock",
+      "group": "gate25_generated",
+      "path": "experiments/gate_25_reproducibility_freeze/results/environment_lock.json",
+      "sha256": "da0c070548d3ccbcc1ebad7361baff7ebc1d7210f58f9718c5baf682e88dd3f3",
+      "size_bytes": 634,
+      "status": "GENERATED"
+    },
+    {
+      "artifact_id": "gate25_report",
+      "group": "gate25_generated",
+      "path": "docs/reproducibility/gate_25_reproducibility_freeze_report.md",
+      "sha256": "e09347664edbc069c8d8bdd0340811cbaf8a4b9f75a25d1e356a24086cb309f0",
+      "size_bytes": 1634,
+      "status": "GENERATED"
+    },
+    {
+      "artifact_id": "gate25_readme",
+      "group": "gate25_generated",
+      "path": "docs/reproducibility/README.md",
+      "sha256": "e60fb757a57aa3bb01816d8079d79b9fd00bc275934ce04a6e734caa56cf16df",
+      "size_bytes": 715,
+      "status": "GENERATED"
+    }
+  ],
+  "locked_evidence_count": 24,
+  "no_calibration": true,
+  "no_gpu": true,
+  "no_holdout_validation": true,
+  "no_simulation": true,
+  "no_tuning": true,
+  "pozo_quantitative_match": false,
+  "schema_version": "gate-25-reproducibility-freeze-manifest-v1",
+  "status": "REPRODUCIBILITY_FREEZE_COMPLETE"
+}
