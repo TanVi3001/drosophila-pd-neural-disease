@@ -1,0 +1,75 @@
+{
+  "schema_version": "gate-23-pozo-holdout-validation-v1",
+  "created_at_utc": "2026-09-07T08:16:16.251577+00:00",
+  "gate": "Gate 23",
+  "status": "POZO_HOLDOUT_MISMATCH",
+  "runtime_status": "PASS",
+  "holdout_interpretation": "MISMATCH",
+  "condition_id": "pink1",
+  "proxy_scope": "organism_level_proxy",
+  "gene_specific_mapping": false,
+  "locked_burden_level": 0.5,
+  "planned_runs": 12,
+  "successful_runs": 12,
+  "qc_pass_runs": 12,
+  "metric": "distance_traveled_mm",
+  "mean_distance_control_mm": 1.6667898069518203,
+  "mean_distance_holdout_mm": 1.5784617643392644,
+  "simulated_distance_ratio": 0.9470070897697126,
+  "pozo_target_ratio": 0.19203837612811836,
+  "ratio_error": 0.7549687136415942,
+  "directionality_pass": true,
+  "quantitative_ratio_match": false,
+  "spread_reported": 61.288,
+  "spread_policy": "kept_as_reported_not_converted_to_sd_or_se",
+  "sample_size": 21,
+  "absolute_distance_role": "reference_only",
+  "no_distance_to_speed_conversion": true,
+  "no_pozo_tuning": true,
+  "no_parameter_reselection": true,
+  "no_calibration_run": true,
+  "no_new_simulation_run": true,
+  "gpu_run": false,
+  "data_fabricated": false,
+  "biological_validation_claim": false,
+  "claim_boundary": "Directional computational proxy comparison only; quantitative Pozo ratio mismatch remains.",
+  "config": "experiments/gate_23_pozo_holdout_validation/configs/pozo_holdout_validation.yaml",
+  "config_sha256": "881216ad9a09e2d35895d7df0d8b11b02db95fbb4a5000d8f56b77a5f62d19aa",
+  "source_artifacts": {
+    "gate14a_protocol": {
+      "path": "experiments/gate_14a_pozo_holdout_protocol/configs/pozo_holdout_protocol.yaml",
+      "sha256": "52956ba9272c3575ca0301dd0fafe874a63da5c26f5f96a611ac85bdccea51e6"
+    },
+    "gate13b_calibrated_config": {
+      "path": "experiments/gate_13b_chen_ratio_calibration/configs/calibrated_alpha_synuclein_proxy.yaml",
+      "sha256": "136d593f1268905d7a36acbba695d1b9187825a43e4ab1f8c5becb69e1e86a0f"
+    },
+    "gate13c_confirmation_manifest": {
+      "path": "experiments/gate_13c_calibrated_confirmation/manifests/calibrated_confirmation_manifest.json",
+      "sha256": "11c0df105b88d62e9e2a6da8c023c9d7f91e775a770b76ab6f4947446c194a2b"
+    },
+    "gate14b_manifest": {
+      "path": "experiments/gate_14b_pozo_holdout_validation/manifests/pozo_holdout_manifest.json",
+      "sha256": "c65bd2c1a3bd2087dd32bc64212409a680387b615f6e3c7ee08f9ae57533698a"
+    },
+    "gate14b_summary": {
+      "path": "experiments/gate_14b_pozo_holdout_validation/results/pozo_holdout_result_summary.json",
+      "sha256": "7cc592197b11326a23cdadd99f44acbeba7ad1282659e5cef2a9e901f9ea5f4e"
+    },
+    "gate14b_metrics": {
+      "path": "experiments/gate_14b_pozo_holdout_validation/results/pozo_holdout_metrics.csv",
+      "sha256": "999ff836eda3efbaad7139493c4c9d38e7a605ff0fd46a6d6aec955610592dec"
+    },
+    "gate14c_adjudication": {
+      "path": "experiments/gate_14c_holdout_adjudication/results/holdout_adjudication_summary.json",
+      "sha256": "85012e4d79f7d0b913310b9cd1e77688ff253c7f8813ed57ae5a1ffee636b314"
+    }
+  },
+  "gate14b_execution_status": "POZO_HOLDOUT_RUNTIME_PASS",
+  "gate13c_confirmation_status": "CHEN_CALIBRATED_CONFIRMATION_PASS",
+  "artifacts": {
+    "result_csv": "experiments/gate_23_pozo_holdout_validation/manifests/gate23_pozo_holdout_result.csv",
+    "summary_json": "experiments/gate_23_pozo_holdout_validation/manifests/gate23_pozo_holdout_summary.json",
+    "report": "docs/holdout/gate_23_pozo_holdout_validation_report.md"
+  }
+}

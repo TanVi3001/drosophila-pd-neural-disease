@@ -1,0 +1,2 @@
+metric,control_mean_mm,holdout_mean_mm,simulated_ratio,pozo_target_ratio,ratio_error,directionality,quantitative_interpretation
+distance_traveled_mm,1.6667898069518203,1.5784617643392644,0.9470070897697126,0.19203837612811836,0.7549687136415942,PASS,MISMATCH
