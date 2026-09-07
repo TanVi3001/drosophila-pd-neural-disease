@@ -1,0 +1,35 @@
+gate: Gate 22
+name: Parkin class-level exploratory proxy versus Healthy baseline
+condition_id: parkin_class_level_exploratory
+mapping_scope: class_level_exploratory
+gene_specific_mapping: false
+unit_of_analysis: matched_rollout_seed
+healthy_seeds_used: [0, 1, 2, 3, 4]
+healthy_seed_5_policy: excluded_from_paired_comparison
+burden_levels: [0.0, 0.25, 0.5, 0.75, 1.0]
+primary_metrics:
+  - mean_planar_speed_mm_s
+  - distance_traveled_mm
+  - displacement_mm
+secondary_metrics:
+  - walking_speed_mm_s
+  - com_velocity_mean_mm_s
+  - heading_variance_rad2
+  - body_orientation_variance_rad2
+  - stride_frequency_hz
+  - step_frequency_hz
+  - trajectory_curvature_mean_rad_per_mm
+  - walking_speed_max_mm_s
+sources:
+  healthy_metrics: experiments/gate_11_healthy_baseline/results/healthy_baseline_metrics.csv
+  healthy_manifest: experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json
+  parkin_metrics: experiments/gate_21_parkin_class_level_rollout/manifests/gate21_execution_metrics.csv
+  parkin_manifest: experiments/gate_21_parkin_class_level_rollout/manifests/gate21_execution_manifest.json
+analysis:
+  matching: exact_seed
+  delta: proxy_minus_healthy
+  standardized_delta: mean_paired_delta_divided_by_sample_sd_of_paired_delta
+  confidence_intervals: not_computed
+  inferential_testing: not_computed
+  calibration: false
+  holdout_validation: false
