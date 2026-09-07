@@ -1,0 +1,9 @@
+{
+  "archive_recorded": false,
+  "blockers": [
+    "archive_receipt.local.yaml is absent"
+  ],
+  "external_release_created_by_script": false,
+  "schema_version": "gate-34-status-v1",
+  "status": "ARCHIVE_RELEASE_PENDING_AUTHORIZATION"
+}

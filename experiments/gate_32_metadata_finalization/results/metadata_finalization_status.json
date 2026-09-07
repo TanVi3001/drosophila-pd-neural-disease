@@ -1,0 +1,10 @@
+{
+  "blockers": [
+    "publication_metadata is absent"
+  ],
+  "citation_created": false,
+  "completed": false,
+  "license_created": false,
+  "schema_version": "gate-32-status-v1",
+  "status": "WAITING_APPROVED_PUBLICATION_METADATA"
+}

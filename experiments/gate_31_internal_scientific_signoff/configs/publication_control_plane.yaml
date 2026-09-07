@@ -1,0 +1,28 @@
+schema_version: gates-31-37-publication-control-plane-config-v1
+evidence_anchor_commit: 4bfc281
+
+analysis_only: true
+run_gpu: false
+run_simulation: false
+run_calibration: false
+run_holdout_validation: false
+run_tuning: false
+create_external_release: false
+submit_to_venue: false
+
+sources:
+  gate_26_manifest: experiments/gate_26_submission_package/manifests/submission_package_manifest.json
+  gate_30_manifest: experiments/gate_30_publication_handoff/manifests/publication_handoff_manifest.json
+  manuscript: submission/gate_26/manuscript_vi.md
+  claim_lock: docs/claims/current_claim_lock.md
+
+local_inputs:
+  signoff: submission/gate_31_internal_scientific_signoff/publication_signoff.local.yaml
+  archive_receipt: submission/gate_34_public_archive/archive_receipt.local.yaml
+  submission_receipt: submission/gate_35_external_submission/submission_receipt.local.json
+  editorial_decision: submission/gate_36_reviewer_response/editorial_decision.local.yaml
+  acceptance_record: submission/gate_37_acceptance_archive/acceptance_record.local.yaml
+
+allowed_claim: >-
+  Chen-calibrated organism-level computational locomotion proxy with
+  directional Pozo holdout concordance and substantial quantitative ratio mismatch.

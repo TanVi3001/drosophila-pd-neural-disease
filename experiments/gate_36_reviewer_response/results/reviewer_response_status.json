@@ -1,0 +1,9 @@
+{
+  "blockers": [
+    "editorial_decision.local.yaml is absent"
+  ],
+  "editorial_decision_recorded": false,
+  "new_experiment_by_script": false,
+  "schema_version": "gate-36-status-v1",
+  "status": "WAITING_FOR_EDITORIAL_DECISION"
+}

@@ -1,0 +1,9 @@
+{
+  "acceptance_recorded": false,
+  "blockers": [
+    "acceptance_record.local.yaml is absent"
+  ],
+  "external_publication_by_script": false,
+  "schema_version": "gate-37-status-v1",
+  "status": "WAITING_FOR_ACCEPTANCE"
+}

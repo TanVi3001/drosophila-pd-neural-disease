@@ -1,0 +1,7 @@
+{
+  "analysis_only": true,
+  "report": "docs/publication/gate_32_metadata_finalization.md",
+  "result": "experiments/gate_32_metadata_finalization/results/metadata_finalization_status.json",
+  "schema_version": "gate-32-manifest-v1",
+  "status": "WAITING_APPROVED_PUBLICATION_METADATA"
+}
