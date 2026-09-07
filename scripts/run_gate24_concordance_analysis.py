@@ -289,6 +289,12 @@ def _write_csv(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
         writer.writerows(rows)
 
 
+def _write_text(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(content)
+
+
 def _plot_chen(path: Path, documents: Mapping[str, Any]) -> None:
     gate13b = documents["gate13b"]
     gate13c = documents["gate13c"]
@@ -436,8 +442,7 @@ def _write_report(path: Path, summary: Mapping[str, Any], concordance: Sequence[
         "",
         "Ket qua hien tai phu hop voi mot bai computational locomotion proxy co calibration va holdout directionality, khong phai bang chung thay the thi nghiem ruoi that. Quantitative mismatch voi Pozo la ket qua can duoc giu nguyen trong manuscript, khong duoc lam mem hoac bo qua.",
     ])
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    _write_text(path, "\n".join(lines) + "\n")
 
 
 def run(*, config_path: Path = DEFAULT_CONFIG, output_dir: Path = DEFAULT_OUTPUT, report_path: Path = DEFAULT_REPORT) -> dict[str, Any]:
@@ -500,7 +505,7 @@ def run(*, config_path: Path = DEFAULT_CONFIG, output_dir: Path = DEFAULT_OUTPUT
         },
     }
     _write_report(report_path, summary, concordance)
-    summary_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _write_text(summary_path, json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
     manifest_path = output_dir.parent / "manifests" / "gate24_concordance_manifest.json"
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest = {
@@ -521,10 +526,10 @@ def run(*, config_path: Path = DEFAULT_CONFIG, output_dir: Path = DEFAULT_OUTPUT
         "source_artifacts": summary["source_artifacts"],
         "artifacts": summary["artifacts"],
     }
-    manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    _write_text(manifest_path, json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     checksum_targets = [concordance_path, descriptive_path, summary_path, manifest_path, report_path, *sorted(figures_dir.glob("*.png"))]
     checksum_path = manifest_path.parent / "gate24_checksums.sha256"
-    checksum_path.write_text("".join(f"{_sha256(path)}  {_relative(path)}\n" for path in checksum_targets), encoding="utf-8")
+    _write_text(checksum_path, "".join(f"{_sha256(path)}  {_relative(path)}\n" for path in checksum_targets))
     return {**summary, "manifest": _relative(manifest_path), "checksum_file": _relative(checksum_path)}
 
 

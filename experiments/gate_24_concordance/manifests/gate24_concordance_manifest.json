@@ -1,9 +1,9 @@
 {
   "schema_version": "gate-24-concordance-manifest-v1",
-  "created_at_utc": "2026-09-07T08:28:55.317875+00:00",
+  "created_at_utc": "2026-09-07T08:31:42.187020+00:00",
   "status": "CONCORDANCE_REPORT_COMPLETE",
   "summary": "experiments/gate_24_concordance/results/concordance_summary.json",
-  "summary_sha256": "4fbc013d3ffc951895bd01ae1dc847a8ebebdaeee865cea027768518be2d2044",
+  "summary_sha256": "64112ce9cf91b487a0364722a32e91e3ce523d2dd522897b8adcec5d182591c0",
   "config": "experiments/gate_24_concordance/configs/concordance_analysis.yaml",
   "config_sha256": "f2b74f4655218a96b9d99964a3f624725d04327aaf3862c21ac8c38167f896f6",
   "no_new_simulation": true,
