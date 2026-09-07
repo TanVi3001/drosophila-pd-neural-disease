@@ -1,0 +1,102 @@
+{
+  "schema_version": "gate-24-concordance-manifest-v1",
+  "created_at_utc": "2026-09-07T08:28:55.317875+00:00",
+  "status": "CONCORDANCE_REPORT_COMPLETE",
+  "summary": "experiments/gate_24_concordance/results/concordance_summary.json",
+  "summary_sha256": "4fbc013d3ffc951895bd01ae1dc847a8ebebdaeee865cea027768518be2d2044",
+  "config": "experiments/gate_24_concordance/configs/concordance_analysis.yaml",
+  "config_sha256": "f2b74f4655218a96b9d99964a3f624725d04327aaf3862c21ac8c38167f896f6",
+  "no_new_simulation": true,
+  "no_calibration": true,
+  "no_holdout_validation": true,
+  "no_tuning": true,
+  "gene_specific_validation": false,
+  "biological_parkinson_validation": false,
+  "pozo_quantitative_match": false,
+  "source_artifacts": {
+    "gate13b_config": {
+      "path": "experiments/gate_13b_chen_ratio_calibration/configs/calibrated_alpha_synuclein_proxy.yaml",
+      "sha256": "136d593f1268905d7a36acbba695d1b9187825a43e4ab1f8c5becb69e1e86a0f"
+    },
+    "gate13b_manifest": {
+      "path": "experiments/gate_13b_chen_ratio_calibration/manifests/chen_ratio_calibration_manifest.json",
+      "sha256": "43683b267b87856aaa9f75405fc42fea74165f8bc3f94a074a0363ad442f61e5"
+    },
+    "gate13b_summary": {
+      "path": "experiments/gate_13b_chen_ratio_calibration/results/chen_ratio_calibration_summary.json",
+      "sha256": "b4afeb938cbe9f84ab64099d05f8395c52d20e6b4d1d3f7ab5fd91b813a429ec"
+    },
+    "gate13b_results": {
+      "path": "experiments/gate_13b_chen_ratio_calibration/results/chen_ratio_calibration_results.csv",
+      "sha256": "7d65dca8b3750609d0cb93702210c4acb142e2f6543185c6251dcf8eb63d1a7a"
+    },
+    "gate13c_config": {
+      "path": "experiments/gate_13c_calibrated_confirmation/configs/calibrated_confirmation_run_config.yaml",
+      "sha256": "e08ee69ba4c47a5996882f14684f4793f553f773922d78882b299175554106da"
+    },
+    "gate13c_manifest": {
+      "path": "experiments/gate_13c_calibrated_confirmation/manifests/calibrated_confirmation_manifest.json",
+      "sha256": "11c0df105b88d62e9e2a6da8c023c9d7f91e775a770b76ab6f4947446c194a2b"
+    },
+    "gate13c_metrics": {
+      "path": "experiments/gate_13c_calibrated_confirmation/results/calibrated_confirmation_metrics.csv",
+      "sha256": "41b7e6416401e1265f52696b8ddfbf0935cf581c7418c7c4675cda6381976ba6"
+    },
+    "gate13c_summary": {
+      "path": "experiments/gate_13c_calibrated_confirmation/results/calibrated_confirmation_summary.csv",
+      "sha256": "62d34d749aa73fc2f66047b90813413ed1bbeabb5f5acc6a8cef8ee102d02d56"
+    },
+    "healthy_manifest": {
+      "path": "experiments/gate_11_healthy_baseline/manifests/healthy_baseline_manifest.json",
+      "sha256": "10c094e94b0cfef7c10ab0dcabc6ebb6f3b12ed3f9d94ade911170b3729369db"
+    },
+    "healthy_metrics": {
+      "path": "experiments/gate_11_healthy_baseline/results/healthy_baseline_metrics.csv",
+      "sha256": "021c13d931ff318d772eea6fa36c02f5018342d46d9d5067671764233ec78eff"
+    },
+    "gate21_manifest": {
+      "path": "experiments/gate_21_parkin_class_level_rollout/manifests/gate21_execution_manifest.json",
+      "sha256": "9bdf62afe54bff61796013fe6dc829c29ff379d82335e09629fccc395b6e40e0"
+    },
+    "gate21_metrics": {
+      "path": "experiments/gate_21_parkin_class_level_rollout/manifests/gate21_execution_metrics.csv",
+      "sha256": "a4c3aed32268ac30a7dcc7f1b34fc347020002f7e46ac393ff5c038c1c7dda80"
+    },
+    "gate22_manifest": {
+      "path": "experiments/gate_22_parkin_healthy_comparison/manifests/gate22_comparison_manifest.json",
+      "sha256": "ac920cc743d6a9e85f5f6ecb8aa76d6ab95c9f7619d0aa42bc8363131f08c38b"
+    },
+    "gate22_summary": {
+      "path": "experiments/gate_22_parkin_healthy_comparison/manifests/gate22_comparison_summary.json",
+      "sha256": "0baa29a35b078f48065fcc80b118dfd5ab8e88ed8c8e066cbff57ffaa7721d34"
+    },
+    "gate22_metrics": {
+      "path": "experiments/gate_22_parkin_healthy_comparison/manifests/gate22_comparison.csv",
+      "sha256": "04b1847a7f49271bc55c35a7ee73f240cf2e16175022afcbb0d0550d5a380066"
+    },
+    "gate23_manifest": {
+      "path": "experiments/gate_23_pozo_holdout_validation/manifests/gate23_pozo_holdout_manifest.json",
+      "sha256": "d7a8b248c2aef88e77a2d4502f58e65b4ad9f163fa66e30acdca22c0fb1b8195"
+    },
+    "gate23_summary": {
+      "path": "experiments/gate_23_pozo_holdout_validation/manifests/gate23_pozo_holdout_summary.json",
+      "sha256": "aa892850dbdf43772f84f52669c48b168db6e54e7cb6d021a71e5408f529c334"
+    },
+    "gate23_config": {
+      "path": "experiments/gate_23_pozo_holdout_validation/configs/pozo_holdout_validation.yaml",
+      "sha256": "881216ad9a09e2d35895d7df0d8b11b02db95fbb4a5000d8f56b77a5f62d19aa"
+    }
+  },
+  "artifacts": {
+    "concordance_matrix": "experiments/gate_24_concordance/results/concordance_matrix.csv",
+    "descriptive_metrics": "experiments/gate_24_concordance/results/descriptive_metrics.csv",
+    "report": "docs/concordance/gate_24_concordance_report.md",
+    "figures": [
+      "experiments/gate_24_concordance/results/figures/chen_ratio_concordance.png",
+      "experiments/gate_24_concordance/results/figures/gate22_burden_response.png",
+      "experiments/gate_24_concordance/results/figures/pozo_directionality.png",
+      "experiments/gate_24_concordance/results/figures/pozo_ratio_concordance.png",
+      "experiments/gate_24_concordance/results/figures/qc_claim_matrix.png"
+    ]
+  }
+}
