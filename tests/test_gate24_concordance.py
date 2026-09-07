@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import subprocess
+import sys
 
 import yaml
 
@@ -17,6 +19,32 @@ from scripts.run_gate24_concordance_analysis import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_gate24_analysis_import_does_not_require_matplotlib() -> None:
+    script = """
+import builtins
+
+real_import = builtins.__import__
+
+def blocked_import(name, *args, **kwargs):
+    if name == 'matplotlib' or name.startswith('matplotlib.'):
+        raise ModuleNotFoundError(\"No module named 'matplotlib'\")
+    return real_import(name, *args, **kwargs)
+
+builtins.__import__ = blocked_import
+import scripts.run_gate24_concordance_analysis
+print('import-ok')
+"""
+    completed = subprocess.run(
+        [sys.executable, "-c", script],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert completed.returncode == 0, completed.stderr
+    assert completed.stdout.strip() == "import-ok"
 
 
 def _config() -> dict:
