@@ -1,0 +1,45 @@
+{
+  "schema_version": "riemensperger-2011-replication-manifest-v1",
+  "created_at_utc": "2026-09-07T16:02:53.287839+00:00",
+  "status": "NOT_EXECUTED_DRY_RUN",
+  "git_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "python_version": "3.12.10",
+  "extension_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "config_inputs": [
+    {
+      "path": "configs/replications/riemensperger_2011_healthy.yaml",
+      "sha256": "df7cdba52c87387645ccf95a81e0b58115aeb9012526297699793f5ed46faabc",
+      "size_bytes": 1105
+    }
+  ],
+  "data_inputs": [
+    {
+      "path": "experiments/gate_21a_riemensperger_evidence_lock/results/evidence_lock_summary.json",
+      "sha256": "1e835ee42dc780e47b6fe51926cf3058dd806519dd824df3d648d067803a6d89",
+      "size_bytes": 739
+    },
+    {
+      "path": "experiments/gate_21d_riemensperger_dopamine_mapping/results/dopamine_mapping_summary.json",
+      "sha256": "e08a8e51748fcc73099f2e681eaf3fd2f112447ab42a513d800181ce80f5bff1",
+      "size_bytes": 740
+    }
+  ],
+  "simulation_run": false,
+  "data_fabricated": false,
+  "runtime_blockers": [
+    "brain_artifact_missing:brain_body_bridge.py",
+    "brain_artifact_missing:code/run_pytorch.py",
+    "brain_artifact_missing:data/2025_Completeness_783.csv",
+    "brain_artifact_missing:data/2025_Connectivity_783.parquet",
+    "brain_artifact_missing:data/plastic_weights.pt"
+  ],
+  "seed_list": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "duration_s": 0.5,
+  "timestep": 0.0001
+}

@@ -1,0 +1,32 @@
+study_id: riemensperger_2011_dopamine_deficiency
+paper_condition: DTHgFS±; ple
+biological_intervention: neural tyrosine-hydroxylase loss with neural dopamine below detection limit
+biological_scope: neural dopamine deficiency; dopaminergic system morphology reported preserved
+driver_scope: DTHgFS± rescue in ple background; not a FlyWire driver-to-root-ID export
+mapping_level: DOPAMINE_CLASS_LEVEL_EXPLORATORY
+gene_specific_mapping: false
+connectome_name: FlyWire brain connectome
+connectome_version: v783
+target_neurons:
+  source_config: configs/conditions/dopamine_deficiency.exploratory.yaml
+  yaml_path: target_neurons
+  expected_count: 342
+  source_sha256: 8a74ec0c036215a3ff12af69c5acbc6332d6ce7aaf27c735097a874fd57797ec
+target_edges: []
+mapping_source: datasets/literature_phenotypes/root_id_mapping_audit.csv; configs/conditions/dopamine_deficiency.exploratory.yaml
+source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC3021077/
+source_sha256: ded52b5479ac543ddb9aa870443c639eba7669a7767c1d04cb25b82b60badd77
+mapping_export_sha256: 8a74ec0c036215a3ff12af69c5acbc6332d6ce7aaf27c735097a874fd57797ec
+reviewer_1: Tuan Le
+reviewer_2: NOT_RECORDED
+review_date: '2026-09-06'
+decision: PENDING_HUMAN_REVIEW
+allowed_rollout_scope: CLASS_LEVEL_EXPLORATORY_ONLY
+limitations:
+  - >-
+    The 342 IDs are a dopamine-class annotation set, not a paper-proven
+    gene-specific or driver-specific intervention map.
+  - >-
+    The paper does not identify a FlyWire root-ID subset. A second human
+    reviewer must approve this explicit class-level scope before disease runs.
+  - Do not infer all dopaminergic neurons, all brain neurons, or a Parkinson mechanism.

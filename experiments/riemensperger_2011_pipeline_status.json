@@ -1,0 +1,10 @@
+{
+  "statuses": {
+    "21A": "RIEMENSPERGER_2011_EVIDENCE_LOCKED",
+    "21D": "WAITING_DOPAMINE_MAPPING_REVIEW"
+  },
+  "interpretation": "WAITING_EVIDENCE",
+  "claim": "The Riemensperger 2011-guided computational replication remains a gated study; no biological validation claim is made.",
+  "simulation_executed": false,
+  "data_fabricated": false
+}

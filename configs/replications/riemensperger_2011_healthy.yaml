@@ -1,0 +1,39 @@
+schema_version: riemensperger-2011-healthy-virtual-replication-v1
+study_id: riemensperger_2011_dopamine_deficiency
+condition_role: VIRTUAL_HEALTHY_CONTROL
+disease_layer: false
+seed_policy:
+  seeds: [0, 1, 2, 3, 4]
+duration:
+  source: fixed_virtual_protocol; paper assay duration is 15 min and is retained as an assay limitation
+  virtual_duration_s: 0.5
+  steps: 5000
+timestep_s: 0.0001
+world: flat_terrain_default
+controller:
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+neural_core:
+  source: external/fly-brain
+  disease_transform: disabled
+platform_runtime:
+  platform_root: ../drosophila-pd-flygym
+  runner: scripts/run_brain_body_rollout.py
+  device: cuda
+  camera_mode: tracking
+  video_fps: 60
+  video_width: 640
+  video_height: 360
+  video_playback_speed: 0.2
+primary_metrics:
+  - median_planar_speed_mm_s
+  - distance_traveled_mm
+secondary_metrics:
+  - displacement_mm
+  - contact_metrics
+  - joint_velocity
+  - joint_trajectory
+  - orientation
+  - finite_qc
+  - action_qc
+scientific_boundary: Healthy virtual control only; no neural disease transform, calibration, tuning, or biological validation.

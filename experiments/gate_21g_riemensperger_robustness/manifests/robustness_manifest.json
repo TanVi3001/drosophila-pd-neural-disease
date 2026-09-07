@@ -1,0 +1,38 @@
+{
+  "schema_version": "riemensperger-2011-replication-manifest-v1",
+  "created_at_utc": "2026-09-07T16:02:54.012019+00:00",
+  "status": "WAITING_VIRTUAL_GROUP_RESULTS",
+  "git_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "python_version": "3.12.10",
+  "extension_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "config_inputs": [],
+  "data_inputs": [
+    {
+      "path": "experiments/gate_21d_riemensperger_dopamine_mapping/results/dopamine_mapping_summary.json",
+      "sha256": "e08a8e51748fcc73099f2e681eaf3fd2f112447ab42a513d800181ce80f5bff1",
+      "size_bytes": 740
+    },
+    {
+      "path": "experiments/gate_21e_riemensperger_disease/results/disease_summary.json",
+      "status": "MISSING"
+    },
+    {
+      "path": "research/replications/riemensperger_2011/mapping/dopamine_transform_hypothesis.yaml",
+      "sha256": "88a8eb026d456364abf4bb53ba565b3d673e7cb7df89c9732e3aba86496cbef5",
+      "size_bytes": 1753
+    }
+  ],
+  "simulation_run": false,
+  "data_fabricated": false,
+  "no_op_operator_test": "PASS",
+  "burden_sensitivity_plan": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "blockers": [
+    "Required status READY_FOR_RIEMENSPERGER_DISEASE_REPLICATION, received WAITING_DOPAMINE_MAPPING_REVIEW from experiments/gate_21d_riemensperger_dopamine_mapping/results/dopamine_mapping_summary.json."
+  ]
+}

@@ -1,0 +1,26 @@
+transform_id: riemensperger_2011_dopamine_class_presynaptic_gain
+biological_statement: >-
+  Riemensperger et al. report neural dopamine below detection limit in the
+  DTHgFS±; ple condition and a locomotor deficit; the paper does not report
+  synaptic weights.
+computational_interpretation: >-
+  Test a falsifiable class-level computational hypothesis by attenuating
+  outgoing connectome weights from a reviewed dopamine-class target set before
+  the public brain-to-body controller produces locomotor action.
+target_population: dopamine-class target set referenced by dopamine_mapping_spec.yaml
+transform_type: presynaptic_connectome_weight_gain
+mathematical_definition: w_prime_ij = (1 + burden * (0.15 - 1.0)) * w_ij for presynaptic i in target population; all other weights unchanged
+parameter_name: computational_burden
+parameter_range: [0.0, 0.25, 0.5, 0.75, 1.0]
+default_candidate: 1.0
+identity_condition: burden=0.0 returns an exact copy of every input weight
+expected_direction: reduced virtual locomotor speed is a hypothesis, not guaranteed and not calibrated to the paper ratio
+falsification_condition: no-op fails; transform is non-finite or mutates input; reviewed class-level set is unavailable; or virtual direction does not decrease
+limitations:
+  - burden is dimensionless and is not a dopamine concentration or percentage loss
+  - gain=0.15 is a preregistered computational endpoint inherited from the existing exploratory condition, not a measured synaptic weight
+  - mapping is class-level exploratory and not gene-specific
+provenance:
+  - https://pmc.ncbi.nlm.nih.gov/articles/PMC3021077/
+  - research/replications/riemensperger_2011/mapping/dopamine_mapping_spec.yaml
+  - configs/conditions/dopamine_deficiency.exploratory.yaml

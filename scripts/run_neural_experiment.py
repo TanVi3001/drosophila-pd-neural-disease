@@ -184,6 +184,8 @@ def run_experiment(args: argparse.Namespace) -> int:
     output = _resolve(args.output)
     annotations = _resolve(args.annotations)
     config = _resolve(args.config) if args.config else None
+    configured_prepared_checkpoint = getattr(args, "prepared_checkpoint", None)
+    prepared_checkpoint = _resolve(configured_prepared_checkpoint) if configured_prepared_checkpoint else None
     output.mkdir(parents=True, exist_ok=True)
     if not brain_root.is_dir():
         _write_status(output, "WAITING_BRAIN_DATA", f"Khong tim thay brain source: {brain_root}")
@@ -229,6 +231,13 @@ def run_experiment(args: argparse.Namespace) -> int:
                 checkpoint = prepared / "plastic_weights.pt"
                 stage = temporary_root / "brain"
                 _stage_source(brain_root, stage, checkpoint)
+                run_brain_root = stage
+            elif prepared_checkpoint is not None:
+                if not prepared_checkpoint.is_file():
+                    _write_status(output, "WAITING_NEURAL_CHECKPOINT", f"Khong tim thay prepared checkpoint: {prepared_checkpoint}")
+                    return 0
+                stage = temporary_root / "prepared"
+                _stage_source(brain_root, stage, prepared_checkpoint)
                 run_brain_root = stage
             command = [
                 str(brain_python),
@@ -321,6 +330,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--platform-root", type=Path, default=DEFAULT_PLATFORM_ROOT)
     parser.add_argument("--brain-python", type=Path, default=None)
     parser.add_argument("--config", type=Path, default=None, help="YAML disease da review; bo trong de chay healthy.")
+    parser.add_argument("--prepared-checkpoint", type=Path, default=None, help="Checkpoint neural da materialize boi mot gate co provenance.")
     parser.add_argument("--annotations", type=Path, default=ROOT / "annotations" / "neuron_annotations.csv")
     parser.add_argument("--age-days", type=float, default=20.0)
     parser.add_argument("--seed", type=int, default=0)

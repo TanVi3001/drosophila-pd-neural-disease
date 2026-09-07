@@ -1,0 +1,13 @@
+schema_version: riemensperger-2011-four-group-analysis-v1
+study_id: riemensperger_2011_dopamine_deficiency
+primary_metric: median_planar_speed_mm_s
+primary_statistic: median
+distance_policy: NOT_COMPARABLE_WITH_CURRENT_VIRTUAL_DURATION
+quantitative_match_policy: DESCRIPTIVE_ONLY_NO_POSTHOC_THRESHOLD
+calibration: forbidden
+holdout: forbidden
+claims:
+  biological_validation: forbidden
+  gene_specific_validation: forbidden
+  clinical_validation: forbidden
+  drug_validation: forbidden

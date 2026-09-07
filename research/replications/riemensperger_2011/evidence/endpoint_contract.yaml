@@ -1,0 +1,30 @@
+study_id: riemensperger_2011_dopamine_deficiency
+primary_endpoint:
+  paper_metric: median_planar_speed_mm_s
+  virtual_metric: median_planar_speed_mm_s
+  unit: mm/s
+  statistic: median
+  real_unit_of_analysis: individual fly
+  virtual_unit_of_analysis: seed-level median from framewise speeds
+  comparability: RATIO_ANALYSIS_WITH_LIMITATIONS
+  assay_transfer_status: allowed_for_exploratory_directional_ratio_analysis
+  limitation: >-
+    Both endpoints are planar walking speed in mm/s, but the paper records
+    individual flight-disabled flies for 15 minutes while the virtual protocol
+    uses a fixed FlyGym duration. Absolute-scale equivalence is not claimed.
+secondary_endpoints:
+  - paper_metric: median_distance_covered_cm_15min
+    virtual_metric: distance_traveled_mm
+    unit: separate_distance_endpoints
+    statistic: median
+    comparability: NOT_COMPARABLE_WITH_CURRENT_VIRTUAL_DURATION
+    assay_transfer_status: not_approved_for_ratio_comparison
+    limitation: >-
+      The paper reports 15-minute covered distance in cm. The virtual protocol
+      is shorter and reports mm path length. Do not convert this distance into
+      speed or claim a direct distance ratio.
+forbidden_conversions:
+  - median_to_mean
+  - distance_to_speed
+  - uncertainty_type_relabeling
+  - activity_or_climbing_to_planar_speed

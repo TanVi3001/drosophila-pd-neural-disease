@@ -1,0 +1,20 @@
+schema_version: riemensperger-2011-dopamine-deficiency-virtual-replication-v1
+study_id: riemensperger_2011_dopamine_deficiency
+condition_role: VIRTUAL_DOPAMINE_DEFICIENT
+evidence_lock: research/replications/riemensperger_2011/evidence/paper_evidence_lock.csv
+healthy_config: configs/replications/riemensperger_2011_healthy.yaml
+mapping_spec: research/replications/riemensperger_2011/mapping/dopamine_mapping_spec.yaml
+transform_hypothesis: research/replications/riemensperger_2011/mapping/dopamine_transform_hypothesis.yaml
+reference_condition_config: configs/conditions/dopamine_deficiency.exploratory.yaml
+age_days: 5
+seed_policy:
+  seeds: [0, 1, 2, 3, 4]
+parameter_policy:
+  mode: sensitivity_analysis
+  burdens: [0.0, 0.25, 0.5, 0.75, 1.0]
+  default_candidate: 1.0
+  calibration_forbidden: true
+  holdout_forbidden: true
+scientific_boundary: >-
+  Dopamine-class-level computational perturbation only. This is not a
+  gene-specific, biological Parkinson, clinical, drug, or therapeutic model.

@@ -1,0 +1,32 @@
+{
+  "schema_version": "riemensperger-2011-replication-manifest-v1",
+  "created_at_utc": "2026-09-07T16:02:53.141763+00:00",
+  "status": "RIEMENSPERGER_2011_EVIDENCE_LOCKED",
+  "git_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "python_version": "3.12.10",
+  "extension_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "config_inputs": [],
+  "data_inputs": [
+    {
+      "path": "research/replications/riemensperger_2011/evidence/paper_evidence_lock.csv",
+      "sha256": "2719d42d5fe6b8d8392e96016dd005178bbde9c3f956bf0a988aa87966fbf7e8",
+      "size_bytes": 4924
+    },
+    {
+      "path": "research/replications/riemensperger_2011/evidence/endpoint_contract.yaml",
+      "sha256": "5b25ba1262b54c01ce5d034ed794ab8799d097aad2f03433d79d194e1dc9e960",
+      "size_bytes": 1323
+    },
+    {
+      "path": "research/replications/riemensperger_2011/protocols/control_policy.md",
+      "sha256": "5227b12f0a5ea2c1ddc4d16ef49c2cf6dd0ed13b8d047009fda32c14ae0366ee",
+      "size_bytes": 751
+    }
+  ],
+  "simulation_run": false,
+  "data_fabricated": false,
+  "paper_evidence_sha256": "2719d42d5fe6b8d8392e96016dd005178bbde9c3f956bf0a988aa87966fbf7e8",
+  "real_speed_ratio": 0.7222222222222222,
+  "real_distance_ratio": 0.4541176470588235,
+  "blockers": []
+}
