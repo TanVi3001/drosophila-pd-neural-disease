@@ -1,0 +1,5 @@
+evidence,gate,endpoint,result,claim_scope
+Chen 2014 calibration,13B/13C,mean_planar_speed_ratio,Computational calibration and locked-parameter confirmation,organism-level computational proxy
+Parkin exploratory rollout,21/22,multi-seed locomotion metrics,Runtime and comparison evidence,class-level exploratory only
+Pozo 2022 holdout,23/24,distance_traveled_mm ratio,Directional PASS; quantitative MISMATCH,organism-level proxy holdout
+Gene-specific biology,24,reviewed neuron/edge mapping,NOT_AVAILABLE,no gene-specific validation

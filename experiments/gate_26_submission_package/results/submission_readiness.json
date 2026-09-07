@@ -1,0 +1,13 @@
+{
+  "analysis_only": true,
+  "evidence_anchor_commit": "b8bc55b",
+  "figure_count": 5,
+  "pozo_directionality": "PASS",
+  "pozo_quantitative_ratio": "MISMATCH",
+  "ready_for_biological_parkinson_claim": false,
+  "ready_for_gene_specific_claim": false,
+  "ready_for_internal_review": true,
+  "schema_version": "gate-26-submission-readiness-v1",
+  "status": "SUBMISSION_PACKAGE_READY_FOR_INTERNAL_REVIEW",
+  "table_count": 3
+}

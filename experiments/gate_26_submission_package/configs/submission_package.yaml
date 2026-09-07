@@ -1,0 +1,46 @@
+schema_version: gate-26-submission-package-config-v1
+package_status: SUBMISSION_PACKAGE_READY_FOR_INTERNAL_REVIEW
+evidence_anchor_commit: b8bc55b
+freeze_date: "2026-09-07"
+
+analysis_only: true
+run_gpu: false
+run_simulation: false
+run_calibration: false
+run_holdout_validation: false
+run_tuning: false
+
+required_manifests:
+  - name: gate_24_concordance
+    path: experiments/gate_24_concordance/manifests/gate24_concordance_manifest.json
+    expected_status: CONCORDANCE_REPORT_COMPLETE
+  - name: gate_25_reproducibility_freeze
+    path: experiments/gate_25_reproducibility_freeze/manifests/reproducibility_freeze_manifest.json
+    expected_status: REPRODUCIBILITY_FREEZE_COMPLETE
+
+figures:
+  - experiments/gate_24_concordance/results/figures/chen_ratio_concordance.png
+  - experiments/gate_24_concordance/results/figures/gate22_burden_response.png
+  - experiments/gate_24_concordance/results/figures/pozo_directionality.png
+  - experiments/gate_24_concordance/results/figures/pozo_ratio_concordance.png
+  - experiments/gate_24_concordance/results/figures/qc_claim_matrix.png
+
+tables:
+  concordance: experiments/gate_24_concordance/results/concordance_matrix.csv
+  descriptive_metrics: experiments/gate_24_concordance/results/descriptive_metrics.csv
+
+claim_lock:
+  allowed: >-
+    Chen-calibrated organism-level computational locomotion proxy with
+    directional Pozo holdout concordance and substantial quantitative ratio mismatch.
+  forbidden_positive_claims:
+    - biological Parkinson validation
+    - gene-specific validation
+    - clinical validation
+    - drug efficacy validation
+    - quantitatively validated holdout model
+
+publication_boundary: >-
+  The package is ready for internal review and a bounded computational-proxy
+  manuscript or preprint workflow. It is not evidence for biological Parkinson,
+  gene-specific, clinical, or therapeutic validation.
