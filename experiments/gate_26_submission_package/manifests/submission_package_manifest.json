@@ -1,0 +1,181 @@
+{
+  "analysis_only": true,
+  "artifact_count": 24,
+  "artifacts": [
+    {
+      "path": "experiments/gate_26_submission_package/configs/submission_package.yaml",
+      "role": "source",
+      "sha256": "c1adf4bd89866cd0c8a4cecf29502115d2a3edeed0c02fbfa4637fe8fdcb76a6",
+      "size_bytes": 1870
+    },
+    {
+      "path": "experiments/gate_24_concordance/manifests/gate24_concordance_manifest.json",
+      "role": "source",
+      "sha256": "48bad5200dff6bcd17df5a90b2af5c9d4a58398a7d66bd2820954bafa1f2d7ef",
+      "size_bytes": 5378
+    },
+    {
+      "path": "experiments/gate_25_reproducibility_freeze/manifests/reproducibility_freeze_manifest.json",
+      "role": "source",
+      "sha256": "61c38311152bb467620ba2e6a3b56305aa0e248a80bd1c42035ca904d289f39c",
+      "size_bytes": 2466
+    },
+    {
+      "path": "experiments/gate_24_concordance/results/figures/chen_ratio_concordance.png",
+      "role": "source",
+      "sha256": "502add5d321b352aa184960338695ae531dde0854db468c08728af25e399cc9c",
+      "size_bytes": 31178
+    },
+    {
+      "path": "experiments/gate_24_concordance/results/figures/gate22_burden_response.png",
+      "role": "source",
+      "sha256": "3c5f7ce33e9e473949d71fba7e18f9440490c92e55461ba9cb350f2db7513a81",
+      "size_bytes": 108548
+    },
+    {
+      "path": "experiments/gate_24_concordance/results/figures/pozo_directionality.png",
+      "role": "source",
+      "sha256": "f5e4144249b404b6f1fc221f8bb570c1335e60294e47797df0eb0ca31cb997cf",
+      "size_bytes": 28916
+    },
+    {
+      "path": "experiments/gate_24_concordance/results/figures/pozo_ratio_concordance.png",
+      "role": "source",
+      "sha256": "22dc049b19a82312bd97013606edf99d1ef53f6cbb27cb460e2caa289e4b98d9",
+      "size_bytes": 26955
+    },
+    {
+      "path": "experiments/gate_24_concordance/results/figures/qc_claim_matrix.png",
+      "role": "source",
+      "sha256": "a32e1bf4f1c4de08e1085e6ca0b43395cbab16073222aa2cb1d3971d94656663",
+      "size_bytes": 79637
+    },
+    {
+      "path": "experiments/gate_24_concordance/results/concordance_matrix.csv",
+      "role": "source",
+      "sha256": "33b2b445391b1fe800d7a7c430fa95c33a466c5ce1d0a4202a81ec306e701086",
+      "size_bytes": 1686
+    },
+    {
+      "path": "experiments/gate_24_concordance/results/descriptive_metrics.csv",
+      "role": "source",
+      "sha256": "494503ec1bdc46c56cf27b3ed2464a18ebbcd50a1304e6eadb21f99516bc5acf",
+      "size_bytes": 3130
+    },
+    {
+      "path": "docs/claims/current_claim_lock.md",
+      "role": "source",
+      "sha256": "09cf89ae339ff7a1e497ef6c319f8fe10e4c64a9080abe10b938f5d92be39b64",
+      "size_bytes": 1988
+    },
+    {
+      "path": "experiments/gate_25_reproducibility_freeze/manifests/checksums.sha256",
+      "role": "source",
+      "sha256": "5aa84d4e999694f4fb56c60097ec384db691a77b423f7f5ea7db5658804d1116",
+      "size_bytes": 4171
+    },
+    {
+      "path": "submission/gate_26/README.md",
+      "role": "package",
+      "sha256": "1a62445e89185ea6954308cebb8a78c837f41de484004638c10cc946dc363627",
+      "size_bytes": 705
+    },
+    {
+      "path": "submission/gate_26/manuscript_vi.md",
+      "role": "package",
+      "sha256": "afa1f1ad5826a95b35b3b21503fdb7ae0f14d365bcbec23b884db5d38c70fa22",
+      "size_bytes": 3696
+    },
+    {
+      "path": "submission/gate_26/figures/chen_ratio_concordance.png",
+      "role": "package",
+      "sha256": "502add5d321b352aa184960338695ae531dde0854db468c08728af25e399cc9c",
+      "size_bytes": 31178
+    },
+    {
+      "path": "submission/gate_26/figures/gate22_burden_response.png",
+      "role": "package",
+      "sha256": "3c5f7ce33e9e473949d71fba7e18f9440490c92e55461ba9cb350f2db7513a81",
+      "size_bytes": 108548
+    },
+    {
+      "path": "submission/gate_26/figures/pozo_directionality.png",
+      "role": "package",
+      "sha256": "f5e4144249b404b6f1fc221f8bb570c1335e60294e47797df0eb0ca31cb997cf",
+      "size_bytes": 28916
+    },
+    {
+      "path": "submission/gate_26/figures/pozo_ratio_concordance.png",
+      "role": "package",
+      "sha256": "22dc049b19a82312bd97013606edf99d1ef53f6cbb27cb460e2caa289e4b98d9",
+      "size_bytes": 26955
+    },
+    {
+      "path": "submission/gate_26/figures/qc_claim_matrix.png",
+      "role": "package",
+      "sha256": "a32e1bf4f1c4de08e1085e6ca0b43395cbab16073222aa2cb1d3971d94656663",
+      "size_bytes": 79637
+    },
+    {
+      "path": "submission/gate_26/tables/table_01_evidence_scope.csv",
+      "role": "package",
+      "sha256": "a295e2fe8732ce19441d7b9f7caf18eda3372d80d42802850435b0f9c6b59d7d",
+      "size_bytes": 531
+    },
+    {
+      "path": "submission/gate_26/tables/table_02_concordance_matrix.csv",
+      "role": "package",
+      "sha256": "33b2b445391b1fe800d7a7c430fa95c33a466c5ce1d0a4202a81ec306e701086",
+      "size_bytes": 1686
+    },
+    {
+      "path": "submission/gate_26/tables/table_03_descriptive_metrics.csv",
+      "role": "package",
+      "sha256": "494503ec1bdc46c56cf27b3ed2464a18ebbcd50a1304e6eadb21f99516bc5acf",
+      "size_bytes": 3130
+    },
+    {
+      "path": "docs/submission/gate_26_submission_package_report.md",
+      "role": "package",
+      "sha256": "eb9ce99d966528d89527bc63c8c4d9b2884f8bcbbaf2223f8ce096c426727b23",
+      "size_bytes": 969
+    },
+    {
+      "path": "experiments/gate_26_submission_package/results/submission_readiness.json",
+      "role": "package",
+      "sha256": "367c414d80441f75ff3e8f63b4d5414782b457a0ddfd5e5cdfa5607224703485",
+      "size_bytes": 425
+    }
+  ],
+  "boundaries": {
+    "biological_parkinson_validation": false,
+    "clinical_validation": false,
+    "drug_validation": false,
+    "gene_specific_validation": false,
+    "quantitative_pozo_validation": false
+  },
+  "claim_lock": {
+    "allowed": "Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch.",
+    "forbidden_positive_claims": [
+      "biological Parkinson validation",
+      "gene-specific validation",
+      "clinical validation",
+      "drug efficacy validation",
+      "quantitatively validated holdout model"
+    ]
+  },
+  "evidence_anchor_commit": "b8bc55b",
+  "no_calibration": true,
+  "no_gpu": true,
+  "no_holdout_validation": true,
+  "no_simulation": true,
+  "no_tuning": true,
+  "package_root": "submission/gate_26",
+  "schema_version": "gate-26-submission-package-manifest-v1",
+  "source_gate_statuses": {
+    "gate_24_concordance": "CONCORDANCE_REPORT_COMPLETE",
+    "gate_25_reproducibility_freeze": "REPRODUCIBILITY_FREEZE_COMPLETE"
+  },
+  "status": "SUBMISSION_PACKAGE_READY_FOR_INTERNAL_REVIEW",
+  "verification_command": "py -3.12 scripts/verify_gate26_submission_package.py"
+}

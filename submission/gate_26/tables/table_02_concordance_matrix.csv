@@ -1,0 +1,9 @@
+evidence_id,stage,status,metric,observed,target,error,scope,claim_status,interpretation
+chen_calibration,calibration,PASS,mean_planar_speed_ratio,0.5856211861021032,0.6701030927835051,0.08448190668140187,organism_level_proxy,allowed_computational_calibration,Discrete burden 0.5 selected without using Pozo.
+chen_confirmation,confirmation,PASS,mean_planar_speed_ratio,0.6142225784195846,0.6701030927835051,0.0558805143639205,organism_level_proxy,allowed_computational_confirmation,Locked burden behavior confirmed on independent seeds.
+gate21_rollout,exploratory_rollout,PASS,passed_rollouts,25,25,0.0,class_level_exploratory,allowed_runtime_evidence,25/25 rollout QC passed; not gene-specific validation.
+gate22_comparison,healthy_comparison,PASS,comparison_rows,55,55,0.0,class_level_exploratory,allowed_runtime_evidence,Matched-seed comparison passed; burden response is not monotonic.
+pozo_directionality,holdout,PASS,distance_directionality,0.9470070897697126,< 1.0,0.7549687136415942,organism_level_proxy,allowed_directional_concordance,Distance decreased under locked burden 0.5.
+pozo_quantitative_ratio,holdout,MISMATCH,distance_ratio_to_control,0.9470070897697126,0.19203837612811836,0.7549687136415942,organism_level_proxy,mismatch_reported,Simulated ratio is far from the Pozo target ratio.
+gene_specific_validation,scope,NOT_AVAILABLE,gene_specific_mapping,false,required,NA,class_level_exploratory,forbidden_positive_claim,No gene-specific neuron/edge mapping is validated.
+biological_parkinson_validation,scope,NOT_AVAILABLE,biological_validation,false,required,NA,computational_only,forbidden_positive_claim,Wet-lab biological validation is outside the evidence package.
