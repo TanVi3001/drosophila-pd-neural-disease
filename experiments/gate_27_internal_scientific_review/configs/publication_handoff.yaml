@@ -1,0 +1,28 @@
+schema_version: gates-27-30-publication-handoff-config-v1
+evidence_anchor_commit: 2bd1604
+
+analysis_only: true
+run_gpu: false
+run_simulation: false
+run_calibration: false
+run_holdout_validation: false
+run_tuning: false
+submit_to_external_service: false
+
+sources:
+  gate_24_manifest: experiments/gate_24_concordance/manifests/gate24_concordance_manifest.json
+  gate_25_manifest: experiments/gate_25_reproducibility_freeze/manifests/reproducibility_freeze_manifest.json
+  gate_26_manifest: experiments/gate_26_submission_package/manifests/submission_package_manifest.json
+  manuscript: submission/gate_26/manuscript_vi.md
+  claim_lock: docs/claims/current_claim_lock.md
+
+allowed_claim: >-
+  Chen-calibrated organism-level computational locomotion proxy with
+  directional Pozo holdout concordance and substantial quantitative ratio mismatch.
+
+forbidden_positive_claims:
+  - biological Parkinson validation
+  - gene-specific validation
+  - clinical validation
+  - drug efficacy validation
+  - quantitatively validated holdout model

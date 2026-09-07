@@ -1,0 +1,133 @@
+{
+  "analysis_only": true,
+  "handoff_readme": "submission/gate_30_publication_handoff/README.md",
+  "no_external_release": true,
+  "no_external_submission": true,
+  "report": "docs/publication/gate_30_publication_handoff.md",
+  "result": "experiments/gate_30_publication_handoff/results/publication_handoff.json",
+  "schema_version": "gate-30-publication-handoff-manifest-v1",
+  "scientific_claim": "Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch.",
+  "source_artifacts": [
+    {
+      "path": "experiments/gate_27_internal_scientific_review/configs/publication_handoff.yaml",
+      "role": "handoff_input",
+      "sha256": "6a5c087f13e0b4030cf9849507a970a18f2d74c5b9b8fc8686e597c337e2de70",
+      "size_bytes": 1029
+    },
+    {
+      "path": "experiments/gate_27_internal_scientific_review/results/internal_scientific_review_audit.json",
+      "role": "handoff_input",
+      "sha256": "fa76a52fbbeacb11f7b75a151b0a7be019ba1833be49bd56c716e906f9803ae0",
+      "size_bytes": 563
+    },
+    {
+      "path": "experiments/gate_27_internal_scientific_review/manifests/internal_scientific_review_manifest.json",
+      "role": "handoff_input",
+      "sha256": "0cb967a9ea1b26de81ff4ba9fb6d8aa56ec6c003aed426f2836531a1b75aebe7",
+      "size_bytes": 1551
+    },
+    {
+      "path": "docs/publication/gate_27_internal_scientific_review.md",
+      "role": "handoff_input",
+      "sha256": "f37019f3f186c233c955568989a744578c12c72d88a6f042bcb27d3d3b7d8fe3",
+      "size_bytes": 767
+    },
+    {
+      "path": "experiments/gate_28_archive_metadata/results/archive_metadata_audit.json",
+      "role": "handoff_input",
+      "sha256": "dc261281ba6c1dce68ded886f8e2767c53c13b439b4a82911e479f5f229d68f1",
+      "size_bytes": 593
+    },
+    {
+      "path": "experiments/gate_28_archive_metadata/manifests/archive_metadata_manifest.json",
+      "role": "handoff_input",
+      "sha256": "713c091a504d38b72f727547737023721ee8082374848143b2bb85f0b9d357bc",
+      "size_bytes": 548
+    },
+    {
+      "path": "docs/publication/gate_28_archive_metadata.md",
+      "role": "handoff_input",
+      "sha256": "026c00338ebae531f35334fa9590d90e790a39e59db01358c9df6331e91a5e9d",
+      "size_bytes": 324
+    },
+    {
+      "path": "submission/gate_28_archive_metadata/CITATION.cff.template",
+      "role": "handoff_input",
+      "sha256": "decc8ff1a60b5e94ad4a5353091b2dfce6b97f4b47eda816dbedeeb6a7d8d9c2",
+      "size_bytes": 510
+    },
+    {
+      "path": "submission/gate_28_archive_metadata/zenodo.json.template",
+      "role": "handoff_input",
+      "sha256": "0cbd7af2bdef7d543dc3fe434b43809672b04a4be2d3fb8621017f52e68a1582",
+      "size_bytes": 406
+    },
+    {
+      "path": "submission/gate_28_archive_metadata/data_availability_statement.md",
+      "role": "handoff_input",
+      "sha256": "5f8a200cd5e750e613f23f8ac1a5ea474c415691a895a80a23ba3d4791e45b25",
+      "size_bytes": 400
+    },
+    {
+      "path": "docs/publication/gate_28_archive_metadata.md",
+      "role": "handoff_input",
+      "sha256": "026c00338ebae531f35334fa9590d90e790a39e59db01358c9df6331e91a5e9d",
+      "size_bytes": 324
+    },
+    {
+      "path": "experiments/gate_29_submission_readiness/results/submission_readiness.json",
+      "role": "handoff_input",
+      "sha256": "f84103045485ad1bc7358fb8c7a37382398d77ed6a1503f4d976737c19567659",
+      "size_bytes": 476
+    },
+    {
+      "path": "experiments/gate_29_submission_readiness/manifests/submission_readiness_manifest.json",
+      "role": "handoff_input",
+      "sha256": "c7870aa7678581ba1ab5bf7db8a2f7bdaa1447d25f2cdbf97221daf8c9494b9a",
+      "size_bytes": 590
+    },
+    {
+      "path": "docs/publication/gate_29_submission_readiness.md",
+      "role": "handoff_input",
+      "sha256": "a572b1ec4426427240716657c3d4f1d0d6cc73bcf27f8e6be27ad35174ddc8e5",
+      "size_bytes": 296
+    },
+    {
+      "path": "submission/gate_29_submission_metadata/submission_metadata_template.yaml",
+      "role": "handoff_input",
+      "sha256": "62acfaab4a86a71ecb022a65ceefdf85fce71f84dda4444644985b676ab6c3b7",
+      "size_bytes": 527
+    },
+    {
+      "path": "submission/gate_29_submission_metadata/cover_letter_template.md",
+      "role": "handoff_input",
+      "sha256": "863fd71ab54c43ba376bf0a7c3c9805b6e53c330c17897900be59912099b0a8d",
+      "size_bytes": 532
+    },
+    {
+      "path": "submission/gate_29_submission_metadata/contributions_template.md",
+      "role": "handoff_input",
+      "sha256": "4f8442cee09567b8dbaa10840c77866ba07c21c1b66e72f9625d8eb83e864e7d",
+      "size_bytes": 304
+    },
+    {
+      "path": "docs/publication/gate_29_submission_readiness.md",
+      "role": "handoff_input",
+      "sha256": "a572b1ec4426427240716657c3d4f1d0d6cc73bcf27f8e6be27ad35174ddc8e5",
+      "size_bytes": 296
+    },
+    {
+      "path": "experiments/gate_26_submission_package/manifests/submission_package_manifest.json",
+      "role": "handoff_input",
+      "sha256": "1c4e017a0525f88b6bdbe336eb6186b7056873e09b3cbdaa71c1b73f8b6344be",
+      "size_bytes": 6658
+    },
+    {
+      "path": "submission/gate_26/manuscript_vi.md",
+      "role": "handoff_input",
+      "sha256": "afa1f1ad5826a95b35b3b21503fdb7ae0f14d365bcbec23b884db5d38c70fa22",
+      "size_bytes": 3696
+    }
+  ],
+  "status": "PUBLICATION_HANDOFF_PENDING_HUMAN_AUTHORIZATION"
+}

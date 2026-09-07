@@ -1,0 +1,16 @@
+{
+  "external_release_created": false,
+  "external_submission_executed": false,
+  "gate_27_status": "INTERNAL_REVIEW_PACKAGE_READY",
+  "gate_28_status": "ARCHIVE_METADATA_PENDING_HUMAN_DECISIONS",
+  "gate_29_status": "SUBMISSION_METADATA_PENDING_HUMAN_SIGNOFF",
+  "next_human_actions": [
+    "Approve license and authorship metadata",
+    "Select target venue and apply its author guidelines",
+    "Obtain supervisor/coauthor signoff",
+    "Create an authorized GitHub Release and archive DOI if desired",
+    "Submit through the selected venue portal using the approved account"
+  ],
+  "schema_version": "gate-30-publication-handoff-v1",
+  "status": "PUBLICATION_HANDOFF_PENDING_HUMAN_AUTHORIZATION"
+}

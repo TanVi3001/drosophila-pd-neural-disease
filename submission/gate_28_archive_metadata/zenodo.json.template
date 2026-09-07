@@ -1,0 +1,10 @@
+{
+  "title": "Drosophila Parkinson-like Locomotion Proxy",
+  "upload_type": "software",
+  "description": "AUTHOR-APPROVED DESCRIPTION REQUIRED. The release must retain the computational-proxy claim boundary.",
+  "creators": [
+    {"name": "AUTHOR_NAME_REQUIRED", "affiliation": "AFFILIATION_REQUIRED", "orcid": "OPTIONAL_ORCID"}
+  ],
+  "license": "LICENSE_DECISION_REQUIRED",
+  "related_identifiers": []
+}

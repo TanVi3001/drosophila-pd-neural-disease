@@ -1,0 +1,14 @@
+{
+  "archive_deposited": false,
+  "citation_metadata_present": false,
+  "doi_minted": false,
+  "repository_license_present": false,
+  "required_human_decisions": [
+    "Choose a repository license compatible with all dependencies and bundled materials",
+    "Confirm author order, affiliations and ORCID identifiers",
+    "Create a GitHub release and archive DOI through an authorized account",
+    "Confirm data/video hosting and licensing for any large external artifact"
+  ],
+  "schema_version": "gate-28-archive-metadata-audit-v1",
+  "status": "ARCHIVE_METADATA_PENDING_HUMAN_DECISIONS"
+}
