@@ -1,0 +1,24 @@
+schema_version: gate-24-1-parkin-neural-transform-v1
+transform_id: gate24_parkin_driver_defined_neural_outgoing_attenuation_v1
+target_population: 330 reviewed Parkin TH-GAL4 driver-defined FlyWire root IDs
+target_count: 330
+target_sha256: e36b0210ea6d2d2b7225f62feba73ae5c9e6535565c8b936558d0eaaf04a2085
+mapping_sha256: 776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80
+operation_level: NEURAL_PRE_ACTION
+mathematical_definition: "w_prime[e] = w[e] * (1 - p) when presynaptic_root[e] is in T; otherwise w_prime[e] = w[e]"
+parameter_name: neural_perturbation_strength
+parameter_domain: dimensionless_[0,1]
+identity_condition: "parameter = 0 returns an exact copy of the healthy neural representation within deterministic numerical tolerance defined before execution"
+deterministic_policy: CPU deterministic array transform; no random noise
+healthy_checkpoint_policy: immutable input; never overwritten
+disease_checkpoint_policy: new artifact with independent SHA256 and manifest
+expected_computational_effect: attenuate outgoing synaptic influence from the reviewed target population before action generation
+biological_equivalence: NOT_ASSERTED
+limitations:
+  - The parameter is not a biological knockdown percentage.
+  - Driver-defined mapping is not direct Parkin expression in FlyWire.
+  - The transform does not establish biological Parkinson validation.
+sensitivity_grid: [0.0, 0.25, 0.5, 0.75, 1.0]
+primary_parameter_status: WAITING_PRIMARY_PARKIN_PARAMETER_DECISION
+source_code: src/drosophila_pd_neural/parkin/transform.py
+source_code_sha256: 8f8fe415b9a2d4490783775ef9a4aa45a82bfe624f37d969d89eda1a7bac383b
