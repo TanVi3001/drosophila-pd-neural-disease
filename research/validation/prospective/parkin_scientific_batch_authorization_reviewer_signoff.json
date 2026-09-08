@@ -1,0 +1,18 @@
+{
+  "schema_version": "gate24e-scientific-batch-authorization-v1",
+  "study_id": "parkin_prospective_validation",
+  "status": "WAITING_SCIENTIFIC_BATCH_AUTHORIZATION_REVIEW",
+  "decision": "PENDING_HUMAN_REVIEW",
+  "reviewer_1": "",
+  "reviewer_2": "",
+  "review_date": "",
+  "scientific_batch_plan_sha256": "4515e1916631b019711154dccb5fb887110d5572e3eb82b7ea5118c643db5aac",
+  "job_count": 25,
+  "storage_capacity_resolved": false,
+  "scientific_jobs_executed": 0,
+  "scientific_batch_authorized": false,
+  "holdout": "SEALED",
+  "gpu_executed": false,
+  "simulation_executed": false,
+  "human_signoff_required": true
+}
