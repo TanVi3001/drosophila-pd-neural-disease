@@ -1,0 +1,124 @@
+{
+  "schema_version": "gate24e-runtime-amendment-checksums-v1",
+  "status": "RUNTIME_SOURCE_HASHES_RECORDED",
+  "original_platform_commit": "3ceb8ce441e2eb40bc6c0b6b7be14c1c1aaecf06",
+  "amended_platform_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "amended_clean_worktree": "../drosophila-pd-flygym-gate24-memorysafe-clean",
+  "amended_clean_worktree_status": "CLEAN",
+  "artifact_profile": "GATE24E_MEMORY_SAFE",
+  "original_sources": {
+    "scripts/run_brain_body_rollout.py": {
+      "git_blob_sha256": "1359ee12b750869bc821790c74f7c97622e00002ea55d7e23382f4f69fdf14b9",
+      "git_blob_byte_size": 20163,
+      "windows_worktree_sha256": "6c27c6ca9421f3b358ed8ce17e8192be586b6777ce52c2201530ec713db03059"
+    },
+    "src/drosophila_pd/flygym_adapter/export.py": {
+      "git_blob_sha256": "b70a15a3d497c3b06de0661590fb5101637f5e48f2e1b2535e45e84180de15b4",
+      "git_blob_byte_size": 5353,
+      "windows_worktree_sha256": "19b72ce2492888754957ec25788a2a9a6e3adfd537c795a85251f095c1dad247"
+    }
+  },
+  "amended_executable_sources": {
+    "scripts/run_brain_body_rollout.py": {
+      "git_blob_sha256": "cea5c2489b62cd25324b42f1ca790258ced0bff9dd48cd391979aca3a91acfc1",
+      "git_blob_byte_size": 22520,
+      "windows_worktree_sha256": "21b3854a2cf8e2087e143c0f7ccf97761b80c5eca3bda265d8e80729434d6b16",
+      "classification": [
+        "CLI_ARTIFACT_PROFILE",
+        "POST_SIMULATION_EXPORT",
+        "POST_SIMULATION_ANALYSIS",
+        "OPTIONAL_POSTPROCESS"
+      ]
+    },
+    "src/drosophila_pd/flygym_adapter/export.py": {
+      "git_blob_sha256": "82e47f98c919863e9bc5ae18db0d52e727b6fc4b4e3387b08ab6744d557543bc",
+      "git_blob_byte_size": 15317,
+      "windows_worktree_sha256": "0b79610f312bd2c282484814c123f5bf3c67fc655c3c4b0b66f9695243b4ebd2",
+      "classification": ["POST_SIMULATION_EXPORT"]
+    },
+    "src/drosophila_pd/analysis/memory_safe.py": {
+      "git_blob_sha256": "3f3e9dd9c04872adbc21418b26078e3f3ddca5712d34335fe60937e585d5274a",
+      "git_blob_byte_size": 6453,
+      "windows_worktree_sha256": "254079472a134dd501c3e1a0e27d45aa22ef9a250db0c921b5ae07118d2361fb",
+      "classification": ["POST_SIMULATION_ANALYSIS"]
+    },
+    "src/drosophila_pd/flygym_adapter/__init__.py": {
+      "git_blob_sha256": "3569709edc2038ae3a59a1704810c6d143b006b8fb0f95510f3cdf0f2e0ac2dc",
+      "git_blob_byte_size": 1345,
+      "windows_worktree_sha256": "e3efa0dbfaa935bf547f9447b63f90fe3a7e0584cfc9a09090fcc012968e3f4d",
+      "classification": ["POST_SIMULATION_EXPORT"]
+    },
+    "src/drosophila_pd/analysis/__init__.py": {
+      "git_blob_sha256": "6b03e49abdfba66039cc2231bf528b1244d79bef6a2a10bc61bb08752f164812",
+      "git_blob_byte_size": 920,
+      "windows_worktree_sha256": "1523dfeefa766127c50c27129408a99101bb930ca4adda1ec112c9ef48071901",
+      "classification": ["POST_SIMULATION_ANALYSIS"]
+    }
+  },
+  "source_diff": {
+    "sha256": "ecb460c6cdeba7916d35fe57439cdf4cc86859fbc1862dd49710ed4d107fd93a",
+    "changed_files": [
+      "scripts/run_brain_body_rollout.py",
+      "src/drosophila_pd/analysis/__init__.py",
+      "src/drosophila_pd/analysis/memory_safe.py",
+      "src/drosophila_pd/flygym_adapter/__init__.py",
+      "src/drosophila_pd/flygym_adapter/export.py",
+      "tests/test_memory_safe_export.py"
+    ],
+    "simulation_semantics_classification": "SIMULATION_SEMANTICS",
+    "simulation_semantics_changed": false
+  },
+  "simulation_loop": {
+    "path": "scripts/run_brain_body_rollout.py",
+    "start_marker": "        for step_index in range(steps):",
+    "original_end_marker": "        exported = export_rollout",
+    "amended_end_marker": "        frame_count = recorder.rollout.frame_count",
+    "original_sha256": "d90d204826e1bda64197b74eecabf9cb96fe17eef3907df41bd79c7238223b5e",
+    "amended_sha256": "d90d204826e1bda64197b74eecabf9cb96fe17eef3907df41bd79c7238223b5e",
+    "byte_equivalent_after_normalization": true,
+    "ordered_calls": [
+      "brain.step()",
+      "decoder.update(...) ",
+      "bridge.compute_drive(...) ",
+      "controller.step(...) ",
+      "apply_locomotion_action(...) ",
+      "simulation.step()",
+      "recorder.record()"
+    ]
+  },
+  "analysis_contract": {
+    "path": "scripts/analyze_gate24e_blinded_prediction.py",
+    "sha256": "e179a58cdcf5b6dc9e4a0960be2e25fe792b7356ffdf8cb94754184ae8d2bed4",
+    "primary_metric": "median_planar_speed_mm_s",
+    "secondary_metric": "distance_traveled_mm",
+    "required_time_channels": ["timestamp_s", "time_s"],
+    "required_position_channels": ["thorax", "thorax_positions"],
+    "definition_changed": false
+  },
+  "equivalence_tests": {
+    "path": "tests/test_memory_safe_export.py",
+    "git_blob_sha256": "88e6fa094256737385b280fbd86de12926f1aacbfe8f9b193b9dd24077cdd3ef",
+    "windows_worktree_sha256": "4335e77b98fa8b00272d9ab5d7b1ab0bd400a6e51082739061398e8bf1601780",
+    "command": "PYTHONPATH=src py -3.12 -m pytest -q -rs -p no:cacheprovider tests/test_memory_safe_export.py",
+    "test_count": 6,
+    "npz_equivalence": "NPZ_EQUIVALENCE_PASS",
+    "primary_metric_equivalence": "PRIMARY_METRIC_EQUIVALENCE_PASS",
+    "secondary_metric_equivalence": "SECONDARY_METRIC_EQUIVALENCE_PASS",
+    "memory_regression": "MEMORY_REGRESSION_PASS",
+    "gpu_executed": false,
+    "simulation_executed": false
+  },
+  "parent_artifacts": {
+    "model_freeze_sha256": "eb370a25c00b39173272468e050e4ab917a0e99df0c3ee3ab73635868dfe916a",
+    "gate24d_signoff_sha256": "24e5118a778257887c9541ceb679e9c4d4a87ddd2053a81c000301e6b9d90526",
+    "prediction_contract_sha256": "492ff39aa83f5acdaf2860522d4e99621bedb16a8e93778bfa8588b5a04c428e",
+    "checkpoint_grid_manifest_sha256": "3bbf2a6ca62a952dc1ded8a0865a20e54e4cb60e16442632b232166f8399f04f",
+    "holdout_firewall_manifest_sha256": "0a86b81e6930e2e95b224125b7fc8334c87bd181cb230c808cc0f3befbe06871",
+    "gate24e_execution_manifest_sha256": "bf2972cb0a996d2508a9a7c1b84b79deb8a765c71fe8de4d38f5318a1a06cb2a",
+    "memory_safe_fix_manifest_sha256": "4744764f23b39058c12d30bd23c1450c28f82a982d4bf5d36383d86d3f7df3d0"
+  },
+  "holdout_status": "SEALED",
+  "scientific_jobs_executed": 0,
+  "attempt_03_authorized": false,
+  "scientific_batch_authorized": false
+}

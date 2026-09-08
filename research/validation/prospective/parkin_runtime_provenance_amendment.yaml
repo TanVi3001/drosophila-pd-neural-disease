@@ -1,0 +1,102 @@
+schema_version: gate24e-runtime-provenance-amendment-v1
+study_id: parkin_prospective_validation
+status: RUNTIME_AMENDMENT_DRAFTED
+amendment_scope: POST_SIMULATION_EXPORT_AND_POSTPROCESS_ONLY
+
+parent_scientific_freeze:
+  path: research/validation/prospective/parkin_model_freeze.yaml
+  sha256: eb370a25c00b39173272468e050e4ab917a0e99df0c3ee3ab73635868dfe916a
+
+parent_gate24d_signoff:
+  path: research/validation/prospective/parkin_prediction_reviewer_signoff.json
+  sha256: 24e5118a778257887c9541ceb679e9c4d4a87ddd2053a81c000301e6b9d90526
+  decision: APPROVED_FOR_BLINDED_VIRTUAL_PREDICTION
+
+original_runtime:
+  platform_commit: 3ceb8ce441e2eb40bc6c0b6b7be14c1c1aaecf06
+  artifact_profile: LEGACY
+  worktree: ../drosophila-pd-flygym-gate24-clean
+  runner_worktree_sha256: 6c27c6ca9421f3b358ed8ce17e8192be586b6777ce52c2201530ec713db03059
+  runner_git_blob_sha256: 1359ee12b750869bc821790c74f7c97622e00002ea55d7e23382f4f69fdf14b9
+
+amended_runtime:
+  platform_commit: 655e854544e3d814dfe422883ff0de66b619d6c1
+  artifact_profile: GATE24E_MEMORY_SAFE
+  worktree: ../drosophila-pd-flygym-gate24-memorysafe-clean
+  runner_worktree_sha256: 21b3854a2cf8e2087e143c0f7ccf97761b80c5eca3bda265d8e80729434d6b16
+  runner_git_blob_sha256: cea5c2489b62cd25324b42f1ca790258ced0bff9dd48cd391979aca3a91acfc1
+  checksums_manifest: experiments/gate_24e_storage_probe/manifests/runtime_amendment_checksums.json
+
+locked_scientific_values:
+  model_commit: be4b10a80755d9f7bad931f56b8a739bd64e3619
+  mapping_sha256: 776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80
+  target_neurons_sha256: e36b0210ea6d2d2b7225f62feba73ae5c9e6535565c8b936558d0eaaf04a2085
+  target_root_count: 330
+  healthy_checkpoint_sha256: d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691
+  disease_checkpoint_sha256:
+    '0.25': dd2a4413d1aa4baed30df96884afdd030bac3a246d1bcc7a241baa955082cb8c
+    '0.5': f682057bfff2bd523ba9a934970c9986e041ce44cb16fb8781ce2e9c5aebcff1
+    '0.75': 0b73e25620d10e56e293f859fb95c45630c7b798073b482d73f95a7d5c51e802
+    '1.0': 0ecf37ce96b6d4ea09b00204c3f01c6f41b6a2820b5f21170c6856760850e2b1
+  parameter_grid: [0.0, 0.25, 0.5, 0.75, 1.0]
+  seeds: [0, 1, 2, 3, 4]
+  neural_transform_sha256: 8f8fe415b9a2d4490783775ef9a4aa45a82bfe624f37d969d89eda1a7bac383b
+  timestep_s: 0.0001
+  duration_s: 10.0
+  simulation_steps: 100000
+  controller: HybridTurningController
+  cpg_frequency_hz: 12.0
+  primary_metric: median_planar_speed_mm_s
+  secondary_metric: distance_traveled_mm
+  decision_rule: VIRTUAL_DIRECTIONAL_PREDICTION_SUPPORTED only when every nonzero parameter passes the primary direction rule and QC
+
+scientific_invariants:
+  model_commit_unchanged: true
+  neural_transform_unchanged: true
+  mapping_unchanged: true
+  target_set_unchanged: true
+  checkpoints_unchanged: true
+  parameter_grid_unchanged: true
+  seeds_unchanged: true
+  timestep_unchanged: true
+  duration_unchanged: true
+  controller_unchanged: true
+  cpg_unchanged: true
+  primary_metric_definition_unchanged: true
+  decision_rule_unchanged: true
+  holdout_state_unchanged: true
+
+runtime_changes:
+  simulation_semantics_changed: false
+  export_implementation_changed: true
+  memory_behavior_changed: true
+  viewer_policy_changed: true
+  optional_postprocess_changed: true
+
+artifact_contract:
+  full_rollout_json_required: false
+  rollout_npz_required: true
+  metadata_required: true
+  manifest_required: true
+  scalar_metrics_required: true
+  viewer_required: false
+  video_required: false
+  biomarker_required_for_primary_gate24_decision: false
+
+equivalence_evidence:
+  source_test: tests/test_memory_safe_export.py
+  source_test_git_blob_sha256: 88e6fa094256737385b280fbd86de12926f1aacbfe8f9b193b9dd24077cdd3ef
+  npz_equivalence: NPZ_EQUIVALENCE_PASS
+  primary_metric_equivalence: PRIMARY_METRIC_EQUIVALENCE_PASS
+  secondary_metric_equivalence: SECONDARY_METRIC_EQUIVALENCE_PASS
+  memory_regression: MEMORY_REGRESSION_PASS
+  gpu_used: false
+  simulation_used: false
+
+scientific_claim_effect: NONE
+requires_human_review: true
+holdout_status: SEALED
+holdout_opened: false
+scientific_jobs_executed: 0
+attempt_03_authorized: false
+scientific_batch_authorized: false
