@@ -250,7 +250,7 @@ def audit() -> dict[str, Any]:
         blockers.append("prospective prediction contract is not locked")
 
     signoff_complete = (
-        signoff.get("status") == "APPROVED_FOR_BLINDED_VIRTUAL_PREDICTION"
+        signoff.get("status") == "PROSPECTIVE_PREDICTION_LOCKED"
         and signoff.get("decision") == "APPROVED_FOR_BLINDED_VIRTUAL_PREDICTION"
         and _valid_reviewer(signoff.get("reviewer_1"))
         and _valid_reviewer(signoff.get("reviewer_2"))

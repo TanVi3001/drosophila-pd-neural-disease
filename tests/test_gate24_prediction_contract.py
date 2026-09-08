@@ -29,12 +29,13 @@ def test_gate24_burden_grid_is_sensitivity_not_biological_percentage() -> None:
     assert parameter["biological_percentage_mapping"] == "NOT_ALLOWED"
 
 
-def test_gate24_signoff_is_pending_until_two_humans_review() -> None:
+def test_gate24_signoff_records_two_human_reviewers_before_execution() -> None:
     import json
 
     signoff = json.loads(SIGNOFF.read_text(encoding="utf-8"))
-    assert signoff["status"] == "WAITING_PROSPECTIVE_PREDICTION_REVIEW"
-    assert signoff["decision"] == "PENDING_HUMAN_SIGNOFF"
-    assert signoff["reviewer_1"] == ""
-    assert signoff["reviewer_2"] == ""
+    assert signoff["status"] == "PROSPECTIVE_PREDICTION_LOCKED"
+    assert signoff["decision"] == "APPROVED_FOR_BLINDED_VIRTUAL_PREDICTION"
+    assert signoff["reviewer_1"] == "Tuan Le"
+    assert signoff["reviewer_2"] == "To Dang Minh Tuan"
+    assert signoff["review_date"] == "2026-09-08"
     assert signoff["holdout_opened"] is False

@@ -1,6 +1,6 @@
 {
   "schema_version": "gate-24-prospective-validation-manifest-v1",
-  "status": "NOT_EXECUTED",
+  "status": "READY_FOR_BLINDED_GPU_PREDICTION",
   "inputs": {
     "assay_compatibility": {
       "path": "research/validation/prospective/parkin_assay_compatibility.yaml",
@@ -20,7 +20,7 @@
     },
     "reviewer_signoff": {
       "path": "research/validation/prospective/parkin_prediction_reviewer_signoff.json",
-      "sha256": "0df2d7aa8b170973fc1ce071ab07f8b99a6b6bc6fc7f1a98763d7e43ba082a86"
+      "sha256": "24e5118a778257887c9541ceb679e9c4d4a87ddd2053a81c000301e6b9d90526"
     },
     "mapping": {
       "path": "research/validation/gene_specific/parkin/driver_to_connectome_mapping.csv",

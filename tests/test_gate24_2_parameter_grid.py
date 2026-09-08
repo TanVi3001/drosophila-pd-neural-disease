@@ -45,10 +45,11 @@ def test_gate24_2_grid_checkpoint_hashes_match_external_artifacts() -> None:
         assert row["identity_test_status"] == "PASS"
 
 
-def test_gate24_2_reviewer_two_is_not_filled_automatically() -> None:
+def test_gate24_2_reviewer_signoff_is_imported_without_opening_holdout() -> None:
     signoff = json.loads(SIGNOFF.read_text(encoding="utf-8"))
-    assert signoff["status"] == "WAITING_PROSPECTIVE_PREDICTION_REVIEW"
-    assert signoff["decision"] == "PENDING_HUMAN_SIGNOFF"
-    assert signoff["reviewer_2"] == ""
+    assert signoff["status"] == "PROSPECTIVE_PREDICTION_LOCKED"
+    assert signoff["decision"] == "APPROVED_FOR_BLINDED_VIRTUAL_PREDICTION"
+    assert signoff["reviewer_2"] == "To Dang Minh Tuan"
+    assert signoff["review_date"] == "2026-09-08"
     assert signoff["holdout_opened"] is False
     assert signoff["tuning_using_holdout"] is False

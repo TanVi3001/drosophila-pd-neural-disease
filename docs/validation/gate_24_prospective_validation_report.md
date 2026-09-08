@@ -4,8 +4,8 @@
 **Gate24A:** `ASSAY_COMPATIBILITY_LOCKED_DIRECTION_ONLY`
 **Gate24B:** `MODEL_FREEZE_COMPLETE`
 **Gate24C:** `PROSPECTIVE_PREDICTION_DRAFTED`
-**Gate24D:** `WAITING_PROSPECTIVE_PREDICTION_REVIEW`
-**Gate24E:** `NOT_EXECUTED`
+**Gate24D:** `PROSPECTIVE_PREDICTION_LOCKED`
+**Gate24E:** `READY_FOR_BLINDED_GPU_PREDICTION`
 **Holdout:** `SEALED`
 
 ## Khóa provenance
@@ -28,7 +28,6 @@
 - Cackovic holdout chưa mở và không được dùng để chọn burden, seed, checkpoint hoặc threshold.
 
 ## Blocker hiện tại
-- Gate24D human preregistration signoff is missing
 
 ## Claim lock
 > Parkin-specific intervention represented by a reviewed driver-defined neural perturbation and a preregistered directional computational validation protocol; no biological validation claim.
