@@ -1,11 +1,11 @@
 {
   "schema_version": "gate24e-runtime-amendment-review-v1",
   "study_id": "parkin_prospective_validation",
-  "status": "WAITING_RUNTIME_AMENDMENT_REVIEW",
-  "reviewer_1": "",
-  "reviewer_2": "",
-  "review_date": "",
-  "decision": "PENDING_HUMAN_REVIEW",
+  "status": "RUNTIME_AMENDMENT_APPROVED",
+  "reviewer_1": "Tuan Le",
+  "reviewer_2": "To Dang Minh Tuan",
+  "review_date": "2026-09-08",
+  "decision": "APPROVED_FOR_GATE24E_RUNTIME_AMENDMENT",
   "parent_gate24d_decision": "APPROVED_FOR_BLINDED_VIRTUAL_PREDICTION",
   "original_platform_commit": "3ceb8ce441e2eb40bc6c0b6b7be14c1c1aaecf06",
   "amended_platform_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
@@ -15,6 +15,6 @@
   "allowed_change": "Post-simulation memory-safe artifact export and optional post-processing only.",
   "holdout_opened": false,
   "scientific_jobs_executed": 0,
-  "attempt_03_authorized": false,
+  "attempt_03_authorized": true,
   "scientific_batch_authorized": false
 }
