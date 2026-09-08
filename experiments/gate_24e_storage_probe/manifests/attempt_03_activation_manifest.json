@@ -1,0 +1,27 @@
+{
+  "schema_version": "gate24e-storage-probe-attempt03-activation-v1",
+  "status": "READY_FOR_GATE24E_STORAGE_ATTEMPT_03",
+  "attempt_id": "attempt_03",
+  "purpose": "TECHNICAL_STORAGE_QUALIFICATION_ONLY",
+  "executed": false,
+  "gpu_executed": false,
+  "simulation_executed": false,
+  "scientific_batch_authorized": false,
+  "holdout": "SEALED",
+  "platform_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "artifact_profile": "GATE24E_MEMORY_SAFE",
+  "seed": 9001,
+  "steps": 100000,
+  "duration_s": 10.0,
+  "device": "cuda",
+  "scientific_seeds_excluded": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "runtime_amendment_sha256": "d2fcb187dd5609169d52f7e499a0570a83bedc45b687d6c9b8fe3ab72790be0a",
+  "review_signoff": "research/validation/prospective/parkin_runtime_amendment_reviewer_signoff.json",
+  "output_root": "experiments/gate_24e_storage_probe/attempt_03"
+}

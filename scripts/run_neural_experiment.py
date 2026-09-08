@@ -21,10 +21,21 @@ DEFAULT_BRAIN_ROOT = ROOT / "external" / "fly-brain"
 PREPARE_SCRIPT = ROOT / "scripts" / "prepare_neural_checkpoint.py"
 PLATFORM_RUNNER = "scripts/run_brain_body_rollout.py"
 
-# This compatibility contract is intentionally scoped to the frozen Gate 24
-# platform.  The platform runner constructs make_tripod_cpg_network() without
-# a frequency argument; the audited FlyGym 2.1.0 helper defaults to 12.0 Hz.
-FROZEN_PLATFORM_COMMIT = "3ceb8ce441e2eb40bc6c0b6b7be14c1c1aaecf06"
+# These are the only two runtime contracts accepted by the Gate 24E wrapper.
+# The amended contract changes post-simulation artifact handling only; it does
+# not change the simulation loop or the scientific model.
+ORIGINAL_PLATFORM_COMMIT = "3ceb8ce441e2eb40bc6c0b6b7be14c1c1aaecf06"
+AMENDED_PLATFORM_COMMIT = "655e854544e3d814dfe422883ff0de66b619d6c1"
+LEGACY_ARTIFACT_PROFILE = "LEGACY"
+MEMORY_SAFE_ARTIFACT_PROFILE = "GATE24E_MEMORY_SAFE"
+RUNTIME_CONTRACTS = {
+    ORIGINAL_PLATFORM_COMMIT: LEGACY_ARTIFACT_PROFILE,
+    AMENDED_PLATFORM_COMMIT: MEMORY_SAFE_ARTIFACT_PROFILE,
+}
+
+# Backward-compatible aliases retained for the existing Gate 24 tests and
+# callers. The default workflow remains the original frozen runtime.
+FROZEN_PLATFORM_COMMIT = ORIGINAL_PLATFORM_COMMIT
 FROZEN_FLYGYM_VERSION = "2.1.0"
 FROZEN_CPG_DEFAULT_HZ = 12.0
 
@@ -125,6 +136,44 @@ def _installed_distribution_version(python: Path, distribution: str) -> str:
     return result.stdout.strip()
 
 
+def validate_runtime_contract(*, platform_commit: str, artifact_profile: str) -> None:
+    """Reject unknown or mismatched platform/profile pairs fail-closed."""
+    if artifact_profile not in {LEGACY_ARTIFACT_PROFILE, MEMORY_SAFE_ARTIFACT_PROFILE}:
+        raise RuntimeError(f"UNKNOWN_ARTIFACT_PROFILE: {artifact_profile}")
+    expected_profile = RUNTIME_CONTRACTS.get(platform_commit)
+    if expected_profile is None:
+        raise RuntimeError(f"UNKNOWN_PLATFORM_COMMIT: {platform_commit}")
+    if expected_profile != artifact_profile:
+        raise RuntimeError(
+            "INCOMPATIBLE_RUNTIME_PROFILE: "
+            f"commit {platform_commit} requires {expected_profile}, got {artifact_profile}"
+        )
+
+
+def validate_runtime_cpg_compatibility(
+    *,
+    platform_commit: str,
+    flygym_version: str,
+    requested_frequency_hz: float,
+) -> None:
+    """Validate CPG invariants for either reviewed runtime contract."""
+    if platform_commit not in RUNTIME_CONTRACTS:
+        raise RuntimeError(
+            "INCOMPATIBLE_FLYGYM_PLATFORM_COMMIT: "
+            f"unknown approved runtime commit, got {platform_commit}"
+        )
+    if flygym_version != FROZEN_FLYGYM_VERSION:
+        raise RuntimeError(
+            "INCOMPATIBLE_FLYGYM_VERSION: "
+            f"expected {FROZEN_FLYGYM_VERSION}, got {flygym_version}"
+        )
+    if requested_frequency_hz != FROZEN_CPG_DEFAULT_HZ:
+        raise RuntimeError(
+            "INCOMPATIBLE_CPG_FREQUENCY: the frozen platform default is "
+            f"{FROZEN_CPG_DEFAULT_HZ} Hz, requested {requested_frequency_hz} Hz"
+        )
+
+
 def validate_frozen_cpg_compatibility(
     *,
     platform_commit: str,
@@ -160,6 +209,7 @@ def build_platform_command(
     output: Path,
     stimulus: str,
     requested_frequency_hz: float,
+    artifact_profile: str = LEGACY_ARTIFACT_PROFILE,
     video: bool = False,
     video_output: Path | None = None,
     video_fps: int = 60,
@@ -176,8 +226,13 @@ def build_platform_command(
     value is therefore validated against the audited intrinsic default and
     deliberately omitted from the child command.
     """
-    validate_frozen_cpg_compatibility(
-        platform_commit=_git_commit(platform_root),
+    platform_commit = _git_commit(platform_root)
+    validate_runtime_contract(
+        platform_commit=platform_commit,
+        artifact_profile=artifact_profile,
+    )
+    validate_runtime_cpg_compatibility(
+        platform_commit=platform_commit,
         flygym_version=_installed_distribution_version(brain_python, "flygym"),
         requested_frequency_hz=requested_frequency_hz,
     )
@@ -199,6 +254,10 @@ def build_platform_command(
         "--stimulus",
         stimulus,
     ]
+    if artifact_profile == MEMORY_SAFE_ARTIFACT_PROFILE:
+        # The amended runner explicitly accepts this profile. The legacy
+        # runner does not, so LEGACY remains omitted for old workflows.
+        command.extend(["--artifact-profile", MEMORY_SAFE_ARTIFACT_PROFILE])
     if video or video_output:
         command.extend(
             [
@@ -383,6 +442,7 @@ def run_experiment(args: argparse.Namespace) -> int:
                 output=output,
                 stimulus=args.stimulus,
                 requested_frequency_hz=args.cpg_frequency_hz,
+                artifact_profile=args.artifact_profile,
                 video=args.video,
                 video_output=args.video_output,
                 video_fps=args.video_fps,
@@ -465,6 +525,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Che do video; tracking bam theo thorax, fixed giu camera the gioi.",
     )
     parser.add_argument("--cpg-frequency-hz", type=float, default=12.0)
+    parser.add_argument(
+        "--artifact-profile",
+        choices=(LEGACY_ARTIFACT_PROFILE, MEMORY_SAFE_ARTIFACT_PROFILE),
+        default=LEGACY_ARTIFACT_PROFILE,
+        help="Artifact contract paired with the selected reviewed platform commit.",
+    )
     parser.add_argument("--compare-to", type=Path, default=None)
     return parser
 

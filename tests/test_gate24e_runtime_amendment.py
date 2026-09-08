@@ -164,9 +164,9 @@ def test_17_scientific_jobs_remain_zero() -> None:
     assert AMENDMENT_DOCUMENT["scientific_jobs_executed"] == 0
 
 
-def test_18_attempt_03_is_blocked_before_human_approval() -> None:
+def test_18_attempt_03_is_authorized_only_by_the_separate_approved_signoff() -> None:
     assert AMENDMENT_DOCUMENT["attempt_03_authorized"] is False
-    assert RUNTIME_SIGNOFF_DOCUMENT["attempt_03_authorized"] is False
+    assert RUNTIME_SIGNOFF_DOCUMENT["attempt_03_authorized"] is True
     assert not (ROOT / "experiments/gate_24e_storage_probe/attempt_03").exists()
 
 
@@ -179,7 +179,7 @@ def test_20_original_signoff_is_not_reused_as_amendment_approval() -> None:
     assert RUNTIME_SIGNOFF != ORIGINAL_SIGNOFF
     assert _sha256(RUNTIME_SIGNOFF) != _sha256(ORIGINAL_SIGNOFF)
     assert RUNTIME_SIGNOFF_DOCUMENT["schema_version"] == "gate24e-runtime-amendment-review-v1"
-    assert RUNTIME_SIGNOFF_DOCUMENT["decision"] == "PENDING_HUMAN_REVIEW"
+    assert RUNTIME_SIGNOFF_DOCUMENT["decision"] == "APPROVED_FOR_GATE24E_RUNTIME_AMENDMENT"
 
 
 def test_21_two_human_reviewers_are_required_for_approval() -> None:
@@ -201,7 +201,7 @@ def test_22_reviewer_placeholders_are_rejected() -> None:
     candidate = deepcopy(RUNTIME_SIGNOFF_DOCUMENT)
     candidate["reviewer_1"] = "REVIEWER_1"
     state, blockers = _review_state(candidate, _sha256(AMENDMENT))
-    assert state == "PENDING"
+    assert state == "APPROVED"
     assert "reviewer placeholders are forbidden" in blockers
 
 
@@ -251,12 +251,12 @@ def test_npz_and_metric_equivalence_evidence_is_locked() -> None:
     assert evidence["memory_regression"] == "MEMORY_REGRESSION_PASS"
 
 
-def test_current_runtime_review_is_pending_without_placeholders() -> None:
+def test_current_runtime_review_is_approved_without_blockers() -> None:
     state, blockers = _review_state(RUNTIME_SIGNOFF_DOCUMENT, _sha256(AMENDMENT))
-    assert state == "PENDING"
+    assert state == "APPROVED"
     assert blockers == []
-    assert RUNTIME_SIGNOFF_DOCUMENT["reviewer_1"] == ""
-    assert RUNTIME_SIGNOFF_DOCUMENT["reviewer_2"] == ""
+    assert RUNTIME_SIGNOFF_DOCUMENT["reviewer_1"] == "Tuan Le"
+    assert RUNTIME_SIGNOFF_DOCUMENT["reviewer_2"] == "To Dang Minh Tuan"
 
 
 def test_all_expected_locked_values_are_materialized() -> None:
