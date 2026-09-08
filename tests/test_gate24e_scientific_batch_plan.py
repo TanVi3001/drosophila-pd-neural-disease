@@ -74,8 +74,8 @@ def test_scientific_firewall_is_closed_in_plan_and_authorization_template() -> N
     assert plan["holdout"] == "SEALED"
     assert plan["gpu_executed"] is False
     assert plan["simulation_executed"] is False
-    assert authorization["decision"] == "PENDING_HUMAN_REVIEW"
-    assert authorization["scientific_batch_authorized"] is False
+    assert authorization["decision"] == "APPROVED_FOR_EXACT_GATE24E_25_JOB_BATCH"
+    assert authorization["scientific_batch_authorized"] is True
 
 
 def test_all_commands_are_non_video_cuda_contracts_without_forbidden_flags() -> None:
@@ -93,7 +93,7 @@ def test_current_preflight_is_blocked_without_running_a_job() -> None:
     result = preflight.audit(live_free_bytes=preflight.REQUIRED_STORAGE_BYTES)
     assert result["status"] == "BLOCKED_GATE24E_SCIENTIFIC_BATCH_PREFLIGHT"
     assert "STORAGE_CAPACITY_NOT_RESOLVED" in result["blockers"]
-    assert "SCIENTIFIC_BATCH_HUMAN_REVIEW_PENDING" in result["blockers"]
+    assert "SCIENTIFIC_BATCH_HUMAN_REVIEW_PENDING" not in result["blockers"]
     assert result["scientific_jobs_executed"] == 0
     assert result["scientific_batch_authorized"] is False
     assert result["holdout"] == "SEALED"

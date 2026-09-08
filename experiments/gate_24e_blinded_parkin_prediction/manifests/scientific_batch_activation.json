@@ -1,0 +1,43 @@
+{
+  "activated_at_utc": "2026-09-08T17:12:52.508800+00:00",
+  "artifact_profile": "GATE24E_MEMORY_SAFE",
+  "authorization_commit": "ec904cf6199202ab37798e2f1606ad90376c1042",
+  "capacity_pass": true,
+  "gpu_executed": false,
+  "gpu_jobs_executed": 0,
+  "healthy_job_count": 5,
+  "holdout": "SEALED",
+  "job_count": 25,
+  "live_free_bytes": 19963936768,
+  "mapping_sha256": "776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80",
+  "next_allowed_action": "EXECUTE_EXACT_GATE24E_25_JOB_SCIENTIFIC_BATCH",
+  "ordering": "SEED_MAJOR",
+  "output_root_exists": false,
+  "parameter_grid": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "parkin_job_count": 20,
+  "plan_sha256": "4515e1916631b019711154dccb5fb887110d5572e3eb82b7ea5118c643db5aac",
+  "required_bytes": 17548739588,
+  "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "schema_version": "gate24e-scientific-batch-activation-v1",
+  "scientific_batch_authorized": true,
+  "scientific_jobs_executed": 0,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "simulation_executed": false,
+  "simulation_jobs_executed": 0,
+  "status": "READY_FOR_GATE24E_25_JOB_SCIENTIFIC_BATCH",
+  "target_root_count": 330,
+  "target_roots_sha256": "e36b0210ea6d2d2b7225f62feba73ae5c9e6535565c8b936558d0eaaf04a2085",
+  "technical_seed_excluded": 9001
+}
