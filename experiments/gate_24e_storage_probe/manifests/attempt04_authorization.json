@@ -1,6 +1,6 @@
 {
   "schema_version": "gate24e-storage-attempt04-authorization-v1",
-  "status": "WAITING_HUMAN_REVIEW",
+  "status": "ATTEMPT04_AUTHORIZATION_APPROVED",
   "previous_attempt": "attempt_03",
   "previous_attempt_consumed": true,
   "previous_attempt_retry_allowed": false,
@@ -21,5 +21,5 @@
   "parameter_change_allowed": false,
   "seed_change_allowed": false,
   "steps_change_allowed": false,
-  "attempt_04_authorized": false
+  "attempt_04_authorized": true
 }
