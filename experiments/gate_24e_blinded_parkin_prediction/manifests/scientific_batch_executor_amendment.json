@@ -1,0 +1,21 @@
+{
+  "schema_version": "gate24e-scientific-batch-executor-amendment-v1",
+  "status": "EXECUTOR_TECHNICAL_AMENDMENT_COMPLETE",
+  "reason": "COMPLETION_MARKER_CAPTURE_AND_EXECUTION_COUNTER_PROVENANCE_FIX",
+  "previous_executor_commit": "f0b41f97171e81a296967f026a7370c1a56f3290",
+  "previous_executor_sha256": "8cab483f60e0cd3a45d43196d5c1401c77ff68b2e430bd2bed82043308192f84",
+  "amended_executor_sha256": "4d10edecbc8d987285ea82eb36a7bcfd686da3abde3b5160a3dcec23a2e78f3f",
+  "scientific_plan_sha256": "4515e1916631b019711154dccb5fb887110d5572e3eb82b7ea5118c643db5aac",
+  "scientific_contract_changed": false,
+  "job_matrix_changed": false,
+  "runtime_changed": false,
+  "checkpoint_changed": false,
+  "seed_changed": false,
+  "parameter_grid_changed": false,
+  "decision_rule_changed": false,
+  "holdout": "SEALED",
+  "holdout_opened": false,
+  "scientific_jobs_executed": 0,
+  "gpu_executed": false,
+  "simulation_executed": false
+}

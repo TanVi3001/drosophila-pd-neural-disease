@@ -9,6 +9,7 @@ analysis path in this module.
 from __future__ import annotations
 
 import argparse
+from dataclasses import dataclass
 from datetime import UTC, datetime
 import hashlib
 import importlib.metadata
@@ -18,8 +19,9 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
-from typing import Any, Callable, Mapping, Sequence
+from typing import Any, BinaryIO, Callable, Mapping, Sequence
 
 try:
     from scripts.prepare_gate24e_scientific_batch_plan import (
@@ -73,6 +75,17 @@ class TechnicalStop(RuntimeError):
     """Raised when one execution job violates the frozen failure policy."""
 
 
+@dataclass(frozen=True)
+class ChildRunResult:
+    """Bounded technical result returned after one child process terminates."""
+
+    return_code: int
+    started_epoch: float
+    ended_epoch: float
+    completion_marker_observed: bool
+    captured_output_bytes: int
+
+
 def _load_json(path: Path) -> dict[str, Any]:
     if not path.is_file():
         raise BatchContractError(f"missing JSON artifact: {path}")
@@ -91,6 +104,10 @@ def _write_json_atomic(path: Path, value: Mapping[str, Any]) -> None:
 
 def _utc_now() -> str:
     return datetime.now(UTC).isoformat()
+
+
+def _utc_from_epoch(value: float) -> str:
+    return datetime.fromtimestamp(value, UTC).isoformat()
 
 
 def _live_free_bytes() -> int:
@@ -327,7 +344,17 @@ def run_preflight_audit() -> dict[str, Any]:
     return result
 
 
-def validate_job_output(output: Path, *, required_steps: int = 100_000) -> dict[str, Any]:
+def validate_job_output(
+    output: Path,
+    *,
+    completion_marker_observed: bool,
+    required_steps: int = 100_000,
+) -> dict[str, Any]:
+    expected_marker = f"{required_steps}/{required_steps}"
+    if expected_marker != COMPLETION_MARKER:
+        raise TechnicalStop("requested completion marker differs from the frozen contract")
+    if completion_marker_observed is not True:
+        raise TechnicalStop(f"completion marker missing from captured child output: {output}")
     status_path = output / "status.json"
     if not status_path.is_file():
         raise TechnicalStop(f"missing status.json: {output}")
@@ -346,15 +373,12 @@ def validate_job_output(output: Path, *, required_steps: int = 100_000) -> dict[
     manifest = _load_json(output / "manifest.json")
     if manifest.get("artifact_profile") != EXPECTED_ARTIFACT_PROFILE:
         raise TechnicalStop(f"artifact profile failed: {output}")
-    marker = False
-    for log in output.rglob("*.log"):
-        if COMPLETION_MARKER in log.read_text(encoding="utf-8", errors="ignore"):
-            marker = True
-            break
-    if not marker:
-        raise TechnicalStop(f"completion marker missing: {output}")
     artifact_bytes = sum(path.stat().st_size for path in output.rglob("*") if path.is_file())
-    return {"artifact_bytes": artifact_bytes, "completion_marker_observed": True}
+    return {
+        "artifact_bytes": artifact_bytes,
+        "completion_marker_observed": True,
+        "simulation_run": True,
+    }
 
 
 def _append_technical_log(record: Mapping[str, Any]) -> None:
@@ -363,46 +387,88 @@ def _append_technical_log(record: Mapping[str, Any]) -> None:
         handle.write(json.dumps(dict(record), sort_keys=True) + "\n")
 
 
-def _technical_stop_manifest(execution: dict[str, Any], *, reason: str, job: Mapping[str, Any] | None) -> None:
-    execution.update(
-        {
-            "status": "GATE24E_SCIENTIFIC_BATCH_TECHNICAL_STOP",
-            "technical_stop_reason": reason,
-            "failed_job_count": 1 if job else 0,
-            "failed_job_id": job.get("job_id") if job else None,
-            "next_allowed_action": "HUMAN_REVIEW_GATE24E_SCIENTIFIC_BATCH_TECHNICAL_STOP",
-            "updated_at_utc": _utc_now(),
-        }
-    )
+def _technical_stop_manifest(
+    execution: dict[str, Any],
+    *,
+    reason: str,
+    job: Mapping[str, Any] | None,
+    launched: bool,
+) -> None:
+    update: dict[str, Any] = {
+        "status": "GATE24E_SCIENTIFIC_BATCH_TECHNICAL_STOP",
+        "technical_stop_reason": reason,
+        "failed_job_count": 1 if launched else int(execution.get("failed_job_count", 0)),
+        "failed_job_id": job.get("job_id") if launched and job else None,
+        "next_allowed_action": "HUMAN_REVIEW_GATE24E_SCIENTIFIC_BATCH_TECHNICAL_STOP",
+        "updated_at_utc": _utc_now(),
+    }
+    if job is not None:
+        update.update(
+            {
+                "current_job_index": job.get("job_index"),
+                "current_job_id": job.get("job_id"),
+                "current_job_status": "FAILED" if launched else "BLOCKED_BEFORE_LAUNCH",
+            }
+        )
+    execution.update(update)
     _write_json_atomic(EXECUTION_MANIFEST, execution)
 
 
-def _run_child(command: Sequence[str]) -> tuple[int, float, float]:
+def _stream_marker_result(stream: BinaryIO) -> tuple[bool, int]:
+    """Scan a disk-backed child stream without loading the full output in RAM."""
+
+    marker = COMPLETION_MARKER.encode("ascii")
+    overlap = b""
+    observed = False
+    captured_bytes = 0
+    stream.seek(0)
+    while True:
+        chunk = stream.read(64 * 1024)
+        if not chunk:
+            break
+        captured_bytes += len(chunk)
+        combined = overlap + chunk
+        if marker in combined:
+            observed = True
+        overlap = combined[-(len(marker) - 1) :] if len(marker) > 1 else b""
+    return observed, captured_bytes
+
+
+def _run_child(command: Sequence[str]) -> ChildRunResult:
     started = time.time()
-    process = subprocess.Popen(
-        list(command),
-        cwd=str(ROOT),
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
-    try:
-        return_code = process.wait()
-    except KeyboardInterrupt as exc:
-        process.terminate()
+    with tempfile.TemporaryFile(mode="w+b") as captured:
+        process = subprocess.Popen(
+            list(command),
+            cwd=str(ROOT),
+            stdout=captured,
+            stderr=subprocess.STDOUT,
+        )
         try:
-            process.wait(timeout=10)
-        except subprocess.TimeoutExpired:
-            process.kill()
-            process.wait()
-        raise TechnicalStop("KeyboardInterrupt: current child terminated; no retry") from exc
-    return return_code, started, time.time()
+            return_code = process.wait()
+        except KeyboardInterrupt as exc:
+            process.terminate()
+            try:
+                process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait()
+            raise TechnicalStop("KeyboardInterrupt: current child terminated; no retry") from exc
+        ended = time.time()
+        marker_observed, captured_bytes = _stream_marker_result(captured)
+    return ChildRunResult(
+        return_code=return_code,
+        started_epoch=started,
+        ended_epoch=ended,
+        completion_marker_observed=marker_observed,
+        captured_output_bytes=captured_bytes,
+    )
 
 
 def execute_batch(
     plan: Mapping[str, Any],
     *,
     environment: Mapping[str, Any] | None = None,
-    child_runner: Callable[[Sequence[str]], tuple[int, float, float]] = _run_child,
+    child_runner: Callable[[Sequence[str]], ChildRunResult] = _run_child,
 ) -> dict[str, Any]:
     """Execute sequentially after all gates pass; never retry or resume."""
 
@@ -422,29 +488,67 @@ def execute_batch(
             "executed_job_count": 0,
             "completed_job_count": 0,
             "failed_job_count": 0,
+            "gpu_jobs_executed": 0,
+            "simulation_jobs_executed": 0,
             "completed_job_ids": [],
+            "artifact_byte_total": 0,
             "runtime_environment": dict(environment),
         }
     )
     _write_json_atomic(EXECUTION_MANIFEST, execution)
 
     for job in plan["jobs"]:
-        validate_runtime_git_contract()
+        try:
+            validate_runtime_git_contract()
+        except (BatchContractError, OSError, subprocess.SubprocessError) as exc:
+            reason = f"runtime provenance drift before launch: {exc}"
+            _technical_stop_manifest(execution, reason=reason, job=job, launched=False)
+            raise TechnicalStop(reason) from exc
         output = Path(str(job["output_directory"]))
         if output.exists():
-            _technical_stop_manifest(execution, reason="output overwrite forbidden", job=job)
+            _technical_stop_manifest(
+                execution,
+                reason="output overwrite forbidden",
+                job=job,
+                launched=False,
+            )
             raise TechnicalStop(f"output already exists: {output}")
         remaining = EXPECTED_JOB_COUNT - int(job["job_index"]) + 1
         free_before = _live_free_bytes()
         required = remaining_storage_requirement(remaining)
         if free_before <= required:
-            _technical_stop_manifest(execution, reason="insufficient storage before job", job=job)
+            _technical_stop_manifest(
+                execution,
+                reason="insufficient storage before job",
+                job=job,
+                launched=False,
+            )
             raise TechnicalStop(f"storage safety check failed before {job['job_id']}")
+
+        launched_count = int(execution.get("executed_job_count", 0)) + 1
+        if launched_count != int(job["job_index"]):
+            reason = "job launch count differs from the frozen sequential index"
+            _technical_stop_manifest(execution, reason=reason, job=job, launched=False)
+            raise TechnicalStop(reason)
         started_at = _utc_now()
+        execution.update(
+            {
+                "executed_job_count": launched_count,
+                "current_job_index": job["job_index"],
+                "current_job_id": job["job_id"],
+                "current_job_status": "LAUNCHED",
+                "updated_at_utc": started_at,
+            }
+        )
+        _write_json_atomic(EXECUTION_MANIFEST, execution)
+
         try:
-            return_code, started_epoch, ended_epoch = child_runner(job["command"])
-        except KeyboardInterrupt as exc:
-            reason = "KeyboardInterrupt: current child terminated; no retry"
+            child_result = child_runner(job["command"])
+        except (TechnicalStop, MemoryError, OSError) as exc:
+            if isinstance(exc, TechnicalStop):
+                reason = str(exc)
+            else:
+                reason = f"{type(exc).__name__}: technical stop; no retry"
             _append_technical_log(
                 {
                     "timestamp": _utc_now(),
@@ -464,10 +568,11 @@ def execute_batch(
                     "technical_stop": reason,
                 }
             )
-            _technical_stop_manifest(execution, reason=reason, job=job)
+            _technical_stop_manifest(execution, reason=reason, job=job, launched=True)
             raise TechnicalStop(reason) from exc
-        except MemoryError as exc:
-            reason = "MemoryError: technical stop; no retry"
+
+        if not isinstance(child_result, ChildRunResult):
+            reason = "child runner returned an invalid technical result"
             _append_technical_log(
                 {
                     "timestamp": _utc_now(),
@@ -487,30 +592,9 @@ def execute_batch(
                     "technical_stop": reason,
                 }
             )
-            _technical_stop_manifest(execution, reason=reason, job=job)
-            raise TechnicalStop(reason) from exc
-        except TechnicalStop as exc:
-            _append_technical_log(
-                {
-                    "timestamp": _utc_now(),
-                    "job_index": job["job_index"],
-                    "job_id": job["job_id"],
-                    "seed": job["seed"],
-                    "condition": job["condition"],
-                    "parameter": job["parameter"],
-                    "process_start": started_at,
-                    "process_end": _utc_now(),
-                    "return_code": None,
-                    "completion_marker_observed": False,
-                    "artifact_validation": "FAIL",
-                    "free_bytes_before": free_before,
-                    "free_bytes_after": _live_free_bytes(),
-                    "output_artifact_bytes": 0,
-                    "technical_stop": str(exc),
-                }
-            )
-            _technical_stop_manifest(execution, reason=str(exc), job=job)
-            raise
+            _technical_stop_manifest(execution, reason=reason, job=job, launched=True)
+            raise TechnicalStop(reason)
+
         free_after = _live_free_bytes()
         technical = {
             "timestamp": _utc_now(),
@@ -519,26 +603,31 @@ def execute_batch(
             "seed": job["seed"],
             "condition": job["condition"],
             "parameter": job["parameter"],
-            "process_start": started_at,
-            "process_end": _utc_now(),
-            "return_code": return_code,
-            "completion_marker_observed": False,
+            "process_start": _utc_from_epoch(child_result.started_epoch),
+            "process_end": _utc_from_epoch(child_result.ended_epoch),
+            "return_code": child_result.return_code,
+            "completion_marker_observed": child_result.completion_marker_observed,
             "artifact_validation": "FAIL",
             "free_bytes_before": free_before,
             "free_bytes_after": free_after,
             "output_artifact_bytes": 0,
+            "captured_output_bytes": child_result.captured_output_bytes,
         }
-        if return_code != 0:
+        if child_result.return_code != 0:
             _append_technical_log(technical)
-            _technical_stop_manifest(execution, reason=f"return code {return_code}", job=job)
-            raise TechnicalStop(f"job {job['job_id']} returned {return_code}")
+            reason = f"return code {child_result.return_code}"
+            _technical_stop_manifest(execution, reason=reason, job=job, launched=True)
+            raise TechnicalStop(f"job {job['job_id']} returned {child_result.return_code}")
         try:
-            completion = validate_job_output(output)
-        except (TechnicalStop, OSError, ValueError) as exc:
+            completion = validate_job_output(
+                output,
+                completion_marker_observed=child_result.completion_marker_observed,
+            )
+        except (BatchContractError, TechnicalStop, OSError, ValueError) as exc:
             technical["technical_stop"] = str(exc)
             _append_technical_log(technical)
-            _technical_stop_manifest(execution, reason=str(exc), job=job)
-            raise
+            _technical_stop_manifest(execution, reason=str(exc), job=job, launched=True)
+            raise TechnicalStop(str(exc)) from exc
         technical["completion_marker_observed"] = True
         technical["artifact_validation"] = "PASS"
         technical["output_artifact_bytes"] = completion["artifact_bytes"]
@@ -547,21 +636,32 @@ def execute_batch(
         completed_ids.append(job["job_id"])
         execution.update(
             {
-                "executed_job_count": job["job_index"],
                 "completed_job_count": len(completed_ids),
+                "gpu_jobs_executed": int(execution.get("gpu_jobs_executed", 0)) + 1,
+                "simulation_jobs_executed": int(execution.get("simulation_jobs_executed", 0)) + 1,
                 "completed_job_ids": completed_ids,
                 "last_completed_job_index": job["job_index"],
                 "last_completed_job_id": job["job_id"],
+                "current_job_status": "COMPLETED",
                 "free_bytes": free_after,
-                "artifact_byte_total": sum(
-                    int(item.get("artifact_byte_total", 0)) for item in [execution]
-                )
-                + completion["artifact_bytes"],
+                "artifact_byte_total": int(execution.get("artifact_byte_total", 0))
+                + int(completion["artifact_bytes"]),
                 "updated_at_utc": _utc_now(),
             }
         )
         _write_json_atomic(EXECUTION_MANIFEST, execution)
 
+    final_counts = {
+        "executed_job_count": EXPECTED_JOB_COUNT,
+        "completed_job_count": EXPECTED_JOB_COUNT,
+        "failed_job_count": 0,
+        "gpu_jobs_executed": EXPECTED_JOB_COUNT,
+        "simulation_jobs_executed": EXPECTED_JOB_COUNT,
+    }
+    if any(execution.get(key) != value for key, value in final_counts.items()):
+        reason = "final execution counters violate the frozen 25-job completion contract"
+        _technical_stop_manifest(execution, reason=reason, job=None, launched=False)
+        raise TechnicalStop(reason)
     execution.update(
         {
             "status": "GATE24E_25_JOB_SCIENTIFIC_BATCH_COMPLETE_UNANALYZED",

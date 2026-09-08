@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
-import copy
+import io
+import hashlib
 import json
 import inspect
 from pathlib import Path
+import subprocess
+import sys
+from typing import Sequence
 
 import pytest
 
@@ -19,6 +23,53 @@ def _plan() -> dict:
 
 def _initial_manifest() -> dict:
     return json.loads(executor.EXECUTION_MANIFEST.read_text(encoding="utf-8"))
+
+
+def _write_complete_artifacts(
+    output: Path,
+    *,
+    status: str = "PASS",
+    simulation_run: bool = True,
+    include_rollout: bool = True,
+) -> None:
+    (output / "metrics").mkdir(parents=True)
+    (output / "status.json").write_text(
+        json.dumps({"status": status, "simulation_run": simulation_run}),
+        encoding="utf-8",
+    )
+    (output / "manifest.json").write_text(
+        json.dumps({"artifact_profile": executor.EXPECTED_ARTIFACT_PROFILE}),
+        encoding="utf-8",
+    )
+    if include_rollout:
+        (output / "rollout.npz").write_bytes(b"technical placeholder")
+    (output / "metadata.json").write_bytes(b"technical placeholder")
+    (output / "metrics/metrics.json").write_text(
+        "scientific scalars are intentionally not parsed",
+        encoding="utf-8",
+    )
+
+
+def _patch_execution_paths(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    execution_path = tmp_path / "scientific_batch_execution.json"
+    execution_path.write_text(json.dumps(_initial_manifest()), encoding="utf-8")
+    monkeypatch.setattr(executor, "EXECUTION_MANIFEST", execution_path)
+    monkeypatch.setattr(executor, "OUTPUT_ROOT", tmp_path / "runs")
+    monkeypatch.setattr(executor, "LOG_PATH", tmp_path / "execution.log")
+    monkeypatch.setattr(executor, "run_preflight_audit", lambda: {"status": "READY"})
+    monkeypatch.setattr(executor, "validate_runtime_git_contract", lambda: None)
+    monkeypatch.setattr(executor, "_live_free_bytes", lambda: 100_000_000_000)
+    return execution_path
+
+
+def _child_result(*, return_code: int = 0, marker: bool = True) -> executor.ChildRunResult:
+    return executor.ChildRunResult(
+        return_code=return_code,
+        started_epoch=1_700_000_000.0,
+        ended_epoch=1_700_000_001.0,
+        completion_marker_observed=marker,
+        captured_output_bytes=128,
+    )
 
 
 def test_exact_plan_sha_and_job_counts() -> None:
@@ -60,8 +111,36 @@ def test_activation_and_initial_execution_state_are_required() -> None:
     activation = json.loads(executor.ACTIVATION_PATH.read_text(encoding="utf-8"))
     executor.validate_activation(activation, plan)
     executor.validate_initial_execution_manifest(_initial_manifest())
-    assert _initial_manifest()["status"] == "NOT_EXECUTED"
-    assert _initial_manifest()["completed_job_count"] == 0
+    execution = _initial_manifest()
+    assert execution["status"] == "NOT_EXECUTED"
+    assert execution["executed_job_count"] == 0
+    assert execution["completed_job_count"] == 0
+    assert execution["failed_job_count"] == 0
+    assert execution["gpu_jobs_executed"] == 0
+    assert execution["simulation_jobs_executed"] == 0
+
+
+def test_executor_amendment_records_exact_old_and_new_hashes() -> None:
+    amendment_path = (
+        executor.ROOT
+        / "experiments/gate_24e_blinded_parkin_prediction/manifests/"
+        "scientific_batch_executor_amendment.json"
+    )
+    amendment = json.loads(amendment_path.read_text(encoding="utf-8"))
+    script_sha256 = hashlib.sha256(Path(executor.__file__).read_bytes()).hexdigest()
+    assert amendment["status"] == "EXECUTOR_TECHNICAL_AMENDMENT_COMPLETE"
+    assert amendment["previous_executor_commit"] == "f0b41f97171e81a296967f026a7370c1a56f3290"
+    assert amendment["previous_executor_sha256"] == (
+        "8cab483f60e0cd3a45d43196d5c1401c77ff68b2e430bd2bed82043308192f84"
+    )
+    assert amendment["amended_executor_sha256"] == script_sha256
+    assert amendment["scientific_plan_sha256"] == executor.EXPECTED_PLAN_SHA256
+    assert amendment["scientific_contract_changed"] is False
+    assert amendment["holdout"] == "SEALED"
+    assert amendment["holdout_opened"] is False
+    assert amendment["scientific_jobs_executed"] == 0
+    assert amendment["gpu_executed"] is False
+    assert amendment["simulation_executed"] is False
 
 
 def test_remaining_storage_formula_reproduces_locked_initial_requirement() -> None:
@@ -77,35 +156,37 @@ def test_storage_rule_is_strictly_greater_than() -> None:
 
 def test_completion_contract_accepts_only_complete_technical_artifacts(tmp_path: Path) -> None:
     output = tmp_path / "output"
-    (output / "metrics").mkdir(parents=True)
-    (output / "status.json").write_text(
-        json.dumps({"status": "PASS", "simulation_run": True}), encoding="utf-8"
-    )
-    (output / "manifest.json").write_text(
-        json.dumps({"artifact_profile": executor.EXPECTED_ARTIFACT_PROFILE}), encoding="utf-8"
-    )
-    for relative in ("rollout.npz", "metadata.json", "metrics/metrics.json"):
-        (output / relative).write_bytes(b"technical placeholder")
-    (output / "progress.log").write_text("Progress: 100000/100000\n", encoding="utf-8")
-    result = executor.validate_job_output(output)
+    _write_complete_artifacts(output)
+    result = executor.validate_job_output(output, completion_marker_observed=True)
     assert result["completion_marker_observed"] is True
     assert result["artifact_bytes"] > 0
+    assert not list(output.rglob("*.log"))
 
 
 def test_partial_progress_is_rejected(tmp_path: Path) -> None:
     output = tmp_path / "output"
-    (output / "metrics").mkdir(parents=True)
-    (output / "status.json").write_text(
-        json.dumps({"status": "PASS", "simulation_run": True}), encoding="utf-8"
-    )
-    (output / "manifest.json").write_text(
-        json.dumps({"artifact_profile": executor.EXPECTED_ARTIFACT_PROFILE}), encoding="utf-8"
-    )
-    for relative in ("rollout.npz", "metadata.json", "metrics/metrics.json"):
-        (output / relative).write_bytes(b"x")
-    (output / "progress.log").write_text("Progress: 99999/100000\n", encoding="utf-8")
+    _write_complete_artifacts(output)
+    marker, _ = executor._stream_marker_result(io.BytesIO(b"Progress: 80000/100000\n"))
+    assert marker is False
     with pytest.raises(executor.TechnicalStop, match="completion marker"):
-        executor.validate_job_output(output)
+        executor.validate_job_output(output, completion_marker_observed=marker)
+
+
+def test_exact_captured_stdout_marker_is_accepted() -> None:
+    marker, captured_bytes = executor._stream_marker_result(
+        io.BytesIO(b"runtime output\nProgress: 100000/100000\n")
+    )
+    assert marker is True
+    assert captured_bytes == len(b"runtime output\nProgress: 100000/100000\n")
+
+
+def test_missing_captured_stdout_marker_is_rejected(tmp_path: Path) -> None:
+    output = tmp_path / "output"
+    _write_complete_artifacts(output)
+    marker, _ = executor._stream_marker_result(io.BytesIO(b"runtime output without progress\n"))
+    assert marker is False
+    with pytest.raises(executor.TechnicalStop, match="captured child output"):
+        executor.validate_job_output(output, completion_marker_observed=marker)
 
 
 def test_bad_status_or_artifact_profile_is_rejected(tmp_path: Path) -> None:
@@ -115,7 +196,21 @@ def test_bad_status_or_artifact_profile_is_rejected(tmp_path: Path) -> None:
         json.dumps({"status": "FAIL", "simulation_run": False}), encoding="utf-8"
     )
     with pytest.raises(executor.TechnicalStop, match="status contract"):
-        executor.validate_job_output(output)
+        executor.validate_job_output(output, completion_marker_observed=True)
+
+
+def test_missing_rollout_is_rejected_after_marker_capture(tmp_path: Path) -> None:
+    output = tmp_path / "output"
+    _write_complete_artifacts(output, include_rollout=False)
+    with pytest.raises(executor.TechnicalStop, match="required output missing"):
+        executor.validate_job_output(output, completion_marker_observed=True)
+
+
+def test_simulation_run_false_is_rejected_after_marker_capture(tmp_path: Path) -> None:
+    output = tmp_path / "output"
+    _write_complete_artifacts(output, simulation_run=False)
+    with pytest.raises(executor.TechnicalStop, match="status contract"):
+        executor.validate_job_output(output, completion_marker_observed=True)
 
 
 def test_metrics_are_not_read_during_completion_check(tmp_path: Path) -> None:
@@ -130,8 +225,32 @@ def test_metrics_are_not_read_during_completion_check(tmp_path: Path) -> None:
     for relative in ("rollout.npz", "metadata.json"):
         (output / relative).write_bytes(b"x")
     (output / "metrics/metrics.json").write_text("not scientific analysis", encoding="utf-8")
-    (output / "progress.log").write_text("100000/100000", encoding="utf-8")
-    assert executor.validate_job_output(output)["completion_marker_observed"] is True
+    assert executor.validate_job_output(
+        output, completion_marker_observed=True
+    )["completion_marker_observed"] is True
+
+
+def test_child_capture_is_silent_and_success_output_is_not_persisted(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    original_temporary_file = executor.tempfile.TemporaryFile
+
+    def temporary_file(**kwargs):
+        return original_temporary_file(dir=tmp_path, **kwargs)
+
+    monkeypatch.setattr(executor.tempfile, "TemporaryFile", temporary_file)
+    result = executor._run_child(
+        [sys.executable, "-c", "print('Progress: 100000/100000')"]
+    )
+    captured = capsys.readouterr()
+    assert result.return_code == 0
+    assert result.completion_marker_observed is True
+    assert result.captured_output_bytes > 0
+    assert captured.out == ""
+    assert captured.err == ""
+    assert list(tmp_path.iterdir()) == []
 
 
 def test_executor_has_no_resume_retry_or_overwrite_flags() -> None:
@@ -173,23 +292,17 @@ def test_executor_does_not_invoke_the_scientific_analyzer() -> None:
 
 
 def test_return_code_failure_stops_without_retry(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    execution_path = tmp_path / "scientific_batch_execution.json"
-    execution_path.write_text(
-        json.dumps(_initial_manifest()), encoding="utf-8"
-    )
-    output_root = tmp_path / "runs"
-    log_path = tmp_path / "execution.log"
-    monkeypatch.setattr(executor, "EXECUTION_MANIFEST", execution_path)
-    monkeypatch.setattr(executor, "OUTPUT_ROOT", output_root)
-    monkeypatch.setattr(executor, "LOG_PATH", log_path)
-    monkeypatch.setattr(executor, "run_preflight_audit", lambda: {"status": "READY", "blockers": []})
-    monkeypatch.setattr(executor, "validate_runtime_git_contract", lambda: None)
-    monkeypatch.setattr(executor, "_live_free_bytes", lambda: 100_000_000_000)
+    execution_path = _patch_execution_paths(tmp_path, monkeypatch)
     calls: list[Sequence[str]] = []
 
-    def fail_once(command: Sequence[str]) -> tuple[int, float, float]:
+    def fail_once(command: Sequence[str]) -> executor.ChildRunResult:
         calls.append(command)
-        return 7, 0.0, 1.0
+        launched = json.loads(execution_path.read_text(encoding="utf-8"))
+        assert launched["executed_job_count"] == 1
+        assert launched["current_job_index"] == 1
+        assert launched["current_job_id"] == "seed00_healthy"
+        assert launched["current_job_status"] == "LAUNCHED"
+        return _child_result(return_code=7, marker=False)
 
     with pytest.raises(executor.TechnicalStop, match="returned 7"):
         executor.execute_batch(
@@ -200,27 +313,29 @@ def test_return_code_failure_stops_without_retry(tmp_path: Path, monkeypatch: py
     assert len(calls) == 1
     stopped = json.loads(execution_path.read_text(encoding="utf-8"))
     assert stopped["status"] == "GATE24E_SCIENTIFIC_BATCH_TECHNICAL_STOP"
+    assert stopped["executed_job_count"] == 1
+    assert stopped["completed_job_count"] == 0
     assert stopped["failed_job_count"] == 1
+    assert stopped["current_job_status"] == "FAILED"
     assert stopped["next_allowed_action"] == "HUMAN_REVIEW_GATE24E_SCIENTIFIC_BATCH_TECHNICAL_STOP"
 
 
-@pytest.mark.parametrize("failure", [KeyboardInterrupt, MemoryError])
-def test_runtime_failure_types_stop_without_retry(
+@pytest.mark.parametrize(
+    "failure",
+    [
+        executor.TechnicalStop("KeyboardInterrupt: current child terminated; no retry"),
+        MemoryError(),
+    ],
+)
+def test_converted_child_failure_types_stop_without_retry(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
-    failure: type[BaseException],
+    failure: BaseException,
 ) -> None:
-    execution_path = tmp_path / "scientific_batch_execution.json"
-    execution_path.write_text(json.dumps(_initial_manifest()), encoding="utf-8")
-    monkeypatch.setattr(executor, "EXECUTION_MANIFEST", execution_path)
-    monkeypatch.setattr(executor, "OUTPUT_ROOT", tmp_path / "runs")
-    monkeypatch.setattr(executor, "LOG_PATH", tmp_path / "execution.log")
-    monkeypatch.setattr(executor, "run_preflight_audit", lambda: {"status": "READY", "blockers": []})
-    monkeypatch.setattr(executor, "validate_runtime_git_contract", lambda: None)
-    monkeypatch.setattr(executor, "_live_free_bytes", lambda: 100_000_000_000)
+    execution_path = _patch_execution_paths(tmp_path, monkeypatch)
 
-    def fail(command: Sequence[str]) -> tuple[int, float, float]:
-        raise failure()
+    def fail(command: Sequence[str]) -> executor.ChildRunResult:
+        raise failure
 
     with pytest.raises(executor.TechnicalStop):
         executor.execute_batch(
@@ -230,7 +345,261 @@ def test_runtime_failure_types_stop_without_retry(
         )
     stopped = json.loads(execution_path.read_text(encoding="utf-8"))
     assert stopped["status"] == "GATE24E_SCIENTIFIC_BATCH_TECHNICAL_STOP"
+    assert stopped["executed_job_count"] == 1
     assert stopped["failed_job_count"] == 1
+    assert stopped["gpu_jobs_executed"] == 0
+    assert stopped["simulation_jobs_executed"] == 0
+
+
+def test_run_child_converts_keyboard_interrupt_and_terminates(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class InterruptedProcess:
+        terminated = False
+        killed = False
+        wait_count = 0
+
+        def wait(self, timeout=None):
+            self.wait_count += 1
+            if self.wait_count == 1:
+                raise KeyboardInterrupt
+            return -15
+
+        def terminate(self) -> None:
+            self.terminated = True
+
+        def kill(self) -> None:
+            self.killed = True
+
+    process = InterruptedProcess()
+    monkeypatch.setattr(executor.subprocess, "Popen", lambda *args, **kwargs: process)
+    with pytest.raises(executor.TechnicalStop, match="KeyboardInterrupt"):
+        executor._run_child(["technical-test-child"])
+    assert process.terminated is True
+    assert process.killed is False
+
+
+def test_run_child_kills_only_after_termination_timeout(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class StuckProcess:
+        terminated = False
+        killed = False
+        first_wait = True
+
+        def wait(self, timeout=None):
+            if self.first_wait:
+                self.first_wait = False
+                raise KeyboardInterrupt
+            if timeout is not None and not self.killed:
+                raise subprocess.TimeoutExpired(cmd="technical-test-child", timeout=timeout)
+            return -9
+
+        def terminate(self) -> None:
+            self.terminated = True
+
+        def kill(self) -> None:
+            self.killed = True
+
+    process = StuckProcess()
+    monkeypatch.setattr(executor.subprocess, "Popen", lambda *args, **kwargs: process)
+    with pytest.raises(executor.TechnicalStop, match="KeyboardInterrupt"):
+        executor._run_child(["technical-test-child"])
+    assert process.terminated is True
+    assert process.killed is True
+
+
+def test_one_valid_job_updates_all_completion_counters_before_prelaunch_stop(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    execution_path = _patch_execution_paths(tmp_path, monkeypatch)
+    runtime_checks = 0
+
+    def runtime_contract() -> None:
+        nonlocal runtime_checks
+        runtime_checks += 1
+        if runtime_checks == 2:
+            raise executor.BatchContractError("test runtime drift")
+
+    monkeypatch.setattr(executor, "validate_runtime_git_contract", runtime_contract)
+    monkeypatch.setattr(
+        executor,
+        "validate_job_output",
+        lambda output, **kwargs: {
+            "artifact_bytes": 10,
+            "completion_marker_observed": True,
+            "simulation_run": True,
+        },
+    )
+    with pytest.raises(executor.TechnicalStop, match="runtime provenance drift"):
+        executor.execute_batch(
+            _plan(),
+            environment={"python": "3.12.10"},
+            child_runner=lambda command: _child_result(),
+        )
+    stopped = json.loads(execution_path.read_text(encoding="utf-8"))
+    assert stopped["executed_job_count"] == 1
+    assert stopped["completed_job_count"] == 1
+    assert stopped["failed_job_count"] == 0
+    assert stopped["gpu_jobs_executed"] == 1
+    assert stopped["simulation_jobs_executed"] == 1
+
+
+def test_second_launched_job_failure_preserves_truthful_counters(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    execution_path = _patch_execution_paths(tmp_path, monkeypatch)
+    monkeypatch.setattr(
+        executor,
+        "validate_job_output",
+        lambda output, **kwargs: {
+            "artifact_bytes": 10,
+            "completion_marker_observed": True,
+            "simulation_run": True,
+        },
+    )
+    calls = 0
+
+    def second_fails(command: Sequence[str]) -> executor.ChildRunResult:
+        nonlocal calls
+        calls += 1
+        return _child_result(return_code=0 if calls == 1 else 9)
+
+    with pytest.raises(executor.TechnicalStop, match="returned 9"):
+        executor.execute_batch(
+            _plan(),
+            environment={"python": "3.12.10"},
+            child_runner=second_fails,
+        )
+    stopped = json.loads(execution_path.read_text(encoding="utf-8"))
+    assert calls == 2
+    assert stopped["executed_job_count"] == 2
+    assert stopped["completed_job_count"] == 1
+    assert stopped["failed_job_count"] == 1
+    assert stopped["gpu_jobs_executed"] == 1
+    assert stopped["simulation_jobs_executed"] == 1
+
+
+@pytest.mark.parametrize(
+    "reason",
+    [
+        "required output missing: rollout.npz",
+        "status contract failed",
+        "completion marker missing from captured child output",
+    ],
+)
+def test_completion_contract_failure_stops_before_later_job_launch(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    reason: str,
+) -> None:
+    execution_path = _patch_execution_paths(tmp_path, monkeypatch)
+    calls = 0
+
+    def child(command: Sequence[str]) -> executor.ChildRunResult:
+        nonlocal calls
+        calls += 1
+        return _child_result(marker="completion marker" not in reason)
+
+    monkeypatch.setattr(
+        executor,
+        "validate_job_output",
+        lambda output, **kwargs: (_ for _ in ()).throw(executor.TechnicalStop(reason)),
+    )
+    with pytest.raises(executor.TechnicalStop, match=reason.split(":", 1)[0]):
+        executor.execute_batch(
+            _plan(), environment={"python": "3.12.10"}, child_runner=child
+        )
+    stopped = json.loads(execution_path.read_text(encoding="utf-8"))
+    assert calls == 1
+    assert stopped["executed_job_count"] == 1
+    assert stopped["completed_job_count"] == 0
+    assert stopped["failed_job_count"] == 1
+    assert stopped["gpu_jobs_executed"] == 0
+    assert stopped["simulation_jobs_executed"] == 0
+
+
+def test_full_mocked_batch_reaches_exact_counter_contract(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    execution_path = _patch_execution_paths(tmp_path, monkeypatch)
+    monkeypatch.setattr(
+        executor,
+        "validate_job_output",
+        lambda output, **kwargs: {
+            "artifact_bytes": 10,
+            "completion_marker_observed": True,
+            "simulation_run": True,
+        },
+    )
+    completed = executor.execute_batch(
+        _plan(),
+        environment={"python": "3.12.10"},
+        child_runner=lambda command: _child_result(),
+    )
+    persisted = json.loads(execution_path.read_text(encoding="utf-8"))
+    assert completed == persisted
+    assert persisted["status"] == "GATE24E_25_JOB_SCIENTIFIC_BATCH_COMPLETE_UNANALYZED"
+    assert persisted["executed_job_count"] == 25
+    assert persisted["completed_job_count"] == 25
+    assert persisted["failed_job_count"] == 0
+    assert persisted["gpu_jobs_executed"] == 25
+    assert persisted["simulation_jobs_executed"] == 25
+
+
+def test_storage_equality_blocks_before_any_child_launch(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    execution_path = _patch_execution_paths(tmp_path, monkeypatch)
+    required = executor.remaining_storage_requirement(25)
+    monkeypatch.setattr(executor, "_live_free_bytes", lambda: required)
+    calls = 0
+
+    def child(command: Sequence[str]) -> executor.ChildRunResult:
+        nonlocal calls
+        calls += 1
+        return _child_result()
+
+    with pytest.raises(executor.TechnicalStop, match="storage safety"):
+        executor.execute_batch(
+            _plan(), environment={"python": "3.12.10"}, child_runner=child
+        )
+    stopped = json.loads(execution_path.read_text(encoding="utf-8"))
+    assert calls == 0
+    assert stopped["executed_job_count"] == 0
+    assert stopped["completed_job_count"] == 0
+    assert stopped["failed_job_count"] == 0
+
+
+def test_runtime_drift_blocks_before_any_child_launch(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    execution_path = _patch_execution_paths(tmp_path, monkeypatch)
+    monkeypatch.setattr(
+        executor,
+        "validate_runtime_git_contract",
+        lambda: (_ for _ in ()).throw(executor.BatchContractError("drift")),
+    )
+    calls = 0
+
+    def child(command: Sequence[str]) -> executor.ChildRunResult:
+        nonlocal calls
+        calls += 1
+        return _child_result()
+
+    with pytest.raises(executor.TechnicalStop, match="runtime provenance drift"):
+        executor.execute_batch(
+            _plan(), environment={"python": "3.12.10"}, child_runner=child
+        )
+    stopped = json.loads(execution_path.read_text(encoding="utf-8"))
+    assert calls == 0
+    assert stopped["executed_job_count"] == 0
+    assert stopped["failed_job_count"] == 0
 
 
 def test_existing_output_root_blocks_overwrite(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
