@@ -46,6 +46,7 @@ REQUIRED_BRAIN_FILES = (
     "data/plastic_weights.pt",
 )
 REQUIRED_PRIMARY_METRICS = ("median_planar_speed_mm_s", "distance_traveled_mm")
+RAW_METRIC_SOURCES = ("walking_speed_mm_s", "total_distance_mm")
 
 
 class AdapterError(RuntimeError):
@@ -491,7 +492,12 @@ def _valid_core_result(job: dict[str, Any]) -> bool:
     metrics = _json(metrics_path)
     scalar = metrics.get("scalar_metrics", metrics)
     required_metrics = tuple(job.get("required_metrics", REQUIRED_PRIMARY_METRICS))
-    return status.get("status") == "PASS" and all(_finite_metric(scalar.get(field)) for field in required_metrics)
+    exact_metrics_present = all(_finite_metric(scalar.get(field)) for field in required_metrics)
+    raw_sources_present = all(_finite_metric(scalar.get(field)) for field in RAW_METRIC_SOURCES)
+    # The pinned FlyGym exporter currently emits walking_speed_mm_s and
+    # total_distance_mm. Gate24E analysis derives the locked median speed and
+    # distance from rollout.npz; it never relabels the mean as a median.
+    return status.get("status") == "PASS" and (exact_metrics_present or raw_sources_present)
 
 
 def valid_pass_result(job: dict[str, Any]) -> bool:
