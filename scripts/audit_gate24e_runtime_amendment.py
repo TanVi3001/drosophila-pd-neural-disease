@@ -249,6 +249,22 @@ def _runtime_state_blockers(head: str, porcelain: str) -> list[str]:
     return blockers
 
 
+def _attempt03_has_files() -> bool:
+    """Return whether attempt_03 contains an artifact, not just an empty dir."""
+    if ATTEMPT_03.is_file():
+        return True
+    return ATTEMPT_03.is_dir() and any(path.is_file() for path in ATTEMPT_03.rglob("*"))
+
+
+def _attempt03_review_blockers(review_state: str) -> list[str]:
+    """Apply the attempt_03 guard after the human review state is known."""
+    if review_state == "PENDING" and ATTEMPT_03.exists():
+        return ["attempt_03 exists while runtime amendment review is pending"]
+    if review_state == "APPROVED" and _attempt03_has_files():
+        return ["attempt_03 already contains execution artifacts"]
+    return []
+
+
 def _source_hash_blockers(runtime_root: Path, checksums: dict[str, Any]) -> list[str]:
     blockers: list[str] = []
     sources = checksums.get("amended_executable_sources") or {}
@@ -415,8 +431,15 @@ def audit(runtime_root: Path | None = None) -> dict[str, Any]:
         blockers.append("Gate24E scientific execution is no longer zero")
     if amendment.get("scientific_jobs_executed") != 0:
         blockers.append("amendment reports nonzero scientific jobs")
-    if ATTEMPT_03.exists():
-        blockers.append("attempt_03 exists before runtime amendment approval")
+
+    # Review must be resolved before applying the attempt guard. An empty
+    # approved attempt directory is harmless; any file means a second run
+    # must be refused. Pending review remains fail-closed for any directory.
+    amendment_sha = _sha256(AMENDMENT)
+    review_state, review_blockers = _review_state(runtime_signoff, amendment_sha)
+    blockers.extend(review_blockers)
+    attempt03_has_files = _attempt03_has_files()
+    blockers.extend(_attempt03_review_blockers(review_state))
     if amendment.get("attempt_03_authorized") is not False or amendment.get("scientific_batch_authorized") is not False:
         blockers.append("draft amendment improperly authorizes execution")
 
@@ -425,13 +448,12 @@ def audit(runtime_root: Path | None = None) -> dict[str, Any]:
     blockers.extend(runtime_blockers)
     scientific_change = scientific_change or runtime_change
 
-    amendment_sha = _sha256(AMENDMENT)
-    review_state, review_blockers = _review_state(runtime_signoff, amendment_sha)
-    blockers.extend(review_blockers)
     if _sha256(RUNTIME_SIGNOFF) == _sha256(ORIGINAL_SIGNOFF):
         blockers.append("original Gate24D signoff was silently reused as amendment approval")
 
-    if scientific_change:
+    if not scientific_change and review_state == "APPROVED" and attempt03_has_files:
+        status = "ATTEMPT_03_ARTIFACTS_PRESENT"
+    elif scientific_change:
         status = "RUNTIME_AMENDMENT_SCIENTIFIC_CHANGE_DETECTED"
     elif blockers:
         status = "RUNTIME_AMENDMENT_INVALID"
@@ -460,6 +482,8 @@ def audit(runtime_root: Path | None = None) -> dict[str, Any]:
         "scientific_batch_authorized": False,
         "holdout": firewall.get("status"),
         "scientific_jobs_executed": execution.get("executed_job_count"),
+        "attempt_03_exists": ATTEMPT_03.exists(),
+        "attempt_03_has_files": attempt03_has_files,
         "runtime": runtime_evidence,
         "blockers": blockers,
         "next_allowed_action": "HUMAN_REVIEW_GATE24E_RUNTIME_AMENDMENT" if status == "WAITING_GATE24E_RUNTIME_AMENDMENT_REVIEW" else "STOP_AND_REVIEW_AUDIT",

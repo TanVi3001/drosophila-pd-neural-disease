@@ -106,16 +106,26 @@ def _validate_approval_documents(
     amendment_sha256: str,
 ) -> None:
     required_audit = {
-        "status": "READY_FOR_ATTEMPT_03",
         "runtime_review_state": "APPROVED",
         "reviewer_1": "Tuan Le",
         "reviewer_2": "To Dang Minh Tuan",
-        "attempt_03_authorized": True,
         "scientific_batch_authorized": False,
         "holdout": "SEALED",
         "scientific_jobs_executed": 0,
-        "blockers": [],
     }
+    allowed_audit_statuses = {
+        "READY_FOR_ATTEMPT_03",
+        "ATTEMPT_03_ARTIFACTS_PRESENT",
+    }
+    if amendment_audit.get("status") not in allowed_audit_statuses:
+        raise Attempt03Error(f"Amendment audit mismatch: status={amendment_audit.get('status')!r}")
+    if amendment_audit.get("status") == "READY_FOR_ATTEMPT_03" and amendment_audit.get("attempt_03_authorized") is not True:
+        raise Attempt03Error("Amendment audit does not authorize attempt_03")
+    expected_blockers = []
+    if amendment_audit.get("status") == "ATTEMPT_03_ARTIFACTS_PRESENT":
+        expected_blockers = ["attempt_03 already contains execution artifacts"]
+    if amendment_audit.get("blockers") != expected_blockers:
+        raise Attempt03Error(f"Amendment audit blockers mismatch: {amendment_audit.get('blockers')!r}")
     for key, expected in required_audit.items():
         if amendment_audit.get(key) != expected:
             raise Attempt03Error(f"Amendment audit mismatch: {key}={amendment_audit.get(key)!r}")

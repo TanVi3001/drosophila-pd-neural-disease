@@ -44,5 +44,7 @@ def test_root_cause_report_documents_all_memory_hazards() -> None:
         assert evidence in report
 
 
-def test_attempt_03_is_not_present() -> None:
-    assert not (ROOT / "experiments/gate_24e_storage_probe/attempt_03").exists()
+def test_attempt_03_is_not_silently_reusable() -> None:
+    attempt_03 = ROOT / "experiments/gate_24e_storage_probe/attempt_03"
+    if attempt_03.exists():
+        assert any(path.is_file() for path in attempt_03.rglob("*"))

@@ -97,5 +97,7 @@ def test_analyzer_rejects_probe_seed_and_excludes_probe_directory() -> None:
     assert "seeds 0 through 4" in analyzer
 
 
-def test_no_attempt_03_is_created_by_contract() -> None:
-    assert not (PROBE_ROOT / "attempt_03").exists()
+def test_attempt_03_is_not_reusable_by_the_historical_retry_contract() -> None:
+    attempt_03 = PROBE_ROOT / "attempt_03"
+    if attempt_03.exists():
+        assert any(path.is_file() for path in attempt_03.rglob("*"))

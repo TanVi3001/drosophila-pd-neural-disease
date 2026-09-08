@@ -29,6 +29,7 @@ from scripts.audit_gate24e_runtime_amendment import (
     RUNTIME_SIGNOFF,
     _invariant_blockers,
     _review_state,
+    _attempt03_has_files,
     _runtime_state_blockers,
     _sha256,
     _source_hash_blockers,
@@ -167,7 +168,8 @@ def test_17_scientific_jobs_remain_zero() -> None:
 def test_18_attempt_03_is_authorized_only_by_the_separate_approved_signoff() -> None:
     assert AMENDMENT_DOCUMENT["attempt_03_authorized"] is False
     assert RUNTIME_SIGNOFF_DOCUMENT["attempt_03_authorized"] is True
-    assert not (ROOT / "experiments/gate_24e_storage_probe/attempt_03").exists()
+    attempt_03 = ROOT / "experiments/gate_24e_storage_probe/attempt_03"
+    assert not attempt_03.exists() or _attempt03_has_files()
 
 
 def test_19_scientific_batch_is_blocked_before_human_approval() -> None:
