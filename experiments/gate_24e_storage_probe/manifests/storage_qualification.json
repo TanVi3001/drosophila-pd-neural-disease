@@ -1,0 +1,42 @@
+{
+  "schema_version": "gate24e-storage-qualification-v1",
+  "created_at_utc": "2026-09-08T03:00:45.471531+00:00",
+  "started_at_utc": "2026-09-08T03:00:44.456979+00:00",
+  "probe_seed": 9001,
+  "probe_condition": "TECHNICAL_HEALTHY_STORAGE_PROBE",
+  "probe_status": "TECHNICAL_FAILURE",
+  "probe_errors": [
+    "return_code=2"
+  ],
+  "return_code": 2,
+  "steps": 100000,
+  "duration_s": 10.0,
+  "free_space_before_bytes": 14021533696,
+  "minimum_free_space_during_run_bytes": 14021529600,
+  "free_space_after_bytes": 14021529600,
+  "final_probe_artifact_bytes": 972,
+  "peak_disk_consumption_bytes": 4096,
+  "transient_overhead_bytes": 3124,
+  "projected_final_25_jobs_bytes": 24300,
+  "projected_peak_requirement_bytes": 27424,
+  "reserve_fraction": 0.2,
+  "reserve_bytes": 5485,
+  "required_space_bytes": 32909,
+  "largest_files": [
+    {
+      "path": "status.json",
+      "bytes": 844
+    },
+    {
+      "path": "status.md",
+      "bytes": 128
+    }
+  ],
+  "qualification_status": "STORAGE_PROBE_TECHNICAL_FAILURE",
+  "scientific_jobs_executed": 0,
+  "scientific_results_generated": false,
+  "holdout_opened": false,
+  "tuning_performed": false,
+  "probe_included_in_scientific_analysis": false,
+  "automatic_retry": false
+}
