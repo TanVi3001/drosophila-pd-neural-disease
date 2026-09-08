@@ -280,6 +280,80 @@ def calculate_storage_projection(final_artifact_bytes: int, peak_consumption: in
     }
 
 
+def assess_storage_qualification(
+    *,
+    probe_execution_status: str,
+    storage_measurements_valid: bool,
+    free_after_bytes: int | None,
+    required_bytes: int | None,
+) -> dict[str, Any]:
+    """Separate technical execution status from strict capacity qualification."""
+    if (
+        probe_execution_status != "ATTEMPT_04_STORAGE_PROBE_PASS"
+        or not storage_measurements_valid
+        or free_after_bytes is None
+        or required_bytes is None
+    ):
+        return {
+            "qualification_status": "STORAGE_PROBE_ATTEMPT_04_TECHNICAL_FAILURE",
+            "storage_measurements_valid": False,
+            "storage_qualification_assessed": False,
+            "storage_qualified": False,
+        }
+    qualified = free_after_bytes > required_bytes
+    return {
+        "qualification_status": (
+            "GATE24E_STORAGE_QUALIFIED"
+            if qualified
+            else "WAITING_GATE24E_STORAGE_CAPACITY"
+        ),
+        "storage_measurements_valid": True,
+        "storage_qualification_assessed": True,
+        "storage_qualified": qualified,
+    }
+
+
+def update_storage_history(
+    attempt_record: dict[str, Any],
+    *,
+    history_path: Path = HISTORY,
+) -> dict[str, Any]:
+    """Record a future attempt without deleting the attempt_01/02/03 history."""
+    history = _read_json(history_path)
+    storage = attempt_record.get("storage") or {}
+    measurement_valid = attempt_record.get("storage_measurements_valid") is True
+    qualification = attempt_record.get("qualification_status")
+    history["attempt_04"] = {
+        "probe_execution_status": attempt_record.get("status"),
+        "qualification_status": qualification,
+        "storage_measurements_valid": measurement_valid,
+        "storage_qualification_assessed": attempt_record.get("storage_qualification_assessed", False),
+        "storage_qualified": attempt_record.get("storage_qualified", False),
+        "valid_for_storage_estimation": measurement_valid,
+        "manifest": "experiments/gate_24e_storage_probe/attempt_04/manifests/storage_qualification.json",
+        "storage": storage,
+    }
+    if measurement_valid:
+        history["current_estimate_source"] = ATTEMPT_ID
+        history["current_qualification_status"] = qualification
+        history["current_qualification_reason"] = (
+            "FREE_AFTER_EXCEEDS_REQUIRED"
+            if attempt_record.get("storage_qualified")
+            else "FREE_AFTER_NOT_GREATER_THAN_REQUIRED"
+        )
+        history["storage_measurements_valid"] = True
+        history["storage_measurement_status"] = "VALID_COMPLETED_STORAGE_PROBE"
+        history["storage_qualification_valid"] = attempt_record.get("storage_qualified", False)
+        history["final_artifact_estimation_allowed"] = True
+    history["scientific_jobs_executed"] = 0
+    history["scientific_results_generated"] = False
+    history["scientific_batch_authorized"] = False
+    history["holdout"] = "SEALED"
+    history["holdout_opened"] = False
+    history_path.write_text(json.dumps(history, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return history
+
+
 def _validate_success(output: Path, log_text: str) -> None:
     required = (
         output / "status.json",
@@ -345,11 +419,17 @@ def _execution_record(
     interrupted: bool,
     storage: dict[str, Any],
     status: str,
+    qualification: dict[str, Any],
 ) -> dict[str, Any]:
     return {
         "schema_version": "gate24e-storage-attempt04-execution-v1",
         "attempt_id": ATTEMPT_ID,
         "status": status,
+        "probe_execution_status": status,
+        "qualification_status": qualification["qualification_status"],
+        "storage_measurements_valid": qualification["storage_measurements_valid"],
+        "storage_qualification_assessed": qualification["storage_qualification_assessed"],
+        "storage_qualified": qualification["storage_qualified"],
         "attempt_consumed": True,
         "simulation_launched": True,
         "return_code": return_code,
@@ -408,9 +488,21 @@ def execute_once() -> dict[str, Any]:
         **calculate_storage_projection(final_artifact, peak_consumption),
     }
     status = "ATTEMPT_04_INTERRUPTED" if interrupted else "ATTEMPT_04_FAILED"
+    validation_error = None
     if not interrupted and return_code == 0:
-        _validate_success(ATTEMPT_RUN, log_text)
-        status = "ATTEMPT_04_STORAGE_PROBE_PASS"
+        try:
+            _validate_success(ATTEMPT_RUN, log_text)
+        except Attempt04RunnerError as exc:
+            validation_error = str(exc)
+        else:
+            status = "ATTEMPT_04_STORAGE_PROBE_PASS"
+    measurement_valid = status == "ATTEMPT_04_STORAGE_PROBE_PASS"
+    qualification = assess_storage_qualification(
+        probe_execution_status=status,
+        storage_measurements_valid=measurement_valid,
+        free_after_bytes=free_after,
+        required_bytes=storage["required_bytes"] if measurement_valid else None,
+    )
     record = _execution_record(
         context=context,
         command=command,
@@ -418,7 +510,10 @@ def execute_once() -> dict[str, Any]:
         interrupted=interrupted,
         storage=storage,
         status=status,
+        qualification=qualification,
     )
+    if validation_error:
+        record["validation_error"] = validation_error
     _write_json(EXECUTION_RECORD, record)
     _write_json(
         STORAGE_RECORD,
@@ -426,8 +521,9 @@ def execute_once() -> dict[str, Any]:
             "schema_version": "gate24e-storage-attempt04-qualification-v1",
             "attempt_id": ATTEMPT_ID,
             "status": status,
-            "storage_measurements_valid": status == "ATTEMPT_04_STORAGE_PROBE_PASS",
-            "storage_qualification_valid": status == "ATTEMPT_04_STORAGE_PROBE_PASS",
+            "probe_execution_status": status,
+            **qualification,
+            "storage_qualification_valid": qualification["storage_qualified"],
             "completion_marker_observed": _completion_observed(log_text),
             "artifact_profile": ARTIFACT_PROFILE,
             "scientific_jobs_executed": 0,
@@ -436,6 +532,8 @@ def execute_once() -> dict[str, Any]:
             "storage": storage,
         },
     )
+    record["validation_error"] = validation_error
+    update_storage_history(record)
     return record
 
 

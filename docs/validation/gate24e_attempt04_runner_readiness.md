@@ -34,6 +34,22 @@ Một probe thành công phải có marker `100000/100000`, `status.json=PASS`,
 `rollout.npz`, `metadata.json`, `manifest.json` và `metrics/metrics.json`.
 Không yêu cầu `rollout.json`, viewer hoặc video.
 
+## Quyết định qualification
+
+Execution status và storage qualification là hai trường độc lập. Sau khi probe
+hoàn tất hợp lệ, runner dùng đúng điều kiện nghiêm ngặt:
+
+`free_after_bytes > required_bytes`
+
+- Nếu đúng: `GATE24E_STORAGE_QUALIFIED`.
+- Nếu bằng hoặc thấp hơn: `WAITING_GATE24E_STORAGE_CAPACITY`; measurement vẫn
+  hợp lệ nhưng chưa đủ dung lượng cho projection.
+- Nếu probe bị ngắt, thất bại hoặc artifact không đầy đủ:
+  `STORAGE_PROBE_ATTEMPT_04_TECHNICAL_FAILURE`; measurement không hợp lệ.
+
+`ATTEMPT_04_STORAGE_PROBE_PASS` chỉ mô tả execution thành công, không tự động
+được coi là storage qualification.
+
 ## Ranh giới khoa học
 
 Probe này chỉ đo khả năng lưu trữ kỹ thuật. `scientific_jobs_executed=0`,

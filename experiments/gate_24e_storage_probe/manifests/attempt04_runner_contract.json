@@ -5,6 +5,17 @@
   "purpose": "TECHNICAL_STORAGE_QUALIFICATION_ONLY",
   "dry_run_verified": true,
   "execution_required_for_measurements": true,
+  "qualification_rule": "free_after_bytes > required_bytes",
+  "execution_statuses": [
+    "ATTEMPT_04_STORAGE_PROBE_PASS",
+    "ATTEMPT_04_INTERRUPTED",
+    "ATTEMPT_04_FAILED"
+  ],
+  "qualification_statuses": [
+    "GATE24E_STORAGE_QUALIFIED",
+    "WAITING_GATE24E_STORAGE_CAPACITY",
+    "STORAGE_PROBE_ATTEMPT_04_TECHNICAL_FAILURE"
+  ],
   "attempt_output_created": false,
   "probe_seed": 9001,
   "steps": 100000,

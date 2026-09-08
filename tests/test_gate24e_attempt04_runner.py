@@ -196,7 +196,46 @@ def test_17_storage_projection_uses_approved_formula() -> None:
     }
 
 
-def test_18_success_requires_all_memory_safe_artifacts(tmp_path: Path) -> None:
+@pytest.mark.parametrize(
+    ("free_after", "required", "expected"),
+    [
+        (1001, 1000, "GATE24E_STORAGE_QUALIFIED"),
+        (1000, 1000, "WAITING_GATE24E_STORAGE_CAPACITY"),
+        (999, 1000, "WAITING_GATE24E_STORAGE_CAPACITY"),
+    ],
+)
+def test_18_capacity_qualification_uses_strict_greater_than(
+    free_after: int, required: int, expected: str
+) -> None:
+    result = runner.assess_storage_qualification(
+        probe_execution_status="ATTEMPT_04_STORAGE_PROBE_PASS",
+        storage_measurements_valid=True,
+        free_after_bytes=free_after,
+        required_bytes=required,
+    )
+    assert result["qualification_status"] == expected
+    assert result["storage_measurements_valid"] is True
+    assert result["storage_qualification_assessed"] is True
+    assert result["storage_qualified"] is (expected == "GATE24E_STORAGE_QUALIFIED")
+
+
+@pytest.mark.parametrize("status", ["ATTEMPT_04_INTERRUPTED", "ATTEMPT_04_FAILED"])
+def test_19_technical_failure_does_not_qualify_storage(status: str) -> None:
+    result = runner.assess_storage_qualification(
+        probe_execution_status=status,
+        storage_measurements_valid=False,
+        free_after_bytes=10_000,
+        required_bytes=1,
+    )
+    assert result == {
+        "qualification_status": "STORAGE_PROBE_ATTEMPT_04_TECHNICAL_FAILURE",
+        "storage_measurements_valid": False,
+        "storage_qualification_assessed": False,
+        "storage_qualified": False,
+    }
+
+
+def test_20_success_requires_all_memory_safe_artifacts(tmp_path: Path) -> None:
     output = tmp_path / "run"
     (output / "metrics").mkdir(parents=True)
     for relative in ("status.json", "rollout.npz", "metadata.json", "manifest.json", "metrics/metrics.json"):
@@ -212,7 +251,7 @@ def test_18_success_requires_all_memory_safe_artifacts(tmp_path: Path) -> None:
         runner._validate_success(output, "Progress: 40000/100000")
 
 
-def test_19_success_does_not_require_rollout_json_or_video(tmp_path: Path) -> None:
+def test_21_success_does_not_require_rollout_json_or_video(tmp_path: Path) -> None:
     output = tmp_path / "run"
     (output / "metrics").mkdir(parents=True)
     for relative in ("status.json", "rollout.npz", "metadata.json", "manifest.json", "metrics/metrics.json"):
@@ -228,26 +267,94 @@ def test_19_success_does_not_require_rollout_json_or_video(tmp_path: Path) -> No
     assert not (output / "flygym_rollout.mp4").exists()
 
 
-def test_20_completion_marker_requires_full_requested_steps() -> None:
+def test_22_completion_marker_requires_full_requested_steps() -> None:
     assert runner._completion_observed("Progress: 40000/100000") is False
     assert runner._completion_observed("Progress: 100000/100000") is True
 
 
-def test_21_no_scientific_analyzer_is_in_command() -> None:
+def test_23_no_scientific_analyzer_is_in_command() -> None:
     assert "analyze_gate24e_blinded_prediction.py" not in " ".join(runner.build_command())
 
 
-def test_22_previous_attempt_paths_are_not_runner_targets() -> None:
+def test_24_previous_attempt_paths_are_not_runner_targets() -> None:
     command = " ".join(runner.build_command())
     assert "attempt_03" not in command
     assert "attempt_02" not in command
 
 
-def test_23_runner_does_not_create_attempt05() -> None:
+def test_25_runner_does_not_create_attempt05() -> None:
     assert not (runner.ROOT / "experiments/gate_24e_storage_probe/attempt_05").exists()
 
 
-def test_24_report_and_manifest_are_readiness_only() -> None:
+def test_26_report_and_manifest_are_readiness_only() -> None:
     report = (runner.ROOT / "docs/validation/gate24e_attempt04_runner_readiness.md").read_text(encoding="utf-8")
     assert "READY_FOR_GATE24E_STORAGE_ATTEMPT_04" in report
     assert "chưa khởi động GPU" in report
+    assert "free_after_bytes > required_bytes" in report
+    contract = json.loads(
+        (runner.ROOT / "experiments/gate_24e_storage_probe/manifests/attempt04_runner_contract.json")
+        .read_text(encoding="utf-8")
+    )
+    assert contract["qualification_rule"] == "free_after_bytes > required_bytes"
+
+
+def test_27_history_update_preserves_attempt01_02_03_and_selects_valid_attempt04(
+    tmp_path: Path,
+) -> None:
+    history_path = tmp_path / "storage_qualification.json"
+    history = json.loads(runner.HISTORY.read_text(encoding="utf-8"))
+    original = {key: deepcopy(history[key]) for key in ("attempt_01", "attempt_02", "attempt_03")}
+    record = {
+        "status": "ATTEMPT_04_STORAGE_PROBE_PASS",
+        "qualification_status": "GATE24E_STORAGE_QUALIFIED",
+        "storage_measurements_valid": True,
+        "storage_qualification_assessed": True,
+        "storage_qualified": True,
+        "storage": {"free_after_bytes": 2000, "required_bytes": 1000},
+    }
+    history_path.write_text(json.dumps(history), encoding="utf-8")
+    updated = runner.update_storage_history(record, history_path=history_path)
+    assert {key: updated[key] for key in original} == original
+    assert updated["current_estimate_source"] == "attempt_04"
+    assert updated["current_qualification_status"] == "GATE24E_STORAGE_QUALIFIED"
+    assert updated["storage_measurements_valid"] is True
+
+
+def test_28_failed_attempt04_does_not_become_estimate_source(tmp_path: Path) -> None:
+    history_path = tmp_path / "storage_qualification.json"
+    history = json.loads(runner.HISTORY.read_text(encoding="utf-8"))
+    history_path.write_text(json.dumps(history), encoding="utf-8")
+    record = {
+        "status": "ATTEMPT_04_INTERRUPTED",
+        "qualification_status": "STORAGE_PROBE_ATTEMPT_04_TECHNICAL_FAILURE",
+        "storage_measurements_valid": False,
+        "storage_qualification_assessed": False,
+        "storage_qualified": False,
+        "storage": {},
+    }
+    updated = runner.update_storage_history(record, history_path=history_path)
+    assert "current_estimate_source" not in updated
+    assert updated["current_qualification_status"] == "GATE24E_STORAGE_NOT_QUALIFIED"
+
+
+def test_29_dry_run_has_no_storage_numbers(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(runner, "verify_preflight", lambda: _approved_context())
+    result = runner.prepare_dry_run()
+    assert not any("free_" in key or "required" in key for key in result)
+    assert "storage" not in result
+
+
+def test_30_scientific_batch_and_holdout_stay_closed_after_qualification() -> None:
+    result = runner.assess_storage_qualification(
+        probe_execution_status="ATTEMPT_04_STORAGE_PROBE_PASS",
+        storage_measurements_valid=True,
+        free_after_bytes=2_000,
+        required_bytes=1_000,
+    )
+    assert result["storage_qualified"] is True
+    contract = json.loads(
+        (runner.ROOT / "experiments/gate_24e_storage_probe/manifests/attempt04_runner_contract.json")
+        .read_text(encoding="utf-8")
+    )
+    assert contract["scientific_batch_authorized"] is False
+    assert contract["holdout"] == "SEALED"
