@@ -1,12 +1,21 @@
-schema_version: gate-24c-prospective-parkin-prediction-v2
+schema_version: gate-24-1-prospective-parkin-prediction-v3
 status: PROSPECTIVE_PREDICTION_DRAFTED
-model_commit: 2276220
-model_freeze_sha256: 8b67bbd935f98194a1d20a4f5c874db5fb337de3fa87a98d701326174fd12722
+model_commit: be4b10a80755d9f7bad931f56b8a739bd64e3619
+model_freeze_sha256: eb370a25c00b39173272468e050e4ab917a0e99df0c3ee3ab73635868dfe916a
 mapping_sha256: 776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80
 checkpoint_sha256: d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691
-config_sha256: dc037ecac8f78aaff32bfbf780c1cbf27d1b60cc6854adecbdaf0c94ce4ebdd0
-target_neurons_sha256: fd9287c60cf74ec66d69205cf6b9810cf4204aa904e83f1dbc148b495e09f32d
+config_sha256: f824a3e3a53273f3951ad37a7963c9aaa5a87f5928fce1fd5cd043317afb833b
+target_neurons_sha256: e36b0210ea6d2d2b7225f62feba73ae5c9e6535565c8b936558d0eaaf04a2085
 seed_list: [0, 1, 2, 3, 4]
+
+primary_disease_representation: PARKIN_DRIVER_DEFINED_NEURAL_TRANSFORM
+operation_level: NEURAL_PRE_ACTION
+neural_transform_contract: research/validation/prospective/parkin_neural_transform_contract.yaml
+parkin_checkpoint_grid_manifest: research/validation/prospective/parkin_checkpoint_grid_manifest.json
+parkin_checkpoint_grid_manifest_sha256: 3bbf2a6ca62a952dc1ded8a0865a20e54e4cb60e16442632b232166f8399f04f
+action_level_proxy: NEGATIVE_CONTROL_ONLY
+action_proxy_primary: false
+neural_transform_status: PARKIN_DRIVER_DEFINED_NEURAL_TRANSFORM_READY
 
 primary_validation_axis: LOCOMOTOR_IMPAIRMENT_DIRECTION
 expected_direction: VIRTUAL_PARKIN_IMPAIRED_RELATIVE_TO_VIRTUAL_CONTROL
@@ -14,11 +23,30 @@ primary_success_rule: directional_concordance == true
 quantitative_cross_assay_threshold: NOT_APPLICABLE_ASSAY_MISMATCH
 
 parameter:
-  name: burden_level
+  name: neural_perturbation_strength
   values: [0.0, 0.25, 0.5, 0.75, 1.0]
-  interpretation: Dimensionless computational sensitivity value.
+  interpretation: Dimensionless computational sensitivity value; not a biological percentage.
   biological_percentage_mapping: NOT_ALLOWED
-  selection_policy: preregistered_sensitivity_grid; no value selected from holdout.
+  selection_policy: PREREGISTERED_GRID_NO_SINGLE_BIOLOGICAL_PARAMETER
+  biological_parameter_equivalence: NOT_ASSERTED
+  posthoc_selection_allowed: false
+  primary_parameter_selected: false
+
+parameter_policy:
+  type: PREREGISTERED_GRID
+  biological_parameter_equivalence: NOT_ASSERTED
+  posthoc_selection_allowed: false
+  healthy_identity_parameter: 0.0
+  disease_parameters: [0.25, 0.5, 0.75, 1.0]
+
+paired_seed_policy: same seed healthy versus each Parkin parameter
+frame_is_statistical_replicate: false
+virtual_primary_metric: median_planar_speed_mm_s
+virtual_secondary_metric: distance_traveled_mm
+primary_direction_rule: median over paired seeds of (Parkin speed - healthy speed) < 0 for each nonzero parameter
+grid_level_decision_rule: VIRTUAL_DIRECTIONAL_PREDICTION_SUPPORTED only when every nonzero parameter passes the primary direction rule and QC
+mixed_direction_decision: DIRECTIONAL_VALIDATION_INCONCLUSIVE
+no_consistent_impairment_decision: DIRECTIONAL_VALIDATION_NOT_SUPPORTED
 
 virtual_metrics:
   - median_planar_speed_mm_s
@@ -33,6 +61,15 @@ failure_policy:
   strong_between_seed_variation: DIRECTIONAL_VALIDATION_INCONCLUSIVE
   disease_less_than_healthy_consistently: VIRTUAL_DIRECTIONAL_PREDICTION_SUPPORTED
   relabel_failed_prediction: FORBIDDEN
+
+secondary_analyses:
+  - distance effect ratios
+  - magnitude of virtual speed reduction
+  - monotonicity across computational perturbation levels
+  - seed variability
+  - trajectories
+  - contact/joint QC
+secondary_outcomes_cannot_override_primary: true
 
 holdout_opened: false
 calibration_data_reused: false

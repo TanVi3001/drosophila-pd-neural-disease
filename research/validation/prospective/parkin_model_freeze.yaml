@@ -1,8 +1,8 @@
 schema_version: gate-24b-parkin-model-freeze-v1
 status: MODEL_FREEZE_COMPLETE
-freeze_scope: All pre-GPU computational inputs are recorded; the external runtime must be clean-checked again before execution.
+freeze_scope: Immutable Gate24.2 neural implementation, runtime, mapping, checkpoint-grid and metric provenance.
 
-model_commit: 2276220
+model_commit: be4b10a80755d9f7bad931f56b8a739bd64e3619
 mapping_sha256: 776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80
 target_neurons_sha256: e36b0210ea6d2d2b7225f62feba73ae5c9e6535565c8b936558d0eaaf04a2085
 target_root_count: 330
@@ -25,12 +25,14 @@ runtime:
   torch: 2.5.1+cu121
   cuda_runtime: '12.1'
   flygym_commit: 3ceb8ce
-  external_runtime_worktree_clean: false
+  external_runtime_worktree_clean: true
+  external_runtime_worktree_path: ../drosophila-pd-flygym-gate24-clean
+  dirty_source_worktree: ../drosophila-pd-flygym
   clean_worktree_required_before_gpu: true
 
 config:
   path: experiments/gate_24_prospective_validation/configs/gate24_execution_config.yaml
-  sha256: dc037ecac8f78aaff32bfbf780c1cbf27d1b60cc6854adecbdaf0c94ce4ebdd0
+  sha256: f824a3e3a53273f3951ad37a7963c9aaa5a87f5928fce1fd5cd043317afb833b
 
 controller: HybridTurningController
 world: complex_terrain locomotion world
@@ -40,15 +42,45 @@ physics:
   shared_between_healthy_and_parkin: true
 seed_list: [0, 1, 2, 3, 4]
 
+parameter_policy: PREREGISTERED_GRID_NO_SINGLE_BIOLOGICAL_PARAMETER
+parameter_grid: [0.0, 0.25, 0.5, 0.75, 1.0]
+biological_parameter_equivalence: NOT_ASSERTED
+posthoc_parameter_selection_allowed: false
+
 disease_transform:
-  path: src/drosophila_pd_neural/proxy_burden_operator.py
-  sha256: ed11fc254bf1c3f653a80c28088d97d4bf6a4283da0126fc8d98e8b43fc36354
-  scope: ACTION_LEVEL_PROXY_NOT_NEURAL
-  ready_for_parkin_neural_execution: false
+  path: src/drosophila_pd_neural/parkin/transform.py
+  sha256: 8f8fe415b9a2d4490783775ef9a4aa45a82bfe624f37d969d89eda1a7bac383b
+  scope: NEURAL_PRE_ACTION
+  ready_for_parkin_neural_execution: true
+  biological_equivalence: NOT_ASSERTED
+  action_level_proxy_scope: NEGATIVE_CONTROL_ONLY
+
+neural_transform_contract:
+  path: research/validation/prospective/parkin_neural_transform_contract.yaml
+  sha256: ffc7d25c7cf225c7cb69ff43a62133dbf2bf5a4f22f5bb0138a9217b2b375c71
+  operation_level: NEURAL_PRE_ACTION
+
+parkin_checkpoint_grid:
+  manifest_path: research/validation/prospective/parkin_checkpoint_grid_manifest.json
+  manifest_sha256: 3bbf2a6ca62a952dc1ded8a0865a20e54e4cb60e16442632b232166f8399f04f
+  identity_parameter: 0.0
+  disease_parameters: [0.25, 0.5, 0.75, 1.0]
+  checkpoint_sha256:
+    "0.25": dd2a4413d1aa4baed30df96884afdd030bac3a246d1bcc7a241baa955082cb8c
+    "0.5": f682057bfff2bd523ba9a934970c9986e041ce44cb16fb8781ce2e9c5aebcff1
+    "0.75": 0b73e25620d10e56e293f859fb95c45630c7b798073b482d73f95a7d5c51e802
+    "1.0": 0ecf37ce96b6d4ea09b00204c3f01c6f41b6a2820b5f21170c6856760850e2b1
 
 metric_implementation:
   path: scripts/analyze_healthy_baseline.py
   sha256: 1ae43f7a2dfeab8170a94e8d4e061d1a782463e4f361239f6c2c398e195a92fb
+
+runner_source:
+  path: ../drosophila-pd-flygym-gate24-clean/scripts/run_brain_body_rollout.py
+  sha256: 6c27c6ca9421f3b358ed8ce17e8192be586b6777ce52c2201530ec713db03059
+blind_runner_source:
+  path: scripts/run_gate24_blinded_parkin_prediction.py
+  sha256: 4234ab602e8ea8aba2a2fc9ab88c08bdcf4cd63e5567f260f5c7ee8180690276
 
 freeze_policy:
   calibration_data_reused: false

@@ -10,6 +10,7 @@ import sys
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
+GRID_MANIFEST = ROOT / "research/validation/prospective/parkin_checkpoint_grid_manifest.json"
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
@@ -20,7 +21,14 @@ def build_execution_plan() -> dict[str, Any]:
     result = audit()
     clean_platform = (ROOT.parent / "drosophila-pd-flygym-gate24-clean").resolve()
     clean_brain = (ROOT.parent / "external/fly-brain-audit").resolve()
-    neural_checkpoint = (ROOT / "results/gate24_neural_transform/parkin/plastic_weights.pt").resolve()
+    grid = json.loads(GRID_MANIFEST.read_text(encoding="utf-8")) if GRID_MANIFEST.is_file() else {}
+    checkpoint_grid = {
+        str(row["parameter"]): {
+            "checkpoint": str((ROOT / row["checkpoint_path"]).resolve()),
+            "sha256": row["checkpoint_sha256"],
+        }
+        for row in grid.get("checkpoints", [])
+    }
     return {
         "status": result["gate24e_status"],
         "healthy_condition": "healthy",
@@ -29,7 +37,8 @@ def build_execution_plan() -> dict[str, Any]:
         "neural_transform_status": result.get("neural_transform_status"),
         "action_proxy_primary": result.get("action_proxy_primary"),
         "healthy_checkpoint": result.get("healthy_checkpoint_sha256"),
-        "parkin_checkpoint": result.get("parkin_checkpoint_sha256"),
+        "parkin_checkpoint_grid": checkpoint_grid,
+        "parameter_policy": result.get("primary_parameter_status"),
         "runtime": {
             "platform_root": str(clean_platform),
             "brain_root": str(clean_brain),
@@ -44,7 +53,9 @@ def build_execution_plan() -> dict[str, Any]:
             "--platform-root",
             str(clean_platform),
             "--prepared-checkpoint",
-            str(neural_checkpoint),
+            "<grid-checkpoint-for-parameter>",
+            "--parameter",
+            "<preregistered-grid-level>",
             "--device",
             "cuda",
             "--seed",

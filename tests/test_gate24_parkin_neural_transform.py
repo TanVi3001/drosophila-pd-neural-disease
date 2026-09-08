@@ -90,7 +90,9 @@ def test_transform_has_no_action_or_joint_posthoc_scaling():
 def test_transform_contract_is_before_action_generation():
     contract = yaml.safe_load(CONTRACT.read_text(encoding="utf-8"))
     assert contract["operation_level"] == "NEURAL_PRE_ACTION"
-    assert contract["primary_parameter_status"] == "WAITING_PRIMARY_PARKIN_PARAMETER_DECISION"
+    assert contract["parameter_policy"] == "PREREGISTERED_GRID_NO_SINGLE_BIOLOGICAL_PARAMETER"
+    assert contract["primary_parameter_selected"] is False
+    assert contract["disease_parameters"] == [0.25, 0.5, 0.75, 1.0]
 
 
 def test_biological_equivalence_is_not_asserted():

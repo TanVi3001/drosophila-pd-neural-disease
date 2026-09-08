@@ -19,6 +19,8 @@ FREEZE = ROOT / "research/validation/prospective/parkin_model_freeze.yaml"
 CONTRACT = ROOT / "research/validation/prospective/parkin_prediction_contract.yaml"
 NEURAL_CONTRACT = ROOT / "research/validation/prospective/parkin_neural_transform_contract.yaml"
 SIGNOFF = ROOT / "research/validation/prospective/parkin_prediction_reviewer_signoff.json"
+GRID_MANIFEST = ROOT / "research/validation/prospective/parkin_checkpoint_grid_manifest.json"
+FIREWALL_MANIFEST = ROOT / "experiments/gate_24_prospective_validation/manifests/holdout_firewall_manifest.json"
 EXEC_CONFIG = ROOT / "experiments/gate_24_prospective_validation/configs/gate24_execution_config.yaml"
 RESULT = ROOT / "experiments/gate_24_prospective_validation/results/gate24_readiness.json"
 MANIFEST = ROOT / "experiments/gate_24_prospective_validation/manifests/gate24_readiness_manifest.json"
@@ -26,7 +28,6 @@ REPORT = ROOT / "docs/validation/gate_24_prospective_validation_report.md"
 CHECKPOINT = ROOT.parent / "external/fly-brain-audit/data/plastic_weights.pt"
 TRANSFORM = ROOT / "src/drosophila_pd_neural/parkin/transform.py"
 ACTION_PROXY = ROOT / "src/drosophila_pd_neural/proxy_burden_operator.py"
-NEURAL_MANIFEST = ROOT / "results/gate24_neural_transform/parkin/manifest.json"
 METRICS = ROOT / "scripts/analyze_healthy_baseline.py"
 
 
@@ -68,13 +69,23 @@ def _root_set_hash(rows: list[dict[str, str]]) -> str:
     return hashlib.sha256(("\n".join(ids) + "\n").encode()).hexdigest()
 
 
+def _resolve_artifact_path(value: object) -> Path:
+    path = Path(str(value))
+    return path if path.is_absolute() else (ROOT / path).resolve()
+
+
+def _valid_sha(value: object) -> bool:
+    text = str(value or "")
+    return len(text) == 64 and all(char in "0123456789abcdef" for char in text.lower())
+
+
 def audit() -> dict[str, Any]:
     gate23 = _json(GATE23_MANIFEST)
     compatibility = _yaml(COMPATIBILITY)
     freeze = _yaml(FREEZE)
     contract = _yaml(CONTRACT)
     neural_contract = _yaml(NEURAL_CONTRACT)
-    neural_manifest = _json(NEURAL_MANIFEST)
+    grid_manifest = _json(GRID_MANIFEST)
     signoff = _json(SIGNOFF)
     execution = _yaml(EXEC_CONFIG)
     mapping_rows = _rows(MAPPING)
@@ -87,13 +98,35 @@ def audit() -> dict[str, Any]:
     transform_sha = _sha256(TRANSFORM) if TRANSFORM.is_file() else "MISSING"
     action_proxy_sha = _sha256(ACTION_PROXY) if ACTION_PROXY.is_file() else "MISSING"
     metric_sha = _sha256(METRICS) if METRICS.is_file() else "MISSING"
-    neural_checkpoint = neural_manifest.get("disease_checkpoint") or {}
-    neural_checkpoint_path = Path(str(neural_checkpoint.get("path", ""))) if neural_checkpoint.get("path") else None
-    neural_checkpoint_sha = (
-        _sha256(neural_checkpoint_path)
-        if neural_checkpoint_path and neural_checkpoint_path.is_file()
-        else "MISSING"
-    )
+    grid_healthy = grid_manifest.get("healthy_checkpoint") or {}
+    grid_checkpoint_rows = grid_manifest.get("checkpoints") or []
+    grid_parameters = [row.get("parameter") for row in grid_checkpoint_rows if isinstance(row, dict)]
+    expected_grid = [0.0, 0.25, 0.5, 0.75, 1.0]
+    grid_checkpoint_hashes: dict[str, str] = {}
+    grid_artifacts_ready = True
+    for row in grid_checkpoint_rows:
+        if not isinstance(row, dict):
+            grid_artifacts_ready = False
+            continue
+        parameter = row.get("parameter")
+        checkpoint_path = _resolve_artifact_path(row.get("checkpoint_path", ""))
+        actual_sha = _sha256(checkpoint_path) if checkpoint_path.is_file() else "MISSING"
+        grid_checkpoint_hashes[str(parameter)] = actual_sha
+        if not _valid_sha(row.get("checkpoint_sha256")) or actual_sha != row.get("checkpoint_sha256"):
+            grid_artifacts_ready = False
+        manifest_path = _resolve_artifact_path(row.get("manifest_path", ""))
+        artifact_manifest = _json(manifest_path)
+        if (
+            artifact_manifest.get("status") != "PARKIN_DRIVER_DEFINED_NEURAL_TRANSFORM_READY"
+            or artifact_manifest.get("parameter") != parameter
+            or artifact_manifest.get("mapping_sha256") != mapping_sha
+            or artifact_manifest.get("target_neurons_sha256") != root_hash
+            or artifact_manifest.get("target_count") != 330
+            or artifact_manifest.get("healthy_checkpoint_modified") is not False
+            or artifact_manifest.get("simulation_run") is not False
+            or artifact_manifest.get("gpu_executed") is not False
+        ):
+            grid_artifacts_ready = False
 
     gate23_status = gate23.get("status", "MISSING")
     if gate23_status != "GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED_READY":
@@ -119,6 +152,15 @@ def audit() -> dict[str, Any]:
     config_match = config_sha == freeze.get("config", {}).get("sha256")
     transform_match = transform_sha == freeze.get("disease_transform", {}).get("sha256")
     metric_match = metric_sha == freeze.get("metric_implementation", {}).get("sha256")
+    freeze_grid = freeze.get("parkin_checkpoint_grid") or {}
+    freeze_grid_hashes = freeze_grid.get("checkpoint_sha256") or {}
+    freeze_grid_complete = (
+        freeze_grid.get("manifest_path") == _relative(GRID_MANIFEST)
+        and freeze_grid.get("manifest_sha256") == (_sha256(GRID_MANIFEST) if GRID_MANIFEST.is_file() else "MISSING")
+        and freeze_grid.get("identity_parameter") == 0.0
+        and freeze_grid.get("disease_parameters") == [0.25, 0.5, 0.75, 1.0]
+        and freeze_grid_hashes == {key: grid_checkpoint_hashes.get(key) for key in ("0.25", "0.5", "0.75", "1.0")}
+    )
     model_freeze_complete = (
         freeze.get("status") == "MODEL_FREEZE_COMPLETE"
         and checkpoint_match
@@ -126,6 +168,13 @@ def audit() -> dict[str, Any]:
         and transform_match
         and metric_match
         and freeze.get("seed_list") == [0, 1, 2, 3, 4]
+        and freeze.get("parameter_policy") == "PREREGISTERED_GRID_NO_SINGLE_BIOLOGICAL_PARAMETER"
+        and freeze.get("parameter_grid") == expected_grid
+        and freeze.get("biological_parameter_equivalence") == "NOT_ASSERTED"
+        and freeze.get("posthoc_parameter_selection_allowed") is False
+        and freeze.get("neural_transform_contract", {}).get("sha256") == _sha256(NEURAL_CONTRACT)
+        and freeze.get("model_commit") == grid_manifest.get("neural_implementation_commit")
+        and freeze_grid_complete
         and not any(str(value).startswith("NOT_LOCKED") for value in freeze.values())
     )
     if not model_freeze_complete:
@@ -139,19 +188,26 @@ def audit() -> dict[str, Any]:
         and neural_contract.get("biological_equivalence") == "NOT_ASSERTED"
         and neural_contract.get("source_code_sha256") == transform_sha
         and neural_contract.get("sensitivity_grid") == [0.0, 0.25, 0.5, 0.75, 1.0]
+        and neural_contract.get("parameter_policy") == "PREREGISTERED_GRID_NO_SINGLE_BIOLOGICAL_PARAMETER"
+        and neural_contract.get("primary_parameter_selected") is False
+        and neural_contract.get("disease_parameters") == [0.25, 0.5, 0.75, 1.0]
     )
     if not neural_contract_locked:
         blockers.append("Parkin neural transform contract is incomplete or stale")
     neural_transform_ready = (
-        neural_manifest.get("status") == "PARKIN_DRIVER_DEFINED_NEURAL_TRANSFORM_READY"
-        and neural_manifest.get("operation_level") == "NEURAL_PRE_ACTION"
-        and neural_manifest.get("target_count") == 330
-        and neural_manifest.get("mapping_sha256") == mapping_sha
-        and neural_manifest.get("target_neurons_sha256") == root_hash
-        and neural_manifest.get("identity_test_status") == "PASS"
-        and neural_manifest.get("healthy_checkpoint_modified") is False
-        and neural_checkpoint_sha == neural_checkpoint.get("sha256")
-        and neural_checkpoint_sha != "MISSING"
+        grid_manifest.get("status") == "GRID_MATERIALIZED"
+        and grid_manifest.get("parameter_policy") == "PREREGISTERED_GRID_NO_SINGLE_BIOLOGICAL_PARAMETER"
+        and grid_manifest.get("biological_parameter_equivalence") == "NOT_ASSERTED"
+        and grid_manifest.get("neural_implementation_commit") == freeze.get("model_commit")
+        and grid_manifest.get("operation_level") == "NEURAL_PRE_ACTION"
+        and grid_manifest.get("target_count") == 330
+        and grid_manifest.get("mapping_sha256") == mapping_sha
+        and grid_manifest.get("target_sha256") == root_hash
+        and grid_manifest.get("transform_source_sha256") == transform_sha
+        and grid_healthy.get("sha256") == checkpoint_sha
+        and grid_parameters == [0.25, 0.5, 0.75, 1.0]
+        and grid_artifacts_ready
+        and all(row.get("identity_test_status") == "PASS" for row in grid_checkpoint_rows if isinstance(row, dict))
     )
     if not neural_transform_ready:
         blockers.append("Parkin neural checkpoint/manifest is not ready; action proxy cannot be primary")
@@ -175,6 +231,19 @@ def audit() -> dict[str, Any]:
         and contract.get("action_level_proxy") == "NEGATIVE_CONTROL_ONLY"
         and contract.get("action_proxy_primary") is False
         and contract.get("neural_transform_status") == "PARKIN_DRIVER_DEFINED_NEURAL_TRANSFORM_READY"
+        and contract.get("virtual_primary_metric") == "median_planar_speed_mm_s"
+        and contract.get("virtual_secondary_metric") == "distance_traveled_mm"
+        and contract.get("statistical_unit") == "seed"
+        and contract.get("frame_is_statistical_replicate") is False
+        and contract.get("paired_seed_policy") == "same seed healthy versus each Parkin parameter"
+        and contract.get("parameter_policy", {}).get("type") == "PREREGISTERED_GRID"
+        and contract.get("parameter_policy", {}).get("healthy_identity_parameter") == 0.0
+        and contract.get("parameter_policy", {}).get("disease_parameters") == [0.25, 0.5, 0.75, 1.0]
+        and contract.get("parameter", {}).get("primary_parameter_selected") is False
+        and contract.get("grid_level_decision_rule", "").startswith("VIRTUAL_DIRECTIONAL_PREDICTION_SUPPORTED")
+        and contract.get("model_commit") == freeze.get("model_commit")
+        and contract.get("model_freeze_sha256") == _sha256(FREEZE)
+        and contract.get("parkin_checkpoint_grid_manifest_sha256") == _sha256(GRID_MANIFEST)
         and not any("NOT_LOCKED" in str(contract.get(field, "")) for field in required_contract_fields)
     )
     if not contract_locked:
@@ -189,8 +258,13 @@ def audit() -> dict[str, Any]:
         and signoff.get("holdout_opened") is False
         and signoff.get("tuning_using_holdout") is False
         and signoff.get("mapping_sha256") == mapping_sha
+        and signoff.get("target_sha256") == root_hash
+        and signoff.get("neural_implementation_commit") == freeze.get("model_commit")
+        and signoff.get("parameter_policy") == "PREREGISTERED_GRID_NO_SINGLE_BIOLOGICAL_PARAMETER"
         and signoff.get("model_freeze_sha256") == _sha256(FREEZE)
         and signoff.get("prediction_contract_sha256") == _sha256(CONTRACT)
+        and signoff.get("checkpoint_manifest_sha256") == _sha256(GRID_MANIFEST)
+        and signoff.get("holdout_firewall_sha256") == _sha256(FIREWALL_MANIFEST)
     )
     if not signoff_complete:
         blockers.append("Gate24D human preregistration signoff is missing")
@@ -201,14 +275,10 @@ def audit() -> dict[str, Any]:
         blockers.append("Parkin neural transform is not frozen in model provenance")
     if contract.get("action_proxy_primary") is True:
         blockers.append("action-level proxy is marked primary, which Gate24 forbids")
-    if contract.get("parameter", {}).get("primary_parameter_status") == "WAITING_PRIMARY_PARKIN_PARAMETER_DECISION":
-        blockers.append("primary Parkin computational parameter remains unresolved")
-
     gate24e_ready = all((gate23_status == "GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED_READY", gate24a, model_freeze_complete, contract_locked, signoff_complete, neural_transform_ready)) and not any(
         phrase in blockers for phrase in (
             "external FlyGym runtime worktree is dirty; clean runtime commit required before GPU",
             "Parkin neural transform is not frozen in model provenance",
-            "primary Parkin computational parameter remains unresolved",
         )
     )
     result = {
@@ -233,10 +303,11 @@ def audit() -> dict[str, Any]:
         "neural_transform_status": "PARKIN_DRIVER_DEFINED_NEURAL_TRANSFORM_READY" if neural_transform_ready else "WAITING_NEURAL_TRANSFORM",
         "action_proxy_primary": False,
         "healthy_checkpoint_sha256": checkpoint_sha,
-        "parkin_checkpoint_sha256": neural_checkpoint_sha,
-        "parkin_checkpoint_manifest_sha256": _sha256(NEURAL_MANIFEST) if NEURAL_MANIFEST.is_file() else "MISSING",
-        "primary_parameter": neural_manifest.get("parameter", "WAITING_PRIMARY_PARKIN_PARAMETER_DECISION"),
-        "primary_parameter_status": neural_manifest.get("parameter_status", "WAITING_PRIMARY_PARKIN_PARAMETER_DECISION"),
+        "parkin_checkpoint_sha256": "GRID_MANIFEST",
+        "parkin_checkpoint_manifest_sha256": _sha256(GRID_MANIFEST) if GRID_MANIFEST.is_file() else "MISSING",
+        "parkin_checkpoint_grid": grid_checkpoint_hashes,
+        "primary_parameter": "NONE_SELECTED",
+        "primary_parameter_status": "PREREGISTERED_GRID_NO_SINGLE_BIOLOGICAL_PARAMETER",
         "seed_list": [0, 1, 2, 3, 4],
         "primary_validation_axis": "LOCOMOTOR_IMPAIRMENT_DIRECTION",
         "virtual_quantitative_endpoints": ["median_planar_speed_mm_s", "distance_traveled_mm", "displacement_mm"],
@@ -267,7 +338,7 @@ def audit() -> dict[str, Any]:
             "neural_transform_contract": {"path": _relative(NEURAL_CONTRACT), "sha256": _sha256(NEURAL_CONTRACT)},
             "reviewer_signoff": {"path": _relative(SIGNOFF), "sha256": _sha256(SIGNOFF)},
             "mapping": {"path": _relative(MAPPING), "sha256": mapping_sha},
-            "parkin_neural_checkpoint_manifest": {"path": _relative(NEURAL_MANIFEST), "sha256": _sha256(NEURAL_MANIFEST) if NEURAL_MANIFEST.is_file() else "MISSING"},
+            "parkin_checkpoint_grid_manifest": {"path": _relative(GRID_MANIFEST), "sha256": _sha256(GRID_MANIFEST) if GRID_MANIFEST.is_file() else "MISSING"},
         },
         "holdout_opened": False,
         "no_holdout_tuning": True,
@@ -300,6 +371,7 @@ def _write_report(result: dict[str, Any]) -> None:
         f"- Neural transform: `{result['neural_transform_status']}`; operation level `{result['operation_level']}`.",
         "- Action-level proxy: `NEGATIVE_CONTROL_ONLY`; không phải primary disease representation.",
         f"- Primary parameter: `{result['primary_parameter']}`; status `{result['primary_parameter_status']}`.",
+        f"- Grid checkpoint hashes: `{result['parkin_checkpoint_grid']}`.",
         f"- Config SHA256: `{result['config_sha256']}`.",
         f"- Seed: `{result['seed_list']}`; đơn vị thống kê là seed, frame không phải replicate.",
         "",

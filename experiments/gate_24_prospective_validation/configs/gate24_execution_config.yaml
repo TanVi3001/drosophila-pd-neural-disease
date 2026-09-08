@@ -38,9 +38,10 @@ metrics:
   frame_is_replicate: false
 
 disease_transform:
-  implementation: src/drosophila_pd_neural/proxy_burden_operator.py
-  layer: ACTION_LEVEL_PROXY
-  neural_transform_ready: false
+  implementation: src/drosophila_pd_neural/parkin/transform.py
+  layer: NEURAL_PRE_ACTION
+  neural_transform_ready: true
+  action_level_proxy: NEGATIVE_CONTROL_ONLY
   interpretation: Dimensionless computational sensitivity operator; not a measured Parkin knockdown percentage.
   preregistered_burden_values: [0.0, 0.25, 0.5, 0.75, 1.0]
   burden_is_percent_gene_knockdown: false

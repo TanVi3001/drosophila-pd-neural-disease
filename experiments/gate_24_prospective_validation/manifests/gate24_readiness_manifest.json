@@ -8,19 +8,27 @@
     },
     "model_freeze": {
       "path": "research/validation/prospective/parkin_model_freeze.yaml",
-      "sha256": "8b67bbd935f98194a1d20a4f5c874db5fb337de3fa87a98d701326174fd12722"
+      "sha256": "eb370a25c00b39173272468e050e4ab917a0e99df0c3ee3ab73635868dfe916a"
     },
     "prediction_contract": {
       "path": "research/validation/prospective/parkin_prediction_contract.yaml",
-      "sha256": "8844e8713ee8d2a97d93c33409d810479080a12eec329a92481a4c3c79c2c33e"
+      "sha256": "492ff39aa83f5acdaf2860522d4e99621bedb16a8e93778bfa8588b5a04c428e"
+    },
+    "neural_transform_contract": {
+      "path": "research/validation/prospective/parkin_neural_transform_contract.yaml",
+      "sha256": "ffc7d25c7cf225c7cb69ff43a62133dbf2bf5a4f22f5bb0138a9217b2b375c71"
     },
     "reviewer_signoff": {
       "path": "research/validation/prospective/parkin_prediction_reviewer_signoff.json",
-      "sha256": "df02c57621284e7424852251871e0de5873e53d611b79302822ac8c62d3a1f5e"
+      "sha256": "0df2d7aa8b170973fc1ce071ab07f8b99a6b6bc6fc7f1a98763d7e43ba082a86"
     },
     "mapping": {
       "path": "research/validation/gene_specific/parkin/driver_to_connectome_mapping.csv",
       "sha256": "776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80"
+    },
+    "parkin_checkpoint_grid_manifest": {
+      "path": "research/validation/prospective/parkin_checkpoint_grid_manifest.json",
+      "sha256": "3bbf2a6ca62a952dc1ded8a0865a20e54e4cb60e16442632b232166f8399f04f"
     }
   },
   "holdout_opened": false,

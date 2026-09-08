@@ -19,6 +19,8 @@ limitations:
   - Driver-defined mapping is not direct Parkin expression in FlyWire.
   - The transform does not establish biological Parkinson validation.
 sensitivity_grid: [0.0, 0.25, 0.5, 0.75, 1.0]
-primary_parameter_status: WAITING_PRIMARY_PARKIN_PARAMETER_DECISION
+parameter_policy: PREREGISTERED_GRID_NO_SINGLE_BIOLOGICAL_PARAMETER
+primary_parameter_selected: false
+disease_parameters: [0.25, 0.5, 0.75, 1.0]
 source_code: src/drosophila_pd_neural/parkin/transform.py
 source_code_sha256: 8f8fe415b9a2d4490783775ef9a4aa45a82bfe624f37d969d89eda1a7bac383b
