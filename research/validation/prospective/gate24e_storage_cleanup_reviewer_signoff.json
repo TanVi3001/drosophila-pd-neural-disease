@@ -1,17 +1,20 @@
 {
   "schema_version": "gate24e-storage-cleanup-reviewer-signoff-v1",
-  "status": "WAITING_STORAGE_CLEANUP_REVIEW",
-  "decision": "PENDING_HUMAN_REVIEW",
-  "reviewer_1": "",
-  "reviewer_2": "",
-  "review_date": "",
-  "approved_paths": [],
-  "approved_action": "NONE",
+  "status": "STORAGE_CLEANUP_REVIEW_APPROVED",
+  "decision": "APPROVED_OPTION_B_MODERATE",
+  "reviewer_1": "Tuan Le",
+  "reviewer_2": "To Dang Minh Tuan",
+  "review_date": "2026-09-08",
+  "approved_paths": [
+    "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\results\\healthy_baseline_reproducible",
+    "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\experiments\\gate_18_movement_verified_rollout"
+  ],
+  "approved_action": "EXTERNAL_ARCHIVE_VERIFY_SHA256_THEN_DELETE_LOCAL_APPROVED_SUBSET_ONLY",
   "scientific_contract_changed": false,
   "scientific_jobs_executed": 0,
   "scientific_batch_authorized": false,
   "holdout": "SEALED",
   "holdout_opened": false,
   "reconciliation_manifest": "experiments/gate_24e_storage_probe/manifests/storage_cleanup_reconciliation.json",
-  "human_decision_required": true
+  "human_decision_required": false
 }
