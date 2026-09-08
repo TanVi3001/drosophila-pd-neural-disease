@@ -1,0 +1,61 @@
+{
+  "schema_version": "gate24e-storage-attempt03-interruption-v1",
+  "attempt_id": "attempt_03",
+  "probe_seed": 9001,
+  "probe_condition": "TECHNICAL_HEALTHY_STORAGE_PROBE",
+  "platform_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "artifact_profile": "GATE24E_MEMORY_SAFE",
+  "status": "STORAGE_PROBE_ATTEMPT_03_TECHNICAL_FAILURE",
+  "failure_type": "TECHNICAL_INTERRUPTION",
+  "failure_stage": "DURING_SIMULATION",
+  "exception": "KeyboardInterrupt",
+  "simulation_started": true,
+  "gpu_simulation_started": true,
+  "requested_steps": 100000,
+  "observed_progress_markers": [
+    20000,
+    40000
+  ],
+  "last_confirmed_progress_steps": 40000,
+  "exact_executed_steps_known": false,
+  "exact_executed_steps": null,
+  "completion_marker_observed": false,
+  "simulation_completed": false,
+  "storage_measurements_valid": false,
+  "storage_qualification_valid": false,
+  "final_artifact_estimation_allowed": false,
+  "storage_failure_classification": "NOT_REACHED_DUE_TO_IN_SIMULATION_INTERRUPTION",
+  "attempt_03_consumed": true,
+  "attempt_03_retry_allowed": false,
+  "automatic_retry": false,
+  "attempt_04_authorized": false,
+  "scientific_jobs_executed": 0,
+  "scientific_results_generated": false,
+  "scientific_analysis_allowed": false,
+  "probe_included_in_scientific_analysis": false,
+  "holdout": "SEALED",
+  "holdout_opened": false,
+  "tuning_performed": false,
+  "posthoc_selection_performed": false,
+  "source_evidence_inventory": [
+    {
+      "path": "logs/storage_probe_attempt_03.log",
+      "size_bytes": 3185,
+      "sha256": "7a12053b0b81086f4b544c11c654f9b1cb21c05169a0448a305b5b309bda35a9",
+      "modified_at_utc": "2026-09-08T12:32:13.833192+00:00"
+    },
+    {
+      "path": "manifests/attempt_03_authorization.json",
+      "size_bytes": 2842,
+      "sha256": "294ec453cc4df032147553c2b7957d81fbec3f8d52351edf0de1bb4e955563dc",
+      "modified_at_utc": "2026-09-08T12:23:02.432295+00:00"
+    }
+  ],
+  "evidence_paths": {
+    "log": "experiments/gate_24e_storage_probe/attempt_03/logs/storage_probe_attempt_03.log",
+    "authorization": "experiments/gate_24e_storage_probe/attempt_03/manifests/attempt_03_authorization.json",
+    "holdout_firewall": "experiments/gate_24_prospective_validation/manifests/holdout_firewall_manifest.json"
+  },
+  "recorded_at_utc": "2026-09-08T13:24:38.669031+00:00",
+  "next_allowed_action": "HUMAN_REVIEW_GATE24E_TECHNICAL_INTERRUPTION"
+}

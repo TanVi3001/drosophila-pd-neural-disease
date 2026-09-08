@@ -1,5 +1,5 @@
 {
-  "schema_version": "gate24e-storage-qualification-v1",
+  "schema_version": "gate24e-storage-qualification-history-v3",
   "created_at_utc": "2026-09-08T03:00:45.471531+00:00",
   "started_at_utc": "2026-09-08T03:00:44.456979+00:00",
   "probe_seed": 9001,
@@ -33,14 +33,15 @@
       "bytes": 128
     }
   ],
-  "qualification_status": "STORAGE_PROBE_TECHNICAL_FAILURE",
+  "qualification_status": "GATE24E_STORAGE_NOT_QUALIFIED",
   "storage_measurements_valid": false,
-  "storage_measurement_status": "INVALID_FOR_STORAGE_CAPACITY_ESTIMATION_DUE_TO_PRE_SIMULATION_FAILURE",
+  "storage_measurement_status": "NO_VALID_COMPLETED_STORAGE_PROBE",
   "attempt_01": {
     "status": "STORAGE_PROBE_TECHNICAL_FAILURE",
-    "valid_for_storage_estimation": false
+    "valid_for_storage_estimation": false,
+    "failure_stage": "PRE_SIMULATION_CLI_ARGUMENT_PARSE"
   },
-  "current_qualification_status": "STORAGE_PROBE_RETRY_TECHNICAL_FAILURE",
+  "current_qualification_status": "GATE24E_STORAGE_NOT_QUALIFIED",
   "scientific_jobs_executed": 0,
   "scientific_results_generated": false,
   "holdout_opened": false,
@@ -52,6 +53,48 @@
     "simulation_started": true,
     "simulation_completed_steps": 100000,
     "valid_for_storage_estimation": false,
-    "manifest": "experiments/gate_24e_storage_probe/attempt_02/manifests/storage_qualification.json"
-  }
+    "manifest": "experiments/gate_24e_storage_probe/attempt_02/manifests/storage_qualification.json",
+    "failure_stage": "POST_SIMULATION_EXPORT_MEMORY_ERROR"
+  },
+  "current_qualification_reason": "NO_VALID_COMPLETED_STORAGE_PROBE",
+  "storage_qualification_valid": false,
+  "final_artifact_estimation_allowed": false,
+  "holdout": "SEALED",
+  "posthoc_selection_performed": false,
+  "attempt_03": {
+    "status": "STORAGE_PROBE_ATTEMPT_03_TECHNICAL_FAILURE",
+    "failure_type": "TECHNICAL_INTERRUPTION",
+    "failure_stage": "DURING_SIMULATION",
+    "simulation_started": true,
+    "simulation_completed": false,
+    "last_confirmed_progress_steps": 40000,
+    "exact_executed_steps_known": false,
+    "valid_for_storage_estimation": false,
+    "attempt_consumed": true,
+    "retry_allowed": false,
+    "manifest": "experiments/gate_24e_storage_probe/attempt_03/manifests/storage_qualification.json",
+    "manifest_sha256": "fb6170244e17211d3b5a46fbdb7b26002ea6b81e2cb1182c2a2b170e7cdea58b",
+    "inventory": [
+      {
+        "path": "logs/storage_probe_attempt_03.log",
+        "size_bytes": 3185,
+        "sha256": "7a12053b0b81086f4b544c11c654f9b1cb21c05169a0448a305b5b309bda35a9",
+        "modified_at_utc": "2026-09-08T12:32:13.833192+00:00"
+      },
+      {
+        "path": "manifests/attempt_03_authorization.json",
+        "size_bytes": 2842,
+        "sha256": "294ec453cc4df032147553c2b7957d81fbec3f8d52351edf0de1bb4e955563dc",
+        "modified_at_utc": "2026-09-08T12:23:02.432295+00:00"
+      },
+      {
+        "path": "manifests/storage_qualification.json",
+        "size_bytes": 2466,
+        "sha256": "fb6170244e17211d3b5a46fbdb7b26002ea6b81e2cb1182c2a2b170e7cdea58b",
+        "modified_at_utc": "2026-09-08T13:24:38.673113+00:00"
+      }
+    ]
+  },
+  "attempt_04_authorized": false,
+  "next_allowed_action": "HUMAN_REVIEW_GATE24E_TECHNICAL_INTERRUPTION"
 }

@@ -116,6 +116,7 @@ def _validate_approval_documents(
     allowed_audit_statuses = {
         "READY_FOR_ATTEMPT_03",
         "ATTEMPT_03_ARTIFACTS_PRESENT",
+        "ATTEMPT_03_TECHNICAL_FAILURE_RECORDED",
     }
     if amendment_audit.get("status") not in allowed_audit_statuses:
         raise Attempt03Error(f"Amendment audit mismatch: status={amendment_audit.get('status')!r}")

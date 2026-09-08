@@ -1,0 +1,88 @@
+{
+  "status": "READY_FOR_GATE24E_STORAGE_ATTEMPT_03",
+  "attempt_id": "attempt_03",
+  "attempt_root": "E:\\Drosophila_Parkinson\\main-public-docs\\experiments\\gate_24e_storage_probe\\attempt_03",
+  "platform_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "artifact_profile": "GATE24E_MEMORY_SAFE",
+  "seed": 9001,
+  "steps": 100000,
+  "duration_s": 10.0,
+  "device": "cuda",
+  "holdout": "SEALED",
+  "scientific_jobs_executed": 0,
+  "scientific_batch_authorized": false,
+  "scientific_seeds_excluded": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "platforms": {
+    "original": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-flygym-gate24-clean",
+      "commit": "3ceb8ce441e2eb40bc6c0b6b7be14c1c1aaecf06",
+      "clean": true
+    },
+    "amended": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-flygym-gate24-memorysafe-clean",
+      "commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "clean": true
+    }
+  },
+  "wrapper": {
+    "brain_python": "E:\\Drosophila_Parkinson\\drosophila-pd-flygym\\.venv\\Scripts\\python.exe",
+    "flygym_version": "2.1.0",
+    "environment_verified": true,
+    "downstream_command": [
+      "E:\\Drosophila_Parkinson\\drosophila-pd-flygym\\.venv\\Scripts\\python.exe",
+      "E:\\Drosophila_Parkinson\\drosophila-pd-flygym-gate24-memorysafe-clean\\scripts\\run_brain_body_rollout.py",
+      "--brain-root",
+      "E:\\Drosophila_Parkinson\\external\\fly-brain-audit",
+      "--condition",
+      "healthy",
+      "--seed",
+      "9001",
+      "--steps",
+      "100000",
+      "--device",
+      "cuda",
+      "--output",
+      "E:\\Drosophila_Parkinson\\main-public-docs\\experiments\\gate_24e_storage_probe\\attempt_03\\run",
+      "--stimulus",
+      "p9",
+      "--artifact-profile",
+      "GATE24E_MEMORY_SAFE"
+    ],
+    "cpg_frequency_hz": 12.0
+  },
+  "command": [
+    "E:\\Drosophila_Parkinson\\drosophila-pd-flygym\\.venv\\Scripts\\python.exe",
+    "E:\\Drosophila_Parkinson\\main-public-docs\\scripts\\run_neural_experiment.py",
+    "--brain-root",
+    "E:\\Drosophila_Parkinson\\external\\fly-brain-audit",
+    "--platform-root",
+    "E:\\Drosophila_Parkinson\\drosophila-pd-flygym-gate24-memorysafe-clean",
+    "--seed",
+    "9001",
+    "--steps",
+    "100000",
+    "--device",
+    "cuda",
+    "--artifact-profile",
+    "GATE24E_MEMORY_SAFE",
+    "--output",
+    "E:\\Drosophila_Parkinson\\main-public-docs\\experiments\\gate_24e_storage_probe\\attempt_03\\run"
+  ],
+  "executed": false,
+  "gpu_executed": false,
+  "simulation_executed": false,
+  "created_at_utc": "2026-09-08T12:22:58.692154+00:00",
+  "execution_authorized": true,
+  "cuda": {
+    "available": true,
+    "torch": "2.5.1+cu121",
+    "cuda": "12.1",
+    "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+  }
+}

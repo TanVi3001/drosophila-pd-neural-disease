@@ -1,0 +1,56 @@
+[BrainEngine] 138639 neurons on cuda
+[BrainEngine] DN neurons mapped: 18/18
+  'sugar': 21/21 neurons
+  'p9': 2/2 neurons
+  'lc4': 104/104 neurons
+  'jo': 209/209 neurons
+  'bitter': 42/42 neurons
+  'or56a': 39/39 neurons
+[BrainEngine] Loaded plastic weights from E:\Drosophila_Parkinson\external\fly-brain-audit\data\plastic_weights.pt
+[BrainEngine] Hebbian plasticity active: 15091983 synapses
+Running healthy: 100000 FlyGym steps, stimulus=p9, brain_device=cuda
+Progress: 20000/100000
+Progress: 40000/100000
+Traceback (most recent call last):
+  File "E:\Drosophila_Parkinson\drosophila-pd-flygym-gate24-memorysafe-clean\scripts\run_brain_body_rollout.py", line 566, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "E:\Drosophila_Parkinson\drosophila-pd-flygym-gate24-memorysafe-clean\scripts\run_brain_body_rollout.py", line 543, in main
+    summary = _run_simulation(
+              ^^^^^^^^^^^^^^^^
+  File "E:\Drosophila_Parkinson\drosophila-pd-flygym-gate24-memorysafe-clean\scripts\run_brain_body_rollout.py", line 320, in _run_simulation
+    controller_action = controller.step(
+                        ^^^^^^^^^^^^^^^^
+  File "E:\Drosophila_Parkinson\drosophila-pd-flygym\.venv\Lib\site-packages\flygym_demo\complex_terrain\turning_controller.py", line 36, in step
+    return super().step(obs)
+           ^^^^^^^^^^^^^^^^^
+  File "E:\Drosophila_Parkinson\drosophila-pd-flygym\.venv\Lib\site-packages\flygym_demo\complex_terrain\hybrid_controller.py", line 204, in step
+    joint_angles_by_dof[jointdof] = leg_angles[dof_idx]
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "<string>", line 3, in __hash__
+  File "C:\Users\Le Tan Vi\AppData\Local\Programs\Python\Python312\Lib\enum.py", line 1267, in __hash__
+    return hash(self._name_)
+           ^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "E:\Drosophila_Parkinson\main-public-docs\scripts\run_neural_experiment.py", line 551, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "E:\Drosophila_Parkinson\main-public-docs\scripts\run_neural_experiment.py", line 547, in main
+    return run_experiment(args)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "E:\Drosophila_Parkinson\main-public-docs\scripts\run_neural_experiment.py", line 457, in run_experiment
+    result = subprocess.run(
+             ^^^^^^^^^^^^^^^
+  File "C:\Users\Le Tan Vi\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Le Tan Vi\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1201, in communicate
+    self.wait()
+  File "C:\Users\Le Tan Vi\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Le Tan Vi\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1590, in _wait
+    result = _winapi.WaitForSingleObject(self._handle,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

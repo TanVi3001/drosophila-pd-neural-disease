@@ -87,13 +87,13 @@ def test_probe_and_scientific_execution_remain_closed() -> None:
     assert compatibility["holdout_opened"] is False
 
 
-def test_previous_failed_probe_is_preserved_and_invalid_for_storage() -> None:
+def test_storage_history_preserves_attempt01_and_has_no_valid_probe() -> None:
     qualification = json.loads(QUALIFICATION.read_text(encoding="utf-8"))
-    assert qualification["qualification_status"] == "STORAGE_PROBE_TECHNICAL_FAILURE"
+    assert qualification["qualification_status"] == "GATE24E_STORAGE_NOT_QUALIFIED"
     assert qualification["storage_measurements_valid"] is False
-    assert qualification["storage_measurement_status"] == (
-        "INVALID_FOR_STORAGE_CAPACITY_ESTIMATION_DUE_TO_PRE_SIMULATION_FAILURE"
-    )
+    assert qualification["storage_measurement_status"] == "NO_VALID_COMPLETED_STORAGE_PROBE"
+    assert qualification["attempt_01"]["status"] == "STORAGE_PROBE_TECHNICAL_FAILURE"
+    assert qualification["attempt_01"]["valid_for_storage_estimation"] is False
     assert qualification["probe_seed"] == 9001
 
 

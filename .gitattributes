@@ -1,2 +1,4 @@
 * text=auto eol=lf
 *.pdf binary
+experiments/gate_24e_storage_probe/attempt_03/logs/storage_probe_attempt_03.log -text whitespace=cr-at-eol
+experiments/gate_24e_storage_probe/attempt_03/manifests/*.json -text whitespace=cr-at-eol

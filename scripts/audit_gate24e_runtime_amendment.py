@@ -28,6 +28,7 @@ FIREWALL = ROOT / "experiments/gate_24_prospective_validation/manifests/holdout_
 EXECUTION = ROOT / "experiments/gate_24e_blinded_parkin_prediction/manifests/execution_manifest.json"
 ANALYZER = ROOT / "scripts/analyze_gate24e_blinded_prediction.py"
 ATTEMPT_03 = ROOT / "experiments/gate_24e_storage_probe/attempt_03"
+ATTEMPT_03_FAILURE_MANIFEST = ATTEMPT_03 / "manifests/storage_qualification.json"
 
 ORIGINAL_COMMIT = "3ceb8ce441e2eb40bc6c0b6b7be14c1c1aaecf06"
 AMENDED_COMMIT = "655e854544e3d814dfe422883ff0de66b619d6c1"
@@ -256,11 +257,64 @@ def _attempt03_has_files() -> bool:
     return ATTEMPT_03.is_dir() and any(path.is_file() for path in ATTEMPT_03.rglob("*"))
 
 
+def _attempt03_failure_recorded() -> bool:
+    if not ATTEMPT_03_FAILURE_MANIFEST.is_file():
+        return False
+    try:
+        document = _json(ATTEMPT_03_FAILURE_MANIFEST)
+    except (OSError, ValueError, json.JSONDecodeError):
+        return False
+    exact = {
+        "status": "STORAGE_PROBE_ATTEMPT_03_TECHNICAL_FAILURE",
+        "failure_type": "TECHNICAL_INTERRUPTION",
+        "failure_stage": "DURING_SIMULATION",
+        "exception": "KeyboardInterrupt",
+        "simulation_started": True,
+        "gpu_simulation_started": True,
+        "requested_steps": 100000,
+        "last_confirmed_progress_steps": 40000,
+        "exact_executed_steps_known": False,
+        "exact_executed_steps": None,
+        "simulation_completed": False,
+        "storage_measurements_valid": False,
+        "storage_qualification_valid": False,
+        "final_artifact_estimation_allowed": False,
+        "attempt_03_consumed": True,
+        "attempt_03_retry_allowed": False,
+        "automatic_retry": False,
+        "attempt_04_authorized": False,
+        "scientific_jobs_executed": 0,
+        "scientific_results_generated": False,
+        "scientific_analysis_allowed": False,
+        "holdout": "SEALED",
+        "holdout_opened": False,
+    }
+    if any(document.get(key) != expected for key, expected in exact.items()):
+        return False
+    inventory = document.get("source_evidence_inventory") or []
+    if len(inventory) != 2:
+        return False
+    for item in inventory:
+        relative = Path(str(item.get("path", "")))
+        path = (ATTEMPT_03 / relative).resolve()
+        try:
+            path.relative_to(ATTEMPT_03.resolve())
+        except ValueError:
+            return False
+        if (
+            not path.is_file()
+            or path.stat().st_size != item.get("size_bytes")
+            or _sha256(path) != item.get("sha256")
+        ):
+            return False
+    return True
+
+
 def _attempt03_review_blockers(review_state: str) -> list[str]:
     """Apply the attempt_03 guard after the human review state is known."""
     if review_state == "PENDING" and ATTEMPT_03.exists():
         return ["attempt_03 exists while runtime amendment review is pending"]
-    if review_state == "APPROVED" and _attempt03_has_files():
+    if review_state == "APPROVED" and _attempt03_has_files() and not _attempt03_failure_recorded():
         return ["attempt_03 already contains execution artifacts"]
     return []
 
@@ -439,6 +493,7 @@ def audit(runtime_root: Path | None = None) -> dict[str, Any]:
     review_state, review_blockers = _review_state(runtime_signoff, amendment_sha)
     blockers.extend(review_blockers)
     attempt03_has_files = _attempt03_has_files()
+    attempt03_failure_recorded = _attempt03_failure_recorded()
     blockers.extend(_attempt03_review_blockers(review_state))
     if amendment.get("attempt_03_authorized") is not False or amendment.get("scientific_batch_authorized") is not False:
         blockers.append("draft amendment improperly authorizes execution")
@@ -451,7 +506,9 @@ def audit(runtime_root: Path | None = None) -> dict[str, Any]:
     if _sha256(RUNTIME_SIGNOFF) == _sha256(ORIGINAL_SIGNOFF):
         blockers.append("original Gate24D signoff was silently reused as amendment approval")
 
-    if not scientific_change and review_state == "APPROVED" and attempt03_has_files:
+    if not scientific_change and review_state == "APPROVED" and attempt03_failure_recorded and not blockers:
+        status = "ATTEMPT_03_TECHNICAL_FAILURE_RECORDED"
+    elif not scientific_change and review_state == "APPROVED" and attempt03_has_files:
         status = "ATTEMPT_03_ARTIFACTS_PRESENT"
     elif scientific_change:
         status = "RUNTIME_AMENDMENT_SCIENTIFIC_CHANGE_DETECTED"
@@ -484,9 +541,16 @@ def audit(runtime_root: Path | None = None) -> dict[str, Any]:
         "scientific_jobs_executed": execution.get("executed_job_count"),
         "attempt_03_exists": ATTEMPT_03.exists(),
         "attempt_03_has_files": attempt03_has_files,
+        "attempt_03_failure_recorded": attempt03_failure_recorded,
         "runtime": runtime_evidence,
         "blockers": blockers,
-        "next_allowed_action": "HUMAN_REVIEW_GATE24E_RUNTIME_AMENDMENT" if status == "WAITING_GATE24E_RUNTIME_AMENDMENT_REVIEW" else "STOP_AND_REVIEW_AUDIT",
+        "next_allowed_action": (
+            "HUMAN_REVIEW_GATE24E_RUNTIME_AMENDMENT"
+            if status == "WAITING_GATE24E_RUNTIME_AMENDMENT_REVIEW"
+            else "HUMAN_REVIEW_GATE24E_TECHNICAL_INTERRUPTION"
+            if status == "ATTEMPT_03_TECHNICAL_FAILURE_RECORDED"
+            else "STOP_AND_REVIEW_AUDIT"
+        ),
         "gpu_executed_by_audit": False,
         "simulation_executed_by_audit": False,
     }
@@ -502,7 +566,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(json.dumps({"status": "RUNTIME_AMENDMENT_INVALID", "error": str(exc)}, indent=2))
         return 2
     print(json.dumps(result, indent=2))
-    return 0 if result["status"] in {"WAITING_GATE24E_RUNTIME_AMENDMENT_REVIEW", "READY_FOR_ATTEMPT_03"} else 2
+    return 0 if result["status"] in {
+        "WAITING_GATE24E_RUNTIME_AMENDMENT_REVIEW",
+        "READY_FOR_ATTEMPT_03",
+        "ATTEMPT_03_TECHNICAL_FAILURE_RECORDED",
+    } else 2
 
 
 if __name__ == "__main__":
