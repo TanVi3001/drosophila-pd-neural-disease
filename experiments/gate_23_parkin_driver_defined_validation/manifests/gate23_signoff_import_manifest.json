@@ -1,0 +1,15 @@
+{
+  "schema_version": "gate-23f-signoff-import-manifest-v1",
+  "gate": "gate_23_parkin_driver_defined_validation",
+  "status": "SIGNOFF_IMPORTED",
+  "signoff_sha256": "b5b6dcf80fd2f46d72a8219f829a99d397546237cae5dad25191ab8622bdd618",
+  "mapping_sha256_before": "baa41a9a154e031327bbb5a9330f6cc70661e52e7822cfb448cc492a15a1691e",
+  "mapping_sha256_after": "776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80",
+  "root_id_count_before": 330,
+  "root_id_count_after": 330,
+  "root_id_set_changed": false,
+  "source_sha256": "30be6c73975a70c56d930e27911f36455d3886e15abf383b78edd2a5d679e0b6",
+  "export_sha256": "4e381aa1e8d9f9e57e9961f8890e1132ad6b9d6a34e9e6c1e69c0effe21d68c8",
+  "simulation_run": false,
+  "data_fabricated": false
+}

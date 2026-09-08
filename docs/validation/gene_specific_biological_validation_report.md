@@ -34,8 +34,7 @@ The repository currently supports a class-level computational disease scaffold a
 No biological measurements were generated. No GPU simulation, calibration, tuning, or holdout opening was performed by this audit.
 
 ## Gate 23 driver-defined readiness
-- Status: `WAITING_SECOND_HUMAN_REVIEW`
+- Status: `GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED_READY`
 - Supported root IDs: `330`
 - Direct Parkin-expression-specific root-ID mapping: `NOT_ASSERTED`
 - Claim: the intervention is Parkin-specific; the connectome target is driver-defined rather than Parkin-expression-defined.
-- Gate 23 blocker: reviewer_2 and review_date are missing for the driver-defined mapping

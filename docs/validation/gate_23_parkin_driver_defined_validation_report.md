@@ -1,6 +1,6 @@
 # Gate 23 - Parkin evidence acquisition and driver-defined mapping
 
-**Status:** `WAITING_SECOND_HUMAN_REVIEW`
+**Status:** `GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED_READY`
 
 ## Evidence layers
 - Intervention: `INTERVENTION_GENE_SPECIFIC` when the exact Parkin UAS construct and TH-GAL4 experiment are locked.
@@ -17,12 +17,11 @@
 ## Claim boundary
 > The intervention is Parkin-specific; the connectome target is driver-defined rather than Parkin-expression-defined.
 The table is not a Parkin-expression-specific mapping; it is a driver-defined population candidate.
-Two-human signoff is still pending, so the mapping cannot authorize a gene-specific rollout.
+Two-human signoff is complete for the driver-defined scope.
 
 No gene-specific biological validation, clinical validation, or drug validation claim is allowed at this gate.
 
 ## Blockers
-- reviewer_2 and review_date are missing for the driver-defined mapping
 
 ## Execution boundary
 Execution boundary: no GPU, simulation, calibration or tuning was performed.

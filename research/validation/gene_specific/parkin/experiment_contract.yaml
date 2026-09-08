@@ -13,11 +13,14 @@ control:
   exact_control_locked: true
   genotype: UAS-mCD8-GFP; TH-GAL4
   control_scope: age-matched driver and reporter control without UAS-parkin-RNAi
-  evidence_source: article Methods, Figure 1 caption, Supporting Information Tables S1-S2
+  evidence_source: article Methods, Figure 1 caption, Supporting Information Tables
+    S1-S2
 subjects:
   locomotion_sex: male
   neural_count_sex: mixed_female_male
-  age_days_post_eclosion: [1, 45]
+  age_days_post_eclosion:
+  - 1
+  - 45
   temperature_c: 25
   light_dark_cycle: 12h:12h
   food_change_interval_days: 7
@@ -31,15 +34,15 @@ assays:
     unit: counts_per_fly_per_day
     source: article Methods and Figure 1
   secondary:
-    - name: fast-scan cyclic voltammetry
-      scope: stimulated dopamine release in central complex and mushroom body heel
-      unit: paper-reported dopamine concentration traces; no FlyGym speed conversion
-    - name: tyrosine hydroxylase immunohistochemistry
-      scope: TH-positive and GFP-positive dopaminergic neuron cluster counts
-      unit: neurons per counted hemisphere
-    - name: quantitative RT-PCR
-      scope: Parkin mRNA in a separate Act5C-GAL4 efficacy cross
-      unit: percent of control
+  - name: fast-scan cyclic voltammetry
+    scope: stimulated dopamine release in central complex and mushroom body heel
+    unit: paper-reported dopamine concentration traces; no FlyGym speed conversion
+  - name: tyrosine hydroxylase immunohistochemistry
+    scope: TH-positive and GFP-positive dopaminergic neuron cluster counts
+    unit: neurons per counted hemisphere
+  - name: quantitative RT-PCR
+    scope: Parkin mRNA in a separate Act5C-GAL4 efficacy cross
+    unit: percent of control
 sample_sizes:
   activity_monitor:
     control_day_1: 32
@@ -52,7 +55,8 @@ sample_sizes:
     unit_of_analysis: counted_brain_hemisphere
 statistics:
   activity: one-way ANOVA F(3,141)=94.06, p<0.0001; Sidak post-hoc; error bars SEM
-  reported_direction: young activity reduced approximately 30 percent; old activity reduced approximately 85 percent
+  reported_direction: young activity reduced approximately 30 percent; old activity
+    reduced approximately 85 percent
   exact_activity_values_available: false
 source:
   article_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC9897283/
@@ -63,7 +67,8 @@ source:
   supplementary_sha256: 247883595f0e575ff0268169828eeefa53d0c860637adcbb9a131bb5550c70dc3
 review:
   reviewer_1: Tuan Le
-  reviewer_2: ''
-  review_date: ''
-  decision: PENDING_SECOND_HUMAN_REVIEW
-  evidence_boundary: exact intervention and matched control are locked from the article package; no gene-expression-specific connectome claim is made
+  reviewer_2: To Dang Minh Tuan
+  review_date: '2026-09-08'
+  decision: APPROVED_GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED
+  evidence_boundary: Exact Parkin intervention and matched control are locked. The
+    connectome target is TH-GAL4/driver-defined and is not Parkin-expression-specific.

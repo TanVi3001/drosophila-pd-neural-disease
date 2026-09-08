@@ -1,0 +1,21 @@
+{
+  "study_id": "gate_23_parkin_driver_defined_validation",
+  "gene": "parkin",
+  "intervention": "UAS-parkin-HMS01800-RNAi",
+  "driver": "TH-GAL4",
+  "reviewer_1": "Tuan Le",
+  "reviewer_2": "To Dang Minh Tuan",
+  "review_date": "2026-09-08",
+  "decision": "APPROVED_GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED",
+  "mapping_level": "GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED",
+  "direct_gene_expression_mapping": false,
+  "allowed_claim": "Parkin-specific intervention with a reviewed TH-GAL4/driver-defined dopaminergic connectome target.",
+  "forbidden_claims": [
+    "Parkin-expression-specific root-ID mapping",
+    "gene-specific biological validation",
+    "biological Parkinson validation",
+    "clinical validation",
+    "drug validation"
+  ],
+  "human_notes": "Second-human review approves the driver-defined mapping scope only."
+}

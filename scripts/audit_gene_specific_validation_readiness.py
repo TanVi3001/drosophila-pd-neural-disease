@@ -46,6 +46,8 @@ GATE23_BIOLOGICAL = PARKIN / "biological_evidence_matrix.csv"
 GATE23_MOLECULAR = PARKIN / "molecular_evidence_review.csv"
 GATE23_RESCUE = PARKIN / "rescue_orthogonal_evidence.csv"
 GATE23_HOLDOUT = ROOT / "research/validation/biological/parkin_validation_sources.csv"
+GATE23_SIGNOFF = PARKIN / "driver_mapping_reviewer_signoff.json"
+GATE23_CONFIG = ROOT / "configs/validation/gate_23_parkin_driver_defined_validation.yaml"
 
 
 def _read_rows(path: Path) -> list[dict[str, str]]:
@@ -105,6 +107,7 @@ def _audit_gate23() -> dict[str, Any]:
     molecular_rows = _read_rows(GATE23_MOLECULAR)
     rescue_rows = _read_rows(GATE23_RESCUE)
     holdout_rows = _read_rows(GATE23_HOLDOUT)
+    signoff = _read_json(GATE23_SIGNOFF)
 
     intervention_gene_specific = (
         contract.get("status") == "EXPERIMENT_LOCKED"
@@ -136,6 +139,12 @@ def _audit_gate23() -> dict[str, Any]:
         _reviewer_ok(contract.get("review", {}).get("reviewer_1"))
         and _reviewer_ok(contract.get("review", {}).get("reviewer_2"))
         and _reviewer_ok(contract.get("review", {}).get("review_date"))
+        and signoff.get("decision") == "APPROVED_GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED"
+        and signoff.get("mapping_level") == "GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED"
+        and signoff.get("direct_gene_expression_mapping") is False
+        and _reviewer_ok(signoff.get("reviewer_1"))
+        and _reviewer_ok(signoff.get("reviewer_2"))
+        and _reviewer_ok(signoff.get("review_date"))
         and all(_reviewer_ok(row.get("reviewer_1")) and _reviewer_ok(row.get("reviewer_2")) for row in mapping_rows)
     )
     real_phenotype = any(row.get("evidence_family") == "behavior" for row in biological_rows)
@@ -220,7 +229,7 @@ def _audit_gate23() -> dict[str, Any]:
         status,
         "gate23_readiness.json",
         result,
-        [GATE23_CONTRACT, GATE23_MAPPING, GATE23_BIOLOGICAL, GATE23_MOLECULAR, GATE23_RESCUE, GATE23_HOLDOUT],
+        [GATE23_CONFIG, GATE23_CONTRACT, GATE23_SIGNOFF, GATE23_MAPPING, GATE23_BIOLOGICAL, GATE23_MOLECULAR, GATE23_RESCUE, GATE23_HOLDOUT],
     )
     _write_gate23_report(result)
     return result
@@ -355,7 +364,11 @@ def _write_gate23_report(result: dict[str, Any]) -> None:
         "## Claim boundary",
         f"> {result['claim_boundary']}",
         "The table is not a Parkin-expression-specific mapping; it is a driver-defined population candidate.",
-        "Two-human signoff is still pending, so the mapping cannot authorize a gene-specific rollout.",
+        (
+            "Two-human signoff is complete for the driver-defined scope."
+            if result["status"] == "GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED_READY"
+            else "Two-human signoff is still pending, so the mapping cannot authorize a gene-specific rollout."
+        ),
         "",
         "No gene-specific biological validation, clinical validation, or drug validation claim is allowed at this gate.",
         "",

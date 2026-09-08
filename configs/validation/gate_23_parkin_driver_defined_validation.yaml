@@ -8,7 +8,7 @@ experiment_contract: research/validation/gene_specific/parkin/experiment_contrac
 driver_mapping: research/validation/gene_specific/parkin/driver_to_connectome_mapping.csv
 biological_evidence: research/validation/gene_specific/parkin/biological_evidence_matrix.csv
 independent_holdout: research/validation/biological/parkin_validation_sources.csv
-promotion_status: WAITING_SECOND_HUMAN_REVIEW
+promotion_status: GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED_READY
 allowed_claim: Parkin-specific intervention with a driver-defined dopaminergic connectome target candidate.
 forbidden_claims:
   - Parkin-expression-specific root-ID mapping

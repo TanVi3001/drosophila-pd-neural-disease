@@ -1,18 +1,28 @@
 {
   "schema_version": "gate-22-validation-manifest-v1",
   "gate": "gate_23_parkin_driver_defined_validation",
-  "status": "WAITING_SECOND_HUMAN_REVIEW",
-  "git_commit": "f1f6f2aba34bf2df8404585a36c9af7ba33591ff",
+  "status": "GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED_READY",
+  "git_commit": "1d91cce1c54066868e583d27718fc55db6dca379",
   "inputs": [
     {
+      "path": "configs/validation/gate_23_parkin_driver_defined_validation.yaml",
+      "sha256": "b9989ec78786b2690f3429c90eeeae8ec687e07853c2930f57cdb3bdbd1edc05",
+      "size_bytes": 1135
+    },
+    {
       "path": "research/validation/gene_specific/parkin/experiment_contract.yaml",
-      "sha256": "4e7c3a50147cda45425ac83d2d867fe584c7152b063613e7ecb6734512f02a0e",
-      "size_bytes": 2860
+      "sha256": "c1e37c24c70a9b452623ebf21849b5a831b2895b5763b0157a34e09003718ed5",
+      "size_bytes": 2997
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/driver_mapping_reviewer_signoff.json",
+      "sha256": "b5b6dcf80fd2f46d72a8219f829a99d397546237cae5dad25191ab8622bdd618",
+      "size_bytes": 840
     },
     {
       "path": "research/validation/gene_specific/parkin/driver_to_connectome_mapping.csv",
-      "sha256": "17aba321b2a121fc7e820298ca276c35f4f543e76ecfd2353dc0e90e5eb692e9",
-      "size_bytes": 274549
+      "sha256": "776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80",
+      "size_bytes": 271862
     },
     {
       "path": "research/validation/gene_specific/parkin/biological_evidence_matrix.csv",
