@@ -1,0 +1,17 @@
+{
+  "schema_version": "gate24e-storage-cleanup-reviewer-signoff-v1",
+  "status": "WAITING_STORAGE_CLEANUP_REVIEW",
+  "decision": "PENDING_HUMAN_REVIEW",
+  "reviewer_1": "",
+  "reviewer_2": "",
+  "review_date": "",
+  "approved_paths": [],
+  "approved_action": "NONE",
+  "scientific_contract_changed": false,
+  "scientific_jobs_executed": 0,
+  "scientific_batch_authorized": false,
+  "holdout": "SEALED",
+  "holdout_opened": false,
+  "reconciliation_manifest": "experiments/gate_24e_storage_probe/manifests/storage_cleanup_reconciliation.json",
+  "human_decision_required": true
+}
