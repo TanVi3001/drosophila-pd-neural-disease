@@ -1,0 +1,57 @@
+schema_version: gate-24e-blinded-parkin-prediction-config-v1
+status: PRE_GPU_LOCK
+study_id: parkin_prospective_validation
+primary_gene: parkin
+intervention: UAS-parkin-HMS01800-RNAi
+driver: TH-GAL4
+mapping_level: GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED
+target_mapping: research/validation/gene_specific/parkin/driver_to_connectome_mapping.csv
+target_root_count: 330
+seed_list: [0, 1, 2, 3, 4]
+
+physics:
+  platform: FlyGym/MuJoCo
+  flygym_version: '2.1.0'
+  mujoco_version: '3.9.0'
+  timestep_s: 0.0001
+  steps: 100000
+  duration_s: 10.0
+  controller: HybridTurningController
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+  world: complex_terrain locomotion world
+  camera_mode: tracking
+  physics_shared_between_conditions: true
+
+metrics:
+  implementation: scripts/analyze_healthy_baseline.py
+  primary_virtual:
+    - median_planar_speed_mm_s
+    - distance_traveled_mm
+  secondary_virtual:
+    - displacement_mm
+    - path_efficiency
+    - contact_ratio
+    - joint_velocity
+    - orientation_stability
+  statistical_unit: seed
+  frame_is_replicate: false
+
+disease_transform:
+  implementation: src/drosophila_pd_neural/proxy_burden_operator.py
+  layer: ACTION_LEVEL_PROXY
+  neural_transform_ready: false
+  interpretation: Dimensionless computational sensitivity operator; not a measured Parkin knockdown percentage.
+  preregistered_burden_values: [0.0, 0.25, 0.5, 0.75, 1.0]
+  burden_is_percent_gene_knockdown: false
+  burden_is_percent_dopamine_loss: false
+
+execution_policy:
+  gpu: cuda
+  run_gpu: false
+  run_simulation: false
+  run_calibration: false
+  run_holdout_validation: false
+  run_tuning: false
+  holdout_opened: false
+  tuning_using_holdout: false

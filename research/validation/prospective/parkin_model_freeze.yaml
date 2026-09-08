@@ -1,0 +1,58 @@
+schema_version: gate-24b-parkin-model-freeze-v1
+status: MODEL_FREEZE_COMPLETE
+freeze_scope: All pre-GPU computational inputs are recorded; the external runtime must be clean-checked again before execution.
+
+model_commit: 2276220
+mapping_sha256: 776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80
+target_neurons_sha256: e36b0210ea6d2d2b7225f62feba73ae5c9e6535565c8b936558d0eaaf04a2085
+target_root_count: 330
+connectome_source_sha256: 30be6c73975a70c56d930e27911f36455d3886e15abf383b78edd2a5d679e0b6
+connectome_export_sha256: 4e381aa1e8d9f9e57e9961f8890e1132ad6b9d6a34e9e6c1e69c0effe21d68c8
+flywire_version: v783
+brain_model_version: 27cec28d5d202eb004683fb4c1a1033eec8deea0
+
+checkpoint:
+  path: ../external/fly-brain-audit/data/plastic_weights.pt
+  sha256: d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691
+  materialized: true
+  committed_to_repository: false
+  policy: Verify this external file immediately before GPU execution; never commit the binary checkpoint.
+
+runtime:
+  python: 3.12.10
+  flygym: '2.1.0'
+  mujoco: '3.9.0'
+  torch: 2.5.1+cu121
+  cuda_runtime: '12.1'
+  flygym_commit: 3ceb8ce
+  external_runtime_worktree_clean: false
+  clean_worktree_required_before_gpu: true
+
+config:
+  path: experiments/gate_24_prospective_validation/configs/gate24_execution_config.yaml
+  sha256: dc037ecac8f78aaff32bfbf780c1cbf27d1b60cc6854adecbdaf0c94ce4ebdd0
+
+controller: HybridTurningController
+world: complex_terrain locomotion world
+physics:
+  timestep_s: 0.0001
+  duration_s: 10.0
+  shared_between_healthy_and_parkin: true
+seed_list: [0, 1, 2, 3, 4]
+
+disease_transform:
+  path: src/drosophila_pd_neural/proxy_burden_operator.py
+  sha256: ed11fc254bf1c3f653a80c28088d97d4bf6a4283da0126fc8d98e8b43fc36354
+  scope: ACTION_LEVEL_PROXY_NOT_NEURAL
+  ready_for_parkin_neural_execution: false
+
+metric_implementation:
+  path: scripts/analyze_healthy_baseline.py
+  sha256: 1ae43f7a2dfeab8170a94e8d4e061d1a782463e4f361239f6c2c398e195a92fb
+
+freeze_policy:
+  calibration_data_reused: false
+  holdout_opened: false
+  tuning_using_holdout: false
+  no_post_hoc_seed_selection: true
+  no_post_hoc_threshold_selection: true

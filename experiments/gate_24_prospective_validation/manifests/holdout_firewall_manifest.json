@@ -1,0 +1,10 @@
+{
+  "schema_version": "gate-24-holdout-firewall-manifest-v1",
+  "status": "SEALED",
+  "source_sha256": "e0c14c4e0a8cd97616db0364157e583f6dfe3054bf0778a79081309fa090046b",
+  "contract_sha256": "8844e8713ee8d2a97d93c33409d810479080a12eec329a92481a4c3c79c2c33e",
+  "no_numeric_holdout_import": true,
+  "no_holdout_tuning": true,
+  "gpu_executed": false,
+  "simulation_executed": false
+}

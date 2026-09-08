@@ -1,21 +1,43 @@
-schema_version: gate-22-prospective-parkin-prediction-v1
-status: WAITING_GENE_SPECIFIC_MAPPING
-model_commit: 3fee5d68c205d557ef69ab13e5122bb4fae2f611
-mapping_sha256: NOT_LOCKED_GENE_SPECIFIC_MAPPING
-checkpoint_sha256: NOT_AVAILABLE
-config_sha256: NOT_LOCKED
-target_neurons_sha256: NOT_AVAILABLE_GENE_SPECIFIC
+schema_version: gate-24c-prospective-parkin-prediction-v2
+status: PROSPECTIVE_PREDICTION_DRAFTED
+model_commit: 2276220
+model_freeze_sha256: 8b67bbd935f98194a1d20a4f5c874db5fb337de3fa87a98d701326174fd12722
+mapping_sha256: 776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80
+checkpoint_sha256: d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691
+config_sha256: dc037ecac8f78aaff32bfbf780c1cbf27d1b60cc6854adecbdaf0c94ce4ebdd0
+target_neurons_sha256: fd9287c60cf74ec66d69205cf6b9810cf4204aa904e83f1dbc148b495e09f32d
 seed_list: [0, 1, 2, 3, 4]
-parameter: NOT_LOCKED
-primary_endpoint: mean_planar_speed_mm_s
-expected_direction: NOT_LOCKED_BEFORE_MAPPING_AND_ASSAY_REVIEW
-expected_effect_range: NOT_LOCKED
-success_threshold: NOT_LOCKED
-failure_threshold: NOT_LOCKED
-inconclusive_zone: NOT_LOCKED
-statistical_method: biological-replicate-level descriptive ratio and uncertainty; no post-hoc threshold
-date_locked: ''
-reviewer_1: ''
-reviewer_2: ''
+
+primary_validation_axis: LOCOMOTOR_IMPAIRMENT_DIRECTION
+expected_direction: VIRTUAL_PARKIN_IMPAIRED_RELATIVE_TO_VIRTUAL_CONTROL
+primary_success_rule: directional_concordance == true
+quantitative_cross_assay_threshold: NOT_APPLICABLE_ASSAY_MISMATCH
+
+parameter:
+  name: burden_level
+  values: [0.0, 0.25, 0.5, 0.75, 1.0]
+  interpretation: Dimensionless computational sensitivity value.
+  biological_percentage_mapping: NOT_ALLOWED
+  selection_policy: preregistered_sensitivity_grid; no value selected from holdout.
+
+virtual_metrics:
+  - median_planar_speed_mm_s
+  - distance_traveled_mm
+  - displacement_mm
+statistical_unit: seed
+frame_is_replicate: false
+statistical_method: Report per-seed values, mean, sample SD, SE and descriptive ratios; no post-hoc threshold or p-value claim.
+
+failure_policy:
+  disease_greater_or_equal_healthy: DIRECTIONAL_VALIDATION_NOT_SUPPORTED
+  strong_between_seed_variation: DIRECTIONAL_VALIDATION_INCONCLUSIVE
+  disease_less_than_healthy_consistently: VIRTUAL_DIRECTIONAL_PREDICTION_SUPPORTED
+  relabel_failed_prediction: FORBIDDEN
+
 holdout_opened: false
 calibration_data_reused: false
+tuning_using_holdout: false
+date_locked: 2026-09-08
+reviewer_1: ''
+reviewer_2: ''
+claim_boundary: Directional computational concordance across non-equivalent assays; not biological Parkinson validation.

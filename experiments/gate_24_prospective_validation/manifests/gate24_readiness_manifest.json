@@ -1,0 +1,31 @@
+{
+  "schema_version": "gate-24-prospective-validation-manifest-v1",
+  "status": "NOT_EXECUTED",
+  "inputs": {
+    "assay_compatibility": {
+      "path": "research/validation/prospective/parkin_assay_compatibility.yaml",
+      "sha256": "bd82104a7890ab8c85481dece85f3816904ae1cf3b3370797b9b66d0bb0c505a"
+    },
+    "model_freeze": {
+      "path": "research/validation/prospective/parkin_model_freeze.yaml",
+      "sha256": "8b67bbd935f98194a1d20a4f5c874db5fb337de3fa87a98d701326174fd12722"
+    },
+    "prediction_contract": {
+      "path": "research/validation/prospective/parkin_prediction_contract.yaml",
+      "sha256": "8844e8713ee8d2a97d93c33409d810479080a12eec329a92481a4c3c79c2c33e"
+    },
+    "reviewer_signoff": {
+      "path": "research/validation/prospective/parkin_prediction_reviewer_signoff.json",
+      "sha256": "df02c57621284e7424852251871e0de5873e53d611b79302822ac8c62d3a1f5e"
+    },
+    "mapping": {
+      "path": "research/validation/gene_specific/parkin/driver_to_connectome_mapping.csv",
+      "sha256": "776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80"
+    }
+  },
+  "holdout_opened": false,
+  "no_holdout_tuning": true,
+  "gpu_executed": false,
+  "simulation_executed": false,
+  "data_fabricated": false
+}

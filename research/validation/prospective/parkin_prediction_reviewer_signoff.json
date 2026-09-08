@@ -1,0 +1,17 @@
+{
+  "schema_version": "gate-24d-prospective-prediction-review-v1",
+  "status": "WAITING_PROSPECTIVE_PREDICTION_REVIEW",
+  "reviewer_1": "",
+  "reviewer_2": "",
+  "review_date": "",
+  "decision": "PENDING_HUMAN_SIGNOFF",
+  "model_freeze_sha256": "8b67bbd935f98194a1d20a4f5c874db5fb337de3fa87a98d701326174fd12722",
+  "mapping_sha256": "776274356c16eb458ef945e2a5153af4676bbddebef31cdb1b698f1d6aeaaf80",
+  "prediction_contract_sha256": "8844e8713ee8d2a97d93c33409d810479080a12eec329a92481a4c3c79c2c33e",
+  "holdout_opened": false,
+  "tuning_using_holdout": false,
+  "notes": "Gate24D requires two real human reviewers before any blind GPU execution. This file is a review form, not a signoff.",
+  "gpu_executed": false,
+  "simulation_executed": false,
+  "data_fabricated": false
+}

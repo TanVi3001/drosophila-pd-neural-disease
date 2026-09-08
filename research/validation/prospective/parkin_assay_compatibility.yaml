@@ -1,0 +1,48 @@
+schema_version: gate-24a-parkin-assay-compatibility-v1
+status: ASSAY_COMPATIBILITY_LOCKED_DIRECTION_ONLY
+study_id: parkin_prospective_validation
+
+real_training_context:
+  source: Dumitrescu et al. 2023
+  paper_id: dumitrescu_2023_parkin_rnai
+  assay: TriKinetics Drosophila Activity Monitor (DAM)
+  endpoint: mean daily infrared beam-break activity counts
+  unit: counts_per_fly_per_day
+  source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC9897283/
+  transfer_to_virtual:
+    status: NOT_QUANTITATIVELY_EQUIVALENT
+    reason: DAM beam-break counts measure activity events over time and are not planar walking speed or FlyGym distance.
+
+heldout_context:
+  source: Cackovic et al. 2018
+  paper_id: cackovic_2018_parkin_loss_of_function
+  assay: negative geotaxis with vertical infrared monitoring
+  endpoint: climbing position and climbing deficit
+  unit: climbing position / assay-defined climbing outcome
+  raw_data_available: false
+  transfer_to_virtual:
+    status: DIRECTIONAL_CROSS_ASSAY_ONLY
+    reason: Climbing impairment can be compared only by locomotor impairment direction; no conversion to planar speed or distance is permitted.
+
+virtual_assay:
+  model: FlyGym/MuJoCo brain-body locomotion runtime
+  metrics:
+    - median_planar_speed_mm_s
+    - distance_traveled_mm
+    - displacement_mm
+  metric_unit_policy: Virtual metrics retain their own units and are not numerically equated to DAM counts or climbing position.
+
+primary_validation_axis: LOCOMOTOR_IMPAIRMENT_DIRECTION
+
+quantitative_cross_assay_validation:
+  allowed: false
+  reason: The real and virtual assays are not endpoint-equivalent.
+
+within_virtual_quantitative_metrics:
+  allowed: true
+  metrics:
+    - median_planar_speed_mm_s
+    - distance_traveled_mm
+    - displacement_mm
+
+claim_boundary: Directional locomotor concordance across non-equivalent assays; not quantitative assay-equivalent validation.
