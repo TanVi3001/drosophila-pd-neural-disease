@@ -1,0 +1,15 @@
+{
+  "schema_version": "gate24e-scientific-batch-execution-v1",
+  "status": "NOT_EXECUTED",
+  "plan_sha256": "4515e1916631b019711154dccb5fb887110d5572e3eb82b7ea5118c643db5aac",
+  "planned_job_count": 25,
+  "executed_job_count": 0,
+  "completed_job_count": 0,
+  "failed_job_count": 0,
+  "gpu_jobs_executed": 0,
+  "simulation_jobs_executed": 0,
+  "scientific_batch_authorized": true,
+  "holdout": "SEALED",
+  "analysis_performed": false,
+  "scientific_interpretation_performed": false
+}
