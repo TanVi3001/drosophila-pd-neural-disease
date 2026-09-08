@@ -165,6 +165,11 @@ def _load_plan(path: Path) -> dict[str, Any]:
         raise AnalysisError("Holdout is not sealed in the Gate24E job plan.")
     if plan.get("tuning_using_holdout") is not False or plan.get("posthoc_parameter_selection_allowed") is not False:
         raise AnalysisError("Gate24E plan allows forbidden holdout tuning or post-hoc selection.")
+    seeds = sorted({int(job.get("seed")) for job in plan.get("jobs", [])})
+    if seeds != list(SEEDS):
+        raise AnalysisError("Scientific analyzer accepts only locked seeds 0 through 4.")
+    if any(int(job.get("seed")) == 9001 for job in plan.get("jobs", [])):
+        raise AnalysisError("Technical storage-probe seed 9001 is excluded from scientific analysis.")
     return plan
 
 

@@ -1,0 +1,21 @@
+{
+  "schema_version": "gate24e-storage-probe-contract-v1",
+  "purpose": "TECHNICAL_STORAGE_QUALIFICATION_ONLY",
+  "scientific_analysis_allowed": false,
+  "scientific_seed": false,
+  "probe_seed": 9001,
+  "locked_scientific_seeds": [0, 1, 2, 3, 4],
+  "condition": "healthy",
+  "condition_label": "TECHNICAL_HEALTHY_STORAGE_PROBE",
+  "steps": 100000,
+  "duration_s": 10.0,
+  "timestep_s": 0.0001,
+  "device": "cuda",
+  "video": false,
+  "prepared_parkin_checkpoint": null,
+  "holdout_access_allowed": false,
+  "parameter_selection_allowed": false,
+  "model_selection_allowed": false,
+  "threshold_selection_allowed": false,
+  "probe_output": "experiments/gate_24e_storage_probe/run"
+}

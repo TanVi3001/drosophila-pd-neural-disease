@@ -4,8 +4,10 @@ import json
 from pathlib import Path
 
 import numpy as np
+import pytest
 
 from scripts.analyze_gate24e_blinded_prediction import (
+    AnalysisError,
     PARAMETERS,
     SEEDS,
     analyze,
@@ -154,6 +156,14 @@ def test_exact_locked_seeds_and_parameters_are_reported(tmp_path: Path) -> None:
     summary = analyze(plan_path, tmp_path / "results")
     assert summary["seed_list"] == list(SEEDS)
     assert [row["parameter"] for row in summary["parameters"]] == list(PARAMETERS)
+
+
+def test_storage_probe_seed_9001_is_rejected_from_scientific_analysis(tmp_path: Path) -> None:
+    plan, plan_path = _plan(tmp_path)
+    plan["jobs"][0]["seed"] = 9001
+    plan_path.write_text(json.dumps(plan) + "\n", encoding="utf-8")
+    with pytest.raises(AnalysisError, match="locked seeds"):
+        analyze(plan_path, tmp_path / "results")
 
 
 def test_holdout_remains_sealed_and_biological_claim_is_forbidden(tmp_path: Path) -> None:
