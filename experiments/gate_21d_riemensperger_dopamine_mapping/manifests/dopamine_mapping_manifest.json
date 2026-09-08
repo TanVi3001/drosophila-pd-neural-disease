@@ -1,10 +1,10 @@
 {
   "schema_version": "riemensperger-2011-replication-manifest-v1",
-  "created_at_utc": "2026-09-07T16:02:53.593293+00:00",
-  "status": "WAITING_DOPAMINE_MAPPING_REVIEW",
-  "git_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "created_at_utc": "2026-09-08T00:40:44.575341+00:00",
+  "status": "READY_FOR_RIEMENSPERGER_DISEASE_REPLICATION",
+  "git_commit": "a5dbee9d08470f9390dd191906aab6ee674b84e7",
   "python_version": "3.12.10",
-  "extension_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "extension_commit": "a5dbee9d08470f9390dd191906aab6ee674b84e7",
   "config_inputs": [],
   "data_inputs": [
     {
@@ -14,8 +14,8 @@
     },
     {
       "path": "research/replications/riemensperger_2011/mapping/dopamine_mapping_spec.yaml",
-      "sha256": "c724495124d79f2447bddad52a48847ae35367d3758c3d637cc7e3c4bb4060f9",
-      "size_bytes": 1655
+      "sha256": "a416b22f642e4f4c65d2eee720fbe91cb7724808897446bb48f3a691de938dee",
+      "size_bytes": 1685
     },
     {
       "path": "research/replications/riemensperger_2011/mapping/dopamine_transform_hypothesis.yaml",
@@ -35,10 +35,7 @@
   ],
   "simulation_run": false,
   "data_fabricated": false,
-  "mapping_sha256": "c724495124d79f2447bddad52a48847ae35367d3758c3d637cc7e3c4bb4060f9",
+  "mapping_sha256": "a416b22f642e4f4c65d2eee720fbe91cb7724808897446bb48f3a691de938dee",
   "target_count": 342,
-  "blockers": [
-    "reviewer_2_human_signoff_missing",
-    "class_level_mapping_decision_not_approved"
-  ]
+  "blockers": []
 }
