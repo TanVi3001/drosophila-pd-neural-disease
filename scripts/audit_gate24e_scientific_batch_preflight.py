@@ -11,6 +11,8 @@ import shutil
 import subprocess
 from typing import Any
 
+import yaml
+
 try:
     from scripts.prepare_gate24e_scientific_batch_plan import (
         AUTHORIZATION_PATH,
@@ -20,6 +22,7 @@ try:
         HEALTHY_CHECKPOINT_SHA256,
         MODEL_COMMIT,
         MAPPING_SHA256,
+        NEURAL_TRANSFORM_SHA256,
         OUTPUT_ROOT,
         PLAN_PATH,
         PLATFORM_ROOT,
@@ -37,6 +40,7 @@ except ModuleNotFoundError:  # direct ``python scripts/<tool>.py`` invocation
         HEALTHY_CHECKPOINT_SHA256,
         MODEL_COMMIT,
         MAPPING_SHA256,
+        NEURAL_TRANSFORM_SHA256,
         OUTPUT_ROOT,
         PLAN_PATH,
         PLATFORM_ROOT,
@@ -54,6 +58,8 @@ ATTEMPT_04 = ROOT / "experiments/gate_24e_storage_probe/attempt_04"
 ATTEMPT_04_MANIFEST = ATTEMPT_04 / "manifests/storage_qualification.json"
 EXECUTION_MANIFEST = ROOT / "experiments/gate_24e_blinded_parkin_prediction/manifests/execution_manifest.json"
 HOLDOUT_MANIFEST = ROOT / "experiments/gate_24_prospective_validation/manifests/holdout_firewall_manifest.json"
+MODEL_FREEZE = ROOT / "research/validation/prospective/parkin_model_freeze.yaml"
+NEURAL_TRANSFORM = ROOT / "src/drosophila_pd_neural/parkin/transform.py"
 ATTEMPT_05 = ROOT / "experiments/gate_24e_storage_probe/attempt_05"
 REQUIRED_STORAGE_BYTES = 17_548_739_588
 TECHNICAL_SEED = 9001
@@ -169,6 +175,28 @@ def audit(*, live_free_bytes: int | None = None) -> dict[str, Any]:
             blockers.append("MAPPING_SHA256_MISMATCH")
         if root_sha != plan.get("target_roots_sha256"):
             blockers.append("TARGET_ROOTS_SHA256_MISMATCH")
+
+    if not MODEL_FREEZE.is_file():
+        blockers.append("MODEL_FREEZE_MISSING")
+        freeze: dict[str, Any] = {}
+    else:
+        loaded_freeze = yaml.safe_load(MODEL_FREEZE.read_text(encoding="utf-8"))
+        freeze = loaded_freeze if isinstance(loaded_freeze, dict) else {}
+    if freeze.get("status") != "MODEL_FREEZE_COMPLETE":
+        blockers.append("MODEL_FREEZE_NOT_COMPLETE")
+    if freeze.get("model_commit") != MODEL_COMMIT:
+        blockers.append("MODEL_COMMIT_MISMATCH")
+    if freeze.get("mapping_sha256") != MAPPING_SHA256:
+        blockers.append("MODEL_FREEZE_MAPPING_MISMATCH")
+    if freeze.get("target_neurons_sha256") != plan.get("target_roots_sha256"):
+        blockers.append("MODEL_FREEZE_TARGET_ROOTS_MISMATCH")
+    if freeze.get("target_root_count") != 330:
+        blockers.append("MODEL_FREEZE_TARGET_COUNT_MISMATCH")
+    transform = freeze.get("disease_transform") or {}
+    if transform.get("sha256") != NEURAL_TRANSFORM_SHA256:
+        blockers.append("MODEL_FREEZE_TRANSFORM_MISMATCH")
+    if not NEURAL_TRANSFORM.is_file() or _sha256(NEURAL_TRANSFORM) != NEURAL_TRANSFORM_SHA256:
+        blockers.append("NEURAL_TRANSFORM_SOURCE_MISMATCH")
 
     checkpoint_results: dict[str, bool] = {}
     for parameter, expected in {"healthy": HEALTHY_CHECKPOINT_SHA256, **DISEASE_CHECKPOINT_SHA256}.items():
