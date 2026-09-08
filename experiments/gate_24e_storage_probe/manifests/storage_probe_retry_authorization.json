@@ -1,0 +1,21 @@
+{
+  "schema_version": "gate24e-storage-probe-retry-authorization-v1",
+  "previous_attempt": "attempt_01",
+  "previous_probe_seed": 9001,
+  "previous_status": "STORAGE_PROBE_TECHNICAL_FAILURE",
+  "previous_failure_stage": "PRE_SIMULATION_CLI_ARGUMENT_PARSE",
+  "previous_result_scientifically_valid": false,
+  "previous_storage_measurements_valid": false,
+  "retry_reason": "Confirmed CLI compatibility defect fixed with semantic equivalence preserved.",
+  "compatibility_fix_commit": "8ee587f",
+  "retry_seed": 9001,
+  "retry_count_authorized": 1,
+  "automatic_retry": false,
+  "scientific_analysis_allowed": false,
+  "scientific_jobs_authorized": false,
+  "holdout_access_allowed": false,
+  "tuning_allowed": false,
+  "parameter_change_allowed": false,
+  "seed_change_allowed": false,
+  "steps_change_allowed": false
+}

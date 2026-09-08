@@ -1,0 +1,62 @@
+{
+  "schema_version": "gate24e-storage-qualification-v2",
+  "attempt_id": "attempt_02",
+  "created_at_utc": "2026-09-08T03:57:12.719928+00:00",
+  "started_at_utc": "2026-09-08T03:35:26.067836+00:00",
+  "probe_seed": 9001,
+  "probe_condition": "TECHNICAL_HEALTHY_STORAGE_PROBE",
+  "probe_status": "TECHNICAL_FAILURE",
+  "simulation_started": true,
+  "probe_errors": [
+    "return_code=1",
+    "failure_stage=POST_SIMULATION_EXPORT_MEMORY_ERROR"
+  ],
+  "return_code": 1,
+  "steps": 100000,
+  "simulation_completed_steps": 100000,
+  "duration_s": 10.0,
+  "compatibility_fix_commit": "8ee587f",
+  "gpu_preflight": {
+    "torch": "2.5.1+cu121",
+    "cuda": "12.1",
+    "available": true,
+    "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+  },
+  "free_space_before_bytes": 14021058560,
+  "minimum_free_space_during_run_bytes": 14019305472,
+  "free_space_after_bytes": 14019305472,
+  "final_probe_artifact_bytes": 941,
+  "peak_disk_consumption_bytes": 1753088,
+  "transient_overhead_bytes": 1752147,
+  "projected_final_25_jobs_bytes": 23525,
+  "projected_peak_requirement_bytes": 1775672,
+  "reserve_fraction": 0.2,
+  "reserve_bytes": 355135,
+  "required_space_bytes": 2130807,
+  "largest_files": [
+    {
+      "path": "status.json",
+      "bytes": 813
+    },
+    {
+      "path": "status.md",
+      "bytes": 128
+    }
+  ],
+  "qualification_status": "STORAGE_PROBE_RETRY_TECHNICAL_FAILURE",
+  "valid_for_storage_estimation": false,
+  "storage_measurements_valid": false,
+  "storage_measurement_status": "INVALID_FOR_STORAGE_CAPACITY_ESTIMATION_DUE_TO_POST_SIMULATION_EXPORT_FAILURE",
+  "scientific_jobs_executed": 0,
+  "scientific_results_generated": false,
+  "scientific_analysis_allowed": false,
+  "holdout_opened": false,
+  "tuning_performed": false,
+  "posthoc_selection_performed": false,
+  "attempt_01_included": false,
+  "automatic_retry": false,
+  "authorization": {
+    "retry_count_authorized": 1,
+    "retry_seed": 9001
+  }
+}

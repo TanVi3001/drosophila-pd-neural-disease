@@ -36,10 +36,22 @@
   "qualification_status": "STORAGE_PROBE_TECHNICAL_FAILURE",
   "storage_measurements_valid": false,
   "storage_measurement_status": "INVALID_FOR_STORAGE_CAPACITY_ESTIMATION_DUE_TO_PRE_SIMULATION_FAILURE",
+  "attempt_01": {
+    "status": "STORAGE_PROBE_TECHNICAL_FAILURE",
+    "valid_for_storage_estimation": false
+  },
+  "current_qualification_status": "STORAGE_PROBE_RETRY_TECHNICAL_FAILURE",
   "scientific_jobs_executed": 0,
   "scientific_results_generated": false,
   "holdout_opened": false,
   "tuning_performed": false,
   "probe_included_in_scientific_analysis": false,
-  "automatic_retry": false
+  "automatic_retry": false,
+  "attempt_02": {
+    "status": "STORAGE_PROBE_RETRY_TECHNICAL_FAILURE",
+    "simulation_started": true,
+    "simulation_completed_steps": 100000,
+    "valid_for_storage_estimation": false,
+    "manifest": "experiments/gate_24e_storage_probe/attempt_02/manifests/storage_qualification.json"
+  }
 }
