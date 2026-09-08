@@ -1,0 +1,23 @@
+schema_version: gate-23-parkin-driver-defined-validation-v1
+study_id: gate_23_parkin_driver_defined_validation
+primary_gene: parkin
+intervention_scope: GENE_SPECIFIC_INTERVENTION
+connectome_scope: DRIVER_DEFINED_CONNECTOME_MAPPING
+direct_expression_scope: GENE_EXPRESSION_DIRECT_MAPPING_NOT_ASSERTED
+experiment_contract: research/validation/gene_specific/parkin/experiment_contract.yaml
+driver_mapping: research/validation/gene_specific/parkin/driver_to_connectome_mapping.csv
+biological_evidence: research/validation/gene_specific/parkin/biological_evidence_matrix.csv
+independent_holdout: research/validation/biological/parkin_validation_sources.csv
+promotion_status: WAITING_SECOND_HUMAN_REVIEW
+allowed_claim: Parkin-specific intervention with a driver-defined dopaminergic connectome target candidate.
+forbidden_claims:
+  - Parkin-expression-specific root-ID mapping
+  - gene-specific biological validation
+  - clinical validation
+  - drug validation
+  - raw held-out numerical validation not present in the source package
+execution_policy:
+  gpu: false
+  simulation: false
+  calibration: false
+  tuning: false

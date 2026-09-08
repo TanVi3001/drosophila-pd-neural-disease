@@ -39,6 +39,13 @@ PROSPECTIVE = ROOT / "research/validation/prospective/parkin_prediction_contract
 TRACK_A = ROOT / "experiments/gate_21f_four_group_analysis/results/four_group_summary.json"
 BIO_IMPORT = ROOT / "experiments/gate_22g_real_biological_validation/results/biological_validation_import_summary.json"
 VIRTUAL = ROOT / "experiments/gate_22f_blinded_virtual_prediction/results/virtual_prediction_summary.json"
+GATE23_DIR = ROOT / "experiments/gate_23_parkin_driver_defined_validation"
+GATE23_CONTRACT = PARKIN / "experiment_contract.yaml"
+GATE23_MAPPING = PARKIN / "driver_to_connectome_mapping.csv"
+GATE23_BIOLOGICAL = PARKIN / "biological_evidence_matrix.csv"
+GATE23_MOLECULAR = PARKIN / "molecular_evidence_review.csv"
+GATE23_RESCUE = PARKIN / "rescue_orthogonal_evidence.csv"
+GATE23_HOLDOUT = ROOT / "research/validation/biological/parkin_validation_sources.csv"
 
 
 def _read_rows(path: Path) -> list[dict[str, str]]:
@@ -90,6 +97,135 @@ def _gate_artifact(gate: str, status: str, result_name: str, result: dict[str, A
     })
 
 
+def _audit_gate23() -> dict[str, Any]:
+    """Audit driver-defined Parkin evidence without requiring direct gene IDs."""
+    contract = _read_yaml(GATE23_CONTRACT)
+    mapping_rows = _read_rows(GATE23_MAPPING)
+    biological_rows = _read_rows(GATE23_BIOLOGICAL)
+    molecular_rows = _read_rows(GATE23_MOLECULAR)
+    rescue_rows = _read_rows(GATE23_RESCUE)
+    holdout_rows = _read_rows(GATE23_HOLDOUT)
+
+    intervention_gene_specific = (
+        contract.get("status") == "EXPERIMENT_LOCKED"
+        and contract.get("gene") == "parkin"
+        and bool(contract.get("intervention", {}).get("construct"))
+        and contract.get("intervention", {}).get("driver") == "TH-GAL4"
+    )
+    exact_control = (
+        contract.get("control", {}).get("exact_control_locked") is True
+        and bool(contract.get("control", {}).get("genotype"))
+    )
+    driver_mapping = bool(mapping_rows) and all(
+        row.get("root_id", "").isdigit()
+        and row.get("mapping_level") == "GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED"
+        and row.get("source_url")
+        and row.get("source_sha256")
+        and row.get("export_sha256")
+        for row in mapping_rows
+    )
+    direct_mapping = any(
+        row.get("mapping_level") == "GENE_EXPRESSION_DIRECT_MAPPING"
+        for row in mapping_rows
+    )
+    semantics_safe = bool(mapping_rows) and all(
+        "Parkin-expression-specific" in row.get("notes", "")
+        for row in mapping_rows
+    ) and not direct_mapping
+    two_human_review = (
+        _reviewer_ok(contract.get("review", {}).get("reviewer_1"))
+        and _reviewer_ok(contract.get("review", {}).get("reviewer_2"))
+        and _reviewer_ok(contract.get("review", {}).get("review_date"))
+        and all(_reviewer_ok(row.get("reviewer_1")) and _reviewer_ok(row.get("reviewer_2")) for row in mapping_rows)
+    )
+    real_phenotype = any(row.get("evidence_family") == "behavior" for row in biological_rows)
+    holdout_found = bool(holdout_rows) and all(
+        row.get("status") == "HELD_OUT_VALIDATION_SOURCE_FOUND"
+        and row.get("data_type") == "SUMMARY_LEVEL_VALIDATION_EVIDENCE"
+        and row.get("raw_data_available") == "false"
+        and row.get("not_used_for_tuning") == "true"
+        for row in holdout_rows
+    )
+
+    criteria = {
+        "intervention_gene_specific": intervention_gene_specific,
+        "exact_th_gal4_scope": intervention_gene_specific,
+        "matched_control_locked": exact_control,
+        "real_phenotype_evidence": real_phenotype,
+        "driver_defined_connectome_mapping": driver_mapping,
+        "root_ids_have_provenance": driver_mapping,
+        "two_human_review": two_human_review,
+        "gene_expression_direct_mapping": direct_mapping,
+        "mapping_semantics_safe": semantics_safe,
+        "independent_holdout_source": holdout_found,
+    }
+    blockers: list[str] = []
+    if not exact_control:
+        blockers.append("exact matched control genotype is not locked")
+    if not driver_mapping:
+        blockers.append("driver-defined mapping lacks complete root-ID provenance")
+    if not two_human_review:
+        blockers.append("reviewer_2 and review_date are missing for the driver-defined mapping")
+    if not holdout_found:
+        blockers.append("independent Parkin validation source is not locked")
+    if direct_mapping:
+        blockers.append("direct Parkin-expression mapping was asserted; remove it")
+
+    core_ready = all(
+        criteria[key]
+        for key in (
+            "intervention_gene_specific",
+            "exact_th_gal4_scope",
+            "matched_control_locked",
+            "real_phenotype_evidence",
+            "driver_defined_connectome_mapping",
+            "root_ids_have_provenance",
+            "mapping_semantics_safe",
+            "independent_holdout_source",
+        )
+    )
+    if core_ready and two_human_review:
+        status = "GENE_SPECIFIC_INTERVENTION_DRIVER_DEFINED_READY"
+    elif core_ready:
+        status = "WAITING_SECOND_HUMAN_REVIEW"
+    elif not exact_control:
+        status = "WAITING_MATCHED_CONTROL_EVIDENCE"
+    else:
+        status = "WAITING_DRIVER_DEFINED_MAPPING"
+
+    result = {
+        "schema_version": "gate-23-parkin-driver-defined-readiness-v1",
+        "status": status,
+        "intervention_status": "INTERVENTION_GENE_SPECIFIC" if intervention_gene_specific else "INCOMPLETE",
+        "connectome_mapping_status": "DRIVER_DEFINED_CONNECTOME_MAPPING" if driver_mapping else "WAITING_DRIVER_DEFINED_MAPPING",
+        "direct_gene_expression_mapping_status": "GENE_EXPRESSION_DIRECT_MAPPING_NOT_ASSERTED" if not direct_mapping else "INVALID_ASSERTION",
+        "supported_root_id_count": len(mapping_rows) if driver_mapping else 0,
+        "biological_evidence_rows": len(biological_rows),
+        "molecular_evidence_rows": len(molecular_rows),
+        "rescue_evidence_rows": len(rescue_rows),
+        "independent_holdout_sources": len(holdout_rows),
+        "criteria": criteria,
+        "blockers": blockers,
+        "claim_boundary": "The intervention is Parkin-specific; the connectome target is driver-defined rather than Parkin-expression-defined.",
+        "gene_specific_validation_claim": "NOT_ALLOWED",
+        "biological_parkinson_validation_claim": "NOT_ALLOWED",
+        "gpu_executed": False,
+        "simulation_executed": False,
+        "calibration_executed": False,
+        "tuning_executed": False,
+        "data_fabricated": False,
+    }
+    _gate_artifact(
+        "gate_23_parkin_driver_defined_validation",
+        status,
+        "gate23_readiness.json",
+        result,
+        [GATE23_CONTRACT, GATE23_MAPPING, GATE23_BIOLOGICAL, GATE23_MOLECULAR, GATE23_RESCUE, GATE23_HOLDOUT],
+    )
+    _write_gate23_report(result)
+    return result
+
+
 def audit() -> dict[str, Any]:
     target = _read_yaml(TARGET)
     intervention = _read_yaml(INTERVENTION)
@@ -102,6 +238,7 @@ def audit() -> dict[str, Any]:
     rescue_rows = _read_rows(RESCUE)
     biological = _read_json(BIO_IMPORT)
     virtual = _read_json(VIRTUAL)
+    gate23 = _audit_gate23()
 
     evidence_status = "GENE_SPECIFIC_EVIDENCE_INCOMPLETE"
     if intervention.get("status") == "GENE_SPECIFIC_EVIDENCE_LOCKED" and phenotype_rows:
@@ -169,6 +306,7 @@ def audit() -> dict[str, Any]:
         "data_fabricated": False,
         "biological_data_created": False,
         "simulation_run": False,
+        "gate_23": gate23,
     }
 
     common_inputs = [TARGET, CONFIG, INTERVENTION, PHENOTYPE, MAPPING, SIGNOFF, BIO_CONTRACT, PROSPECTIVE]
@@ -194,6 +332,43 @@ def audit() -> dict[str, Any]:
     write_json(ROOT / "experiments/gate_22_validation_ladder_status.json", result)
     _write_report(result)
     return result
+
+
+def _write_gate23_report(result: dict[str, Any]) -> None:
+    lines = [
+        "# Gate 23 - Parkin evidence acquisition and driver-defined mapping",
+        "",
+        f"**Status:** `{result['status']}`",
+        "",
+        "## Evidence layers",
+        "- Intervention: `INTERVENTION_GENE_SPECIFIC` when the exact Parkin UAS construct and TH-GAL4 experiment are locked.",
+        "- Connectome: `DRIVER_DEFINED_CONNECTOME_MAPPING` when real root IDs have public-source provenance.",
+        "- Direct gene expression mapping: explicitly not asserted.",
+        "",
+        "## Counts",
+        f"- Supported root IDs: `{result['supported_root_id_count']}`",
+        f"- Biological evidence rows: `{result['biological_evidence_rows']}`",
+        f"- Molecular evidence rows: `{result['molecular_evidence_rows']}`",
+        f"- Rescue/orthogonal evidence rows: `{result['rescue_evidence_rows']}`",
+        f"- Independent holdout sources: `{result['independent_holdout_sources']}`",
+        "",
+        "## Claim boundary",
+        f"> {result['claim_boundary']}",
+        "The table is not a Parkin-expression-specific mapping; it is a driver-defined population candidate.",
+        "Two-human signoff is still pending, so the mapping cannot authorize a gene-specific rollout.",
+        "",
+        "No gene-specific biological validation, clinical validation, or drug validation claim is allowed at this gate.",
+        "",
+        "## Blockers",
+        *[f"- {item}" for item in result["blockers"]],
+        "",
+        "## Execution boundary",
+        "Execution boundary: no GPU, simulation, calibration or tuning was performed.",
+        "No biological data were created and no raw values were digitized from plots.",
+    ]
+    path = ROOT / "docs/validation/gate_23_parkin_driver_defined_validation_report.md"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def _write_report(result: dict[str, Any]) -> None:
@@ -226,6 +401,17 @@ def _write_report(result: dict[str, Any]) -> None:
         "",
         "No biological measurements were generated. No GPU simulation, calibration, tuning, or holdout opening was performed by this audit.",
     ]
+    gate23 = result.get("gate_23")
+    if gate23:
+        lines.extend([
+            "",
+            "## Gate 23 driver-defined readiness",
+            f"- Status: `{gate23['status']}`",
+            f"- Supported root IDs: `{gate23['supported_root_id_count']}`",
+            "- Direct Parkin-expression-specific root-ID mapping: `NOT_ASSERTED`",
+            "- Claim: the intervention is Parkin-specific; the connectome target is driver-defined rather than Parkin-expression-defined.",
+            *[f"- Gate 23 blocker: {item}" for item in gate23["blockers"]],
+        ])
     path = ROOT / "docs/validation/gene_specific_biological_validation_report.md"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -234,8 +420,11 @@ def _write_report(result: dict[str, Any]) -> None:
 def main() -> int:
     result = audit()
     print(f"Status: {result['status']}")
+    print(f"Gate23 status: {result['gate_23']['status']}")
     for blocker in result["blockers"]:
         print(f"Blocker: {blocker}")
+    for blocker in result["gate_23"]["blockers"]:
+        print(f"Gate23 blocker: {blocker}")
     return 0
 
 

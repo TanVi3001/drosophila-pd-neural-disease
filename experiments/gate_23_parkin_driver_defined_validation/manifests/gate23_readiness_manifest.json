@@ -1,0 +1,41 @@
+{
+  "schema_version": "gate-22-validation-manifest-v1",
+  "gate": "gate_23_parkin_driver_defined_validation",
+  "status": "WAITING_SECOND_HUMAN_REVIEW",
+  "git_commit": "f1f6f2aba34bf2df8404585a36c9af7ba33591ff",
+  "inputs": [
+    {
+      "path": "research/validation/gene_specific/parkin/experiment_contract.yaml",
+      "sha256": "4e7c3a50147cda45425ac83d2d867fe584c7152b063613e7ecb6734512f02a0e",
+      "size_bytes": 2860
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/driver_to_connectome_mapping.csv",
+      "sha256": "17aba321b2a121fc7e820298ca276c35f4f543e76ecfd2353dc0e90e5eb692e9",
+      "size_bytes": 274549
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/biological_evidence_matrix.csv",
+      "sha256": "59433748988d092412cd09485f41eb7d94c9c8420255e660f4e91335b5eb5550",
+      "size_bytes": 3528
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/molecular_evidence_review.csv",
+      "sha256": "6fc40feae7110aa83f7678721370a09fce2e0bbdab1a260fcfe327cb48e095be",
+      "size_bytes": 990
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/rescue_orthogonal_evidence.csv",
+      "sha256": "c03be424973eee7e3229125013ae824bc450ab88091f3bee0ac8e0290f668da0",
+      "size_bytes": 305
+    },
+    {
+      "path": "research/validation/biological/parkin_validation_sources.csv",
+      "sha256": "e0c14c4e0a8cd97616db0364157e583f6dfe3054bf0778a79081309fa090046b",
+      "size_bytes": 1090
+    }
+  ],
+  "simulation_run": false,
+  "biological_data_created": false,
+  "data_fabricated": false
+}

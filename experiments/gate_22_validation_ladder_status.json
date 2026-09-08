@@ -69,5 +69,40 @@
   ],
   "data_fabricated": false,
   "biological_data_created": false,
-  "simulation_run": false
+  "simulation_run": false,
+  "gate_23": {
+    "schema_version": "gate-23-parkin-driver-defined-readiness-v1",
+    "status": "WAITING_SECOND_HUMAN_REVIEW",
+    "intervention_status": "INTERVENTION_GENE_SPECIFIC",
+    "connectome_mapping_status": "DRIVER_DEFINED_CONNECTOME_MAPPING",
+    "direct_gene_expression_mapping_status": "GENE_EXPRESSION_DIRECT_MAPPING_NOT_ASSERTED",
+    "supported_root_id_count": 330,
+    "biological_evidence_rows": 7,
+    "molecular_evidence_rows": 3,
+    "rescue_evidence_rows": 1,
+    "independent_holdout_sources": 1,
+    "criteria": {
+      "intervention_gene_specific": true,
+      "exact_th_gal4_scope": true,
+      "matched_control_locked": true,
+      "real_phenotype_evidence": true,
+      "driver_defined_connectome_mapping": true,
+      "root_ids_have_provenance": true,
+      "two_human_review": false,
+      "gene_expression_direct_mapping": false,
+      "mapping_semantics_safe": true,
+      "independent_holdout_source": true
+    },
+    "blockers": [
+      "reviewer_2 and review_date are missing for the driver-defined mapping"
+    ],
+    "claim_boundary": "The intervention is Parkin-specific; the connectome target is driver-defined rather than Parkin-expression-defined.",
+    "gene_specific_validation_claim": "NOT_ALLOWED",
+    "biological_parkinson_validation_claim": "NOT_ALLOWED",
+    "gpu_executed": false,
+    "simulation_executed": false,
+    "calibration_executed": false,
+    "tuning_executed": false,
+    "data_fabricated": false
+  }
 }

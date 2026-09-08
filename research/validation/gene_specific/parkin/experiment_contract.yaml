@@ -1,0 +1,69 @@
+schema_version: gate-23a-parkin-experiment-contract-v1
+status: EXPERIMENT_LOCKED
+study_id: dumitrescu_2023_parkin_rnai
+gene: parkin
+species: Drosophila melanogaster
+intervention:
+  construct: UAS-parkin-HMS01800-RNAi
+  stock_number: BDSC_38333
+  driver: TH-GAL4
+  experimental_genotype: UAS-mCD8-GFP; TH-GAL4/UAS-parkin-RNAi
+  intervention_scope: Parkin knockdown in TH-positive dopaminergic neurons
+control:
+  exact_control_locked: true
+  genotype: UAS-mCD8-GFP; TH-GAL4
+  control_scope: age-matched driver and reporter control without UAS-parkin-RNAi
+  evidence_source: article Methods, Figure 1 caption, Supporting Information Tables S1-S2
+subjects:
+  locomotion_sex: male
+  neural_count_sex: mixed_female_male
+  age_days_post_eclosion: [1, 45]
+  temperature_c: 25
+  light_dark_cycle: 12h:12h
+  food_change_interval_days: 7
+assays:
+  primary:
+    name: Drosophila Activity Monitor
+    instrument: TriKinetics DAM
+    measurement: infrared beam-break counts
+    duration_days: 7
+    primary_endpoint: mean_daily_counts_per_fly
+    unit: counts_per_fly_per_day
+    source: article Methods and Figure 1
+  secondary:
+    - name: fast-scan cyclic voltammetry
+      scope: stimulated dopamine release in central complex and mushroom body heel
+      unit: paper-reported dopamine concentration traces; no FlyGym speed conversion
+    - name: tyrosine hydroxylase immunohistochemistry
+      scope: TH-positive and GFP-positive dopaminergic neuron cluster counts
+      unit: neurons per counted hemisphere
+    - name: quantitative RT-PCR
+      scope: Parkin mRNA in a separate Act5C-GAL4 efficacy cross
+      unit: percent of control
+sample_sizes:
+  activity_monitor:
+    control_day_1: 32
+    control_day_45: 32
+    parkin_rnai_day_1: 29
+    parkin_rnai_day_45: 52
+  total_activity_flies: 145
+  neuron_counts:
+    source: Supporting Information Tables S1-S2
+    unit_of_analysis: counted_brain_hemisphere
+statistics:
+  activity: one-way ANOVA F(3,141)=94.06, p<0.0001; Sidak post-hoc; error bars SEM
+  reported_direction: young activity reduced approximately 30 percent; old activity reduced approximately 85 percent
+  exact_activity_values_available: false
+source:
+  article_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC9897283/
+  doi: 10.1021/acschemneuro.2c00277
+  pmid: 36576890
+  supplementary_url: https://acs.figshare.com/ndownloader/files/348697
+  local_supplement_path_external: E:/Drosophila_Parkinson/drosophila-pd-neural-disease/temporary/paper_pdf/curated_sources/dimitrescu_2023_parkin_rnai_supplement.pdf
+  supplementary_sha256: 247883595f0e575ff0268169828eeefa53d0c860637adcbb9a131bb5550c70dc3
+review:
+  reviewer_1: Tuan Le
+  reviewer_2: ''
+  review_date: ''
+  decision: PENDING_SECOND_HUMAN_REVIEW
+  evidence_boundary: exact intervention and matched control are locked from the article package; no gene-expression-specific connectome claim is made
