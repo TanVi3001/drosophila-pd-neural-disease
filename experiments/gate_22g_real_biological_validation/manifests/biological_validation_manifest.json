@@ -1,0 +1,20 @@
+{
+  "schema_version": "gate-22-validation-manifest-v1",
+  "gate": "gate_22g_real_biological_validation",
+  "status": "WAITING_BIOLOGICAL_VALIDATION_DATA",
+  "git_commit": "3fee5d68c205d557ef69ab13e5122bb4fae2f611",
+  "inputs": [
+    {
+      "path": "research/validation/biological/parkin_biological_data_contract.yaml",
+      "sha256": "ad8b8bd483797e7c9e3740d9a76fcbbe476d785ee9b591d38277f1d235f1dbe1",
+      "size_bytes": 859
+    },
+    {
+      "path": "experiments/gate_22g_real_biological_validation/results/biological_validation_import_summary.json",
+      "status": "MISSING"
+    }
+  ],
+  "simulation_run": false,
+  "biological_data_created": false,
+  "data_fabricated": false
+}

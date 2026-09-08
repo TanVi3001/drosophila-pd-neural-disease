@@ -1,0 +1,22 @@
+{
+  "schema_version": "gate-22-parkin-source-manifest-v1",
+  "status": "GENE_SPECIFIC_EVIDENCE_INCOMPLETE",
+  "primary_gene": "parkin",
+  "sources": [
+    {
+      "source_id": "dumitrescu_2023_parkin_rnai",
+      "doi": "10.1021/acschemneuro.2c00277",
+      "pmid": "36576890",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9897283/",
+      "local_registry": "datasets/literature_phenotypes/paper_registry.csv",
+      "local_review": "research/paper_review/paper_analysis_vi.csv",
+      "source_type": "PUBLISHED_INDEPENDENT",
+      "review_status": "PRIMARY_SOURCE_REVIEWED_NOT_GENE_SPECIFIC_LOCKED"
+    }
+  ],
+  "directly_supported_root_ids": 0,
+  "directly_supported_edge_ids": 0,
+  "gene_specific_mapping": false,
+  "biological_data_created": false,
+  "notes": "Existing source supports a Parkin RNAi biological context and native DAM phenotype only; it does not establish a reviewed gene-to-FlyWire mapping."
+}

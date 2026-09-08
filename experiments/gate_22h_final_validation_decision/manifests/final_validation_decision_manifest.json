@@ -1,0 +1,51 @@
+{
+  "schema_version": "gate-22-validation-manifest-v1",
+  "gate": "gate_22h_final_validation_decision",
+  "status": "GENE_SPECIFIC_VALIDATION_NOT_SUPPORTED",
+  "git_commit": "3fee5d68c205d557ef69ab13e5122bb4fae2f611",
+  "inputs": [
+    {
+      "path": "research/validation/claim_policy/validation_target.yaml",
+      "sha256": "3c1d3ae7416ee8ea02b890a82669f4e6965a3613e95ce80cccd44d5edbdd778b",
+      "size_bytes": 2392
+    },
+    {
+      "path": "configs/validation/gate_22_validation_ladder.yaml",
+      "sha256": "c13495454de6cf460e18e4b0b58844c00017be2aedb0a2d5b229e0ffc3ee55cf",
+      "size_bytes": 848
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/intervention_evidence.yaml",
+      "sha256": "31e25077c205fbcd6a234d0d44337c4975f58cfce7f53c6352ea8c9dbd0140c8",
+      "size_bytes": 1060
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/phenotype_evidence.csv",
+      "sha256": "2898018c089ad4884af0815bb024af40da5d3df83aa4b9e2d1f730b8f39ff0ae",
+      "size_bytes": 1105
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/mapping_spec.yaml",
+      "sha256": "b707bd61210a3b1064931e84405eded6384f12003817bb36d012fe3d0cac1975",
+      "size_bytes": 803
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/reviewer_signoff.json",
+      "sha256": "57f981f549cc656f502aeb06ec77a4314ffaae155dafc2cdc359fcf36774dfd9",
+      "size_bytes": 416
+    },
+    {
+      "path": "research/validation/biological/parkin_biological_data_contract.yaml",
+      "sha256": "ad8b8bd483797e7c9e3740d9a76fcbbe476d785ee9b591d38277f1d235f1dbe1",
+      "size_bytes": 859
+    },
+    {
+      "path": "research/validation/prospective/parkin_prediction_contract.yaml",
+      "sha256": "8b3b61d686dde071f9a5717a04e38574b8666fbd81285314f653958670b21e15",
+      "size_bytes": 789
+    }
+  ],
+  "simulation_run": false,
+  "biological_data_created": false,
+  "data_fabricated": false
+}

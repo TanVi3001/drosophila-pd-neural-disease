@@ -1,0 +1,21 @@
+schema_version: gate-22-prospective-parkin-prediction-v1
+status: WAITING_GENE_SPECIFIC_MAPPING
+model_commit: 3fee5d68c205d557ef69ab13e5122bb4fae2f611
+mapping_sha256: NOT_LOCKED_GENE_SPECIFIC_MAPPING
+checkpoint_sha256: NOT_AVAILABLE
+config_sha256: NOT_LOCKED
+target_neurons_sha256: NOT_AVAILABLE_GENE_SPECIFIC
+seed_list: [0, 1, 2, 3, 4]
+parameter: NOT_LOCKED
+primary_endpoint: mean_planar_speed_mm_s
+expected_direction: NOT_LOCKED_BEFORE_MAPPING_AND_ASSAY_REVIEW
+expected_effect_range: NOT_LOCKED
+success_threshold: NOT_LOCKED
+failure_threshold: NOT_LOCKED
+inconclusive_zone: NOT_LOCKED
+statistical_method: biological-replicate-level descriptive ratio and uncertainty; no post-hoc threshold
+date_locked: ''
+reviewer_1: ''
+reviewer_2: ''
+holdout_opened: false
+calibration_data_reused: false

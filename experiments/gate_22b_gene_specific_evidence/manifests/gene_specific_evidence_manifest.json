@@ -1,0 +1,31 @@
+{
+  "schema_version": "gate-22-validation-manifest-v1",
+  "gate": "gate_22b_gene_specific_evidence",
+  "status": "GENE_SPECIFIC_EVIDENCE_INCOMPLETE",
+  "git_commit": "3fee5d68c205d557ef69ab13e5122bb4fae2f611",
+  "inputs": [
+    {
+      "path": "research/validation/gene_specific/parkin/intervention_evidence.yaml",
+      "sha256": "31e25077c205fbcd6a234d0d44337c4975f58cfce7f53c6352ea8c9dbd0140c8",
+      "size_bytes": 1060
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/phenotype_evidence.csv",
+      "sha256": "2898018c089ad4884af0815bb024af40da5d3df83aa4b9e2d1f730b8f39ff0ae",
+      "size_bytes": 1105
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/molecular_evidence.csv",
+      "sha256": "974bdcac2723fb95c5ba4ec926d6bfb6bf206ba1d51c6aa62d6b3de28bdb7555",
+      "size_bytes": 478
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/rescue_evidence.csv",
+      "sha256": "f5b75a05320a6a89037e21f3c3ce4d0052c628fa36a592c0403c2cb18d866d95",
+      "size_bytes": 120
+    }
+  ],
+  "simulation_run": false,
+  "biological_data_created": false,
+  "data_fabricated": false
+}

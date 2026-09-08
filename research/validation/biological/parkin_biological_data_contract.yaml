@@ -1,0 +1,42 @@
+schema_version: gate-22-biological-validation-data-contract-v1
+status: WAITING_BIOLOGICAL_VALIDATION_DATA
+primary_gene: parkin
+allowed_source_types:
+  - PUBLISHED_INDEPENDENT
+  - NEW_WETLAB
+  - EXTERNAL_COLLABORATOR
+  - HELD_OUT_PUBLIC_DATASET
+rejected_source_types:
+  - SYNTHETIC
+  - GENERATED
+  - SIMULATION_AS_REAL
+required_fields:
+  - experiment_id
+  - source_type
+  - genotype
+  - control_genotype
+  - driver
+  - sex
+  - age_days
+  - temperature
+  - assay
+  - arena
+  - duration
+  - sample_id
+  - biological_replicate
+  - metric
+  - unit
+  - statistic
+  - raw_data_path
+  - source
+  - DOI
+  - reviewer
+  - blinded
+  - used_for_calibration
+  - used_for_validation
+policy:
+  used_for_calibration: false
+  used_for_validation: true
+  unit_of_analysis: biological_replicate
+  frames_are_replicates: false
+  uncertainty_must_be_reported_or_not_reported: true

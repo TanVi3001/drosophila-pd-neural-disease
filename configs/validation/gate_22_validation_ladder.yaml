@@ -1,0 +1,21 @@
+schema_version: gate-22-validation-ladder-config-v1
+study_id: gate_22_parkin_gene_specific_validation_ladder
+primary_gene: parkin
+primary_condition: parkin
+track_a:
+  name: riemensperger_2011_dopamine_deficiency
+  scope: CLASS_LEVEL_EXPLORATORY
+  evidence: research/replications/riemensperger_2011/evidence/paper_evidence_lock.csv
+track_b:
+  name: parkin_gene_specific_validation
+  scope_requested: GENE_SPECIFIC_COMPUTATIONAL_MODEL
+  scope_current: GENE_SPECIFIC_EVIDENCE_INCOMPLETE
+  target_policy: research/validation/claim_policy/validation_target.yaml
+required_reviewers: 2
+biological_data_required: true
+calibration_validation_separation: required
+gpu_execution_allowed_when:
+  - gene_specific_mapping_reviewed
+  - prospective_prediction_locked
+  - biological_data_contract_validated
+status_if_data_absent: WAITING_BIOLOGICAL_VALIDATION_DATA

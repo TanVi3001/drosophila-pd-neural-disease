@@ -1,0 +1,16 @@
+{
+  "schema_version": "gate-22-validation-manifest-v1",
+  "gate": "gate_22a_validation_target_lock",
+  "status": "VALIDATION_TARGET_LOCKED",
+  "git_commit": "3fee5d68c205d557ef69ab13e5122bb4fae2f611",
+  "inputs": [
+    {
+      "path": "research/validation/claim_policy/validation_target.yaml",
+      "sha256": "3c1d3ae7416ee8ea02b890a82669f4e6965a3613e95ce80cccd44d5edbdd778b",
+      "size_bytes": 2392
+    }
+  ],
+  "simulation_run": false,
+  "biological_data_created": false,
+  "data_fabricated": false
+}

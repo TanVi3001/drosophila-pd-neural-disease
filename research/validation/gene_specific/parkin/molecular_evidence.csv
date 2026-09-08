@@ -1,0 +1,2 @@
+source_id,intervention,readout,unit,statistic,value,uncertainty,assay,source_url,provenance_status,review_status,notes
+dumitrescu_2023_parkin_rnai,Parkin RNAi under TH-GAL4,dopamine_release,NOT_LOCKED,qualitative,NOT_IMPORTED,NOT_REPORTED,source-specific neural/chemical assay,https://pmc.ncbi.nlm.nih.gov/articles/PMC9897283/,SOURCE_RECORDED_NOT_NUMERICALLY_EXTRACTED,PENDING_HUMAN_REVIEW,No molecular number is invented; exact readout metadata requires a second paper review.

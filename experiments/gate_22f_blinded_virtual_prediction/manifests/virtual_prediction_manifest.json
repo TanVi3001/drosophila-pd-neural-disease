@@ -1,0 +1,26 @@
+{
+  "schema_version": "gate-22-validation-manifest-v1",
+  "gate": "gate_22f_blinded_virtual_prediction",
+  "status": "WAITING_VALIDATION_RUNTIME",
+  "git_commit": "3fee5d68c205d557ef69ab13e5122bb4fae2f611",
+  "inputs": [
+    {
+      "path": "configs/validation/gate_22_validation_ladder.yaml",
+      "sha256": "c13495454de6cf460e18e4b0b58844c00017be2aedb0a2d5b229e0ffc3ee55cf",
+      "size_bytes": 848
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/mapping_spec.yaml",
+      "sha256": "b707bd61210a3b1064931e84405eded6384f12003817bb36d012fe3d0cac1975",
+      "size_bytes": 803
+    },
+    {
+      "path": "research/validation/prospective/parkin_prediction_contract.yaml",
+      "sha256": "8b3b61d686dde071f9a5717a04e38574b8666fbd81285314f653958670b21e15",
+      "size_bytes": 789
+    }
+  ],
+  "simulation_run": false,
+  "biological_data_created": false,
+  "data_fabricated": false
+}

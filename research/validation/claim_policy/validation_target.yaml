@@ -1,0 +1,50 @@
+schema_version: gate-22-validation-target-v1
+status: VALIDATION_TARGET_LOCKED
+study_id: gate_22_parkin_gene_specific_validation_ladder
+primary_gene: parkin
+disease_model: Drosophila Parkin perturbation; not a human Parkinson disease model
+biological_species: Drosophila melanogaster
+primary_claim: >-
+  The computational perturbation reproduces biological phenotypes associated
+  with a specific Parkin perturbation in Drosophila.
+secondary_claims:
+  - The direction of a preregistered locomotor endpoint is concordant between real and virtual groups.
+  - The computational result remains distinguishable from the existing dopamine-class exploratory track.
+computational_claim: >-
+  A reviewed, gene-specific Parkin perturbation can be represented in the
+  neural model and evaluated with the locked FlyGym metric contract.
+biological_claim: >-
+  A gene-specific Parkin-like Drosophila phenotype is supported only if
+  independent biological data satisfy the validation ladder.
+excluded_claims:
+  - Validated Parkinson disease
+  - Validated human Parkinson model
+  - Clinical validation
+  - Drug or therapeutic validation
+  - Proof that Parkin causes human Parkinson disease
+validation_level_requested: PROSPECTIVE_GENE_SPECIFIC_VALIDATION
+primary_endpoints:
+  - mean_planar_speed_mm_s
+  - distance_traveled_mm
+secondary_endpoints:
+  - activity_time_s
+  - contact_ratio
+  - joint_velocity
+  - orientation_stability
+preregistered_success_criteria:
+  - Directional concordance is required for the primary endpoint.
+  - Quantitative threshold must be locked after assay-transfer and uncertainty review, before holdout data are opened.
+  - Biological replicate is the unit of analysis; frames are never independent replicates.
+failure_criteria:
+  - Directional discordance on the locked primary endpoint.
+  - Missing or non-provenanced intervention, control, mapping, or biological replicate metadata.
+  - Validation data used for calibration or post-hoc threshold changes.
+inconclusive_criteria:
+  - Compatible direction but insufficient uncertainty or sample size for the locked quantitative criterion.
+  - Assay transfer or neural mapping remains unresolved.
+biological_assay_transfer_status: WAITING_HUMAN_REVIEW
+track_a_boundary: Riemensperger 2011 dopamine-class computational replication remains separate.
+reviewer_1: ''
+reviewer_2: ''
+review_date: ''
+human_signoff: PENDING_HUMAN_SIGNOFF

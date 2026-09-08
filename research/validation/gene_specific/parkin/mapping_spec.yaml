@@ -1,0 +1,21 @@
+schema_version: gate-22-parkin-gene-to-neural-mapping-v1
+status: WAITING_GENE_SPECIFIC_MAPPING
+gene: parkin
+intervention: UAS-parkin-RNAi under TH-GAL4
+mapping_level: UNRESOLVED
+gene_specific_mapping: false
+directly_supported_root_ids: []
+directly_supported_edge_ids: []
+connectome: FlyWire
+connectome_version: v783
+mapping_source: research/disease_mapping/exports/parkin/mapping_review.json
+source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC6673194/
+reviewer_1: ''
+reviewer_2: ''
+review_date: ''
+decision: PENDING_HUMAN_SIGNOFF
+allowed_rollout_scope: NONE_FOR_GENE_SPECIFIC_VALIDATION
+blockers:
+  - Existing 330 DAN IDs are class-level exploratory only.
+  - No direct Parkin gene-to-root-ID or gene-to-edge-ID evidence is locked.
+  - TH-GAL4 is not equivalent to a gene-specific FlyWire target set.

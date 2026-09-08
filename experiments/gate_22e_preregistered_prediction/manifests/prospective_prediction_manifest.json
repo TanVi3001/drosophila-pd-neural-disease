@@ -1,0 +1,16 @@
+{
+  "schema_version": "gate-22-validation-manifest-v1",
+  "gate": "gate_22e_preregistered_prediction",
+  "status": "WAITING_GENE_SPECIFIC_MAPPING",
+  "git_commit": "3fee5d68c205d557ef69ab13e5122bb4fae2f611",
+  "inputs": [
+    {
+      "path": "research/validation/prospective/parkin_prediction_contract.yaml",
+      "sha256": "8b3b61d686dde071f9a5717a04e38574b8666fbd81285314f653958670b21e15",
+      "size_bytes": 789
+    }
+  ],
+  "simulation_run": false,
+  "biological_data_created": false,
+  "data_fabricated": false
+}

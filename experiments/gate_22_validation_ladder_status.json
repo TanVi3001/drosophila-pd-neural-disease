@@ -1,0 +1,73 @@
+{
+  "schema_version": "gate-22-gene-specific-validation-readiness-v1",
+  "status": "WAITING_BIOLOGICAL_VALIDATION_DATA",
+  "primary_gene": "parkin",
+  "evidence": "GENE_SPECIFIC_EVIDENCE_INCOMPLETE",
+  "mapping": "WAITING_GENE_SPECIFIC_MAPPING",
+  "human_review": "INCOMPLETE",
+  "prospective_prediction": "WAITING_GENE_SPECIFIC_MAPPING",
+  "biological_holdout": "WAITING_BIOLOGICAL_VALIDATION_DATA",
+  "molecular_evidence": "REPORTED_NOT_FULLY_LOCKED",
+  "rescue_evidence": "RESCUE_EVIDENCE_NOT_AVAILABLE",
+  "real_phenotype": "EXISTS_NATIVE_DAM_NOT_FLYGYM_COMPARABLE",
+  "virtual_phenotype": "WAITING_VALIDATION_RUNTIME",
+  "direction_concordance": "NOT_AVAILABLE",
+  "quantitative_match": "NOT_AVAILABLE",
+  "real_effect_ratio": "NOT_AVAILABLE",
+  "virtual_effect_ratio": "NOT_AVAILABLE",
+  "criteria": {
+    "exact_gene_intervention": true,
+    "matched_control": false,
+    "biological_phenotype": true,
+    "gene_specific_mapping": false,
+    "two_human_review": false,
+    "prospective_prediction": false,
+    "validation_not_used_for_tuning": true,
+    "direction_concordance": false,
+    "quantitative_criterion": false,
+    "qc_pass": false,
+    "no_claim_leakage": true
+  },
+  "decision": {
+    "status": "GENE_SPECIFIC_VALIDATION_NOT_SUPPORTED",
+    "failed_criteria": [
+      "matched_control",
+      "gene_specific_mapping",
+      "two_human_review",
+      "prospective_prediction",
+      "direction_concordance",
+      "quantitative_criterion",
+      "qc_pass"
+    ],
+    "criteria": {
+      "exact_gene_intervention": true,
+      "matched_control": false,
+      "biological_phenotype": true,
+      "gene_specific_mapping": false,
+      "two_human_review": false,
+      "prospective_prediction": false,
+      "validation_not_used_for_tuning": true,
+      "direction_concordance": false,
+      "quantitative_criterion": false,
+      "qc_pass": false,
+      "no_claim_leakage": true
+    },
+    "parkinson_like_biological_support": "PARKINSON_LIKE_BIOLOGICAL_SUPPORT_INCOMPLETE",
+    "biological_data_available": false,
+    "model_result_does_not_promote_itself": true,
+    "claim_lock": "No biological Parkinson or human/clinical claim is permitted."
+  },
+  "blockers": [
+    "exact matched control genotype is not locked",
+    "DAM beam-break activity is not a validated FlyGym planar-speed transfer",
+    "direct Parkin gene-to-root-ID or gene-to-edge-ID mapping is absent",
+    "two-human-review signoff for gene-specific mapping is incomplete",
+    "prospective prediction contract is not locked",
+    "independent biological validation dataset is absent",
+    "molecular readout evidence requires second review",
+    "rescue/orthogonal evidence is not available; no rescue claim is made"
+  ],
+  "data_fabricated": false,
+  "biological_data_created": false,
+  "simulation_run": false
+}

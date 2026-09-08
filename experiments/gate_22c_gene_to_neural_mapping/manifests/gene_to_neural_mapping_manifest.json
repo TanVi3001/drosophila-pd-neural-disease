@@ -1,0 +1,21 @@
+{
+  "schema_version": "gate-22-validation-manifest-v1",
+  "gate": "gate_22c_gene_to_neural_mapping",
+  "status": "WAITING_GENE_SPECIFIC_MAPPING",
+  "git_commit": "3fee5d68c205d557ef69ab13e5122bb4fae2f611",
+  "inputs": [
+    {
+      "path": "research/validation/gene_specific/parkin/mapping_spec.yaml",
+      "sha256": "b707bd61210a3b1064931e84405eded6384f12003817bb36d012fe3d0cac1975",
+      "size_bytes": 803
+    },
+    {
+      "path": "research/validation/gene_specific/parkin/reviewer_signoff.json",
+      "sha256": "57f981f549cc656f502aeb06ec77a4314ffaae155dafc2cdc359fcf36774dfd9",
+      "size_bytes": 416
+    }
+  ],
+  "simulation_run": false,
+  "biological_data_created": false,
+  "data_fabricated": false
+}

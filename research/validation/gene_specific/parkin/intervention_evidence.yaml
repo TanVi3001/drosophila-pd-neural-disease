@@ -1,0 +1,26 @@
+schema_version: gate-22-parkin-intervention-evidence-v1
+status: GENE_SPECIFIC_EVIDENCE_INCOMPLETE
+primary_source: dumitrescu_2023_parkin_rnai
+gene: parkin
+intervention_type: RNAI
+exact_intervention: UAS-parkin-RNAi under TH-GAL4 in UAS-mCD8-GFP background
+control_genotype: AGE_MATCHED_CONTROL_EXACT_GENOTYPE_NOT_LOCKED
+driver: TH-GAL4
+sex: male
+age_groups_days: [1, 45]
+assay: Drosophila Activity Monitor infrared beam-break counts
+duration_days: 7
+biological_replicate: fly_count_reported_in_existing_review
+source_url: https://pmc.ncbi.nlm.nih.gov/articles/PMC9897283/
+doi: 10.1021/acschemneuro.2c00277
+pmid: 36576890
+rescue_status: RESCUE_EVIDENCE_NOT_AVAILABLE
+gene_specific_mapping_status: WAITING_GENE_SPECIFIC_MAPPING
+reviewer_1: Tuan Le
+reviewer_2: ''
+review_date: ''
+decision: PENDING_HUMAN_SIGNOFF
+limitations:
+  - The behavioral assay is DAM beam-break activity, not FlyGym planar speed.
+  - A TH-GAL4 driver scope is not a gene-specific FlyWire root-ID set.
+  - Exact matched control genotype and molecular readout metadata remain to be reviewed.
