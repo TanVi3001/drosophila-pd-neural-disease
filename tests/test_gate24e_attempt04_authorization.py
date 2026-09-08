@@ -120,11 +120,11 @@ def test_08_scientific_jobs_remain_zero() -> None:
     assert _audit()["scientific_jobs_executed"] == 0
 
 
-def test_09_attempt04_initial_authorization_is_false() -> None:
+def test_09_attempt04_human_authorization_is_recorded() -> None:
     result = _audit()
-    assert SIGNOFF["attempt_04_authorized"] is False
-    assert AUTHORIZATION["attempt_04_authorized"] is False
-    assert result["attempt_04_authorized"] is False
+    assert SIGNOFF["attempt_04_authorized"] is True
+    assert AUTHORIZATION["attempt_04_authorized"] is True
+    assert result["attempt_04_authorized"] is True
 
 
 def test_10_scientific_batch_remains_unauthorized() -> None:
@@ -175,6 +175,8 @@ def test_18_duplicate_reviewers_are_rejected() -> None:
 
 def test_19_pending_review_cannot_authorize_attempt04() -> None:
     signoff = deepcopy(SIGNOFF)
+    signoff["status"] = "WAITING_ATTEMPT04_AUTHORIZATION_REVIEW"
+    signoff["decision"] = "PENDING_HUMAN_REVIEW"
     signoff["attempt_04_authorized"] = True
     result = _audit(signoff=signoff)
     assert result["status"] == "GATE24E_ATTEMPT04_AUTHORIZATION_INVALID"
@@ -189,7 +191,7 @@ def test_20_valid_future_review_can_become_ready() -> None:
 
 def test_21_attempt04_output_directory_is_not_created() -> None:
     assert not attempt04.ATTEMPT_04.exists()
-    assert not (attempt04.ROOT / "scripts/run_gate24e_storage_probe_attempt04.py").exists()
+    assert (attempt04.ROOT / "scripts/run_gate24e_storage_probe_attempt04.py").is_file()
 
 
 def test_22_auditor_executes_no_gpu() -> None:
@@ -247,9 +249,10 @@ def test_26_invalid_review_date_is_rejected() -> None:
 
 def test_27_current_state_waits_for_human_review() -> None:
     result = _audit()
-    assert result["status"] == "WAITING_GATE24E_ATTEMPT04_HUMAN_REVIEW"
-    assert result["reviewer_1"] == result["reviewer_2"] == ""
-    assert result["next_allowed_action"] == "HUMAN_REVIEW_GATE24E_ATTEMPT04_AUTHORIZATION"
+    assert result["status"] == "READY_FOR_GATE24E_ATTEMPT04"
+    assert result["reviewer_1"] == "Tuan Le"
+    assert result["reviewer_2"] == "To Dang Minh Tuan"
+    assert result["next_allowed_action"] == "IMPLEMENT_SINGLE_USE_GATE24E_ATTEMPT04_RUNNER"
 
 
 def test_28_review_packet_preserves_claim_boundary() -> None:

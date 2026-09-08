@@ -1,0 +1,32 @@
+{
+  "schema_version": "gate24e-storage-attempt04-runner-v1",
+  "status": "READY_FOR_GATE24E_STORAGE_ATTEMPT_04",
+  "attempt_id": "attempt_04",
+  "purpose": "TECHNICAL_STORAGE_QUALIFICATION_ONLY",
+  "dry_run_verified": true,
+  "execution_required_for_measurements": true,
+  "attempt_output_created": false,
+  "probe_seed": 9001,
+  "steps": 100000,
+  "duration_s": 10.0,
+  "device": "cuda",
+  "platform_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "artifact_profile": "GATE24E_MEMORY_SAFE",
+  "scientific_seeds_excluded": [0, 1, 2, 3, 4],
+  "scientific_jobs_executed": 0,
+  "scientific_batch_authorized": false,
+  "holdout": "SEALED",
+  "gpu_executed": false,
+  "simulation_executed": false,
+  "forbidden_flags": [
+    "--prepared-checkpoint",
+    "--parameter",
+    "--video",
+    "--video-output",
+    "--compare-to",
+    "--cpg-frequency-hz"
+  ],
+  "runner": "scripts/run_gate24e_storage_probe_attempt04.py",
+  "authorization_source": "experiments/gate_24e_storage_probe/manifests/attempt04_authorization.json",
+  "review_source": "research/validation/prospective/gate24e_attempt04_authorization_reviewer_signoff.json"
+}
