@@ -34,14 +34,14 @@
     }
   ],
   "qualification_status": "GATE24E_STORAGE_NOT_QUALIFIED",
-  "storage_measurements_valid": false,
-  "storage_measurement_status": "NO_VALID_COMPLETED_STORAGE_PROBE",
+  "storage_measurements_valid": true,
+  "storage_measurement_status": "VALID_COMPLETED_STORAGE_PROBE",
   "attempt_01": {
     "status": "STORAGE_PROBE_TECHNICAL_FAILURE",
     "valid_for_storage_estimation": false,
     "failure_stage": "PRE_SIMULATION_CLI_ARGUMENT_PARSE"
   },
-  "current_qualification_status": "GATE24E_STORAGE_NOT_QUALIFIED",
+  "current_qualification_status": "WAITING_GATE24E_STORAGE_CAPACITY",
   "scientific_jobs_executed": 0,
   "scientific_results_generated": false,
   "holdout_opened": false,
@@ -56,9 +56,9 @@
     "manifest": "experiments/gate_24e_storage_probe/attempt_02/manifests/storage_qualification.json",
     "failure_stage": "POST_SIMULATION_EXPORT_MEMORY_ERROR"
   },
-  "current_qualification_reason": "NO_VALID_COMPLETED_STORAGE_PROBE",
+  "current_qualification_reason": "FREE_AFTER_NOT_GREATER_THAN_REQUIRED",
   "storage_qualification_valid": false,
-  "final_artifact_estimation_allowed": false,
+  "final_artifact_estimation_allowed": true,
   "holdout": "SEALED",
   "posthoc_selection_performed": false,
   "attempt_03": {
@@ -96,5 +96,29 @@
     ]
   },
   "attempt_04_authorized": false,
-  "next_allowed_action": "HUMAN_REVIEW_GATE24E_TECHNICAL_INTERRUPTION"
+  "next_allowed_action": "HUMAN_REVIEW_GATE24E_TECHNICAL_INTERRUPTION",
+  "attempt_04": {
+    "probe_execution_status": "ATTEMPT_04_STORAGE_PROBE_PASS",
+    "qualification_status": "WAITING_GATE24E_STORAGE_CAPACITY",
+    "storage_measurements_valid": true,
+    "storage_qualification_assessed": true,
+    "storage_qualified": false,
+    "valid_for_storage_estimation": true,
+    "manifest": "experiments/gate_24e_storage_probe/attempt_04/manifests/storage_qualification.json",
+    "storage": {
+      "free_before_bytes": 13796921344,
+      "minimum_free_during_run_bytes": 12570980352,
+      "free_after_bytes": 13238644736,
+      "final_artifact_bytes": 558250361,
+      "peak_disk_consumption_bytes": 1225940992,
+      "poll_interval_s": 1.0,
+      "transient_bytes": 667690631,
+      "projected_final_25_bytes": 13956259025,
+      "projected_peak_bytes": 14623949656,
+      "reserve_bytes": 2924789932,
+      "required_bytes": 17548739588
+    }
+  },
+  "current_estimate_source": "attempt_04",
+  "scientific_batch_authorized": false
 }

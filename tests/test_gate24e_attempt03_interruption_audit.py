@@ -68,10 +68,11 @@ def test_09_attempt03_retry_is_forbidden() -> None:
     assert HISTORY["attempt_03"]["retry_allowed"] is False
 
 
-def test_10_attempt04_is_not_authorized_or_created() -> None:
+def test_10_attempt04_is_consumed_and_not_authorized_for_retry() -> None:
     assert FAILURE["attempt_04_authorized"] is False
     assert HISTORY["attempt_04_authorized"] is False
-    assert not ATTEMPT_04.exists()
+    assert ATTEMPT_04.is_dir()
+    assert (ATTEMPT_04 / "manifests/attempt_04_execution.json").is_file()
 
 
 def test_11_scientific_jobs_remain_zero() -> None:
@@ -92,12 +93,13 @@ def test_13_interrupted_probe_has_no_scientific_interpretation() -> None:
     assert "không có scientific result" in REPORT.read_text(encoding="utf-8").casefold()
 
 
-def test_14_prior_attempts_are_preserved_without_current_estimate() -> None:
+def test_14_prior_attempts_are_preserved_with_attempt04_estimate() -> None:
     assert HISTORY["attempt_01"]["failure_stage"] == "PRE_SIMULATION_CLI_ARGUMENT_PARSE"
     assert HISTORY["attempt_02"]["failure_stage"] == "POST_SIMULATION_EXPORT_MEMORY_ERROR"
-    assert HISTORY["current_qualification_status"] == "GATE24E_STORAGE_NOT_QUALIFIED"
-    assert HISTORY["current_qualification_reason"] == "NO_VALID_COMPLETED_STORAGE_PROBE"
-    assert "current_estimate_source" not in HISTORY
+    assert HISTORY["current_qualification_status"] == "WAITING_GATE24E_STORAGE_CAPACITY"
+    assert HISTORY["current_qualification_reason"] == "FREE_AFTER_NOT_GREATER_THAN_REQUIRED"
+    assert HISTORY["current_estimate_source"] == "attempt_04"
+    assert HISTORY["attempt_04"]["valid_for_storage_estimation"] is True
 
 
 def test_runtime_amendment_auditor_recognizes_recorded_failure() -> None:

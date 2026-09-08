@@ -88,8 +88,11 @@ def test_06_attempt03_history_is_consumed_and_not_retryable() -> None:
     assert failure["attempt_03_retry_allowed"] is False
 
 
-def test_07_attempt04_is_unused_before_dry_run() -> None:
-    assert not runner.ATTEMPT_ROOT.exists()
+def test_07_attempt04_is_consumed_after_s4c() -> None:
+    """A completed one-shot attempt remains present and cannot be reused."""
+    assert runner.ATTEMPT_ROOT.is_dir()
+    assert (runner.ATTEMPT_ROOT / "manifests/attempt_04_execution.json").is_file()
+    assert (runner.ATTEMPT_ROOT / "run/status.json").is_file()
 
 
 def test_08_seed_steps_device_and_runtime_are_fixed() -> None:
@@ -333,8 +336,9 @@ def test_28_failed_attempt04_does_not_become_estimate_source(tmp_path: Path) -> 
         "storage": {},
     }
     updated = runner.update_storage_history(record, history_path=history_path)
-    assert "current_estimate_source" not in updated
-    assert updated["current_qualification_status"] == "GATE24E_STORAGE_NOT_QUALIFIED"
+    assert updated["current_estimate_source"] == "attempt_04"
+    assert updated["current_qualification_status"] == "WAITING_GATE24E_STORAGE_CAPACITY"
+    assert updated["attempt_04"]["valid_for_storage_estimation"] is False
 
 
 def test_29_dry_run_has_no_storage_numbers(monkeypatch: pytest.MonkeyPatch) -> None:

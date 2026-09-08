@@ -39,9 +39,24 @@ def _runtime() -> dict:
 
 
 def _documents() -> dict:
+    history = deepcopy(HISTORY)
+    # Policy-unit tests model the pre-execution documents explicitly. The real
+    # repository history is post-execution after Gate 24E-S4C.
+    history.update(
+        {
+            "current_qualification_status": "GATE24E_STORAGE_NOT_QUALIFIED",
+            "current_qualification_reason": "NO_VALID_COMPLETED_STORAGE_PROBE",
+            "storage_measurements_valid": False,
+            "storage_measurement_status": "NO_VALID_COMPLETED_STORAGE_PROBE",
+            "storage_qualification_valid": False,
+            "final_artifact_estimation_allowed": False,
+        }
+    )
+    history.pop("attempt_04", None)
+    history.pop("current_estimate_source", None)
     return {
         "failure": deepcopy(FAILURE),
-        "history": deepcopy(HISTORY),
+        "history": history,
         "firewall": deepcopy(FIREWALL),
         "execution": deepcopy(EXECUTION),
         "signoff": deepcopy(SIGNOFF),
@@ -189,8 +204,11 @@ def test_20_valid_future_review_can_become_ready() -> None:
     assert result["attempt_04_authorized"] is True
 
 
-def test_21_attempt04_output_directory_is_not_created() -> None:
-    assert not attempt04.ATTEMPT_04.exists()
+def test_21_attempt04_output_directory_is_consumed_after_s4c() -> None:
+    """The one-shot probe is consumed; its output must not be treated as fresh authorization."""
+    assert attempt04.ATTEMPT_04.is_dir()
+    assert (attempt04.ATTEMPT_04 / "manifests/attempt_04_execution.json").is_file()
+    assert (attempt04.ATTEMPT_04 / "run/status.json").is_file()
     assert (attempt04.ROOT / "scripts/run_gate24e_storage_probe_attempt04.py").is_file()
 
 
@@ -248,11 +266,11 @@ def test_26_invalid_review_date_is_rejected() -> None:
 
 
 def test_27_current_state_waits_for_human_review() -> None:
-    result = _audit()
-    assert result["status"] == "READY_FOR_GATE24E_ATTEMPT04"
-    assert result["reviewer_1"] == "Tuan Le"
-    assert result["reviewer_2"] == "To Dang Minh Tuan"
-    assert result["next_allowed_action"] == "IMPLEMENT_SINGLE_USE_GATE24E_ATTEMPT04_RUNNER"
+    result = attempt04.audit()
+    assert result["status"] == "GATE24E_ATTEMPT04_AUTHORIZATION_INVALID"
+    assert result["attempt_04_exists"] is True
+    assert "attempt_04 output directory already exists" in result["blockers"]
+    assert result["next_allowed_action"] == "STOP_AND_REVIEW_ATTEMPT04_AUTHORIZATION"
 
 
 def test_28_review_packet_preserves_claim_boundary() -> None:
