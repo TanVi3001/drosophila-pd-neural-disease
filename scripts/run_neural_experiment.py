@@ -21,6 +21,13 @@ DEFAULT_BRAIN_ROOT = ROOT / "external" / "fly-brain"
 PREPARE_SCRIPT = ROOT / "scripts" / "prepare_neural_checkpoint.py"
 PLATFORM_RUNNER = "scripts/run_brain_body_rollout.py"
 
+# This compatibility contract is intentionally scoped to the frozen Gate 24
+# platform.  The platform runner constructs make_tripod_cpg_network() without
+# a frequency argument; the audited FlyGym 2.1.0 helper defaults to 12.0 Hz.
+FROZEN_PLATFORM_COMMIT = "3ceb8ce441e2eb40bc6c0b6b7be14c1c1aaecf06"
+FROZEN_FLYGYM_VERSION = "2.1.0"
+FROZEN_CPG_DEFAULT_HZ = 12.0
+
 STAGED_FILES = (
     "brain_body_bridge.py",
     "code/run_pytorch.py",
@@ -85,6 +92,133 @@ def _sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _git_commit(path: Path) -> str:
+    result = subprocess.run(
+        ["git", "-C", str(path), "rev-parse", "HEAD"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode:
+        raise RuntimeError(f"Khong doc duoc platform commit: {result.stderr.strip()}")
+    return result.stdout.strip()
+
+
+def _installed_distribution_version(python: Path, distribution: str) -> str:
+    code = (
+        "from importlib.metadata import version; "
+        f"print(version({distribution!r}))"
+    )
+    result = subprocess.run(
+        [str(python), "-c", code],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode:
+        raise RuntimeError(
+            f"Khong xac minh duoc {distribution} trong runtime {python}: "
+            f"{result.stderr.strip()}"
+        )
+    return result.stdout.strip()
+
+
+def validate_frozen_cpg_compatibility(
+    *,
+    platform_commit: str,
+    flygym_version: str,
+    requested_frequency_hz: float,
+) -> None:
+    """Validate the frozen platform before omitting its unsupported CLI flag."""
+    if platform_commit != FROZEN_PLATFORM_COMMIT:
+        raise RuntimeError(
+            "INCOMPATIBLE_FLYGYM_PLATFORM_COMMIT: "
+            f"expected {FROZEN_PLATFORM_COMMIT}, got {platform_commit}"
+        )
+    if flygym_version != FROZEN_FLYGYM_VERSION:
+        raise RuntimeError(
+            "INCOMPATIBLE_FLYGYM_VERSION: "
+            f"expected {FROZEN_FLYGYM_VERSION}, got {flygym_version}"
+        )
+    if requested_frequency_hz != FROZEN_CPG_DEFAULT_HZ:
+        raise RuntimeError(
+            "INCOMPATIBLE_CPG_FREQUENCY: the frozen platform default is "
+            f"{FROZEN_CPG_DEFAULT_HZ} Hz, requested {requested_frequency_hz} Hz"
+        )
+
+
+def build_platform_command(
+    *,
+    brain_python: Path,
+    platform_root: Path,
+    run_brain_root: Path,
+    seed: int,
+    steps: int,
+    device: str,
+    output: Path,
+    stimulus: str,
+    requested_frequency_hz: float,
+    video: bool = False,
+    video_output: Path | None = None,
+    video_fps: int = 60,
+    video_width: int = 640,
+    video_height: int = 360,
+    video_playback_speed: float = 0.2,
+    video_camera_mode: str = "tracking",
+    compare_to: Path | None = None,
+) -> list[str]:
+    """Build a command accepted by the frozen platform runner.
+
+    The local wrapper keeps accepting ``--cpg-frequency-hz`` for API
+    compatibility, but the frozen downstream runner has no such option.  The
+    value is therefore validated against the audited intrinsic default and
+    deliberately omitted from the child command.
+    """
+    validate_frozen_cpg_compatibility(
+        platform_commit=_git_commit(platform_root),
+        flygym_version=_installed_distribution_version(brain_python, "flygym"),
+        requested_frequency_hz=requested_frequency_hz,
+    )
+    command = [
+        str(brain_python),
+        str(platform_root / PLATFORM_RUNNER),
+        "--brain-root",
+        str(run_brain_root),
+        "--condition",
+        "healthy",
+        "--seed",
+        str(seed),
+        "--steps",
+        str(steps),
+        "--device",
+        device,
+        "--output",
+        str(output),
+        "--stimulus",
+        stimulus,
+    ]
+    if video or video_output:
+        command.extend(
+            [
+                "--video-output",
+                str(_resolve(video_output or output / "flygym_rollout.mp4")),
+                "--video-fps",
+                str(video_fps),
+                "--video-width",
+                str(video_width),
+                "--video-height",
+                str(video_height),
+                "--video-playback-speed",
+                str(video_playback_speed),
+                "--video-camera-mode",
+                video_camera_mode,
+            ]
+        )
+    if compare_to:
+        command.extend(["--compare-to", str(_resolve(compare_to))])
+    return command
 
 
 def _recover_viewer_bundle(output: Path) -> bool:
@@ -239,45 +373,25 @@ def run_experiment(args: argparse.Namespace) -> int:
                 stage = temporary_root / "prepared"
                 _stage_source(brain_root, stage, prepared_checkpoint)
                 run_brain_root = stage
-            command = [
-                str(brain_python),
-                str(platform_root / PLATFORM_RUNNER),
-                "--brain-root",
-                str(run_brain_root),
-                "--condition",
-                "healthy",
-                "--seed",
-                str(args.seed),
-                "--steps",
-                str(args.steps),
-                "--device",
-                args.device,
-                "--output",
-                str(output),
-                "--stimulus",
-                args.stimulus,
-                "--cpg-frequency-hz",
-                str(args.cpg_frequency_hz),
-            ]
-            if args.video or args.video_output:
-                command.extend(
-                    [
-                        "--video-output",
-                        str(_resolve(args.video_output or output / "flygym_rollout.mp4")),
-                        "--video-fps",
-                        str(args.video_fps),
-                        "--video-width",
-                        str(args.video_width),
-                        "--video-height",
-                        str(args.video_height),
-                        "--video-playback-speed",
-                        str(args.video_playback_speed),
-                        "--video-camera-mode",
-                        args.video_camera_mode,
-                    ]
-                )
-            if args.compare_to:
-                command.extend(["--compare-to", str(_resolve(args.compare_to))])
+            command = build_platform_command(
+                brain_python=brain_python,
+                platform_root=platform_root,
+                run_brain_root=run_brain_root,
+                seed=args.seed,
+                steps=args.steps,
+                device=args.device,
+                output=output,
+                stimulus=args.stimulus,
+                requested_frequency_hz=args.cpg_frequency_hz,
+                video=args.video,
+                video_output=args.video_output,
+                video_fps=args.video_fps,
+                video_width=args.video_width,
+                video_height=args.video_height,
+                video_playback_speed=args.video_playback_speed,
+                video_camera_mode=args.video_camera_mode,
+                compare_to=args.compare_to,
+            )
             environment = os.environ.copy()
             environment.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
             result = subprocess.run(

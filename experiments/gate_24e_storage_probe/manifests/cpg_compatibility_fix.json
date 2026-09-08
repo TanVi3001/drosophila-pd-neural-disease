@@ -1,0 +1,19 @@
+{
+  "schema_version": "gate24e-cpg-compatibility-fix-v1",
+  "previous_probe_status": "STORAGE_PROBE_TECHNICAL_FAILURE",
+  "previous_probe_seed": 9001,
+  "previous_failure_stage": "PRE_SIMULATION_CLI_ARGUMENT_PARSE",
+  "previous_storage_measurements_valid": false,
+  "previous_storage_measurement_status": "INVALID_FOR_STORAGE_CAPACITY_ESTIMATION_DUE_TO_PRE_SIMULATION_FAILURE",
+  "compatibility_audit_status": "CPG_CLI_OMISSION_SEMANTICALLY_EQUIVALENT",
+  "platform_commit": "3ceb8ce441e2eb40bc6c0b6b7be14c1c1aaecf06",
+  "platform_version": "2.1.0",
+  "platform_supports_cpg_frequency_cli": false,
+  "verified_default_cpg_frequency_hz": 12.0,
+  "wrapper_requested_cpg_frequency_hz": 12.0,
+  "semantic_equivalence": true,
+  "wrapper_fix_applied": true,
+  "probe_retry_authorized": false,
+  "scientific_jobs_authorized": false,
+  "holdout_opened": false
+}

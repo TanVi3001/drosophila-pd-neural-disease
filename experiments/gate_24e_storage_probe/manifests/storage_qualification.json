@@ -6,7 +6,8 @@
   "probe_condition": "TECHNICAL_HEALTHY_STORAGE_PROBE",
   "probe_status": "TECHNICAL_FAILURE",
   "probe_errors": [
-    "return_code=2"
+    "return_code=2",
+    "failure_stage=PRE_SIMULATION_CLI_ARGUMENT_PARSE"
   ],
   "return_code": 2,
   "steps": 100000,
@@ -33,6 +34,8 @@
     }
   ],
   "qualification_status": "STORAGE_PROBE_TECHNICAL_FAILURE",
+  "storage_measurements_valid": false,
+  "storage_measurement_status": "INVALID_FOR_STORAGE_CAPACITY_ESTIMATION_DUE_TO_PRE_SIMULATION_FAILURE",
   "scientific_jobs_executed": 0,
   "scientific_results_generated": false,
   "holdout_opened": false,
