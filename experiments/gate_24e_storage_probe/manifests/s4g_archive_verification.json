@@ -1,0 +1,12 @@
+{
+  "archive_destination": "D:\\EHouse\\Drosophila_Archive\\Gate24E_S4G",
+  "bytes_verified": 6726320773,
+  "created_at_utc": "2026-09-08T16:38:42.736709+00:00",
+  "files_verified": 1148,
+  "hash_mismatches": [],
+  "holdout": "SEALED",
+  "schema_version": "gate24e-s4g-archive-verification-v1",
+  "scientific_batch_authorized": false,
+  "scientific_jobs_executed": 0,
+  "verification_status": "PASS"
+}

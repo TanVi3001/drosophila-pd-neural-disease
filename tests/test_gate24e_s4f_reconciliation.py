@@ -82,13 +82,15 @@ def test_s4f_cleanup_options_require_human_review() -> None:
     assert manifest["recommended_reclaim_bytes"] == 6_726_320_773
 
 
-def test_s4f_signoff_stays_pending_and_scientific_firewall_closed() -> None:
+def test_s4f_signoff_remains_scientifically_closed_after_human_approval() -> None:
     signoff = _load(SIGNOFF)
 
-    assert signoff["status"] == "WAITING_STORAGE_CLEANUP_REVIEW"
-    assert signoff["decision"] == "PENDING_HUMAN_REVIEW"
-    assert signoff["approved_paths"] == []
-    assert signoff["approved_action"] == "NONE"
+    assert signoff["status"] == "STORAGE_CLEANUP_REVIEW_APPROVED"
+    assert signoff["decision"] == "APPROVED_OPTION_B_MODERATE"
+    assert len(signoff["approved_paths"]) == 2
+    assert signoff["approved_action"] == (
+        "EXTERNAL_ARCHIVE_VERIFY_SHA256_THEN_DELETE_LOCAL_APPROVED_SUBSET_ONLY"
+    )
     assert signoff["scientific_contract_changed"] is False
     assert signoff["scientific_jobs_executed"] == 0
     assert signoff["scientific_batch_authorized"] is False
