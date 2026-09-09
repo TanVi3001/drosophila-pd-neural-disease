@@ -1,0 +1,13 @@
+{
+  "accepted_cross_assay_decision": "DIRECTIONAL_CROSS_ASSAY_DISCORDANCE",
+  "accepted_negative_result": false,
+  "decision": "PENDING_HUMAN_REVIEW",
+  "gate24e_closed": false,
+  "gate24e_final_evidence_freeze_sha256": "2f056bf5b73ecc4b4de27f714bda681134050c5d82eb2f0f3170b67a5286e967",
+  "no_auto_sign": true,
+  "review_date": "",
+  "reviewer_1": "",
+  "reviewer_2": "",
+  "schema_version": "gate24e-final-validation-review-v1",
+  "status": "WAITING_GATE24E_FINAL_VALIDATION_REVIEW"
+}

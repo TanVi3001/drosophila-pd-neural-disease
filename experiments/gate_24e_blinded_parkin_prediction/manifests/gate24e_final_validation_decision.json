@@ -1,0 +1,63 @@
+{
+  "allowed_final_claim": "The frozen Parkin computational perturbation did not reproduce the held-out biological locomotor impairment direction under the preregistered cross-assay validation protocol.",
+  "biological_direction": "BIOLOGICAL_IMPAIRMENT_SUPPORTED",
+  "biological_validation_supported": false,
+  "clinical_validation_supported": false,
+  "cross_assay_decision": "DIRECTIONAL_CROSS_ASSAY_DISCORDANCE",
+  "drug_validation_supported": false,
+  "forbidden_claims": [
+    "biologically validated Parkinson model",
+    "validated Parkinson mechanism",
+    "Parkin-expression-specific connectome mapping",
+    "human Parkinson validation",
+    "clinical validation",
+    "drug efficacy",
+    "drug discovery validation",
+    "quantitative assay equivalence",
+    "successful disease phenotype replication"
+  ],
+  "future_model_requires_new_prospective_gate": true,
+  "gate_complete": true,
+  "holdout_opened": true,
+  "posthoc_parameter_selection": false,
+  "primary_validation_axis": "LOCOMOTOR_IMPAIRMENT_DIRECTION",
+  "quantitative_cross_assay_validation": false,
+  "retuning_after_holdout": false,
+  "schema_version": "gate24e-final-validation-decision-v1",
+  "scientific_result": "NEGATIVE_VALIDATION_RESULT",
+  "source_artifacts": [
+    {
+      "path": "experiments/gate_24e_blinded_parkin_prediction/manifests/immutable_virtual_prediction_freeze.json",
+      "sha256": "de5f542d642dee351bdecc921180e0721689ba5810bdcd0461f811acca8f5707",
+      "size_bytes": 2386
+    },
+    {
+      "path": "experiments/gate_24e_blinded_parkin_prediction/results/virtual_prediction_summary.json",
+      "sha256": "c42dd68791139c7829959c599c851548c479f8af48253403e96b1dbad981a590",
+      "size_bytes": 2939
+    },
+    {
+      "path": "experiments/gate_24e_blinded_parkin_prediction/manifests/biological_holdout_opening.json",
+      "sha256": "715e60383bef47c0ba8f5bd0998cc55a49bd1ba6faa5c9f0a510750990094aa8",
+      "size_bytes": 829
+    },
+    {
+      "path": "experiments/gate_24e_blinded_parkin_prediction/results/biological_holdout_direction.csv",
+      "sha256": "d766b1c3fa1bfc9480650c4184c777cd13ca73445d1f2f26e5bf6526214dd1c5",
+      "size_bytes": 705
+    },
+    {
+      "path": "experiments/gate_24e_blinded_parkin_prediction/results/cross_assay_validation_summary.json",
+      "sha256": "1204de5cdf95cc68b7caf0039940b824fbeae02d88aca2b883a0b4c6aa2f7836",
+      "size_bytes": 970
+    },
+    {
+      "path": "docs/validation/gate24e_biological_holdout_directional_validation.md",
+      "sha256": "1c32f6d0c846a79ddf93d81036b27a8b12045cbb6ab88404b0173726acdc2f23",
+      "size_bytes": 2971
+    }
+  ],
+  "status": "GATE24E_VALIDATION_COMPLETE_DIRECTIONAL_DISCORDANCE",
+  "virtual_decision": "DIRECTIONAL_VALIDATION_NOT_SUPPORTED",
+  "virtual_prediction_freeze_sha256": "f44e9ad10b9fc4795ae2173d3e8b27fc9ea0d8202925bfc08cdcc72d06b00863"
+}
