@@ -1,9 +1,9 @@
 {
-  "freeze_sha256": "ef7e9e8083ebbcfbfee7282dd3ba56f0e8791d55d1e3f181cd836a57e53314bf",
+  "freeze_sha256": "f6559ad1e4766e67ebe7ad5f518cdfc80ebc7a89937424b8aa5f34c62867a914",
   "simulation_count_authorized": 10,
-  "simulation_jobs_started": 0,
-  "started_at_utc": "2026-09-09T17:09:40.699689+00:00",
-  "status": "GATE26_PRE_EXECUTION_ORCHESTRATOR_BLOCKED",
-  "failure": "The GPU idle guard encountered a Windows WDDM [N/A] process row before seed 0; no scientific subprocess was started. The guard now ignores non-numeric WDDM rows.",
+  "simulation_jobs_started": 5,
+  "started_at_utc": "2026-09-09T17:10:36.882815+00:00",
+  "status": "GATE26_POSTPROCESS_REPAIR_REQUIRED",
+  "failure": "All five healthy rollouts completed and were preserved, but aggregation rejected an additional finite metric field. The next run may only reuse these five completed rollouts for post-processing; no healthy seed may be rerun.",
   "corrected_by_commit_pending": true
 }

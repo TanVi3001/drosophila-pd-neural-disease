@@ -49,6 +49,7 @@ FIELDS = (
     "timestamp_monotonic",
     "joint_trajectory_max_delta",
     "action_trajectory_max_delta",
+    "mean_framewise_planar_speed_mm_s",
     "rollout_path",
 )
 
@@ -202,6 +203,7 @@ def run(
     brain_python: Path,
     runner_python: Path,
     dry_run: bool,
+    reuse_completed: bool = False,
 ) -> tuple[str, list[dict[str, Any]]]:
     config = read_yaml(config_path)
     output.mkdir(parents=True, exist_ok=True)
@@ -256,7 +258,16 @@ def run(
     for seed in seeds:
         seed_output = output / "results" / f"seed_{seed:03d}"
         if seed_output.exists() and any(seed_output.iterdir()):
-            raise RuntimeError(f"Refusing to overwrite existing seed output; no retry is allowed: {seed_output}")
+            if not reuse_completed:
+                raise RuntimeError(f"Refusing to overwrite existing seed output; no retry is allowed: {seed_output}")
+            rollout = seed_output / "rollout.npz"
+            if not rollout.is_file():
+                raise RuntimeError(f"Existing seed output is incomplete; no retry is allowed: {seed_output}")
+            metrics = rollout_seed_metrics(rollout)
+            if not metrics["contact_detected"]:
+                raise RuntimeError(f"Existing seed output failed contact QC: {seed_output}")
+            rows.append(_row(seed, status="PASS", message="reused completed rollout for post-processing only", output=seed_output, metrics=metrics))
+            continue
         _assert_gpu_idle()
         gpu_before = _gpu_telemetry()
         command = [

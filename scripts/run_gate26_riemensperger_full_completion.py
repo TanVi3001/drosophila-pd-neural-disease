@@ -282,10 +282,21 @@ def execute() -> dict[str, Any]:
     if EXECUTION_LOCK.exists():
         prior_lock = read_json(EXECUTION_LOCK)
         if not (
-            prior_lock.get("status") == "GATE26_PRE_EXECUTION_ORCHESTRATOR_BLOCKED"
-            and prior_lock.get("simulation_jobs_started") == 0
+            (
+                prior_lock.get("status") == "GATE26_PRE_EXECUTION_ORCHESTRATOR_BLOCKED"
+                and prior_lock.get("simulation_jobs_started") == 0
+            )
+            or (
+                prior_lock.get("status") == "GATE26_POSTPROCESS_REPAIR_REQUIRED"
+                and prior_lock.get("simulation_jobs_started") == 5
+            )
         ):
             raise Gate26Error("Scientific execution lock already exists; no retry is allowed")
+    prior_lock = read_json(EXECUTION_LOCK) if EXECUTION_LOCK.exists() else {}
+    reuse_completed_healthy = (
+        prior_lock.get("status") == "GATE26_POSTPROCESS_REPAIR_REQUIRED"
+        and prior_lock.get("simulation_jobs_started") == 5
+    )
     freeze = _assert_freeze()
     runtime = verify_runtime_and_brain()
     write_json(EXECUTION_LOCK, {"status": "GATE26_EXECUTION_STARTED", "simulation_count_authorized": 10, "simulation_jobs_started": 0, "freeze_sha256": freeze["gate26_execution_freeze_sha256"], "started_at_utc": datetime.now(UTC).isoformat()})
@@ -295,11 +306,13 @@ def execute() -> dict[str, Any]:
     from scripts.analyze_riemensperger2011_four_group import run as run_four_group
     from scripts.assess_riemensperger2011_robustness import run as run_robustness
 
-    healthy_status, _ = run_healthy(config_path=HEALTHY_CONFIG, evidence_path=EVIDENCE, mapping_path=MAPPING_SUMMARY, output=HEALTHY_OUTPUT, brain_root=BRAIN_ROOT, platform_root=RUNTIME_ROOT, brain_python=BRAIN_PYTHON, runner_python=Path(sys.executable), dry_run=False)
+    healthy_status, _ = run_healthy(config_path=HEALTHY_CONFIG, evidence_path=EVIDENCE, mapping_path=MAPPING_SUMMARY, output=HEALTHY_OUTPUT, brain_root=BRAIN_ROOT, platform_root=RUNTIME_ROOT, brain_python=BRAIN_PYTHON, runner_python=Path(sys.executable), dry_run=False, reuse_completed=reuse_completed_healthy)
     _run_status("healthy", healthy_status)
     if healthy_status != "HEALTHY_VIRTUAL_REPLICATION_PASS":
         write_json(EXECUTION_LOCK, {"status": "GATE26_INCOMPLETE_TECHNICAL_EXECUTION", "failed_stage": "healthy", "healthy_status": healthy_status, "freeze_sha256": freeze["gate26_execution_freeze_sha256"], "simulation_count_started": 5})
         raise Gate26Error(f"Healthy batch failed: {healthy_status}; no disease jobs were run")
+
+    write_json(EXECUTION_LOCK, {"status": "GATE26_HEALTHY_BATCH_COMPLETE", "simulation_jobs_started": 5, "healthy_jobs_reused_for_postprocess": reuse_completed_healthy, "freeze_sha256": freeze["gate26_execution_freeze_sha256"], "recorded_at_utc": datetime.now(UTC).isoformat()})
 
     comparability_status = run_comparability(evidence_path=EVIDENCE, healthy_path=HEALTHY_OUTPUT / "results/healthy_summary.json", lock_path=ROOT / "research/replications/riemensperger_2011/evidence/paper_evidence_lock.csv", contract_path=CONTRACT, output=COMPARABILITY_OUTPUT)
     _run_status("comparability", comparability_status)

@@ -1,0 +1,1 @@
+seed,status,message,median_planar_speed_mm_s,distance_traveled_mm,displacement_mm,duration_s,frame_count,contact_detected,finite_qc,timestamp_monotonic,joint_trajectory_max_delta,action_trajectory_max_delta,rollout_path

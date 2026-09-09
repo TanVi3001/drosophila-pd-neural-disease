@@ -36,7 +36,14 @@ def write_gate_checksums(gate: Path) -> Path:
     for path in sorted(gate.rglob("*")):
         if not path.is_file() or path == manifest:
             continue
-        rows.append(f"{_sha256(path)}  {path.relative_to(gate).as_posix()}")
+        relative = path.relative_to(gate)
+        # Raw rollouts, per-seed runtime folders and logs stay local.  The
+        # committed manifest covers only lightweight reproducibility artifacts.
+        if "logs" in relative.parts or any(part.startswith("seed_") for part in relative.parts):
+            continue
+        if path.suffix.lower() in {".npz", ".pt", ".pth", ".ckpt"}:
+            continue
+        rows.append(f"{_sha256(path)}  {relative.as_posix()}")
     manifest.write_text("\n".join(rows) + ("\n" if rows else ""), encoding="utf-8")
     return manifest
 
