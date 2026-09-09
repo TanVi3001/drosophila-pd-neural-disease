@@ -137,8 +137,20 @@ def _assert_gpu_idle() -> None:
         result = subprocess.run(command, capture_output=True, text=True, check=False)
     except OSError:
         return
-    if result.returncode == 0 and result.stdout.strip():
-        raise RuntimeError(f"GPU has pre-existing compute processes: {result.stdout.strip()}")
+    if result.returncode != 0 or not result.stdout.strip():
+        return
+    active = []
+    for line in result.stdout.splitlines():
+        fields = [item.strip() for item in line.split(",")]
+        if len(fields) != 2 or fields[1].upper() in {"[N/A]", "N/A"}:
+            continue
+        try:
+            if float(fields[1]) > 0:
+                active.append(line.strip())
+        except ValueError:
+            continue
+    if active:
+        raise RuntimeError(f"GPU has pre-existing compute processes: {', '.join(active)}")
 
 
 def _write_gpu_telemetry(output: Path, records: list[dict[str, Any]]) -> Path:

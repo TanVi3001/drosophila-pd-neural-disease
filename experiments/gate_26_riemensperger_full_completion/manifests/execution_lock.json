@@ -1,9 +1,9 @@
 {
-  "freeze_sha256": "e55a36ee396a247055ec40cd8b0e86a61f1403ae33350bf7796cbbfa251f5d60",
+  "freeze_sha256": "ef7e9e8083ebbcfbfee7282dd3ba56f0e8791d55d1e3f181cd836a57e53314bf",
   "simulation_count_authorized": 10,
   "simulation_jobs_started": 0,
-  "started_at_utc": "2026-09-09T17:07:47.370856+00:00",
+  "started_at_utc": "2026-09-09T17:09:40.699689+00:00",
   "status": "GATE26_PRE_EXECUTION_ORCHESTRATOR_BLOCKED",
-  "failure": "Orchestrator import failed before the first scientific job; simulation_jobs_started remains zero. Corrective code change is recorded before the single authorized batch.",
+  "failure": "The GPU idle guard encountered a Windows WDDM [N/A] process row before seed 0; no scientific subprocess was started. The guard now ignores non-numeric WDDM rows.",
   "corrected_by_commit_pending": true
 }
