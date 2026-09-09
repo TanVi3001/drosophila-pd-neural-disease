@@ -1,40 +1,51 @@
 # Project Summary
 
-## Mục tiêu
+## Current track
 
-Xây dựng một computational locomotion proxy ở mức organism-level cho các kiểu
-hình vận động Parkinson-like trên Drosophila bằng pipeline FlyGym/MuJoCo.
-Đây là mô hình tính toán để đánh giá vận động, không phải mô hình Parkinson
-sinh học hoàn chỉnh.
+The current project track is the closed Gate24E prospective validation of a
+driver-defined Parkin neural perturbation in a Drosophila brain-body runtime.
+It is a computational validation study, not a biological Parkinson model.
 
-## Pipeline
+## Current result
 
-1. Literature target audit.
-2. Healthy baseline.
-3. Disease proxy configuration.
-4. Integrated proxy rollout.
-5. Chen-only ratio calibration.
-6. Calibrated confirmation rerun.
-7. Pozo holdout evaluation.
-8. Holdout adjudication và claim lock.
+- Gate24E status: `GATE24E_VALIDATION_COMPLETE_DIRECTIONAL_DISCORDANCE`.
+- Scientific result: `NEGATIVE_VALIDATION_RESULT`.
+- Virtual prediction: `DIRECTIONAL_VALIDATION_NOT_SUPPORTED`.
+- Held-out biological direction: `BIOLOGICAL_IMPAIRMENT_SUPPORTED`.
+- Final cross-assay decision: `DIRECTIONAL_CROSS_ASSAY_DISCORDANCE`.
+- Raw rollout evidence: preserved in an external checksum-verified archive, not
+  committed as public Git data.
 
-## Kết quả chính
+The locked primary statement is:
 
-- Chen calibration chọn `proxy_burden_level = 0.5` trên discrete grid.
-- Gate 13C confirmation ratio là `0.6142`.
-- Pozo holdout runtime đạt `12/12` rollout PASS.
-- Pozo directionality PASS: distance giảm ở burden `0.5` so với burden `0.0`.
-- Pozo quantitative ratio mismatch: simulated `0.9470` so với target `0.1920`.
+> The frozen Parkin computational perturbation did not reproduce the held-out
+> biological locomotor impairment direction under the preregistered
+> cross-assay validation protocol.
 
-## Kết luận hiện tại
+## Current pipeline
 
-Dự án đạt mức computational organism-level proxy với directional phenotype
-concordance. Kết quả chưa đạt biological validation hoặc gene-specific
-validation. Pozo được giữ độc lập làm holdout và không được dùng để chọn lại
-hoặc tune parameter.
+1. Reviewed driver-defined Parkin mapping and neural perturbation contract.
+2. Locked the scientific plan, checkpoint grid, and runtime provenance.
+3. Executed the authorized 25-job GPU batch before holdout opening.
+4. Frozen the virtual prediction before opening the biological holdout.
+5. Compared the virtual locomotor direction with held-out biological evidence.
+6. Closed the result as negative directional cross-assay discordance.
+7. Archived raw runs externally with verified relocation provenance.
+8. Refreshed Gate25-R2 reproducibility metadata after public-surface alignment.
 
-## Ranh giới diễn giải
+## Historical Chen/Pozo proxy track
 
-Kết quả hiện tại không phải clinical validation, drug validation, therapeutic
-validation hay bằng chứng xác nhận cơ chế Parkinson. Mọi diễn giải phải tuân
-theo [current claim lock](claims/current_claim_lock.md).
+The earlier Chen calibration, confirmation, and Pozo PINK1 holdout remain
+important historical evidence. They are not the current Parkin Gate24E
+conclusion. That earlier track reported directional concordance together with
+a substantial quantitative ratio mismatch and must not be presented as
+biological or gene-specific validation.
+
+## Interpretation boundary
+
+The current project does not claim biological Parkinson validation, a validated
+Parkinson mechanism, Parkin-expression-specific connectome mapping,
+gene-specific biological validation, human or clinical validation, drug
+efficacy, or quantitative cross-assay equivalence. See
+[the current claim lock](claims/current_claim_lock.md) and
+[the Gate25-R2 reproducibility freeze](reproducibility/gate25_r2_parkin_reproducibility_freeze_report.md).

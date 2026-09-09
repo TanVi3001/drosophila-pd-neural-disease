@@ -1,5 +1,52 @@
 # Drosophila Parkinson-like Locomotion Proxy
 
+## Current research status
+
+The current research track is the closed Parkin Gate24E prospective-validation
+track. Its result is kept separate from the earlier Chen/Pozo organism-level
+proxy work.
+
+| Current item | Status |
+| --- | --- |
+| Parkin Gate24E | `GATE24E_VALIDATION_COMPLETE_DIRECTIONAL_DISCORDANCE` |
+| Scientific outcome | `NEGATIVE_VALIDATION_RESULT` |
+| Virtual decision | `DIRECTIONAL_VALIDATION_NOT_SUPPORTED` |
+| Held-out biological direction | `BIOLOGICAL_IMPAIRMENT_SUPPORTED` |
+| Cross-assay decision | `DIRECTIONAL_CROSS_ASSAY_DISCORDANCE` |
+| Gate25-R2 | `GATE25_R2_REPRODUCIBILITY_FREEZE_COMPLETE` |
+| Raw rollout archive | Checksum-verified external archive; not public Git data |
+
+### Current Parkin prospective-validation track
+
+Gate24E froze a driver-defined Parkin neural perturbation, a preregistered
+direction rule, and 25 GPU scientific jobs before opening the biological
+holdout. The immutable virtual prediction did not support the preregistered
+locomotor impairment direction, while the held-out biological evidence
+supported locomotor/climbing impairment. Because climbing and planar speed are
+non-equivalent assays, the final interpretation is directional cross-assay
+discordance, not quantitative validation.
+
+The allowed current statement is:
+
+> The frozen Parkin computational perturbation did not reproduce the held-out
+> biological locomotor impairment direction under the preregistered
+> cross-assay validation protocol.
+
+This repository makes no biological Parkinson validation claim.
+
+## Historical organism-level proxy track - Chen / Pozo
+
+The Chen calibration and Pozo PINK1 holdout material below is an earlier
+organism-level computational proxy track. It remains valid historical evidence
+and is not the current Parkin Gate24E conclusion.
+
+For the reproducibility contract, see
+[the Gate25-R2 freeze report](docs/reproducibility/gate25_r2_parkin_reproducibility_freeze_report.md)
+and [the current claim lock](docs/claims/current_claim_lock.md). Normal
+reproducibility audits verify frozen hashes and manifests; they do not require
+rerunning the 25 GPU jobs. Raw rollout files remain external and
+checksum-preserved, not publicly included in Git.
+
 Đây là repository nghiên cứu xây dựng một computational locomotion proxy ở
 mức organism-level cho các kiểu hình vận động Parkinson-like trên Drosophila.
 Pipeline sử dụng FlyGym/MuJoCo và brain-body runtime để chạy rollout vận động;

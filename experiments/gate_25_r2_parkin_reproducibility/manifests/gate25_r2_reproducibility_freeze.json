@@ -15,15 +15,16 @@
   },
   "clinical_validation_supported": false,
   "cross_assay_decision": "DIRECTIONAL_CROSS_ASSAY_DISCORDANCE",
+  "gate24e_evidence_changed": false,
   "gate24e_final_status": "GATE24E_VALIDATION_COMPLETE_DIRECTIONAL_DISCORDANCE",
-  "gate25_r2_freeze_sha256": "7c71f39ed95474852952ecb8be01c31ccf85a001e5a4e8cb18783c177708e39d",
+  "gate25_r2_freeze_sha256": "5aa0d5bf05dac950761b8636fdea001072f27c8226139ec1dac9066be6146d05",
   "gpu": false,
   "historical_gate25_preserved": true,
   "historical_gate25_report_sha256": "e09347664edbc069c8d8bdd0340811cbaf8a4b9f75a25d1e356a24086cb309f0",
   "inventory": {
-    "file_count": 91,
+    "file_count": 95,
     "path": "experiments/gate_25_r2_parkin_reproducibility/manifests/reproducibility_inventory.json",
-    "sha256": "a9605ca295a500446ebc18506424b36bc914ec8e184b2349568ecead5c595971"
+    "sha256": "8058ef3bc2c63fe9bf0cfef4197b2990fbfe9f3dd1e0dccc1a28767c9b4a2229"
   },
   "locked_identifiers": {
     "executor_sha256": "4d10edecbc8d987285ea82eb36a7bcfd686da3abde3b5160a3dcec23a2e78f3f",
@@ -35,6 +36,7 @@
     "virtual_prediction_freeze_sha256": "f44e9ad10b9fc4795ae2173d3e8b27fc9ea0d8202925bfc08cdcc72d06b00863"
   },
   "new_scientific_analysis": false,
+  "previous_gate25_r2_freeze_sha256": "7c71f39ed95474852952ecb8be01c31ccf85a001e5a4e8cb18783c177708e39d",
   "quantitative_cross_assay_validation": false,
   "raw_archive": {
     "archive_path": "D:\\EHouse\\Drosophila_Archive\\Gate24E_Final_Raw_Evidence\\runs",
@@ -45,12 +47,14 @@
     "tree_sha256": "f6e3de6e96cbe3be0f447ea8eeca463087a9381d1c2d2965807d04df1655faff",
     "verification_method": "metadata_checksum_manifest_and_full_file_hash"
   },
+  "raw_archive_changed": false,
   "raw_archive_policy": {
     "committed_to_git": false,
     "externally_preserved": true,
     "publicly_available": false,
     "relocation_changes_scientific_result": false
   },
+  "refresh_reason": "PREMERGE_PUBLIC_CLAIM_SURFACE_ALIGNMENT",
   "reproducibility_scope": [
     "scientific question",
     "model implementation",
@@ -76,6 +80,7 @@
   },
   "schema_version": "gate25-r2-parkin-reproducibility-freeze-v1",
   "scientific_result": "NEGATIVE_VALIDATION_RESULT",
+  "scientific_result_changed": false,
   "simulation": false,
   "status": "GATE25_R2_REPRODUCIBILITY_FREEZE_COMPLETE",
   "track": "PARKIN_GATE24E_DIRECTIONAL_VALIDATION"

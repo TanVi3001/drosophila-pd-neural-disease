@@ -21,10 +21,12 @@ INVENTORY_PATH = R2_MANIFESTS / "reproducibility_inventory.json"
 CHECKSUMS_PATH = R2_MANIFESTS / "checksums.sha256"
 FREEZE_PATH = R2_MANIFESTS / "gate25_r2_reproducibility_freeze.json"
 REPORT_PATH = ROOT / "docs/reproducibility/gate25_r2_parkin_reproducibility_freeze_report.md"
+README_PATH = ROOT / "README.md"
 
 HISTORICAL_REPORT = ROOT / "docs/reproducibility/gate_25_reproducibility_freeze_report.md"
 HISTORICAL_REPORT_SHA256 = "e09347664edbc069c8d8bdd0340811cbaf8a4b9f75a25d1e356a24086cb309f0"
 ANCHOR_COMMIT = "ad87e6b45af4a8e10a4180956af4844e5e33e393"
+PREVIOUS_R2_FREEZE_SHA256 = "7c71f39ed95474852952ecb8be01c31ccf85a001e5a4e8cb18783c177708e39d"
 
 ARCHIVE_EVIDENCE = Path("D:/EHouse/Drosophila_Archive/Gate24E_Final_Raw_Evidence")
 ARCHIVE_RUNS = ARCHIVE_EVIDENCE / "runs"
@@ -59,6 +61,7 @@ CRITICAL_SCRIPTS = (
     "scripts/audit_holdout_firewall.py",
     "scripts/run_gate25_r2_reproducibility_freeze.py",
     "tests/test_gate25_r2_reproducibility_freeze.py",
+    "tests/test_gate25_r2_public_surface_alignment.py",
 )
 
 REQUIRED_CORE_FILES = (
@@ -275,7 +278,15 @@ def build_inventory() -> list[dict[str, Any]]:
     files = {path for path in files if path.name.startswith("gate24e_") or "validation" not in path.parts or path.parent.name != "validation"}
     for relative in CRITICAL_SCRIPTS:
         files.add(ROOT / relative)
-    for relative in ("pyproject.toml", ".github/workflows/tests.yml", ".gitattributes", "docs/claims/current_claim_lock.md"):
+    for relative in (
+        "pyproject.toml",
+        ".github/workflows/tests.yml",
+        ".gitattributes",
+        "docs/claims/current_claim_lock.md",
+        "docs/claims/public_abstract.md",
+        "docs/project_summary.md",
+        "README.md",
+    ):
         files.add(ROOT / relative)
     for relative in REQUIRED_CORE_FILES:
         files.add(ROOT / relative)
@@ -299,6 +310,13 @@ def build_inventory() -> list[dict[str, Any]]:
             role = "Parkin neural model implementation"
         elif relative.startswith("scripts/"):
             role = "Gate24E execution or audit source"
+        elif relative in {
+            "README.md",
+            "docs/claims/current_claim_lock.md",
+            "docs/claims/public_abstract.md",
+            "docs/project_summary.md",
+        }:
+            role = "Current public claim surface"
         else:
             role = "Runtime or claim contract"
         records.append(_record(path, role))
@@ -339,7 +357,9 @@ provenance only; it does not rerun Gate24E or create new scientific evidence.
 - Cross-assay decision: `DIRECTIONAL_CROSS_ASSAY_DISCORDANCE`.
 - Inventory entries: `{inventory_count}` deterministic lightweight files.
 - Gate25-R2 canonical freeze SHA256: `{freeze_sha256}`.
+- Previous Gate25-R2 freeze SHA256: `{PREVIOUS_R2_FREEZE_SHA256}`.
 - Historical Gate25 report SHA256: `{HISTORICAL_REPORT_SHA256}`.
+- Refresh reason: `PREMERGE_PUBLIC_CLAIM_SURFACE_ALIGNMENT`.
 
 The allowed primary claim is: **The frozen Parkin computational perturbation
 did not reproduce the held-out biological locomotor impairment direction under
@@ -422,6 +442,11 @@ def _canonical_freeze_payload(
         "new_scientific_analysis": False,
         "historical_gate25_preserved": True,
         "historical_gate25_report_sha256": HISTORICAL_REPORT_SHA256,
+        "previous_gate25_r2_freeze_sha256": PREVIOUS_R2_FREEZE_SHA256,
+        "refresh_reason": "PREMERGE_PUBLIC_CLAIM_SURFACE_ALIGNMENT",
+        "scientific_result_changed": False,
+        "gate24e_evidence_changed": False,
+        "raw_archive_changed": False,
         "anchor_commit": ANCHOR_COMMIT,
         "locked_identifiers": {
             "scientific_plan_sha256": EXPECTED_PLAN_SHA256,
@@ -574,6 +599,11 @@ def audit() -> dict[str, Any]:
     _require(freeze.get("scientific_result") == "NEGATIVE_VALIDATION_RESULT", "R2 negative result changed")
     _require(freeze.get("biological_validation_supported") is False, "R2 biological validation claim changed")
     _require(freeze.get("raw_archive_policy", {}).get("publicly_available") is False, "R2 incorrectly claims raw archive is public")
+    _require(freeze.get("previous_gate25_r2_freeze_sha256") == PREVIOUS_R2_FREEZE_SHA256, "Previous R2 freeze SHA is missing")
+    _require(freeze.get("refresh_reason") == "PREMERGE_PUBLIC_CLAIM_SURFACE_ALIGNMENT", "R2 refresh reason changed")
+    _require(freeze.get("scientific_result_changed") is False, "R2 claims a scientific result change")
+    _require(freeze.get("gate24e_evidence_changed") is False, "R2 claims Gate24E evidence changed")
+    _require(freeze.get("raw_archive_changed") is False, "R2 claims raw archive changed")
     _require(inventory.get("anchor_commit") == ANCHOR_COMMIT, "R2 anchor commit changed")
     _require(inventory.get("raw_archive", {}).get("tree_sha256") == EXPECTED_RAW_TREE_SHA256, "R2 raw tree SHA changed")
     _verify_inventory(inventory)
