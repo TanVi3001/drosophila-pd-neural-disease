@@ -479,8 +479,8 @@
     {
       "path": "scripts/audit_gate24e_scientific_batch_preflight.py",
       "role": "Gate24E execution or audit source",
-      "sha256": "ceb74c69319048cf8ecc0640159c309f25d8f9b753c2a2e494a07d21d4ffc22b",
-      "size_bytes": 12498
+      "sha256": "c05970035a25eafbb84a398e42a3c1e3e46061c953c3d0efea76868d10faa5ba",
+      "size_bytes": 13898
     },
     {
       "path": "scripts/audit_holdout_firewall.py",

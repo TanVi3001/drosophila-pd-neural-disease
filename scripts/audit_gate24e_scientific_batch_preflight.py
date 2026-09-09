@@ -277,6 +277,14 @@ def audit(*, live_free_bytes: int | None = None) -> dict[str, Any]:
     if not authorization_valid:
         blockers.append("SCIENTIFIC_BATCH_HUMAN_REVIEW_PENDING")
 
+    attempt04_history = storage_history.get("attempt_04")
+    attempt04_recorded = (
+        isinstance(attempt04_history, dict)
+        and attempt04_history.get("probe_execution_status") == "ATTEMPT_04_STORAGE_PROBE_PASS"
+        and attempt04_history.get("storage_measurements_valid") is True
+    )
+    attempt04_raw_materialized = ATTEMPT_04.is_dir() and ATTEMPT_04_MANIFEST.is_file()
+
     # The expected current state is intentionally blocked. This is an audit
     # result, not a failed command, so CI can verify the firewall.
     status = (
@@ -310,7 +318,9 @@ def audit(*, live_free_bytes: int | None = None) -> dict[str, Any]:
             "status": attempt04.get("status"),
             "storage_measurements_valid": attempt04.get("storage_measurements_valid"),
             "storage_qualified": attempt04.get("storage_qualified"),
-            "preserved": ATTEMPT_04.is_dir() and ATTEMPT_04_MANIFEST.is_file(),
+            "preserved": attempt04_raw_materialized or attempt04_recorded,
+            "raw_artifacts_materialized": attempt04_raw_materialized,
+            "history_recorded": attempt04_recorded,
         },
         "current_free_bytes": live,
         "required_bytes": required,
