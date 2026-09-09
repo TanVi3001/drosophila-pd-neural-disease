@@ -32,4 +32,4 @@ Healthy và disease dùng cùng seed `0,1,2,3,4`, 5000 steps, duration 0.5 s, ti
 
 ## Checklist phê duyệt cuối
 
-File signoff ở `research/validation/prospective/riemensperger_2011_final_reviewer_signoff.json` vẫn để `WAITING_RIEMENSPERGER_FINAL_HUMAN_REVIEW`. Reviewer, ngày review và quyết định cuối phải do người có thẩm quyền điền; không auto-sign và không đóng Gate26 bằng mã.
+File signoff ở `research/validation/prospective/riemensperger_2011_final_reviewer_signoff.json` đã được reviewer có thẩm quyền duyệt với trạng thái `RIEMENSPERGER_FINAL_REVIEW_APPROVED` và quyết định `APPROVED_NOT_REPRODUCED_CLOSURE`. `gate26_closed = true`; review cuối được hoàn tất sau execution freeze và sau khi kết quả `NOT_REPRODUCED` đã được khóa.

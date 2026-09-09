@@ -56,4 +56,4 @@ Gate24E vẫn giữ `NEGATIVE_VALIDATION_RESULT` và `DIRECTIONAL_CROSS_ASSAY_DI
 
 ## 9. Reproducibility và human review
 
-Per-seed metrics, manifest, telemetry GPU, checksum và execution freeze được lưu trong Gate26. Raw rollout lớn giữ ngoài Git và không commit. Final signoff vẫn là `WAITING_RIEMENSPERGER_FINAL_HUMAN_REVIEW`; không auto-sign.
+Per-seed metrics, manifest, telemetry GPU, checksum và execution freeze được lưu trong Gate26. Raw rollout lớn giữ ngoài Git và không commit. Final signoff là `RIEMENSPERGER_FINAL_REVIEW_APPROVED`, với quyết định `APPROVED_NOT_REPRODUCED_CLOSURE`; Gate26 đã `CLOSED` sau khi kết quả `NOT_REPRODUCED` được khóa.

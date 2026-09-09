@@ -55,13 +55,13 @@
     },
     {
       "path": "experiments/riemensperger_2011_pipeline_status.json",
-      "sha256": "dc8c250c680ec08f53cd3da04c2077ff59a9a5b885ac74594f5b7057ceec9aa8",
-      "size_bytes": 602
+      "sha256": "a9f21d3fc4b2954e43768567b005800c81ec37edb1e1f323024382bb5eadf5e5",
+      "size_bytes": 587
     },
     {
       "path": "docs/replications/riemensperger_2011/final_replication_report.md",
-      "sha256": "643d8aa2dd01a65e368f4162c9590c10798030c2debea72ffa46a7076e0f9f88",
-      "size_bytes": 3148
+      "sha256": "69bd8ba8213c8861593fb3e70fb1f64134f5fe42b080b39a85c0f58b674043d1",
+      "size_bytes": 3191
     },
     {
       "path": "experiments/gate_26_riemensperger_full_completion/manifests/gate26_preflight.json",
@@ -180,13 +180,13 @@
     },
     {
       "path": "docs/replications/riemensperger_2011/riemensperger_2011_pipeline_completion_update.md",
-      "sha256": "9aa804853b7a07fad24eeb2886117f347e351b69450b2d2ad37e05981c59fd3b",
-      "size_bytes": 1985
+      "sha256": "0f3282fbac756aea56092338e8c7420e6c53d7b895a5c9379337cc0decf55a55",
+      "size_bytes": 2082
     },
     {
       "path": "research/validation/prospective/riemensperger_2011_final_reviewer_signoff.json",
-      "sha256": "52006a131786c8a4e024b7d36d4171bd6988dd317aa950723957042410542198",
-      "size_bytes": 560
+      "sha256": "e35de633758a09358ddb4953b74f344a423dc8e8e5492cbee8b550ff0f5e8b2f",
+      "size_bytes": 1069
     }
   ],
   "schema_version": "gate26-reproducibility-inventory-v1",
