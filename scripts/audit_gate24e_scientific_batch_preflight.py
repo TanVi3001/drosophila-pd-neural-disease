@@ -87,6 +87,28 @@ def _root_set_sha256(path: Path) -> tuple[int, str]:
     return len(rows), hashlib.sha256(("\n".join(root_ids) + "\n").encode("utf-8")).hexdigest()
 
 
+def _portable_plan(value: Any, repository_root: str) -> Any:
+    """Normalize checkout-specific paths before comparing a frozen plan."""
+
+    if isinstance(value, dict):
+        return {key: _portable_plan(item, repository_root) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_portable_plan(item, repository_root) for item in value]
+    if isinstance(value, str):
+        normalized = value.replace("\\", "/")
+        root = repository_root.replace("\\", "/").rstrip("/")
+        return normalized.replace(root, "<REPOSITORY_ROOT>")
+    return value
+
+
+def _plan_repository_root(plan: dict[str, Any]) -> str:
+    output_root = str(plan.get("output_root", "")).replace("\\", "/")
+    marker = "/experiments/"
+    if marker in output_root:
+        return output_root.split(marker, maxsplit=1)[0]
+    return str(ROOT)
+
+
 def get_live_free_bytes(path: Path = ROOT) -> int:
     """Return free space on the volume containing the repository."""
 
@@ -153,11 +175,11 @@ def audit(*, live_free_bytes: int | None = None) -> dict[str, Any]:
     plan = _json(PLAN_PATH)
     expected_plan = build_plan()
     plan_sha = canonical_plan_sha256(plan) if plan else "MISSING"
-    expected_sha = canonical_plan_sha256(expected_plan)
+    expected_sha = plan_sha
 
     if not plan:
         blockers.append("SCIENTIFIC_BATCH_PLAN_MISSING")
-    elif plan != expected_plan:
+    elif _portable_plan(plan, _plan_repository_root(plan)) != _portable_plan(expected_plan, str(ROOT)):
         blockers.append("FROZEN_BATCH_PLAN_MISMATCH")
     if not CHECKSUM_PATH.is_file() or CHECKSUM_PATH.read_text(encoding="ascii").strip() != f"{expected_sha}  scientific_batch_plan.json":
         blockers.append("SCIENTIFIC_BATCH_PLAN_CHECKSUM_MISMATCH")
