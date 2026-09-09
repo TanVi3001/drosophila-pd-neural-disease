@@ -115,6 +115,7 @@ def run(*, evidence_lock: Path, contract_path: Path, analysis_config: Path, heal
     ]
     four_fields = ("group", "source_type", "condition_role", "metric", "statistic", "value", "unit", "uncertainty", "n", "source", "config", "notes")
     write_csv_rows(output / "results/four_group_metrics.csv", four_fields, four_groups)
+    write_csv_rows(output / "metrics/four_group_table.csv", four_fields, four_groups)
     write_csv_rows(output / "results/four_group_effect_comparison.csv", comparison.keys(), [comparison])
     summary = {"status": "FOUR_GROUP_ANALYSIS_COMPLETE", "interpretation": interpretation, "comparison": comparison, "distance_endpoint_status": "DISTANCE_ENDPOINT_NOT_COMPARABLE", "data_fabricated": False, "calibration_run": False, "holdout_validation_run": False}
     write_json(output / "results/four_group_summary.json", summary)

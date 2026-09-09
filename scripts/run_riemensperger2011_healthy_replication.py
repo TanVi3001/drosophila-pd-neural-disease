@@ -93,6 +93,60 @@ def _row(seed: int, *, status: str, message: str, output: Path, metrics: dict[st
     return row
 
 
+def _gpu_telemetry() -> dict[str, Any]:
+    """Read the lightweight GPU safety telemetry required by Gate 26."""
+
+    command = [
+        "nvidia-smi",
+        "--query-gpu=temperature.gpu,utilization.gpu,memory.used,memory.free",
+        "--format=csv,noheader,nounits",
+    ]
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, check=False)
+    except OSError:
+        return {"available": False, "note": "nvidia-smi unavailable"}
+    if result.returncode or not result.stdout.strip():
+        return {"available": False, "note": "nvidia-smi unavailable"}
+    values = [item.strip() for item in result.stdout.splitlines()[0].split(",")]
+    if len(values) != 4:
+        return {"available": False, "note": "nvidia-smi output could not be parsed"}
+    try:
+        telemetry = {
+            "available": True,
+            "temperature_c": float(values[0]),
+            "utilization_percent": float(values[1]),
+            "memory_used_mib": float(values[2]),
+            "memory_free_mib": float(values[3]),
+        }
+    except ValueError as exc:
+        return {"available": False, "note": f"nvidia-smi parse error: {exc}"}
+    if telemetry["temperature_c"] >= 82:
+        raise RuntimeError(f"GPU temperature reached the safety limit: {telemetry['temperature_c']} C")
+    return telemetry
+
+
+def _assert_gpu_idle() -> None:
+    """Stop before launching a seed if another CUDA process is already active."""
+
+    command = [
+        "nvidia-smi",
+        "--query-compute-apps=pid,used_memory",
+        "--format=csv,noheader,nounits",
+    ]
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, check=False)
+    except OSError:
+        return
+    if result.returncode == 0 and result.stdout.strip():
+        raise RuntimeError(f"GPU has pre-existing compute processes: {result.stdout.strip()}")
+
+
+def _write_gpu_telemetry(output: Path, records: list[dict[str, Any]]) -> Path:
+    path = output / "results/gpu_telemetry.json"
+    write_json(path, {"schema_version": "gate26-gpu-telemetry-v1", "records": records})
+    return path
+
+
 def _write_report(output: Path, *, status: str, rows: list[dict[str, Any]], blockers: list[str]) -> None:
     lines = [
         "# Gate 21B - Virtual healthy replication",
@@ -185,8 +239,14 @@ def run(
         return status, []
 
     rows: list[dict[str, Any]] = []
+    telemetry: list[dict[str, Any]] = []
+    _write_gpu_telemetry(output, telemetry)
     for seed in seeds:
         seed_output = output / "results" / f"seed_{seed:03d}"
+        if seed_output.exists() and any(seed_output.iterdir()):
+            raise RuntimeError(f"Refusing to overwrite existing seed output; no retry is allowed: {seed_output}")
+        _assert_gpu_idle()
+        gpu_before = _gpu_telemetry()
         command = [
             str(runner_python), str(RUNNER),
             "--brain-root", str(brain_root),
@@ -198,24 +258,18 @@ def run(
             "--output", str(seed_output),
             "--stimulus", str(config["controller"]["stimulus"]),
             "--cpg-frequency-hz", str(config["controller"]["cpg_frequency_hz"]),
+            "--artifact-profile", "GATE24E_MEMORY_SAFE",
         ]
-        if seed == seeds[0]:
-            runtime = config["platform_runtime"]
-            command.extend([
-                "--video-output", str(seed_output / "flygym_rollout.mp4"),
-                "--video-fps", str(runtime["video_fps"]),
-                "--video-width", str(runtime["video_width"]),
-                "--video-height", str(runtime["video_height"]),
-                "--video-playback-speed", str(runtime["video_playback_speed"]),
-                "--video-camera-mode", str(runtime["camera_mode"]),
-            ])
         result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True, check=False)
+        gpu_after = _gpu_telemetry()
+        telemetry.append({"seed": seed, "before": gpu_before, "after": gpu_after})
+        _write_gpu_telemetry(output, telemetry)
         (output / "logs").mkdir(parents=True, exist_ok=True)
         (output / "logs" / f"seed_{seed:03d}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
         rollout = seed_output / "rollout.npz"
         if result.returncode != 0 or not rollout.is_file():
             rows.append(_row(seed, status="FAILED", message=f"runner_return_code={result.returncode}", output=seed_output))
-            continue
+            break
         try:
             metrics = rollout_seed_metrics(rollout)
             if not metrics["contact_detected"]:
@@ -223,7 +277,9 @@ def run(
             rows.append(_row(seed, status="PASS", message="real FlyGym rollout", output=seed_output, metrics=metrics))
         except (OSError, RuntimeError, ValueError) as exc:
             rows.append(_row(seed, status="FAILED", message=str(exc), output=seed_output))
+            break
 
+    telemetry_path = _write_gpu_telemetry(output, telemetry)
     write_csv_rows(output / "metrics/healthy_per_seed_metrics.csv", FIELDS, rows)
     passed = [row for row in rows if row["status"] == "PASS"]
     status = "HEALTHY_VIRTUAL_REPLICATION_PASS" if len(passed) == len(seeds) else "HEALTHY_VIRTUAL_REPLICATION_BLOCKED"
@@ -235,7 +291,7 @@ def run(
     manifest = build_manifest(
         status=status,
         config_paths=[config_path],
-        input_paths=[evidence_path, output / "metrics/healthy_per_seed_metrics.csv", output / "results/healthy_summary.json"],
+        input_paths=[evidence_path, output / "metrics/healthy_per_seed_metrics.csv", output / "results/healthy_summary.json", telemetry_path],
         extra={"simulation_run": True, "seed_list": seeds, "duration_s": config["duration"]["virtual_duration_s"], "timestep": config["timestep_s"], "output_sha256": sha256_file(output / "metrics/healthy_per_seed_metrics.csv")},
     )
     write_json(output / "manifests/healthy_manifest.json", manifest)

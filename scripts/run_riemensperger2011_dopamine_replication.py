@@ -24,7 +24,12 @@ from drosophila_pd_neural.riemensperger2011.protocol import (
     write_csv_rows,
     write_json,
 )
-from scripts.run_riemensperger2011_healthy_replication import _resolve, _runtime_blockers
+from scripts.run_riemensperger2011_healthy_replication import (
+    _assert_gpu_idle,
+    _gpu_telemetry,
+    _resolve,
+    _runtime_blockers,
+)
 from scripts.materialize_riemensperger2011_dopamine_checkpoint import materialize
 
 
@@ -122,25 +127,33 @@ def run(*, config_path: Path, mapping_path: Path, evidence_path: Path, output: P
         return status
     prepared_checkpoint = checkpoint_output / "plastic_weights.pt"
     rows: list[dict[str, Any]] = []
+    telemetry: list[dict[str, Any]] = []
+    telemetry_path = output / "results/gpu_telemetry.json"
+    write_json(telemetry_path, {"schema_version": "gate26-gpu-telemetry-v1", "records": telemetry})
     for seed in seeds:
         seed_output = output / "results" / f"seed_{seed:03d}"
+        if seed_output.exists() and any(seed_output.iterdir()):
+            raise RuntimeError(f"Refusing to overwrite existing seed output; no retry is allowed: {seed_output}")
+        _assert_gpu_idle()
+        gpu_before = _gpu_telemetry()
         command = [
             str(runner_python), str(RUNNER), "--brain-root", str(brain_root), "--platform-root", str(platform_root),
             "--brain-python", str(brain_python), "--prepared-checkpoint", str(prepared_checkpoint),
             "--seed", str(seed), "--steps", str(steps), "--device", str(healthy_config["platform_runtime"]["device"]),
             "--output", str(seed_output), "--stimulus", str(healthy_config["controller"]["stimulus"]),
             "--cpg-frequency-hz", str(healthy_config["controller"]["cpg_frequency_hz"]),
+            "--artifact-profile", "GATE24E_MEMORY_SAFE",
         ]
-        if seed == seeds[0]:
-            video = healthy_config["platform_runtime"]
-            command.extend(["--video-output", str(seed_output / "flygym_rollout.mp4"), "--video-fps", str(video["video_fps"]), "--video-width", str(video["video_width"]), "--video-height", str(video["video_height"]), "--video-playback-speed", str(video["video_playback_speed"]), "--video-camera-mode", str(video["camera_mode"])])
         result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True, check=False)
+        gpu_after = _gpu_telemetry()
+        telemetry.append({"seed": seed, "before": gpu_before, "after": gpu_after})
+        write_json(telemetry_path, {"schema_version": "gate26-gpu-telemetry-v1", "records": telemetry})
         (output / "logs").mkdir(parents=True, exist_ok=True)
         (output / "logs" / f"seed_{seed:03d}.log").write_text(result.stdout + result.stderr, encoding="utf-8")
         rollout = seed_output / "rollout.npz"
         if result.returncode or not rollout.is_file():
             rows.append(_row(seed, status="FAILED", message=f"runner_return_code={result.returncode}", burden=burden, output=seed_output))
-            continue
+            break
         try:
             metrics = rollout_seed_metrics(rollout)
             if not metrics["contact_detected"]:
@@ -148,6 +161,7 @@ def run(*, config_path: Path, mapping_path: Path, evidence_path: Path, output: P
             rows.append(_row(seed, status="PASS", message="real FlyGym disease rollout", burden=burden, output=seed_output, metrics=metrics))
         except (OSError, RuntimeError, ValueError) as exc:
             rows.append(_row(seed, status="FAILED", message=str(exc), burden=burden, output=seed_output))
+            break
 
     write_csv_rows(output / "metrics/disease_per_seed_metrics.csv", FIELDS, rows)
     passed = [row for row in rows if row["status"] == "PASS"]
@@ -157,7 +171,7 @@ def run(*, config_path: Path, mapping_path: Path, evidence_path: Path, output: P
         summary["median_planar_speed_mm_s"] = sample_summary([float(row["median_planar_speed_mm_s"]) for row in passed])
         summary["distance_traveled_mm"] = sample_summary([float(row["distance_traveled_mm"]) for row in passed])
     write_json(output / "results/disease_summary.json", summary)
-    write_json(output / "manifests/disease_manifest.json", build_manifest(status=status, config_paths=[config_path, reference_config], input_paths=[mapping_path, evidence_path, output / "metrics/disease_per_seed_metrics.csv", output / "results/disease_summary.json", checkpoint_output / "riemensperger_dopamine_checkpoint_manifest.json"], extra={"simulation_run": True, "seed_list": seeds, "burden": burden, "mapping_sha256": sha256_file(mapping_path), "checkpoint_sha256": sha256_file(prepared_checkpoint), "output_sha256": sha256_file(output / "metrics/disease_per_seed_metrics.csv")}))
+    write_json(output / "manifests/disease_manifest.json", build_manifest(status=status, config_paths=[config_path, reference_config], input_paths=[mapping_path, evidence_path, output / "metrics/disease_per_seed_metrics.csv", output / "results/disease_summary.json", telemetry_path, checkpoint_output / "riemensperger_dopamine_checkpoint_manifest.json"], extra={"simulation_run": True, "seed_list": seeds, "burden": burden, "mapping_sha256": sha256_file(mapping_path), "checkpoint_sha256": sha256_file(prepared_checkpoint), "output_sha256": sha256_file(output / "metrics/disease_per_seed_metrics.csv")}))
     _write_report(status=status, rows=rows, blockers=[])
     return status
 
