@@ -351,6 +351,10 @@ def audit_documents(
     blockers.extend(authorization_blockers)
     if PROBE_SEED in SCIENTIFIC_SEEDS:
         blockers.append("technical seed overlaps the scientific seed set")
+    attempt04_history = history.get("attempt_04")
+    attempt04_recorded = isinstance(attempt04_history, dict) and bool(attempt04_history)
+    if attempt04_recorded:
+        blockers.append("attempt_04 is already recorded as consumed in storage history")
     if attempt04_exists:
         blockers.append("attempt_04 output directory already exists")
 
@@ -372,6 +376,8 @@ def audit_documents(
         "attempt_03_retry_allowed": failure.get("attempt_03_retry_allowed"),
         "attempt_03_storage_valid": failure.get("storage_qualification_valid"),
         "attempt_04_exists": attempt04_exists,
+        "attempt_04_recorded": attempt04_recorded,
+        "attempt_04_consumed": attempt04_exists or attempt04_recorded,
         "attempt_04_authorized": status == "READY_FOR_GATE24E_ATTEMPT04",
         "attempt_04_seed": authorization.get("probe_seed"),
         "attempt_04_steps": authorization.get("steps"),

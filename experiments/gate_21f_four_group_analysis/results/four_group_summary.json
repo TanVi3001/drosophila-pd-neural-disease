@@ -1,0 +1,7 @@
+{
+  "status": "WAITING_VIRTUAL_GROUP_RESULTS",
+  "interpretation": "WAITING_EVIDENCE",
+  "message": "[Errno 2] No such file or directory: 'E:\\\\Drosophila_Parkinson\\\\main-public-docs\\\\experiments\\\\gate_21b_riemensperger_healthy\\\\results\\\\healthy_summary.json'",
+  "simulation_run": false,
+  "data_fabricated": false
+}

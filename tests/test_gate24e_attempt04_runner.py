@@ -88,11 +88,15 @@ def test_06_attempt03_history_is_consumed_and_not_retryable() -> None:
     assert failure["attempt_03_retry_allowed"] is False
 
 
-def test_07_attempt04_is_consumed_after_s4c() -> None:
-    """A completed one-shot attempt remains present and cannot be reused."""
-    assert runner.ATTEMPT_ROOT.is_dir()
-    assert (runner.ATTEMPT_ROOT / "manifests/attempt_04_execution.json").is_file()
-    assert (runner.ATTEMPT_ROOT / "run/status.json").is_file()
+def test_07_attempt04_is_consumed_after_s4c(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Committed history prevents reuse even when raw probe output is not cloned."""
+    history = json.loads(runner.HISTORY.read_text(encoding="utf-8"))
+    assert history["attempt_04"]["probe_execution_status"] == "ATTEMPT_04_STORAGE_PROBE_PASS"
+    monkeypatch.setattr(runner, "ATTEMPT_ROOT", tmp_path / "not_materialized")
+    with pytest.raises(runner.Attempt04RunnerError, match="already recorded in storage history"):
+        runner._assert_unused()
 
 
 def test_08_seed_steps_device_and_runtime_are_fixed() -> None:

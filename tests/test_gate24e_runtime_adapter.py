@@ -9,8 +9,9 @@ import pytest
 
 from scripts.run_gate24e_runtime_adapter import (
     AdapterError,
-    build_job_plan,
     execute_jobs,
+    GRID as GRID_PATH,
+    PLAN as PLAN_PATH,
     valid_pass_result,
     write_command_manifest,
     write_execution_manifest,
@@ -18,7 +19,8 @@ from scripts.run_gate24e_runtime_adapter import (
 )
 
 
-PLAN = build_job_plan()
+PLAN = json.loads(PLAN_PATH.read_text(encoding="utf-8"))
+GRID = json.loads(GRID_PATH.read_text(encoding="utf-8"))
 
 
 def _jobs() -> list[dict]:
@@ -113,13 +115,15 @@ def test_healthy_jobs_use_no_prepared_disease_checkpoint() -> None:
 
 
 def test_parkin_jobs_select_checkpoint_from_grid_and_record_sha() -> None:
+    expected = {float(row["parameter"]): row for row in GRID["checkpoints"]}
     for job in _jobs():
         if job["condition"] != "parkin":
             continue
-        checkpoint = Path(job["prepared_checkpoint_path"])
-        assert checkpoint.is_file()
+        checkpoint = str(job["prepared_checkpoint_path"]).replace("\\", "/")
+        row = expected[float(job["parameter"])]
+        assert checkpoint.endswith(row["checkpoint_path"])
         assert "--prepared-checkpoint" in job["command"]
-        assert job["prepared_checkpoint_sha256"]
+        assert job["prepared_checkpoint_sha256"] == row["checkpoint_sha256"]
         assert len(job["prepared_checkpoint_sha256"]) == 64
 
 
@@ -147,9 +151,9 @@ def test_output_paths_and_job_ids_are_unique_and_parameter_labeled() -> None:
     assert len({job["output_path"] for job in _jobs()}) == 25
     assert len({job["job_id"] for job in _jobs()}) == 25
     assert all(
-        (f"parkin_{job['parameter']:.2f}".replace(".", "_") in Path(job["output_path"]).parts)
+        (f"parkin_{job['parameter']:.2f}".replace(".", "_") in job["output_path"].replace("\\", "/").split("/"))
         if job["condition"] == "parkin"
-        else "healthy" in Path(job["output_path"]).parts
+        else "healthy" in job["output_path"].replace("\\", "/").split("/")
         for job in _jobs()
     )
 

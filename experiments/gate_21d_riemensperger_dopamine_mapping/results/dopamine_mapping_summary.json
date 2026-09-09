@@ -1,0 +1,14 @@
+{
+  "schema_version": "riemensperger-2011-dopamine-mapping-review-v1",
+  "status": "READY_FOR_RIEMENSPERGER_DISEASE_REPLICATION",
+  "mapping_level": "DOPAMINE_CLASS_LEVEL_EXPLORATORY",
+  "gene_specific_mapping": false,
+  "target_count": 342,
+  "target_source": "configs/conditions/dopamine_deficiency.exploratory.yaml",
+  "target_source_sha256": "8a74ec0c036215a3ff12af69c5acbc6332d6ce7aaf27c735097a874fd57797ec",
+  "target_ids_loaded": 342,
+  "blockers": [],
+  "data_fabricated": false,
+  "simulation_run": false,
+  "scientific_scope": "Dopamine-class-level computational mapping only; never a gene-specific or biological validation claim."
+}

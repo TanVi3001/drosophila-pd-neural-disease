@@ -650,4 +650,15 @@ def test_existing_output_root_blocks_overwrite(tmp_path: Path, monkeypatch: pyte
 def test_plan_builder_matches_frozen_plan_shape() -> None:
     generated = build_plan()
     frozen = _plan()
-    assert generated == frozen
+    frozen_root = frozen["output_root"].split("\\experiments\\", maxsplit=1)[0]
+
+    def portable(value: object, repository_root: str) -> object:
+        if isinstance(value, dict):
+            return {key: portable(item, repository_root) for key, item in value.items()}
+        if isinstance(value, list):
+            return [portable(item, repository_root) for item in value]
+        if isinstance(value, str):
+            return value.replace(repository_root, "<REPOSITORY_ROOT>").replace("\\", "/")
+        return value
+
+    assert portable(generated, str(executor.ROOT)) == portable(frozen, frozen_root)

@@ -158,6 +158,12 @@ def _assert_unused() -> None:
                 "attempt_04 already contains execution artifacts; refusing overwrite or retry"
             )
         raise Attempt04RunnerError("attempt_04 directory already exists; refusing to claim a fresh attempt")
+    history = _read_json(HISTORY)
+    recorded = history.get("attempt_04")
+    if isinstance(recorded, dict) and recorded:
+        raise Attempt04RunnerError(
+            "attempt_04 is already recorded in storage history; refusing overwrite or retry"
+        )
 
 
 def build_command(python: Path = PYTHON_RUNTIME) -> list[str]:

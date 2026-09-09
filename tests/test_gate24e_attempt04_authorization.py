@@ -205,10 +205,10 @@ def test_20_valid_future_review_can_become_ready() -> None:
 
 
 def test_21_attempt04_output_directory_is_consumed_after_s4c() -> None:
-    """The one-shot probe is consumed; its output must not be treated as fresh authorization."""
-    assert attempt04.ATTEMPT_04.is_dir()
-    assert (attempt04.ATTEMPT_04 / "manifests/attempt_04_execution.json").is_file()
-    assert (attempt04.ATTEMPT_04 / "run/status.json").is_file()
+    """The committed history keeps the one-shot consumed when raw output is absent."""
+    history = json.loads(attempt04.STORAGE_HISTORY.read_text(encoding="utf-8"))
+    assert history["attempt_04"]["probe_execution_status"] == "ATTEMPT_04_STORAGE_PROBE_PASS"
+    assert history["attempt_04"]["storage_measurements_valid"] is True
     assert (attempt04.ROOT / "scripts/run_gate24e_storage_probe_attempt04.py").is_file()
 
 
@@ -268,8 +268,9 @@ def test_26_invalid_review_date_is_rejected() -> None:
 def test_27_current_state_waits_for_human_review() -> None:
     result = attempt04.audit()
     assert result["status"] == "GATE24E_ATTEMPT04_AUTHORIZATION_INVALID"
-    assert result["attempt_04_exists"] is True
-    assert "attempt_04 output directory already exists" in result["blockers"]
+    assert result["attempt_04_recorded"] is True
+    assert result["attempt_04_consumed"] is True
+    assert "attempt_04 is already recorded as consumed in storage history" in result["blockers"]
     assert result["next_allowed_action"] == "STOP_AND_REVIEW_ATTEMPT04_AUTHORIZATION"
 
 

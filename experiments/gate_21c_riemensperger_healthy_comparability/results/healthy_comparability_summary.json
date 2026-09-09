@@ -1,0 +1,5 @@
+{
+  "status": "WAITING_HEALTHY_REPLICATION_RUNTIME",
+  "message": "[Errno 2] No such file or directory: 'E:\\\\Drosophila_Parkinson\\\\main-public-docs\\\\experiments\\\\gate_21b_riemensperger_healthy\\\\results\\\\healthy_summary.json'",
+  "data_fabricated": false
+}

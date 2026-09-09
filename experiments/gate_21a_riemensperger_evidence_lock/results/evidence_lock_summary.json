@@ -1,0 +1,18 @@
+{
+  "schema_version": "riemensperger-2011-evidence-lock-v1",
+  "status": "RIEMENSPERGER_2011_EVIDENCE_LOCKED",
+  "paper_id": "riemensperger_2011_dopamine_deficiency",
+  "paper_doi": "10.1073/pnas.1010930108",
+  "pmid": "21187381",
+  "primary_real_control": "DTHg; ple",
+  "real_disease": "DTHgFS±; ple",
+  "secondary_real_reference": "WT",
+  "primary_endpoint": "median_planar_speed_mm_s",
+  "real_speed_ratio": 0.7222222222222222,
+  "real_distance_ratio": 0.4541176470588235,
+  "uncertainty_policy": "NOT_REPORTED is retained; no SE, SD, IQR, range, or CI is fabricated.",
+  "review_status": "PRIMARY_TEXT_LOCKED_HUMAN_SIGNOFF_NOT_SUBSTITUTED",
+  "blockers": [],
+  "simulation_run": false,
+  "data_fabricated": false
+}

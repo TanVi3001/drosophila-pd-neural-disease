@@ -26,7 +26,8 @@ README_PATH = ROOT / "README.md"
 HISTORICAL_REPORT = ROOT / "docs/reproducibility/gate_25_reproducibility_freeze_report.md"
 HISTORICAL_REPORT_SHA256 = "e09347664edbc069c8d8bdd0340811cbaf8a4b9f75a25d1e356a24086cb309f0"
 ANCHOR_COMMIT = "ad87e6b45af4a8e10a4180956af4844e5e33e393"
-PREVIOUS_R2_FREEZE_SHA256 = "7c71f39ed95474852952ecb8be01c31ccf85a001e5a4e8cb18783c177708e39d"
+PREVIOUS_R2_FREEZE_SHA256 = "5aa0d5bf05dac950761b8636fdea001072f27c8226139ec1dac9066be6146d05"
+REFRESH_REASON = "CROSS_PLATFORM_FROZEN_ARTIFACT_TRANSPORT_FIX"
 
 ARCHIVE_EVIDENCE = Path("D:/EHouse/Drosophila_Archive/Gate24E_Final_Raw_Evidence")
 ARCHIVE_RUNS = ARCHIVE_EVIDENCE / "runs"
@@ -359,7 +360,7 @@ provenance only; it does not rerun Gate24E or create new scientific evidence.
 - Gate25-R2 canonical freeze SHA256: `{freeze_sha256}`.
 - Previous Gate25-R2 freeze SHA256: `{PREVIOUS_R2_FREEZE_SHA256}`.
 - Historical Gate25 report SHA256: `{HISTORICAL_REPORT_SHA256}`.
-- Refresh reason: `PREMERGE_PUBLIC_CLAIM_SURFACE_ALIGNMENT`.
+- Refresh reason: `{REFRESH_REASON}`.
 
 The allowed primary claim is: **The frozen Parkin computational perturbation
 did not reproduce the held-out biological locomotor impairment direction under
@@ -443,7 +444,7 @@ def _canonical_freeze_payload(
         "historical_gate25_preserved": True,
         "historical_gate25_report_sha256": HISTORICAL_REPORT_SHA256,
         "previous_gate25_r2_freeze_sha256": PREVIOUS_R2_FREEZE_SHA256,
-        "refresh_reason": "PREMERGE_PUBLIC_CLAIM_SURFACE_ALIGNMENT",
+        "refresh_reason": REFRESH_REASON,
         "scientific_result_changed": False,
         "gate24e_evidence_changed": False,
         "raw_archive_changed": False,
@@ -600,7 +601,7 @@ def audit() -> dict[str, Any]:
     _require(freeze.get("biological_validation_supported") is False, "R2 biological validation claim changed")
     _require(freeze.get("raw_archive_policy", {}).get("publicly_available") is False, "R2 incorrectly claims raw archive is public")
     _require(freeze.get("previous_gate25_r2_freeze_sha256") == PREVIOUS_R2_FREEZE_SHA256, "Previous R2 freeze SHA is missing")
-    _require(freeze.get("refresh_reason") == "PREMERGE_PUBLIC_CLAIM_SURFACE_ALIGNMENT", "R2 refresh reason changed")
+    _require(freeze.get("refresh_reason") == REFRESH_REASON, "R2 refresh reason changed")
     _require(freeze.get("scientific_result_changed") is False, "R2 claims a scientific result change")
     _require(freeze.get("gate24e_evidence_changed") is False, "R2 claims Gate24E evidence changed")
     _require(freeze.get("raw_archive_changed") is False, "R2 claims raw archive changed")

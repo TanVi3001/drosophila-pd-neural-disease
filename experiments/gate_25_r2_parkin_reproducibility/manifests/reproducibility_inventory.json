@@ -5,8 +5,8 @@
     {
       "path": ".gitattributes",
       "role": "Runtime or claim contract",
-      "sha256": "99a0336c6accd38bdf3d831528fd206b0a010ae5b81a294c5fb1f808dd022906",
-      "size_bytes": 229
+      "sha256": "b1abbb0bcee3b76afca6b191f8aa2c195be2c8e34877b4f50ee748ee2db4758a",
+      "size_bytes": 3737
     },
     {
       "path": ".github/workflows/tests.yml",
@@ -527,8 +527,8 @@
     {
       "path": "scripts/run_gate25_r2_reproducibility_freeze.py",
       "role": "Gate24E execution or audit source",
-      "sha256": "a6d814fb1847fe1babbc8ffc5db41b5fc68d9d84dcd790355c212ec056219566",
-      "size_bytes": 33908
+      "sha256": "50af3b4ecc2e20987431405f2515134b0252897cc02e0947f9d93a497a5de027",
+      "size_bytes": 33895
     },
     {
       "path": "scripts/run_neural_experiment.py",
@@ -563,8 +563,8 @@
     {
       "path": "tests/test_gate25_r2_public_surface_alignment.py",
       "role": "Runtime or claim contract",
-      "sha256": "2b6e99a43ecf94a9b8ecdcfeafc733babe72fe53c5887bf7435b672d7dcbc957",
-      "size_bytes": 3773
+      "sha256": "6c7eea7ab7c5b4c8c78612f60785ad482632537b772f305910ecc0cfcfe71312",
+      "size_bytes": 3766
     },
     {
       "path": "tests/test_gate25_r2_reproducibility_freeze.py",
@@ -588,7 +588,7 @@
     "committed_to_git": false,
     "externally_preserved": true,
     "file_count": 275,
-    "live_verification": "COMPLETE_SHA256",
+    "live_verification": "METADATA_AND_CHECKSUM_MANIFEST",
     "publicly_available": false,
     "total_bytes": 13958129260,
     "tree_sha256": "f6e3de6e96cbe3be0f447ea8eeca463087a9381d1c2d2965807d04df1655faff"

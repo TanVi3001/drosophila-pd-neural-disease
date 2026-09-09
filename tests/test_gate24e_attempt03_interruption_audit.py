@@ -71,8 +71,8 @@ def test_09_attempt03_retry_is_forbidden() -> None:
 def test_10_attempt04_is_consumed_and_not_authorized_for_retry() -> None:
     assert FAILURE["attempt_04_authorized"] is False
     assert HISTORY["attempt_04_authorized"] is False
-    assert ATTEMPT_04.is_dir()
-    assert (ATTEMPT_04 / "manifests/attempt_04_execution.json").is_file()
+    assert HISTORY["attempt_04"]["probe_execution_status"] == "ATTEMPT_04_STORAGE_PROBE_PASS"
+    assert HISTORY["attempt_04"]["valid_for_storage_estimation"] is True
 
 
 def test_11_scientific_jobs_remain_zero() -> None:

@@ -12,6 +12,7 @@ from scripts.run_gate25_r2_reproducibility_freeze import (
     HISTORICAL_REPORT,
     HISTORICAL_REPORT_SHA256,
     PREVIOUS_R2_FREEZE_SHA256,
+    REFRESH_REASON,
     FREEZE_PATH,
     audit,
     sha256_file,
@@ -74,7 +75,7 @@ def test_r2_refresh_records_provenance_without_changing_science() -> None:
     freeze = _json("experiments/gate_25_r2_parkin_reproducibility/manifests/gate25_r2_reproducibility_freeze.json")
     assert result["status"] == "GATE25_R2_REPRODUCIBILITY_FREEZE_COMPLETE"
     assert freeze["previous_gate25_r2_freeze_sha256"] == PREVIOUS_R2_FREEZE_SHA256
-    assert freeze["refresh_reason"] == "PREMERGE_PUBLIC_CLAIM_SURFACE_ALIGNMENT"
+    assert freeze["refresh_reason"] == REFRESH_REASON
     assert freeze["scientific_result_changed"] is False
     assert freeze["gate24e_evidence_changed"] is False
     assert freeze["raw_archive_changed"] is False

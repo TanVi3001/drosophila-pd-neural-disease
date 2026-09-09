@@ -2,3 +2,38 @@
 *.pdf binary
 experiments/gate_24e_storage_probe/attempt_03/logs/storage_probe_attempt_03.log -text whitespace=cr-at-eol
 experiments/gate_24e_storage_probe/attempt_03/manifests/*.json -text whitespace=cr-at-eol
+
+# These historical artifacts were frozen with byte-level Windows or mixed-EOL
+# hashes. Preserve their exact bytes so Linux CI verifies the recorded evidence
+# instead of silently normalizing it during checkout.
+docs/validation/gate24e_attempt03_interruption_audit.md -text whitespace=cr-at-eol
+docs/validation/gate24e_blinded_virtual_prediction_freeze.md -text whitespace=cr-at-eol
+docs/validation/gate24e_s4f_storage_artifact_reconciliation.md -text whitespace=cr-at-eol
+docs/validation/gate24e_s4g_storage_cleanup_execution.md -text whitespace=cr-at-eol
+docs/validation/gate24e_scientific_batch_activation_readiness.md -text whitespace=cr-at-eol
+docs/validation/gate24e_scientific_batch_plan_and_preflight.md -text whitespace=cr-at-eol
+experiments/gate_24e_blinded_parkin_prediction/manifests/command_manifest.json -text whitespace=cr-at-eol
+experiments/gate_24e_blinded_parkin_prediction/manifests/execution_manifest.json -text whitespace=cr-at-eol
+experiments/gate_24e_blinded_parkin_prediction/manifests/immutable_virtual_prediction_freeze.json -text whitespace=cr-at-eol
+experiments/gate_24e_blinded_parkin_prediction/manifests/job_plan.json -text whitespace=cr-at-eol
+experiments/gate_24e_blinded_parkin_prediction/manifests/scientific_batch_activation.json -text whitespace=cr-at-eol
+experiments/gate_24e_blinded_parkin_prediction/manifests/scientific_batch_artifact_inventory.json -text whitespace=cr-at-eol
+experiments/gate_24e_blinded_parkin_prediction/manifests/scientific_batch_execution.json -text whitespace=cr-at-eol
+experiments/gate_24e_blinded_parkin_prediction/manifests/scientific_batch_plan.sha256 -text whitespace=cr-at-eol
+experiments/gate_24e_blinded_parkin_prediction/results/biological_holdout_direction.csv -text whitespace=cr-at-eol
+research/validation/gene_specific/parkin/driver_to_connectome_mapping.csv -text whitespace=cr-at-eol
+research/validation/gene_specific/parkin/experiment_contract.yaml -text whitespace=cr-at-eol
+experiments/gate_21a_riemensperger_evidence_lock/manifests/evidence_lock_manifest.json -text whitespace=cr-at-eol
+experiments/gate_21a_riemensperger_evidence_lock/results/evidence_lock_summary.json -text whitespace=cr-at-eol
+experiments/gate_21b_riemensperger_healthy/manifests/healthy_manifest.json -text whitespace=cr-at-eol
+experiments/gate_21b_riemensperger_healthy/results/healthy_execution_plan.json -text whitespace=cr-at-eol
+experiments/gate_21c_riemensperger_healthy_comparability/manifests/healthy_comparability_manifest.json -text whitespace=cr-at-eol
+experiments/gate_21c_riemensperger_healthy_comparability/results/healthy_comparability_summary.json -text whitespace=cr-at-eol
+experiments/gate_21d_riemensperger_dopamine_mapping/manifests/dopamine_mapping_manifest.json -text whitespace=cr-at-eol
+experiments/gate_21d_riemensperger_dopamine_mapping/results/dopamine_mapping_summary.json -text whitespace=cr-at-eol
+experiments/gate_21e_riemensperger_disease/manifests/disease_manifest.json -text whitespace=cr-at-eol
+experiments/gate_21e_riemensperger_disease/results/disease_execution_plan.json -text whitespace=cr-at-eol
+experiments/gate_21f_four_group_analysis/manifests/four_group_manifest.json -text whitespace=cr-at-eol
+experiments/gate_21f_four_group_analysis/results/four_group_summary.json -text whitespace=cr-at-eol
+experiments/gate_21g_riemensperger_robustness/manifests/robustness_manifest.json -text whitespace=cr-at-eol
+experiments/gate_21g_riemensperger_robustness/results/robustness_summary.json -text whitespace=cr-at-eol
