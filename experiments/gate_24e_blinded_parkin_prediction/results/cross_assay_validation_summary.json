@@ -1,0 +1,20 @@
+{
+  "biological_direction": "BIOLOGICAL_IMPAIRMENT_SUPPORTED",
+  "biological_validation_claim": "NOT_SUPPORTED",
+  "cross_assay_decision": "DIRECTIONAL_CROSS_ASSAY_DISCORDANCE",
+  "gpu_executed": false,
+  "holdout_opened": true,
+  "holdout_status": "OPENED_FOR_VALIDATION",
+  "posthoc_parameter_selection": false,
+  "primary_validation_axis": "LOCOMOTOR_IMPAIRMENT_DIRECTION",
+  "quantitative_cross_assay_validation": false,
+  "raw_data_available": false,
+  "retuning_after_holdout": false,
+  "schema_version": "gate24e-cross-assay-validation-summary-v1",
+  "simulation_executed": false,
+  "source_id": "cackovic_2018_park_loss_of_function",
+  "source_sha256": "e0c14c4e0a8cd97616db0364157e583f6dfe3054bf0778a79081309fa090046b",
+  "status": "GATE24E_BIOLOGICAL_HOLDOUT_VALIDATED_DIRECTION_ONLY",
+  "virtual_grid_decision": "DIRECTIONAL_VALIDATION_NOT_SUPPORTED",
+  "virtual_prediction_freeze_sha256": "f44e9ad10b9fc4795ae2173d3e8b27fc9ea0d8202925bfc08cdcc72d06b00863"
+}

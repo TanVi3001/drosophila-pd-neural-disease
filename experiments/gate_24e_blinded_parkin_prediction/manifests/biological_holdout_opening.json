@@ -1,0 +1,20 @@
+{
+  "authorization_commit": "648e0dbc5a845be4186ce76a6130b95aa06842ce",
+  "gpu_executed": false,
+  "holdout_opened": true,
+  "holdout_status": "OPENED_FOR_VALIDATION",
+  "model_change_allowed": false,
+  "opened_at_utc": "2026-09-09T02:48:00.118674Z",
+  "parameter_selection_allowed": false,
+  "prior_firewall_status": "SEALED",
+  "purpose": "DIRECTIONAL_CROSS_ASSAY_VALIDATION_ONLY",
+  "review_date": "2026-09-09",
+  "reviewer_1": "Tuan Le",
+  "reviewer_2": "To Dang Minh Tuan",
+  "schema_version": "gate24e-biological-holdout-opening-v1",
+  "simulation_executed": false,
+  "status": "BIOLOGICAL_HOLDOUT_OPENED_FOR_VALIDATION",
+  "tuning_allowed": false,
+  "virtual_grid_decision": "DIRECTIONAL_VALIDATION_NOT_SUPPORTED",
+  "virtual_prediction_freeze_sha256": "f44e9ad10b9fc4795ae2173d3e8b27fc9ea0d8202925bfc08cdcc72d06b00863"
+}
