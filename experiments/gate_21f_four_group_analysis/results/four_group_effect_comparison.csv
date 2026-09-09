@@ -1,0 +1,2 @@
+metric,real_control,real_disease,real_effect_ratio,virtual_control,virtual_disease,virtual_effect_ratio,ratio_error,direction_concordant,quantitative_match,assay_comparability,notes
+median_planar_speed_mm_s,10.8,7.8,0.7222222222222222,2.5853208610209686,2.5853208610209686,1.0,0.2777777777777778,False,NOT_ASSESSED_NO_PREREGISTERED_THRESHOLD,RATIO_ANALYSIS_WITH_LIMITATIONS,No calibration or post-hoc threshold was applied. Absolute raw-scale agreement is not claimed.

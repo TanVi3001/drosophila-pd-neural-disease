@@ -1,0 +1,194 @@
+{
+  "completion_manifest_sha256": "b1df265a369716af4d469bd2ab08d888e90d66ab1525d9af03e2e676a512b50b",
+  "raw_rollouts_committed": false,
+  "record_count": 37,
+  "records": [
+    {
+      "path": "experiments/gate_21a_riemensperger_evidence_lock/results/evidence_lock_summary.json",
+      "sha256": "1e835ee42dc780e47b6fe51926cf3058dd806519dd824df3d648d067803a6d89",
+      "size_bytes": 739
+    },
+    {
+      "path": "experiments/gate_21d_riemensperger_dopamine_mapping/results/dopamine_mapping_summary.json",
+      "sha256": "ebf39c21a8f25eb93055abf9f66786e1b335b0fd8b3e5689f75bd8d0f333f1f2",
+      "size_bytes": 658
+    },
+    {
+      "path": "research/replications/riemensperger_2011/mapping/dopamine_mapping_spec.yaml",
+      "sha256": "a416b22f642e4f4c65d2eee720fbe91cb7724808897446bb48f3a691de938dee",
+      "size_bytes": 1685
+    },
+    {
+      "path": "research/replications/riemensperger_2011/mapping/dopamine_transform_hypothesis.yaml",
+      "sha256": "88a8eb026d456364abf4bb53ba565b3d673e7cb7df89c9732e3aba86496cbef5",
+      "size_bytes": 1753
+    },
+    {
+      "path": "configs/replications/riemensperger_2011_healthy.yaml",
+      "sha256": "df7cdba52c87387645ccf95a81e0b58115aeb9012526297699793f5ed46faabc",
+      "size_bytes": 1105
+    },
+    {
+      "path": "configs/replications/riemensperger_2011_dopamine_deficiency.yaml",
+      "sha256": "382b1682cf4dd52caea0b4148032beb070a552d43f836a078c462d88d065711b",
+      "size_bytes": 996
+    },
+    {
+      "path": "configs/replications/riemensperger_2011_analysis.yaml",
+      "sha256": "a70c1d4b6eb00bd832560b6bb6cdcc3fb13ce0e379d29cc3abe4c3dce7c60e90",
+      "size_bytes": 486
+    },
+    {
+      "path": "research/replications/riemensperger_2011/evidence/endpoint_contract.yaml",
+      "sha256": "5b25ba1262b54c01ce5d034ed794ab8799d097aad2f03433d79d194e1dc9e960",
+      "size_bytes": 1323
+    },
+    {
+      "path": "experiments/gate_26_riemensperger_full_completion/manifests/gate26_execution_freeze.json",
+      "sha256": "0c3f2760c9a48183b5e00149513090237e95705b3829283bb1212e98fe199267",
+      "size_bytes": 3293
+    },
+    {
+      "path": "experiments/gate_26_riemensperger_full_completion/manifests/gate26_completion_manifest.json",
+      "sha256": "9169aeabdd7a40852472cea536f0c6ad7d5571b4399aafca023fc6288c0ccb7b",
+      "size_bytes": 1734
+    },
+    {
+      "path": "experiments/riemensperger_2011_pipeline_status.json",
+      "sha256": "dc8c250c680ec08f53cd3da04c2077ff59a9a5b885ac74594f5b7057ceec9aa8",
+      "size_bytes": 602
+    },
+    {
+      "path": "docs/replications/riemensperger_2011/final_replication_report.md",
+      "sha256": "643d8aa2dd01a65e368f4162c9590c10798030c2debea72ffa46a7076e0f9f88",
+      "size_bytes": 3148
+    },
+    {
+      "path": "experiments/gate_26_riemensperger_full_completion/manifests/gate26_preflight.json",
+      "sha256": "a09a627a5f800b7ce7dc09cbc9969cf7b4ba54bf42daf91ded8c742153ba42a6",
+      "size_bytes": 1403
+    },
+    {
+      "path": "experiments/gate_26_riemensperger_full_completion/manifests/execution_lock.json",
+      "sha256": "af8b2bc839423869d4f1ab9c241d14a77cf8c1153814fa07df85a9a09fc00fe5",
+      "size_bytes": 228
+    },
+    {
+      "path": "experiments/gate_21b_riemensperger_healthy/manifests/healthy_manifest.json",
+      "sha256": "e2c10681b25d30591447979a12773f0808b102091929a1966e096cc910196069",
+      "size_bytes": 1717
+    },
+    {
+      "path": "experiments/gate_21b_riemensperger_healthy/metrics/healthy_per_seed_metrics.csv",
+      "sha256": "a9dc3a401a5726ae5be0101f28ad64df20877f405b8ad5f9c70a34870b4eb048",
+      "size_bytes": 1658
+    },
+    {
+      "path": "experiments/gate_21b_riemensperger_healthy/results/healthy_summary.json",
+      "sha256": "a288e93362d6f38e1ba359ad9391afa6a7f0b2174a8c222c384c8794be5163d9",
+      "size_bytes": 534
+    },
+    {
+      "path": "experiments/gate_21b_riemensperger_healthy/results/healthy_execution_plan.json",
+      "sha256": "575c98f01dbffb7d1906ff28fc0d6951420b880e8d572af30ded2fa3a502952a",
+      "size_bytes": 462
+    },
+    {
+      "path": "experiments/gate_21b_riemensperger_healthy/results/gpu_telemetry.json",
+      "sha256": "4b237ef3b2d667a4cb058b653ad1911c302fb6d3232618fe333d4ddd6dc9a352",
+      "size_bytes": 71
+    },
+    {
+      "path": "experiments/gate_21c_riemensperger_healthy_comparability/manifests/healthy_comparability_manifest.json",
+      "sha256": "87a41d2789ca6353145ffe502b448134a8ef9a764e9e8796dd3c6042a9f45b16",
+      "size_bytes": 1870
+    },
+    {
+      "path": "experiments/gate_21c_riemensperger_healthy_comparability/results/healthy_comparability_summary.json",
+      "sha256": "b39fbd3a6c6aa46459ae76f29bb92acfe0411f10ee72c8a0c86a39508936247c",
+      "size_bytes": 829
+    },
+    {
+      "path": "experiments/gate_21e_riemensperger_disease/checkpoint_materialization/riemensperger_dopamine_checkpoint_manifest.json",
+      "sha256": "ac1eb9a58ea47899623c87578e5397e99033ddf370feb9b580016ba54b24b58a",
+      "size_bytes": 928
+    },
+    {
+      "path": "experiments/gate_21e_riemensperger_disease/checkpoint_materialization/status.json",
+      "sha256": "6bae6ea3e64d7e6e864a1f0824e3174ae4493e26d89a2e081596ec0a1797689b",
+      "size_bytes": 1168
+    },
+    {
+      "path": "experiments/gate_21e_riemensperger_disease/metrics/disease_per_seed_metrics.csv",
+      "sha256": "abc862c67a1958c68110a97065de86d1586662041714ce9f3c0180059c1b6e2f",
+      "size_bytes": 1685
+    },
+    {
+      "path": "experiments/gate_21e_riemensperger_disease/results/disease_summary.json",
+      "sha256": "32978c7dacc125d342de7c397814d532c0fa775dfcf7560269905e4d0535bb78",
+      "size_bytes": 564
+    },
+    {
+      "path": "experiments/gate_21e_riemensperger_disease/results/disease_execution_plan.json",
+      "sha256": "84037448ec33d13c9cf1a4396648c49e4d0b4b31795eee73023f0e54fb9b6f8c",
+      "size_bytes": 336
+    },
+    {
+      "path": "experiments/gate_21e_riemensperger_disease/results/gpu_telemetry.json",
+      "sha256": "4b237ef3b2d667a4cb058b653ad1911c302fb6d3232618fe333d4ddd6dc9a352",
+      "size_bytes": 71
+    },
+    {
+      "path": "experiments/gate_21e_riemensperger_disease/manifests/disease_manifest.json",
+      "sha256": "0f990d81934483765739cad6d0e7e55914ec06a53ef4f29107bf27bda28a1947",
+      "size_bytes": 2588
+    },
+    {
+      "path": "experiments/gate_21f_four_group_analysis/manifests/four_group_manifest.json",
+      "sha256": "85b4be872dfb4db00c7cb51d3e114e401d9dcf95d8c0d75b8bc0ce95698fc961",
+      "size_bytes": 2150
+    },
+    {
+      "path": "experiments/gate_21f_four_group_analysis/metrics/four_group_table.csv",
+      "sha256": "c1eb585196fe5372a8277ecc50bfe3268f19e3813516c333fd7c3b1c753ef1cf",
+      "size_bytes": 1124
+    },
+    {
+      "path": "experiments/gate_21f_four_group_analysis/results/four_group_summary.json",
+      "sha256": "2c762c64f01a20f4bc87da10f8f415691041ae88b72e94f6ee416f52f28086ba",
+      "size_bytes": 859
+    },
+    {
+      "path": "experiments/gate_21f_four_group_analysis/results/four_group_effect_comparison.csv",
+      "sha256": "2e6891f43c851a38ccc3facef7f2dece3818bc603e7268589e3cb9ea4cc5cd10",
+      "size_bytes": 469
+    },
+    {
+      "path": "experiments/gate_21g_riemensperger_robustness/manifests/robustness_manifest.json",
+      "sha256": "a4d446750b66e20717ed7a4b2f439ca365def60903f3e775616c4eb629f3b7ce",
+      "size_bytes": 1259
+    },
+    {
+      "path": "experiments/gate_21g_riemensperger_robustness/results/robustness_summary.json",
+      "sha256": "e6c4e7d3b185e10b113c65f72b8fcf824ad4ee310875d1255074d34f75d3501f",
+      "size_bytes": 421
+    },
+    {
+      "path": "scripts/run_gate26_riemensperger_full_completion.py",
+      "sha256": "493778d4e9450c625ee9808a4b4f2816eaa8d8d0e15e70d2da6f3ed4a38b11f5",
+      "size_bytes": 37732
+    },
+    {
+      "path": "docs/replications/riemensperger_2011/riemensperger_2011_pipeline_completion_update.md",
+      "sha256": "9aa804853b7a07fad24eeb2886117f347e351b69450b2d2ad37e05981c59fd3b",
+      "size_bytes": 1985
+    },
+    {
+      "path": "research/validation/prospective/riemensperger_2011_final_reviewer_signoff.json",
+      "sha256": "52006a131786c8a4e024b7d36d4171bd6988dd317aa950723957042410542198",
+      "size_bytes": 560
+    }
+  ],
+  "schema_version": "gate26-reproducibility-inventory-v1",
+  "status": "COMPLETE"
+}

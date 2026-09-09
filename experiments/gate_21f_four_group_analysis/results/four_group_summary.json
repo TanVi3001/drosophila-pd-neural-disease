@@ -1,7 +1,22 @@
 {
-  "status": "WAITING_VIRTUAL_GROUP_RESULTS",
-  "interpretation": "WAITING_EVIDENCE",
-  "message": "[Errno 2] No such file or directory: 'E:\\\\Drosophila_Parkinson\\\\main-public-docs\\\\experiments\\\\gate_21b_riemensperger_healthy\\\\results\\\\healthy_summary.json'",
-  "simulation_run": false,
-  "data_fabricated": false
+  "status": "FOUR_GROUP_ANALYSIS_COMPLETE",
+  "interpretation": "NOT_REPRODUCED",
+  "comparison": {
+    "metric": "median_planar_speed_mm_s",
+    "real_control": 10.8,
+    "real_disease": 7.8,
+    "real_effect_ratio": 0.7222222222222222,
+    "virtual_control": 2.5853208610209686,
+    "virtual_disease": 2.5853208610209686,
+    "virtual_effect_ratio": 1.0,
+    "ratio_error": 0.2777777777777778,
+    "direction_concordant": false,
+    "quantitative_match": "NOT_ASSESSED_NO_PREREGISTERED_THRESHOLD",
+    "assay_comparability": "RATIO_ANALYSIS_WITH_LIMITATIONS",
+    "notes": "No calibration or post-hoc threshold was applied. Absolute raw-scale agreement is not claimed."
+  },
+  "distance_endpoint_status": "DISTANCE_ENDPOINT_NOT_COMPARABLE",
+  "data_fabricated": false,
+  "calibration_run": false,
+  "holdout_validation_run": false
 }

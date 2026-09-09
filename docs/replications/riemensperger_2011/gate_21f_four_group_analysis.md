@@ -1,7 +1,7 @@
 # Gate 21F - Matched four-group analysis
 
 **Trạng thái:** `FOUR_GROUP_ANALYSIS_COMPLETE`
-**Diễn giải:** `DIRECTIONALLY_CONCORDANT_QUANTITATIVE_MISMATCH`
+**Diễn giải:** `NOT_REPRODUCED`
 
 | Nhóm | Nguồn | Vai trò |
 | --- | --- | --- |

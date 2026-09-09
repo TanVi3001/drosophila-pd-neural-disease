@@ -1,5 +1,19 @@
 {
-  "status": "WAITING_HEALTHY_REPLICATION_RUNTIME",
-  "message": "[Errno 2] No such file or directory: 'E:\\\\Drosophila_Parkinson\\\\main-public-docs\\\\experiments\\\\gate_21b_riemensperger_healthy\\\\results\\\\healthy_summary.json'",
-  "data_fabricated": false
+  "status": "HEALTHY_COMPARABILITY_ACCEPTABLE_FOR_RATIO_ANALYSIS",
+  "comparison": {
+    "metric": "median_planar_speed_mm_s",
+    "real_control_raw_metric": 10.8,
+    "virtual_control_raw_metric": 2.5853208610209686,
+    "unit": "mm/s",
+    "absolute_difference_mm_s": 8.214679138979033,
+    "relative_difference_vs_real": 0.7606184387943549,
+    "unit_compatibility": "MATCH",
+    "statistic_compatibility": "LIMITED_DIFFERENT_UNIT_OF_ANALYSIS",
+    "assay_compatibility": "RATIO_ANALYSIS_WITH_LIMITATIONS",
+    "absolute_scale_status": "ABSOLUTE_SCALE_MISMATCH",
+    "ratio_analysis_allowed": "allowed_for_exploratory_directional_ratio_analysis",
+    "notes": "No calibration is applied to force virtual and real healthy raw speeds to match."
+  },
+  "data_fabricated": false,
+  "calibration_run": false
 }

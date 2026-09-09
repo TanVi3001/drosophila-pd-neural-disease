@@ -1,0 +1,26 @@
+{
+  "status": "CHECKPOINT_READY",
+  "message": "Created from the real connectome using the Riemensperger transform module.",
+  "simulation_run": false,
+  "data_fabricated": false,
+  "manifest": {
+    "schema_version": "riemensperger-2011-dopamine-checkpoint-v1",
+    "status": "CHECKPOINT_READY",
+    "operator": "drosophila_pd_neural.riemensperger2011.dopamine_transform.apply_dopamine_class_presynaptic_transform",
+    "burden": 1.0,
+    "full_presynaptic_gain": 0.15,
+    "age_days": 5.0,
+    "target_count": 342,
+    "parent_healthy_checkpoint": {
+      "path": "E:\\Drosophila_Parkinson\\external\\fly-brain-audit\\data\\plastic_weights.pt",
+      "sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691"
+    },
+    "child_disease_checkpoint": {
+      "path": "E:\\Drosophila_Parkinson\\riemensperger-full-completion-worktree\\experiments\\gate_21e_riemensperger_disease\\checkpoint_materialization\\plastic_weights.pt",
+      "sha256": "75492edf67a03f0afdb95e95ac9256f6d6db99d6496113696f417b5373151a3c"
+    },
+    "healthy_checkpoint_unchanged": true,
+    "simulation_run": false,
+    "data_fabricated": false
+  }
+}

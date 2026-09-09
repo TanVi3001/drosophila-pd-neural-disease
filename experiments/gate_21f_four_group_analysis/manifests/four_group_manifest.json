@@ -1,17 +1,11 @@
 {
   "schema_version": "riemensperger-2011-replication-manifest-v1",
-  "created_at_utc": "2026-09-07T16:02:53.875021+00:00",
-  "status": "WAITING_VIRTUAL_GROUP_RESULTS",
-  "git_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "created_at_utc": "2026-09-09T17:31:35.343868+00:00",
+  "status": "FOUR_GROUP_ANALYSIS_COMPLETE",
+  "git_commit": "fb1997354268cab8cfe0f67dec9d1b76d954dc02",
   "python_version": "3.12.10",
-  "extension_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
-  "config_inputs": [],
-  "data_inputs": [
-    {
-      "path": "research/replications/riemensperger_2011/evidence/paper_evidence_lock.csv",
-      "sha256": "2719d42d5fe6b8d8392e96016dd005178bbde9c3f956bf0a988aa87966fbf7e8",
-      "size_bytes": 4924
-    },
+  "extension_commit": "fb1997354268cab8cfe0f67dec9d1b76d954dc02",
+  "config_inputs": [
     {
       "path": "research/replications/riemensperger_2011/evidence/endpoint_contract.yaml",
       "sha256": "5b25ba1262b54c01ce5d034ed794ab8799d097aad2f03433d79d194e1dc9e960",
@@ -21,17 +15,40 @@
       "path": "configs/replications/riemensperger_2011_analysis.yaml",
       "sha256": "a70c1d4b6eb00bd832560b6bb6cdcc3fb13ce0e379d29cc3abe4c3dce7c60e90",
       "size_bytes": 486
+    }
+  ],
+  "data_inputs": [
+    {
+      "path": "research/replications/riemensperger_2011/evidence/paper_evidence_lock.csv",
+      "sha256": "2719d42d5fe6b8d8392e96016dd005178bbde9c3f956bf0a988aa87966fbf7e8",
+      "size_bytes": 4924
     },
     {
       "path": "experiments/gate_21b_riemensperger_healthy/results/healthy_summary.json",
-      "status": "MISSING"
+      "sha256": "a288e93362d6f38e1ba359ad9391afa6a7f0b2174a8c222c384c8794be5163d9",
+      "size_bytes": 534
     },
     {
       "path": "experiments/gate_21e_riemensperger_disease/results/disease_summary.json",
-      "status": "MISSING"
+      "sha256": "32978c7dacc125d342de7c397814d532c0fa775dfcf7560269905e4d0535bb78",
+      "size_bytes": 564
+    },
+    {
+      "path": "experiments/gate_21f_four_group_analysis/results/four_group_metrics.csv",
+      "sha256": "c1eb585196fe5372a8277ecc50bfe3268f19e3813516c333fd7c3b1c753ef1cf",
+      "size_bytes": 1124
+    },
+    {
+      "path": "experiments/gate_21f_four_group_analysis/results/four_group_effect_comparison.csv",
+      "sha256": "2e6891f43c851a38ccc3facef7f2dece3818bc603e7268589e3cb9ea4cc5cd10",
+      "size_bytes": 469
     }
   ],
   "simulation_run": false,
   "data_fabricated": false,
-  "message": "[Errno 2] No such file or directory: 'E:\\\\Drosophila_Parkinson\\\\main-public-docs\\\\experiments\\\\gate_21b_riemensperger_healthy\\\\results\\\\healthy_summary.json'"
+  "primary_endpoint": "median_planar_speed_mm_s",
+  "real_effect_ratio": 0.7222222222222222,
+  "virtual_effect_ratio": 1.0,
+  "ratio_error": 0.2777777777777778,
+  "interpretation": "NOT_REPRODUCED"
 }

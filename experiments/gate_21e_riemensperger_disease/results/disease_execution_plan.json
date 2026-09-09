@@ -1,6 +1,9 @@
 {
-  "status": "WAITING_DOPAMINE_MAPPING_REVIEW",
-  "dry_run": true,
+  "burden": 1.0,
+  "checkpoint_sha256": "75492edf67a03f0afdb95e95ac9256f6d6db99d6496113696f417b5373151a3c",
+  "data_fabricated": false,
+  "dry_run": false,
+  "n_seeds_passed": 5,
   "seeds": [
     0,
     1,
@@ -8,15 +11,6 @@
     3,
     4
   ],
-  "burden": 1.0,
-  "blockers": [
-    "mapping:Required status READY_FOR_RIEMENSPERGER_DISEASE_REPLICATION, received WAITING_DOPAMINE_MAPPING_REVIEW from experiments/gate_21d_riemensperger_dopamine_mapping/results/dopamine_mapping_summary.json.",
-    "brain_artifact_missing:brain_body_bridge.py",
-    "brain_artifact_missing:code/run_pytorch.py",
-    "brain_artifact_missing:data/2025_Completeness_783.csv",
-    "brain_artifact_missing:data/2025_Connectivity_783.parquet",
-    "brain_artifact_missing:data/plastic_weights.pt"
-  ],
-  "simulation_run": false,
-  "data_fabricated": false
+  "simulation_run": true,
+  "status": "DOPAMINE_DEFICIENCY_VIRTUAL_REPLICATION_PASS"
 }

@@ -1,0 +1,5 @@
+group,source_type,condition_role,metric,statistic,value,unit,uncertainty,n,source,config,notes
+A,real,REAL_PRIMARY_CONTROL,median_planar_speed_mm_s,median,10.8,mm/s,NOT_REPORTED,NOT_REPORTED_PER_GROUP,https://pmc.ncbi.nlm.nih.gov/articles/PMC3021077/,paper_evidence_lock,DTHg; ple
+B,virtual,VIRTUAL_HEALTHY_CONTROL,median_planar_speed_mm_s,median_across_seed_medians,2.5853208610209686,mm/s,0.20098980249690077,5,E:\Drosophila_Parkinson\riemensperger-full-completion-worktree\experiments\gate_21b_riemensperger_healthy\results\healthy_summary.json,riemensperger_2011_healthy.yaml,Disease layer OFF
+C,real,REAL_DISEASE,median_planar_speed_mm_s,median,7.8,mm/s,NOT_REPORTED,13,https://pmc.ncbi.nlm.nih.gov/articles/PMC3021077/,paper_evidence_lock,DTHgFS±; ple
+D,virtual,VIRTUAL_DOPAMINE_DEFICIENT,median_planar_speed_mm_s,median_across_seed_medians,2.5853208610209686,mm/s,0.20098980249690077,5,E:\Drosophila_Parkinson\riemensperger-full-completion-worktree\experiments\gate_21e_riemensperger_disease\results\disease_summary.json,riemensperger_2011_dopamine_deficiency.yaml,Class-level exploratory mapping; not gene-specific

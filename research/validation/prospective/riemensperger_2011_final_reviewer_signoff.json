@@ -1,0 +1,17 @@
+{
+  "auto_sign": false,
+  "claim_lock_approved": false,
+  "decision": "PENDING_HUMAN_REVIEW",
+  "disease_rollout_qc_approved": false,
+  "dopamine_mapping_approved": true,
+  "evidence_paper_approved": false,
+  "final_directional_decision": "NOT_REPRODUCED",
+  "four_group_analysis_approved": false,
+  "gate26_closed": false,
+  "healthy_rollout_qc_approved": false,
+  "review_date": "",
+  "reviewer_1": "",
+  "reviewer_2": "",
+  "schema_version": "riemensperger-final-review-signoff-v1",
+  "status": "WAITING_RIEMENSPERGER_FINAL_HUMAN_REVIEW"
+}

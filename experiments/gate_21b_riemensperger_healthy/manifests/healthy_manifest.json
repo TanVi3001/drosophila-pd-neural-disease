@@ -1,10 +1,10 @@
 {
   "schema_version": "riemensperger-2011-replication-manifest-v1",
-  "created_at_utc": "2026-09-07T16:02:53.287839+00:00",
-  "status": "NOT_EXECUTED_DRY_RUN",
-  "git_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "created_at_utc": "2026-09-09T17:29:43.717209+00:00",
+  "status": "HEALTHY_VIRTUAL_REPLICATION_PASS",
+  "git_commit": "fb1997354268cab8cfe0f67dec9d1b76d954dc02",
   "python_version": "3.12.10",
-  "extension_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "extension_commit": "fb1997354268cab8cfe0f67dec9d1b76d954dc02",
   "config_inputs": [
     {
       "path": "configs/replications/riemensperger_2011_healthy.yaml",
@@ -19,20 +19,23 @@
       "size_bytes": 739
     },
     {
-      "path": "experiments/gate_21d_riemensperger_dopamine_mapping/results/dopamine_mapping_summary.json",
-      "sha256": "e08a8e51748fcc73099f2e681eaf3fd2f112447ab42a513d800181ce80f5bff1",
-      "size_bytes": 740
+      "path": "experiments/gate_21b_riemensperger_healthy/metrics/healthy_per_seed_metrics.csv",
+      "sha256": "a9dc3a401a5726ae5be0101f28ad64df20877f405b8ad5f9c70a34870b4eb048",
+      "size_bytes": 1658
+    },
+    {
+      "path": "experiments/gate_21b_riemensperger_healthy/results/healthy_summary.json",
+      "sha256": "a288e93362d6f38e1ba359ad9391afa6a7f0b2174a8c222c384c8794be5163d9",
+      "size_bytes": 534
+    },
+    {
+      "path": "experiments/gate_21b_riemensperger_healthy/results/gpu_telemetry.json",
+      "sha256": "4b237ef3b2d667a4cb058b653ad1911c302fb6d3232618fe333d4ddd6dc9a352",
+      "size_bytes": 71
     }
   ],
-  "simulation_run": false,
+  "simulation_run": true,
   "data_fabricated": false,
-  "runtime_blockers": [
-    "brain_artifact_missing:brain_body_bridge.py",
-    "brain_artifact_missing:code/run_pytorch.py",
-    "brain_artifact_missing:data/2025_Completeness_783.csv",
-    "brain_artifact_missing:data/2025_Connectivity_783.parquet",
-    "brain_artifact_missing:data/plastic_weights.pt"
-  ],
   "seed_list": [
     0,
     1,
@@ -41,5 +44,6 @@
     4
   ],
   "duration_s": 0.5,
-  "timestep": 0.0001
+  "timestep": 0.0001,
+  "output_sha256": "a9dc3a401a5726ae5be0101f28ad64df20877f405b8ad5f9c70a34870b4eb048"
 }

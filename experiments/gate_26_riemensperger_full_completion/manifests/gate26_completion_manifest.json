@@ -1,0 +1,49 @@
+{
+  "biological_validation_supported": false,
+  "clinical_validation_supported": false,
+  "data_fabricated": false,
+  "disease_burden": 1.0,
+  "disease_checkpoint_sha256": "75492edf67a03f0afdb95e95ac9256f6d6db99d6496113696f417b5373151a3c",
+  "disease_seeds_passed": 5,
+  "disease_seeds_planned": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "drug_validation_supported": false,
+  "execution_freeze_sha256": "c4df44002e754f00717c9dc19079cca261e8f25e767612f08a5e3408fc5e779e",
+  "final_directional_decision": "NOT_REPRODUCED",
+  "gate24e_unchanged": true,
+  "gate25_unchanged": true,
+  "gate_statuses": {
+    "21A": "RIEMENSPERGER_2011_EVIDENCE_LOCKED",
+    "21B": "HEALTHY_VIRTUAL_REPLICATION_PASS",
+    "21C": "HEALTHY_COMPARABILITY_ACCEPTABLE_FOR_RATIO_ANALYSIS",
+    "21D": "READY_FOR_RIEMENSPERGER_DISEASE_REPLICATION",
+    "21E": "DOPAMINE_DEFICIENCY_VIRTUAL_REPLICATION_PASS",
+    "21F": "FOUR_GROUP_ANALYSIS_COMPLETE",
+    "21G": "ROBUSTNESS_EXECUTION_REQUIRED"
+  },
+  "gene_specific_validation_supported": false,
+  "healthy_checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+  "healthy_seeds_passed": 5,
+  "healthy_seeds_planned": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "mapping_level": "DOPAMINE_CLASS_LEVEL_EXPLORATORY",
+  "posthoc_parameter_selection": false,
+  "posthoc_seed_selection": false,
+  "quantitative_validation_supported": false,
+  "retuning_after_results": false,
+  "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "schema_version": "gate26-riemensperger-completion-v1",
+  "source_commit": "597460a98eb026db2005dc9c74ce7811bc1c037c",
+  "status": "GATE26_RIEMENSPERGER_FULL_COMPLETION",
+  "target_count": 342
+}

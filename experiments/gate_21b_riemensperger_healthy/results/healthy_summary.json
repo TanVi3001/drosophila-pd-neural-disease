@@ -1,0 +1,20 @@
+{
+  "status": "HEALTHY_VIRTUAL_REPLICATION_PASS",
+  "n_seeds_planned": 5,
+  "n_seeds_passed": 5,
+  "data_fabricated": false,
+  "median_planar_speed_mm_s": {
+    "n_seeds": 5,
+    "median": 2.5853208610209686,
+    "mean": 2.4661349657131657,
+    "sample_sd": 0.20098980249690077,
+    "sample_se": 0.0898853722334654
+  },
+  "distance_traveled_mm": {
+    "n_seeds": 5,
+    "median": 1.5402164022849538,
+    "mean": 1.5260506214081766,
+    "sample_sd": 0.13148860825226696,
+    "sample_se": 0.058803493263781745
+  }
+}

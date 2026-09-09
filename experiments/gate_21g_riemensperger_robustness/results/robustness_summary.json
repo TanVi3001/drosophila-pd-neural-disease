@@ -1,5 +1,5 @@
 {
-  "status": "WAITING_VIRTUAL_GROUP_RESULTS",
+  "status": "ROBUSTNESS_EXECUTION_REQUIRED",
   "no_op_operator_test": "PASS",
   "burden_sensitivity_plan": [
     0.0,
@@ -10,9 +10,7 @@
   ],
   "mapping_sensitivity": "NOT_AVAILABLE_WITH_CURRENT_CLASS_LEVEL_EVIDENCE",
   "seed_policy": "same independent seeds as healthy and disease; frames are not replicates",
-  "blockers": [
-    "Required status READY_FOR_RIEMENSPERGER_DISEASE_REPLICATION, received WAITING_DOPAMINE_MAPPING_REVIEW from experiments/gate_21d_riemensperger_dopamine_mapping/results/dopamine_mapping_summary.json."
-  ],
+  "blockers": [],
   "simulation_run": false,
   "data_fabricated": false
 }

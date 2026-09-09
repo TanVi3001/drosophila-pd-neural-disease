@@ -1,10 +1,10 @@
 {
   "schema_version": "riemensperger-2011-replication-manifest-v1",
-  "created_at_utc": "2026-09-07T16:02:53.417407+00:00",
-  "status": "WAITING_HEALTHY_REPLICATION_RUNTIME",
-  "git_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "created_at_utc": "2026-09-09T17:29:43.872512+00:00",
+  "status": "HEALTHY_COMPARABILITY_ACCEPTABLE_FOR_RATIO_ANALYSIS",
+  "git_commit": "fb1997354268cab8cfe0f67dec9d1b76d954dc02",
   "python_version": "3.12.10",
-  "extension_commit": "8f99edbe28f1ff18a00132946ef2df7b416d5b85",
+  "extension_commit": "fb1997354268cab8cfe0f67dec9d1b76d954dc02",
   "config_inputs": [],
   "data_inputs": [
     {
@@ -14,7 +14,8 @@
     },
     {
       "path": "experiments/gate_21b_riemensperger_healthy/results/healthy_summary.json",
-      "status": "MISSING"
+      "sha256": "a288e93362d6f38e1ba359ad9391afa6a7f0b2174a8c222c384c8794be5163d9",
+      "size_bytes": 534
     },
     {
       "path": "research/replications/riemensperger_2011/evidence/paper_evidence_lock.csv",
@@ -25,9 +26,15 @@
       "path": "research/replications/riemensperger_2011/evidence/endpoint_contract.yaml",
       "sha256": "5b25ba1262b54c01ce5d034ed794ab8799d097aad2f03433d79d194e1dc9e960",
       "size_bytes": 1323
+    },
+    {
+      "path": "experiments/gate_21c_riemensperger_healthy_comparability/results/healthy_comparability.csv",
+      "sha256": "3637bd91b9162b6b1c927afccedd12e9ecc562c850e8fa4bb62643245fc0092b",
+      "size_bytes": 550
     }
   ],
   "simulation_run": false,
   "data_fabricated": false,
-  "message": "[Errno 2] No such file or directory: 'E:\\\\Drosophila_Parkinson\\\\main-public-docs\\\\experiments\\\\gate_21b_riemensperger_healthy\\\\results\\\\healthy_summary.json'"
+  "primary_endpoint": "median_planar_speed_mm_s",
+  "assay_limitation": "Both endpoints are planar walking speed in mm/s, but the paper records individual flight-disabled flies for 15 minutes while the virtual protocol uses a fixed FlyGym duration. Absolute-scale equivalence is not claimed."
 }
