@@ -338,6 +338,17 @@ def execute() -> dict[str, Any]:
     decision = summary.get("interpretation", "DIRECTIONAL_REPLICATION_INCONCLUSIVE")
     healthy_summary = read_json(HEALTHY_OUTPUT / "results/healthy_summary.json")
     disease_summary = read_json(DISEASE_OUTPUT / "results/disease_summary.json")
+    checkpoint_manifest = read_json(DISEASE_OUTPUT / "checkpoint_materialization/riemensperger_dopamine_checkpoint_manifest.json")
+    write_json(DISEASE_OUTPUT / "results/disease_execution_plan.json", {
+        "status": disease_summary["status"],
+        "dry_run": False,
+        "seeds": [0, 1, 2, 3, 4],
+        "burden": disease_summary["burden"],
+        "n_seeds_passed": disease_summary["n_seeds_passed"],
+        "simulation_run": True,
+        "data_fabricated": False,
+        "checkpoint_sha256": checkpoint_manifest["child_disease_checkpoint"]["sha256"],
+    })
     final_status = {
         "21A": "RIEMENSPERGER_2011_EVIDENCE_LOCKED",
         "21B": healthy_status,
@@ -362,7 +373,7 @@ def execute() -> dict[str, Any]:
         "disease_burden": BURDEN,
         "runtime_commit": RUNTIME_COMMIT,
         "healthy_checkpoint_sha256": HEALTHY_CHECKPOINT_SHA256,
-        "disease_checkpoint_sha256": disease_summary.get("checkpoint_sha256", ""),
+        "disease_checkpoint_sha256": checkpoint_manifest["child_disease_checkpoint"]["sha256"],
         "final_directional_decision": decision,
         "quantitative_validation_supported": False,
         "biological_validation_supported": False,
@@ -385,6 +396,40 @@ def execute() -> dict[str, Any]:
     write_json(INVENTORY, inventory)
     write_checksums(inventory)
     write_json(EXECUTION_LOCK, {"status": "GATE26_EXECUTION_COMPLETE", "simulation_jobs_started": 10, "freeze_sha256": freeze["gate26_execution_freeze_sha256"], "completed_at_utc": datetime.now(UTC).isoformat()})
+    return completion
+
+
+def finalize_existing() -> dict[str, Any]:
+    """Refresh lightweight closure artifacts without rerunning any job."""
+
+    lock = read_json(EXECUTION_LOCK)
+    if lock.get("status") != "GATE26_EXECUTION_COMPLETE":
+        raise Gate26Error("Gate26 execution is not complete; finalization is not allowed")
+    completion = read_json(COMPLETION)
+    freeze = _assert_freeze()
+    healthy = read_json(HEALTHY_OUTPUT / "results/healthy_summary.json")
+    disease = read_json(DISEASE_OUTPUT / "results/disease_summary.json")
+    analysis = read_json(FOUR_GROUP_OUTPUT / "results/four_group_summary.json")
+    checkpoint_manifest = read_json(DISEASE_OUTPUT / "checkpoint_materialization/riemensperger_dopamine_checkpoint_manifest.json")
+    write_json(DISEASE_OUTPUT / "results/disease_execution_plan.json", {
+        "status": disease["status"],
+        "dry_run": False,
+        "seeds": [0, 1, 2, 3, 4],
+        "burden": disease["burden"],
+        "n_seeds_passed": disease["n_seeds_passed"],
+        "simulation_run": True,
+        "data_fabricated": False,
+        "checkpoint_sha256": checkpoint_manifest["child_disease_checkpoint"]["sha256"],
+    })
+    completion["disease_checkpoint_sha256"] = checkpoint_manifest["child_disease_checkpoint"]["sha256"]
+    completion["execution_freeze_sha256"] = freeze["gate26_execution_freeze_sha256"]
+    write_json(COMPLETION, completion)
+    _write_pipeline_status(completion["gate_statuses"], completion["final_directional_decision"], simulation_executed=True)
+    _write_final_report_utf8(completion["gate_statuses"], completion["final_directional_decision"], healthy, disease, analysis)
+    _write_completion_update(completion["gate_statuses"], completion["final_directional_decision"], healthy, disease, analysis)
+    inventory = build_inventory(completion)
+    write_json(INVENTORY, inventory)
+    write_checksums(inventory)
     return completion
 
 
@@ -577,13 +622,14 @@ def build_parser() -> argparse.ArgumentParser:
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--preflight", action="store_true")
     mode.add_argument("--execute", action="store_true")
+    mode.add_argument("--finalize", action="store_true")
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
-        result = preflight() if args.preflight else execute()
+        result = preflight() if args.preflight else finalize_existing() if args.finalize else execute()
     except (Gate26Error, OSError, ValueError, yaml.YAMLError) as exc:
         print(f"GATE26_BLOCKED: {exc}", file=sys.stderr)
         return 2

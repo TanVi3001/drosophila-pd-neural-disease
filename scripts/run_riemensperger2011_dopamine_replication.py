@@ -127,6 +127,16 @@ def run(*, config_path: Path, mapping_path: Path, evidence_path: Path, output: P
         _write_report(status=status, rows=[], blockers=["dopamine_checkpoint_not_ready"])
         return status
     prepared_checkpoint = checkpoint_output / "plastic_weights.pt"
+    write_json(output / "results/disease_execution_plan.json", {
+        "status": "DOPAMINE_DEFICIENCY_VIRTUAL_REPLICATION_IN_PROGRESS",
+        "dry_run": False,
+        "seeds": seeds,
+        "burden": burden,
+        "steps": steps,
+        "simulation_run": True,
+        "data_fabricated": False,
+        "checkpoint_sha256": sha256_file(prepared_checkpoint),
+    })
     rows: list[dict[str, Any]] = []
     telemetry: list[dict[str, Any]] = []
     telemetry_path = output / "results/gpu_telemetry.json"
@@ -181,6 +191,17 @@ def run(*, config_path: Path, mapping_path: Path, evidence_path: Path, output: P
         summary["median_planar_speed_mm_s"] = sample_summary([float(row["median_planar_speed_mm_s"]) for row in passed])
         summary["distance_traveled_mm"] = sample_summary([float(row["distance_traveled_mm"]) for row in passed])
     write_json(output / "results/disease_summary.json", summary)
+    write_json(output / "results/disease_execution_plan.json", {
+        "status": status,
+        "dry_run": False,
+        "seeds": seeds,
+        "burden": burden,
+        "steps": steps,
+        "n_seeds_passed": len(passed),
+        "simulation_run": True,
+        "data_fabricated": False,
+        "checkpoint_sha256": sha256_file(prepared_checkpoint),
+    })
     write_json(output / "manifests/disease_manifest.json", build_manifest(status=status, config_paths=[config_path, reference_config], input_paths=[mapping_path, evidence_path, output / "metrics/disease_per_seed_metrics.csv", output / "results/disease_summary.json", telemetry_path, checkpoint_output / "riemensperger_dopamine_checkpoint_manifest.json"], extra={"simulation_run": True, "seed_list": seeds, "burden": burden, "mapping_sha256": sha256_file(mapping_path), "checkpoint_sha256": sha256_file(prepared_checkpoint), "output_sha256": sha256_file(output / "metrics/disease_per_seed_metrics.csv")}))
     _write_report(status=status, rows=rows, blockers=[])
     return status
