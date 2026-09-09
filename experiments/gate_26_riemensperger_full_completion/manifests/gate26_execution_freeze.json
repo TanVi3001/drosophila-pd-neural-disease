@@ -45,7 +45,7 @@
   "gate21d_mapping_sha256": "ebf39c21a8f25eb93055abf9f66786e1b335b0fd8b3e5689f75bd8d0f333f1f2",
   "gate21d_mapping_spec_sha256": "a416b22f642e4f4c65d2eee720fbe91cb7724808897446bb48f3a691de938dee",
   "gate25_r2_sha256": "147bc90ea017b0a88a580e95d07f9d85548f157f45479283f67ac1b54444e36b",
-  "gate26_execution_freeze_sha256": "e55a36ee396a247055ec40cd8b0e86a61f1403ae33350bf7796cbbfa251f5d60",
+  "gate26_execution_freeze_sha256": "ef7e9e8083ebbcfbfee7282dd3ba56f0e8791d55d1e3f181cd836a57e53314bf",
   "healthy_checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
   "healthy_config_sha256": "df7cdba52c87387645ccf95a81e0b58115aeb9012526297699793f5ed46faabc",
   "holdout_validation": false,
@@ -76,7 +76,7 @@
     4
   ],
   "simulation_count_authorized": 10,
-  "source_commit": "f3e800511f647eb7f3db437c6a878964f6e1e8ab",
+  "source_commit": "8c141efde59305de130865296245bea29955cd4a",
   "status": "GATE26_SCIENTIFIC_EXECUTION_FROZEN",
   "steps": 5000,
   "stimulus": "p9",
