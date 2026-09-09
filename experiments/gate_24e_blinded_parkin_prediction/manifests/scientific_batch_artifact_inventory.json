@@ -1,0 +1,892 @@
+{
+  "analysis_performed": false,
+  "artifact_count": 125,
+  "execution_completed_at_utc": "2026-09-09T01:17:23.929994+00:00",
+  "execution_started_at_utc": "2026-09-08T19:31:21.653975+00:00",
+  "executor_sha256": "4d10edecbc8d987285ea82eb36a7bcfd686da3abde3b5160a3dcec23a2e78f3f",
+  "generated_at_utc": "2026-09-09T01:21:33.613213+00:00",
+  "holdout": "SEALED",
+  "job_count": 25,
+  "jobs": [
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_healthy/manifest.json",
+          "sha256": "24fe3ca003cbabaa0fb13c76e0a2d1dc548784f0e00ecdf52b150966bfd9e95b",
+          "size_bytes": 4245
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_healthy/metadata.json",
+          "sha256": "96aa15f8e0c7e1e6cd2225d0a58a25a466b5c73c6f6462bf9210fd11a0bd3e75",
+          "size_bytes": 2615
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_healthy/metrics/metrics.json",
+          "sha256": "b9bd582308fe99d03aebaf4d6ef643dd25047f06eb8e9f7e4cd9fc787eb7be21",
+          "size_bytes": 1083
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_healthy/rollout.npz",
+          "sha256": "bab312e0c755063dce5b7210fd9f3a6aa045457af4e18c84740af74f5038cd09",
+          "size_bytes": 558689972
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_healthy/status.json",
+          "sha256": "4b407b8624388ee0d98fe1455a01ea76482d74af8022407f0113db36a195c6bf",
+          "size_bytes": 861
+        }
+      },
+      "condition": "healthy",
+      "job_id": "seed00_healthy",
+      "job_index": 1,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_healthy",
+      "parameter": 0.0,
+      "seed": 0
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p025/manifest.json",
+          "sha256": "0d09490f08768102ea3cef38cd152444da33b45a3c6b673556d214e5c22cf77c",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p025/metadata.json",
+          "sha256": "d88475cf60b7c48d1521160d6bbda6bdeaf1bc3db4f2ccc1e25af0a72e2d7eb0",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p025/metrics/metrics.json",
+          "sha256": "7d6e8f97695e26e279bc83f91494a584af08e418a9e85cb4be5c2b21bf0778b3",
+          "size_bytes": 1087
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p025/rollout.npz",
+          "sha256": "95905ea12190e10af021014f11f5606ae991ceeef949735aa3635937b39e1979",
+          "size_bytes": 558689972
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p025/status.json",
+          "sha256": "60212d962b5af985aab3da87776ccf2fa972deddd9f5a5a8a8011c2fa13faf3c",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed00_parkin_p025",
+      "job_index": 2,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p025",
+      "parameter": 0.25,
+      "seed": 0
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p050/manifest.json",
+          "sha256": "263112071090acd9bb566ba666ef5b020f543509318bcb0e22ca2ca2a716da28",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p050/metadata.json",
+          "sha256": "33b46dbf0744bb13cb9fce5d0d00691334caac805906d8f51b14e273bec483ef",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p050/metrics/metrics.json",
+          "sha256": "a78f7a5cbfe16646935c717f0ddf977cd0c7bd2f54de379891d59ec0adae2c9f",
+          "size_bytes": 1082
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p050/rollout.npz",
+          "sha256": "4656534e9557819da14ae85eccb21a7e644de37e6b4414d9343ac658963fa94c",
+          "size_bytes": 558708794
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p050/status.json",
+          "sha256": "6593dd2e3b69f74446a1f289bd71d533abde806aebe1abe0912f8293be992266",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed00_parkin_p050",
+      "job_index": 3,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p050",
+      "parameter": 0.5,
+      "seed": 0
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p075/manifest.json",
+          "sha256": "832897e1d8cbed11b70a9b0ca1927c75a79491706af88d8a4466ff2bfe98605c",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p075/metadata.json",
+          "sha256": "a583e6f818dd3e6a437c24b5f54247e78883e10e76c3efa460e4dd0b488246f4",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p075/metrics/metrics.json",
+          "sha256": "56d7ae1fc7749fe40d54dc0909749ddde22b0bb3fc208e183f857be94d4085e5",
+          "size_bytes": 1082
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p075/rollout.npz",
+          "sha256": "ebe21bed25805b31ad2b1d3cc4f4b4cab1bf929b0de8748f8fc175168988153c",
+          "size_bytes": 558708794
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p075/status.json",
+          "sha256": "755c0913bb74a895496d366fa42a2b6dc06c764593ba73c89b53fc0d51dacd96",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed00_parkin_p075",
+      "job_index": 4,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p075",
+      "parameter": 0.75,
+      "seed": 0
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p100/manifest.json",
+          "sha256": "463a29dc5f6024c547c96ea3b8d7a956f74896f6d06c617e06c5e7d9d657bdde",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p100/metadata.json",
+          "sha256": "5c2659e1f1d8b605b18612824b98095210dc1e7a78895964a68b5e377da78e8c",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p100/metrics/metrics.json",
+          "sha256": "d0aada3740db4fd29a40962e685bb2fad63398242e8343b3e204bf101b35de4b",
+          "size_bytes": 1082
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p100/rollout.npz",
+          "sha256": "d9268956c820e361d60dfb836428cdc9d42a8dbe1289572ec371271550ee2ab0",
+          "size_bytes": 558708794
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p100/status.json",
+          "sha256": "e0afb48bbc76d9a9a4343da4307cbb238837e8f06c5223e7d2d26e40267b0807",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed00_parkin_p100",
+      "job_index": 5,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed00_parkin_p100",
+      "parameter": 1.0,
+      "seed": 0
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_healthy/manifest.json",
+          "sha256": "6b5c12c6de53f37e5b1e4f89e2d1a5655562730b2a695d23a64247b81f7cedaa",
+          "size_bytes": 4245
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_healthy/metadata.json",
+          "sha256": "e7b4540a7a21f752ae791ab3c1a1fa5c430b44eb84616c77109501ad9c1e2317",
+          "size_bytes": 2615
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_healthy/metrics/metrics.json",
+          "sha256": "1c751d7bf845e3b5f72942744870b6b92e5e2c6e46bad19490120a832c000cc1",
+          "size_bytes": 1083
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_healthy/rollout.npz",
+          "sha256": "b94ae1010d5d2749c66acf701fa7ace6ec30fbba9cab4f272752d93ce7b13f0c",
+          "size_bytes": 557797826
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_healthy/status.json",
+          "sha256": "265523917f60513f9f63eef064dd604f1fe3b21fffb152628e24facdcd1a4672",
+          "size_bytes": 861
+        }
+      },
+      "condition": "healthy",
+      "job_id": "seed01_healthy",
+      "job_index": 6,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_healthy",
+      "parameter": 0.0,
+      "seed": 1
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p025/manifest.json",
+          "sha256": "6a596ba979dbebcf673a84fe7a3d9f94ffcc7ba23f77e37e3adde9fc366f2d33",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p025/metadata.json",
+          "sha256": "85fcd9414243ad120b174cab29e8ba54a3966b73e30cc73e708f91b11e528563",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p025/metrics/metrics.json",
+          "sha256": "19036225b8d3195c0593156b217af8372c18a4ae8120102c88ff69b3f7691ca9",
+          "size_bytes": 1087
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p025/rollout.npz",
+          "sha256": "82bba6d824e9d4b8666d33a4c380d00fbd94749857c989487aa1be23dff57b99",
+          "size_bytes": 557797826
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p025/status.json",
+          "sha256": "afeb3e728bb468e21976981182bbef9a26f195ef94d9531794e490fc8b08306a",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed01_parkin_p025",
+      "job_index": 7,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p025",
+      "parameter": 0.25,
+      "seed": 1
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p050/manifest.json",
+          "sha256": "f1fd7b880b8c0bd0f609dd389d170fe1b09178a24f2cd4bd363dd73e3d31d14e",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p050/metadata.json",
+          "sha256": "ce59f965691e6321f0d8c8ad0139bce23e77bc1d0590b3409ddc65dc67ada399",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p050/metrics/metrics.json",
+          "sha256": "d657a24223a72d767e96e605ecc6d6c566a979ab9bd063e49a341c272624adeb",
+          "size_bytes": 1092
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p050/rollout.npz",
+          "sha256": "ab78edbf58acbcd38c10a12ad89d15c655e816774cdbbd3e6664b5c276e75d35",
+          "size_bytes": 557798419
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p050/status.json",
+          "sha256": "b7f1806fc2fae16df2b848ab84c261152544d1026ac6bbe9ffb1453543a7f89f",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed01_parkin_p050",
+      "job_index": 8,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p050",
+      "parameter": 0.5,
+      "seed": 1
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p075/manifest.json",
+          "sha256": "23ae0af45bfb7633836717db923b3b780a0f20244fe79c97c0ce1a23340532e5",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p075/metadata.json",
+          "sha256": "2dfea2283a960dd0378f9b66b4c46aedc8ec3adabda59a97b2595b72cfdf6504",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p075/metrics/metrics.json",
+          "sha256": "672b3cd1dc221507bfb254018aa2ae3297aa09ed9a8372cf22410fa6e69c1b26",
+          "size_bytes": 1092
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p075/rollout.npz",
+          "sha256": "6112f41d2df2de2d03d616dbfe2bac6ef4b50ba7514860c3c056a801debae1c7",
+          "size_bytes": 557798419
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p075/status.json",
+          "sha256": "cc0049eb81ac22857b6760f1787f8f3634849efc9789818a91d46229e901f8e5",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed01_parkin_p075",
+      "job_index": 9,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p075",
+      "parameter": 0.75,
+      "seed": 1
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p100/manifest.json",
+          "sha256": "a13d370f40489d5c12d71db21b48439a3c1e7ed67613f0dbd90403fe01f52156",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p100/metadata.json",
+          "sha256": "1aee7a7d15d02f14c46e2f576a00dcdd3680018b42822ebb255b2ef8b2aa998f",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p100/metrics/metrics.json",
+          "sha256": "15be29b210ee795ff2e1b6cd55c9a38ea9e6eb5c03b383d8553edb5a306da1c0",
+          "size_bytes": 1092
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p100/rollout.npz",
+          "sha256": "8900c934b94687af031e97df970ebcc3616e6f143a4d574dac3bd26388fa4cf6",
+          "size_bytes": 557798419
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p100/status.json",
+          "sha256": "84376874cbe0787801ede671e764aa8986dede2a4d7c6a0a5c6b25fd7f1e08d7",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed01_parkin_p100",
+      "job_index": 10,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed01_parkin_p100",
+      "parameter": 1.0,
+      "seed": 1
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_healthy/manifest.json",
+          "sha256": "d15fa33c81594b2b36ab6f3710e73961e455daafe8ffaa8dd9973141eb73781e",
+          "size_bytes": 4245
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_healthy/metadata.json",
+          "sha256": "22b17a431f9f694386ff9f213f2e7b5be09293c10e601e28706173a8173fb25b",
+          "size_bytes": 2615
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_healthy/metrics/metrics.json",
+          "sha256": "8306fa81a291fe42ebc7adca8514ea50e5d13659910904134c0278968a66f9a8",
+          "size_bytes": 1083
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_healthy/rollout.npz",
+          "sha256": "7301175df0687c555036ef8c860e69d388862a1b416aee34ebefb2324175db41",
+          "size_bytes": 557997374
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_healthy/status.json",
+          "sha256": "3177e8e089683288b77dfc9710f6b0a8ec41015ffaf9486385707b58147e6e4b",
+          "size_bytes": 861
+        }
+      },
+      "condition": "healthy",
+      "job_id": "seed02_healthy",
+      "job_index": 11,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_healthy",
+      "parameter": 0.0,
+      "seed": 2
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p025/manifest.json",
+          "sha256": "899ca4fd6946b881a7d5fa6421eaa66d9d98d6264590a58e4e831c99ba5a60f9",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p025/metadata.json",
+          "sha256": "a266d4c33407e13718a56de6f20a227ed39c619a7f3367b658424aa62dd65a71",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p025/metrics/metrics.json",
+          "sha256": "0292d2102574430fade820f7fcdf119e34993bb582c72a64806e6396a02117ae",
+          "size_bytes": 1087
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p025/rollout.npz",
+          "sha256": "73c6bbd134644d7b354b5f56db47caa5edee7e3f3dd2c63eca7bc4a473559264",
+          "size_bytes": 557997374
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p025/status.json",
+          "sha256": "2c6dcbfe33ab1fe99c1b3c8e77bdcb09e60559f2b7af7f061244cac54db82f61",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed02_parkin_p025",
+      "job_index": 12,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p025",
+      "parameter": 0.25,
+      "seed": 2
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p050/manifest.json",
+          "sha256": "5109044d118926eb07f1b09802a1e65d80fd8ff30339e022ced6bf749628b200",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p050/metadata.json",
+          "sha256": "dbce0740fe28d62e5cfc0415076ace774ddaa33caaadfa1870341380b9bc4207",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p050/metrics/metrics.json",
+          "sha256": "32ea3720e3d5281daf281bc93ebbde6a0c821def3f6b45942210d7ac4dd479ea",
+          "size_bytes": 1087
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p050/rollout.npz",
+          "sha256": "63ee88dd32d01994944bc45cec6fa8f9f113ef11dd3c4474cb88ecf422b08ed9",
+          "size_bytes": 557997374
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p050/status.json",
+          "sha256": "371b707d6e064b706e9d9de2c68d5c9f4ed6583deff0ecd962ae97a736b0bba2",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed02_parkin_p050",
+      "job_index": 13,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p050",
+      "parameter": 0.5,
+      "seed": 2
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p075/manifest.json",
+          "sha256": "9b994e6c7e79c68a93f033780926ccb578cab14b4093c8783a6a3846ccfc07ed",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p075/metadata.json",
+          "sha256": "0ef3376137dc165a578aa3fcf813d8d45613d660c7dacce4d172dfac08ae69e5",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p075/metrics/metrics.json",
+          "sha256": "7c2967bb8af7f1b7a0733650c93bb5b15c9605192cfd395950832c2c48c656e5",
+          "size_bytes": 1087
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p075/rollout.npz",
+          "sha256": "7d3d76af17a60c17e75961f3a7aff54766a145b5a234163f28c7a218b120234a",
+          "size_bytes": 557997374
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p075/status.json",
+          "sha256": "276074138a1ec580bc362eaa0a488a53b0a6ae8ff8859a55925d498b2b342489",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed02_parkin_p075",
+      "job_index": 14,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p075",
+      "parameter": 0.75,
+      "seed": 2
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p100/manifest.json",
+          "sha256": "a225f6c20844d7b9aebfc702b1d23a5de2f9bd7c9fa957825a1b5002df5fdd6e",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p100/metadata.json",
+          "sha256": "9bd3d1718777a844105ed2516bc6980f15c1276ff999bad43d8f46f0faf98da1",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p100/metrics/metrics.json",
+          "sha256": "3ca8a36da725032d670471f6922c5f9248fef1565217235ec6c0a590f41a6cc3",
+          "size_bytes": 1087
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p100/rollout.npz",
+          "sha256": "d4604dd70469fbbe156f3048babe509a95d56eecef8ccde7cf2f54dd0b4cc372",
+          "size_bytes": 557997374
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p100/status.json",
+          "sha256": "d192c03c77fddb40d3a4c45a2590aec9d1e5523914a877f5f29fc8c76907c95c",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed02_parkin_p100",
+      "job_index": 15,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed02_parkin_p100",
+      "parameter": 1.0,
+      "seed": 2
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_healthy/manifest.json",
+          "sha256": "8e2bc22e7ef51e4a9290911f528d67cf6d1ee2786fb5806e049ff518ca7c526b",
+          "size_bytes": 4245
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_healthy/metadata.json",
+          "sha256": "726a38c2d31631376ea4e7feb01ccf2ba35c121754a9b1656ccd058830148bfb",
+          "size_bytes": 2615
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_healthy/metrics/metrics.json",
+          "sha256": "ac0031cfee63180e902bb06503615c04f54774848855cdfe5c50849f88f1e69d",
+          "size_bytes": 1081
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_healthy/rollout.npz",
+          "sha256": "8818b191dc3ca0348c3ee5c8d67a0e74518c5318b3ab51114afd3f04b969e3cf",
+          "size_bytes": 558663256
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_healthy/status.json",
+          "sha256": "ea238bd4432fc5e41cd7189629af11b55b63da381afae473d1234506e00dda85",
+          "size_bytes": 861
+        }
+      },
+      "condition": "healthy",
+      "job_id": "seed03_healthy",
+      "job_index": 16,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_healthy",
+      "parameter": 0.0,
+      "seed": 3
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p025/manifest.json",
+          "sha256": "f3390c72c38a3a3d96457bef77b1771380967996fe611d645368a656acdc8a5a",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p025/metadata.json",
+          "sha256": "34dee9712ef9fbca577685b475cef0d84b6968dc946585817fd6f285ba0a28c0",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p025/metrics/metrics.json",
+          "sha256": "3322aa303101a9a95f1bb5fa10912811469eddf772b58f8d0cda73e2ad236efb",
+          "size_bytes": 1085
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p025/rollout.npz",
+          "sha256": "295b26e97825e18fcbc0757c355db8f5b1f92b107231ee43f0bdff5f9ce1d532",
+          "size_bytes": 558663256
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p025/status.json",
+          "sha256": "8834cf7e46c8549b6196e99dc4a44679041c2ac3557eaca72c24deaf2be20285",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed03_parkin_p025",
+      "job_index": 17,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p025",
+      "parameter": 0.25,
+      "seed": 3
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p050/manifest.json",
+          "sha256": "0d04df245207232bdc9935bfd089f294c82d953cb195381e4bc180ec7f280816",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p050/metadata.json",
+          "sha256": "39d27abde4ae1ebbb5482c38fe7737cfddc1f2f9468fc51b6c81c3ca2fb5dc9f",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p050/metrics/metrics.json",
+          "sha256": "1f4369c18f2003dc510af763ae54f2ff109632ee41f6daf3cd91e9e221aea906",
+          "size_bytes": 1091
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p050/rollout.npz",
+          "sha256": "32b9bf1abbe4adf8bccde5a5f4e8621ec613914b827a363ea2e8f0133a2b8199",
+          "size_bytes": 558659125
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p050/status.json",
+          "sha256": "bb3e62da7733ceaf02a3827df427b3a2aedeacae72da5e13b9f60c7a18053ccb",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed03_parkin_p050",
+      "job_index": 18,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p050",
+      "parameter": 0.5,
+      "seed": 3
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p075/manifest.json",
+          "sha256": "f5e41710296c5e893fe0840584eccb09351c8fb4ab26fdb9d3759fc163f80227",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p075/metadata.json",
+          "sha256": "0f35476c9c626eb18bd25e67573994b3cfb4858b07d61302231161b4eff9d5d8",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p075/metrics/metrics.json",
+          "sha256": "56b7a8cb1d7fc4877c7903a539a65e6b29aec9463e773fd9bb16b1fb87a3a81c",
+          "size_bytes": 1091
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p075/rollout.npz",
+          "sha256": "563759a390e17dc9a8e80f0124c56583c0b355ca7f8f3c01535c291165b2f9a7",
+          "size_bytes": 558659125
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p075/status.json",
+          "sha256": "a3274696ab616923ebf28b2b0a5d41e408300a62f67f74770f5ab6e4e71a1a86",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed03_parkin_p075",
+      "job_index": 19,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p075",
+      "parameter": 0.75,
+      "seed": 3
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p100/manifest.json",
+          "sha256": "8770bf7872f5fb187de62d32e996498907f2a9fc9271659535809ff6228fd3c6",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p100/metadata.json",
+          "sha256": "cdb610555b9e7213877d1a309e38eae24b7ff8fef34b934b0ef650cd4152660c",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p100/metrics/metrics.json",
+          "sha256": "2044dd5a451637ceeed86470f228beeba073c848e5fc272632a293111a5776d2",
+          "size_bytes": 1091
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p100/rollout.npz",
+          "sha256": "e805c68ba193ad67da7b6dc2b9ccc0d78183a5806d20e8ea7338211f1e5c6b32",
+          "size_bytes": 558659125
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p100/status.json",
+          "sha256": "f7ce00069acf8bf048dfd4183ef0894e85a7151f3592021223613c78524b2401",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed03_parkin_p100",
+      "job_index": 20,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed03_parkin_p100",
+      "parameter": 1.0,
+      "seed": 3
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_healthy/manifest.json",
+          "sha256": "bf26b1541e57947a46222151bc2d8227ae9596be91b1b789b5c9992c296f6549",
+          "size_bytes": 4245
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_healthy/metadata.json",
+          "sha256": "a840b74fd3bbbb0023fa4cb2b1447dbdf37238606c6633c9dbb0eb765a04122e",
+          "size_bytes": 2615
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_healthy/metrics/metrics.json",
+          "sha256": "789fefdd48b5974687b5c5e5b5a760f9200dc1b3bc9fd1aaf39e347bdc961fb4",
+          "size_bytes": 1086
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_healthy/rollout.npz",
+          "sha256": "c2be06c0dd9b03354275c66059df81109620e4be1cb5c5b7f384093eed855ca5",
+          "size_bytes": 558384647
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_healthy/status.json",
+          "sha256": "bbe78ad349153d272deb8bc6c89865f1ad90ff45b10d2d91517805bdfe0a15b7",
+          "size_bytes": 861
+        }
+      },
+      "condition": "healthy",
+      "job_id": "seed04_healthy",
+      "job_index": 21,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_healthy",
+      "parameter": 0.0,
+      "seed": 4
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p025/manifest.json",
+          "sha256": "32273aa564a8e3c7ad89691666ab682a88eb788dbcc06285799e89e3d62c07c9",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p025/metadata.json",
+          "sha256": "31668796016f8a18212bc6fc6a4fbfd9282410eaf09ddcbbd1143636a5e4cf4c",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p025/metrics/metrics.json",
+          "sha256": "35c5d65e10c0805e9872a00fa817e71a9461ad1b9a5081c56bac42532af74976",
+          "size_bytes": 1090
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p025/rollout.npz",
+          "sha256": "9f767abdf897cfee8fe7a241917e2bdd41f2db5fad03201bbeb9867ebc36c1a9",
+          "size_bytes": 558384647
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p025/status.json",
+          "sha256": "2ee0b1dc6629686ebc03a33d3a23e28bce2de1b7fc7991517b76aebf1f2692c1",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed04_parkin_p025",
+      "job_index": 22,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p025",
+      "parameter": 0.25,
+      "seed": 4
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p050/manifest.json",
+          "sha256": "79a70921925391f35814beb7c6f2c7b7f436275c75467fd43dee9842895d7f26",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p050/metadata.json",
+          "sha256": "fa021f53d602913f5e414de6d7ed7c9bea9c56ed6ee27abb08718b1ed921abe4",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p050/metrics/metrics.json",
+          "sha256": "26d3c85d820a366f17b84faecd651ec52b085cb808fc7392773e14fbc5373d44",
+          "size_bytes": 1086
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p050/rollout.npz",
+          "sha256": "76326f6bc96bc399f5a1ef4a0d23bfa1cbb6d49381eeebd0cedeae24cefb8e52",
+          "size_bytes": 558393288
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p050/status.json",
+          "sha256": "ba949c5694c409ada0d645eda7bf62f12589f6e87377f6b383b7854b48b2b163",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed04_parkin_p050",
+      "job_index": 23,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p050",
+      "parameter": 0.5,
+      "seed": 4
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p075/manifest.json",
+          "sha256": "0452dd343363c90ff6653086b94a0d501515f3e16136bda01e094bbe55cce12f",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p075/metadata.json",
+          "sha256": "71c4cc191ef7c2dbf60bab75356ea39b3bd40529020d8b9eadedc797607347fd",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p075/metrics/metrics.json",
+          "sha256": "0d5a3fe6ad07760d393689166a0e8e5984bf755bb19937c397571295aa11cac1",
+          "size_bytes": 1086
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p075/rollout.npz",
+          "sha256": "815cd148b18a8b90cb48a07bc7da5e3b4d76fb747df738e783d8155075d6c286",
+          "size_bytes": 558393288
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p075/status.json",
+          "sha256": "7775404b5d895c1eab67f0520dd2278cc05cab06a8807db27fc73dedcfc21405",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed04_parkin_p075",
+      "job_index": 24,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p075",
+      "parameter": 0.75,
+      "seed": 4
+    },
+    {
+      "artifacts": {
+        "manifest.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p100/manifest.json",
+          "sha256": "e52cd1ff067826b16d88819161582b5e0b5ef87e8de610583b27b486dddbe395",
+          "size_bytes": 4365
+        },
+        "metadata.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p100/metadata.json",
+          "sha256": "ef2cd5a7a055e66cb11990a65e998b547bb910f3f991fecb8a2efc59d5b09a25",
+          "size_bytes": 2735
+        },
+        "metrics/metrics.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p100/metrics/metrics.json",
+          "sha256": "d4f809d7877bb2139141e1cc37b80ce480eedd2271bff968f611106df5b6fc36",
+          "size_bytes": 1092
+        },
+        "rollout.npz": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p100/rollout.npz",
+          "sha256": "6f7d89da434543cfe1750c8c3567a31c68282777f148f76ab81d23d60a9f5b37",
+          "size_bytes": 558378479
+        },
+        "status.json": {
+          "path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p100/status.json",
+          "sha256": "399101d78aa1e13d8e55009b63ff6114499c95d030a67bd4c44c0fec01bcb6ab",
+          "size_bytes": 947
+        }
+      },
+      "condition": "parkin",
+      "job_id": "seed04_parkin_p100",
+      "job_index": 25,
+      "output_relative_path": "experiments/gate_24e_blinded_parkin_prediction/runs/seed04_parkin_p100",
+      "parameter": 1.0,
+      "seed": 4
+    }
+  ],
+  "schema_version": "gate24e-scientific-batch-artifact-inventory-v1",
+  "scientific_interpretation_performed": false,
+  "scientific_plan_sha256": "4515e1916631b019711154dccb5fb887110d5572e3eb82b7ea5118c643db5aac",
+  "status": "GATE24E_25_JOB_ARTIFACT_INVENTORY_COMPLETE",
+  "technical_artifact_qc": "PASS"
+}
