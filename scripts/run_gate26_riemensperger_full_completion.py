@@ -15,6 +15,8 @@ from typing import Any, Iterable
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 RUNTIME_ROOT = Path(r"E:\Drosophila_Parkinson\drosophila-pd-flygym-gate24-memorysafe-clean")
 BRAIN_ROOT = Path(r"E:\Drosophila_Parkinson\external\fly-brain-audit")
 BRAIN_PYTHON = Path(r"E:\Drosophila_Parkinson\drosophila-pd-flygym\.venv\Scripts\python.exe")
@@ -278,7 +280,12 @@ def _run_status(name: str, status: str) -> None:
 
 def execute() -> dict[str, Any]:
     if EXECUTION_LOCK.exists():
-        raise Gate26Error("Scientific execution lock already exists; no retry is allowed")
+        prior_lock = read_json(EXECUTION_LOCK)
+        if not (
+            prior_lock.get("status") == "GATE26_PRE_EXECUTION_ORCHESTRATOR_BLOCKED"
+            and prior_lock.get("simulation_jobs_started") == 0
+        ):
+            raise Gate26Error("Scientific execution lock already exists; no retry is allowed")
     freeze = _assert_freeze()
     runtime = verify_runtime_and_brain()
     write_json(EXECUTION_LOCK, {"status": "GATE26_EXECUTION_STARTED", "simulation_count_authorized": 10, "simulation_jobs_started": 0, "freeze_sha256": freeze["gate26_execution_freeze_sha256"], "started_at_utc": datetime.now(UTC).isoformat()})
