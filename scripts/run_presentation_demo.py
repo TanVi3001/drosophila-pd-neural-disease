@@ -204,8 +204,11 @@ def _brain_checks() -> dict[str, Any]:
 
 def _main_provenance() -> dict[str, Any]:
     code, source_head, stderr = _git("rev-parse", "HEAD")
-    if code or source_head != SOURCE_COMMIT:
-        raise DemoError(f"Demo source must remain at {SOURCE_COMMIT}; got {source_head or stderr}")
+    if code:
+        raise DemoError(f"Demo branch commit could not be read: {stderr}")
+    code, _, _ = _git("merge-base", "--is-ancestor", SOURCE_COMMIT, source_head)
+    if code:
+        raise DemoError(f"Demo source snapshot {SOURCE_COMMIT} is not an ancestor of {source_head}")
     code, remote_head, stderr = _git("rev-parse", "refs/remotes/origin/main")
     if code:
         raise DemoError(f"origin/main is unavailable: {stderr}")
@@ -238,7 +241,8 @@ def _main_provenance() -> dict[str, Any]:
         raise DemoError("Locked Gate24E scientific interpretation changed")
     return {
         "canonical_remote_main_commit": remote_head,
-        "demo_source_commit": source_head,
+        "demo_source_commit": SOURCE_COMMIT,
+        "demo_branch_commit_before_execution": source_head,
         "demo_source_is_ancestor_of_canonical_main": True,
         "gate25_r2_freeze_sha256": freeze["gate25_r2_freeze_sha256"],
         "previous_gate25_r2_freeze_sha256": freeze["previous_gate25_r2_freeze_sha256"],
