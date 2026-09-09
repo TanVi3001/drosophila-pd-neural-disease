@@ -1,0 +1,17 @@
+{
+  "claim_boundary_approved": false,
+  "decision": "PENDING_HUMAN_REVIEW",
+  "endpoint_reuse_approved": false,
+  "execution_freeze_approved": false,
+  "final_robustness_classification": "ROBUSTNESS_NO_IMPAIRMENT_ACROSS_GRID",
+  "gate27_closed": false,
+  "gate27_execution_freeze_sha256": "da77c570433e890b88f3fbe0c5b3251b077731b9e36d891683424d0ce5e0de97",
+  "review_date": "",
+  "reviewer_1": "",
+  "reviewer_2": "",
+  "robustness_analysis_approved": false,
+  "schema_version": "gate27-riemensperger-robustness-review-v1",
+  "simulation_qc_approved": false,
+  "status": "WAITING_GATE27_RIEMENSPERGER_ROBUSTNESS_HUMAN_REVIEW",
+  "transform_audit_approved": false
+}

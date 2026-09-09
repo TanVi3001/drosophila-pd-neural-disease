@@ -1,0 +1,94 @@
+{
+  "best_burden_selection": false,
+  "brain_checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+  "burden_grid": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "calibration": false,
+  "classification_rules": {
+    "ROBUSTNESS_INCOMPLETE_TECHNICAL_EXECUTION": "any required job missing/failed or endpoint reuse invalid",
+    "ROBUSTNESS_MIXED_DIRECTIONAL_RESPONSE": "at least one nonzero direction pass but monotonic rule fails",
+    "ROBUSTNESS_MONOTONIC_IMPAIRMENT_PATTERN": "all nonzero direction pass and non-increasing median speed",
+    "ROBUSTNESS_NO_IMPAIRMENT_ACROSS_GRID": "no nonzero direction passes"
+  },
+  "controller": "same frozen Gate26 controller for every burden",
+  "cpg_frequency_hz": 12.0,
+  "data_fabricated": false,
+  "endpoint_reuse_policy": {
+    "burden_0_source": "experiments/gate_21b_riemensperger_healthy/metrics/healthy_per_seed_metrics.csv",
+    "burden_1_source": "experiments/gate_21e_riemensperger_disease/metrics/disease_per_seed_metrics.csv",
+    "raw_rollouts_required_for_metric_reuse": false,
+    "reused_simulations": 10,
+    "status": "GATE27_ENDPOINT_REUSE_VALID"
+  },
+  "expected_gains": {
+    "0.0": 1.0,
+    "0.25": 0.7875,
+    "0.5": 0.575,
+    "0.75": 0.3625,
+    "1.0": 0.15
+  },
+  "gate26_changed": false,
+  "gate26_completion_manifest_sha256": "d5ab9f3f77f7b2bf354028e979a649d6dfb6195b72363bac3e23c4a870793271",
+  "gate26_execution_freeze_sha256": "c4df44002e754f00717c9dc19079cca261e8f25e767612f08a5e3408fc5e779e",
+  "gate26_result": "NOT_REPRODUCED",
+  "gate27_execution_freeze_sha256": "da77c570433e890b88f3fbe0c5b3251b077731b9e36d891683424d0ce5e0de97",
+  "mapping_level": "DOPAMINE_CLASS_LEVEL_EXPLORATORY",
+  "mapping_sha256": "ebf39c21a8f25eb93055abf9f66786e1b335b0fd8b3e5689f75bd8d0f333f1f2",
+  "mapping_spec_sha256": "a416b22f642e4f4c65d2eee720fbe91cb7724808897446bb48f3a691de938dee",
+  "monotonicity_rule": "M0 >= M025 >= M050 >= M075 >= M100 and every nonzero median paired delta speed < 0",
+  "new_burdens": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "new_simulation_count": 15,
+  "no_retuning": true,
+  "paired_comparison_rule": "delta_speed(b,s)=speed(b,s)-speed(0,s)",
+  "paper_ratio_optimization": false,
+  "parameter_optimization": false,
+  "primary_direction_rule": "median_paired_delta_speed < 0",
+  "primary_metric": "median_planar_speed_mm_s",
+  "reused_burdens": [
+    0.0,
+    1.0
+  ],
+  "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "runtime_profile": "GATE24E_MEMORY_SAFE",
+  "schema_version": "gate27-riemensperger-robustness-freeze-v1",
+  "secondary_metric": "distance_traveled_mm",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "source_main_commit": "353ba33eb635138dcee5a65819e8f723d7448efc",
+  "statistical_unit": "independent_seed",
+  "status": "GATE27_SCIENTIFIC_EXECUTION_FROZEN",
+  "steps": 5000,
+  "stimulus": "p9",
+  "storage_preflight": {
+    "checkpoint_grid_bytes_estimate": 750000000,
+    "expected_raw_bytes": 9000000000,
+    "free_bytes": 17855623168,
+    "gate24e_archive_copied": false,
+    "gate26_raw_duplicated": false,
+    "required_bytes": 13750000000,
+    "reserve_bytes": 4000000000,
+    "schema_version": "gate27-storage-preflight-v1",
+    "status": "PASS",
+    "strict_capacity_rule": "free_bytes > required_bytes"
+  },
+  "target_count": 342,
+  "timestep_s": 0.0001,
+  "transform_audit_sha256": "55bf4ef2b29ce2d381f6bb621b8885e4d072ff5b671cc7d0cdb348da2841fc80",
+  "transform_sha256": "88a8eb026d456364abf4bb53ba565b3d673e7cb7df89c9732e3aba86496cbef5",
+  "virtual_duration_s": 0.5,
+  "world": "flat_terrain_default"
+}

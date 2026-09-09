@@ -1,0 +1,290 @@
+{
+  "records": [
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5861.0,
+        "memory_used_mib": 142.0,
+        "temperature_c": 48.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5856.0,
+        "memory_used_mib": 147.0,
+        "temperature_c": 42.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.25,
+      "index": 1,
+      "seed": 0
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5877.0,
+        "memory_used_mib": 126.0,
+        "temperature_c": 49.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5861.0,
+        "memory_used_mib": 142.0,
+        "temperature_c": 48.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.25,
+      "index": 2,
+      "seed": 1
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5877.0,
+        "memory_used_mib": 126.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5877.0,
+        "memory_used_mib": 126.0,
+        "temperature_c": 49.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.25,
+      "index": 3,
+      "seed": 2
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5877.0,
+        "memory_used_mib": 126.0,
+        "temperature_c": 54.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5877.0,
+        "memory_used_mib": 126.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.25,
+      "index": 4,
+      "seed": 3
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5877.0,
+        "memory_used_mib": 126.0,
+        "temperature_c": 51.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5877.0,
+        "memory_used_mib": 126.0,
+        "temperature_c": 54.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.25,
+      "index": 5,
+      "seed": 4
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5884.0,
+        "memory_used_mib": 119.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 6.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5877.0,
+        "memory_used_mib": 126.0,
+        "temperature_c": 51.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.5,
+      "index": 6,
+      "seed": 0
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5865.0,
+        "memory_used_mib": 138.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5884.0,
+        "memory_used_mib": 119.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 6.0
+      },
+      "burden": 0.5,
+      "index": 7,
+      "seed": 1
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5887.0,
+        "memory_used_mib": 116.0,
+        "temperature_c": 49.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5865.0,
+        "memory_used_mib": 138.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.5,
+      "index": 8,
+      "seed": 2
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5887.0,
+        "memory_used_mib": 116.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5887.0,
+        "memory_used_mib": 116.0,
+        "temperature_c": 50.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.5,
+      "index": 9,
+      "seed": 3
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5891.0,
+        "memory_used_mib": 112.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5887.0,
+        "memory_used_mib": 116.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.5,
+      "index": 10,
+      "seed": 4
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5894.0,
+        "memory_used_mib": 109.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5891.0,
+        "memory_used_mib": 112.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.75,
+      "index": 11,
+      "seed": 0
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5894.0,
+        "memory_used_mib": 109.0,
+        "temperature_c": 51.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5894.0,
+        "memory_used_mib": 109.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.75,
+      "index": 12,
+      "seed": 1
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5839.0,
+        "memory_used_mib": 164.0,
+        "temperature_c": 48.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5894.0,
+        "memory_used_mib": 109.0,
+        "temperature_c": 51.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.75,
+      "index": 13,
+      "seed": 2
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5845.0,
+        "memory_used_mib": 158.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5818.0,
+        "memory_used_mib": 185.0,
+        "temperature_c": 48.0,
+        "utilization_percent": 17.0
+      },
+      "burden": 0.75,
+      "index": 14,
+      "seed": 3
+    },
+    {
+      "after": {
+        "available": true,
+        "memory_free_mib": 5855.0,
+        "memory_used_mib": 148.0,
+        "temperature_c": 51.0,
+        "utilization_percent": 0.0
+      },
+      "before": {
+        "available": true,
+        "memory_free_mib": 5845.0,
+        "memory_used_mib": 158.0,
+        "temperature_c": 52.0,
+        "utilization_percent": 0.0
+      },
+      "burden": 0.75,
+      "index": 15,
+      "seed": 4
+    }
+  ],
+  "schema_version": "gate27-gpu-telemetry-v1"
+}

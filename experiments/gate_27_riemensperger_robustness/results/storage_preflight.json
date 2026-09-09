@@ -1,0 +1,12 @@
+{
+  "checkpoint_grid_bytes_estimate": 750000000,
+  "expected_raw_bytes": 9000000000,
+  "free_bytes": 17855623168,
+  "gate24e_archive_copied": false,
+  "gate26_raw_duplicated": false,
+  "required_bytes": 13750000000,
+  "reserve_bytes": 4000000000,
+  "schema_version": "gate27-storage-preflight-v1",
+  "status": "PASS",
+  "strict_capacity_rule": "free_bytes > required_bytes"
+}

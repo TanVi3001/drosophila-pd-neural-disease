@@ -47,6 +47,9 @@ data/checkpoints/
 *.npz
 *.parquet
 
+# Gate27 scientific rollouts remain local; only lightweight provenance is tracked.
+experiments/gate_27_riemensperger_robustness/runs/
+
 # Nguon ngoai repo, vi du phase-A-clean tren may ca nhan.
 external/
 phase-A-clean/

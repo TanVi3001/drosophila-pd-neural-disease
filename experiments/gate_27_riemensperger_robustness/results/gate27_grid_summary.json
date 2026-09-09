@@ -1,0 +1,71 @@
+{
+  "all_nonzero_direction_pass": false,
+  "burden_summaries": [
+    {
+      "burden": 0.0,
+      "expected_gain": 1.0,
+      "median_distance": 1.5402164022849538,
+      "median_paired_delta_distance": 0.0,
+      "median_paired_delta_speed": 0.0,
+      "median_speed": 2.5853208610209686,
+      "median_speed_ratio": 1.0,
+      "n_seeds": 5,
+      "primary_direction_pass": false
+    },
+    {
+      "burden": 0.25,
+      "expected_gain": 0.7875,
+      "median_distance": 1.5402164022849538,
+      "median_paired_delta_distance": 0.0,
+      "median_paired_delta_speed": 0.0,
+      "median_speed": 2.5853208610209686,
+      "median_speed_ratio": 1.0,
+      "n_seeds": 5,
+      "primary_direction_pass": false
+    },
+    {
+      "burden": 0.5,
+      "expected_gain": 0.575,
+      "median_distance": 1.5402164022849538,
+      "median_paired_delta_distance": 0.0,
+      "median_paired_delta_speed": 0.0,
+      "median_speed": 2.5853208610209686,
+      "median_speed_ratio": 1.0,
+      "n_seeds": 5,
+      "primary_direction_pass": false
+    },
+    {
+      "burden": 0.75,
+      "expected_gain": 0.3625,
+      "median_distance": 1.5402164022849538,
+      "median_paired_delta_distance": 0.0,
+      "median_paired_delta_speed": 0.0,
+      "median_speed": 2.5853208610209686,
+      "median_speed_ratio": 1.0,
+      "n_seeds": 5,
+      "primary_direction_pass": false
+    },
+    {
+      "burden": 1.0,
+      "expected_gain": 0.15,
+      "median_distance": 1.5402164022849538,
+      "median_paired_delta_distance": 0.0,
+      "median_paired_delta_speed": 0.0,
+      "median_speed": 2.5853208610209686,
+      "median_speed_ratio": 1.0,
+      "n_seeds": 5,
+      "primary_direction_pass": false
+    }
+  ],
+  "final_robustness_classification": "ROBUSTNESS_NO_IMPAIRMENT_ACROSS_GRID",
+  "gate26_result": "NOT_REPRODUCED",
+  "gate26_result_unchanged": true,
+  "monotonic_nonincreasing_speed": true,
+  "paper_ratio_reference_only": 0.7222222222222222,
+  "paper_ratio_used_for_optimization": false,
+  "primary_metric": "median_planar_speed_mm_s",
+  "schema_version": "gate27-grid-summary-v1",
+  "secondary_metric": "distance_traveled_mm",
+  "statistical_unit": "independent_seed",
+  "status": "GATE27_RIEMENSPERGER_ROBUSTNESS_COMPLETE"
+}

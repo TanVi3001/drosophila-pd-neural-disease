@@ -1,0 +1,2 @@
+metric,real_control_raw_metric,virtual_control_raw_metric,unit,absolute_difference_mm_s,relative_difference_vs_real,unit_compatibility,statistic_compatibility,assay_compatibility,absolute_scale_status,ratio_analysis_allowed,notes
+median_planar_speed_mm_s,10.8,2.5853208610209686,mm/s,8.214679138979033,0.7606184387943549,MATCH,LIMITED_DIFFERENT_UNIT_OF_ANALYSIS,RATIO_ANALYSIS_WITH_LIMITATIONS,ABSOLUTE_SCALE_MISMATCH,allowed_for_exploratory_directional_ratio_analysis,No calibration is applied to force virtual and real healthy raw speeds to match.

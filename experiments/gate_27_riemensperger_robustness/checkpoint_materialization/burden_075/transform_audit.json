@@ -1,0 +1,20 @@
+{
+  "burden": 0.75,
+  "checkpoint_reference": "experiments/gate_27_riemensperger_robustness/checkpoint_materialization/burden_075/plastic_weights.pt",
+  "child_checkpoint_file_sha256": "b55c066c1a1d29e27f3df8ea984d9ccaa5ae7a344a5dd7ffc315a3680567f480",
+  "child_tensor_sha256": "d4546ed61043bf469e46a0e943b602e2d540151192d60d909a276b005fcca89b",
+  "expected_gain": 0.3625,
+  "finite_values": true,
+  "healthy_parent_unchanged": true,
+  "l1_weight_delta": 157368.69778299332,
+  "max_abs_weight_delta": 240.3365936279297,
+  "mean_abs_weight_delta": 0.01042730420402629,
+  "nontarget_weights_unchanged": true,
+  "number_of_changed_edges": 69735,
+  "number_of_targeted_outgoing_edges": 69735,
+  "parent_checkpoint_file_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+  "parent_tensor_sha256": "5040ad65054d7eed4d6db97cbc4e41d002b1048d51adad8af42c6bea57c936a3",
+  "target_count": 342,
+  "target_scaling_valid": true,
+  "tensor_identity_with_healthy": false
+}

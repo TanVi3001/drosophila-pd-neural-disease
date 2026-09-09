@@ -1,0 +1,46 @@
+{
+  "best_burden_selected": false,
+  "biological_validation_supported": false,
+  "burden_grid": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "calibration": false,
+  "checkpoint_transform_audit": "PASS",
+  "data_fabricated": false,
+  "existing_simulations_reused": 10,
+  "final_robustness_classification": "ROBUSTNESS_NO_IMPAIRMENT_ACROSS_GRID",
+  "gate26_changed": false,
+  "gate26_result": "NOT_REPRODUCED",
+  "gate27_execution_freeze_sha256": "da77c570433e890b88f3fbe0c5b3251b077731b9e36d891683424d0ce5e0de97",
+  "gene_specific_validation_supported": false,
+  "new_burdens": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "new_simulations_completed": 15,
+  "new_simulations_planned": 15,
+  "parameter_optimization": false,
+  "posthoc_metric_selection": false,
+  "quantitative_validation_supported": false,
+  "retuning": false,
+  "reused_burdens": [
+    0.0,
+    1.0
+  ],
+  "schema_version": "gate27-riemensperger-robustness-completion-v1",
+  "seed_replacement": false,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "source_main": "353ba33eb635138dcee5a65819e8f723d7448efc",
+  "status": "GATE27_RIEMENSPERGER_ROBUSTNESS_COMPLETE"
+}

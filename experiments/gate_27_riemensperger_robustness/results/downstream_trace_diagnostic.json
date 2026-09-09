@@ -1,0 +1,6 @@
+{
+  "primary_classification_affected": false,
+  "reason": "Frozen Gate26 endpoint raw rollouts are not committed and were not duplicated; matched action/joint arrays are unavailable for read-only comparison.",
+  "schema_version": "gate27-downstream-trace-diagnostic-v1",
+  "status": "DOWNSTREAM_TRACE_NOT_AVAILABLE"
+}
