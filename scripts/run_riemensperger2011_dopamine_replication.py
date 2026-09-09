@@ -42,6 +42,7 @@ FIELDS = (
     "seed", "status", "message", "burden", "median_planar_speed_mm_s", "distance_traveled_mm",
     "displacement_mm", "duration_s", "frame_count", "contact_detected", "finite_qc",
     "timestamp_monotonic", "joint_trajectory_max_delta", "action_trajectory_max_delta", "rollout_path",
+    "mean_framewise_planar_speed_mm_s",
 )
 
 
@@ -81,7 +82,7 @@ def _write_report(*, status: str, rows: list[dict[str, Any]], blockers: list[str
     report_path.write_text("\n".join(lines), encoding="utf-8")
 
 
-def run(*, config_path: Path, mapping_path: Path, evidence_path: Path, output: Path, brain_root: Path, platform_root: Path, brain_python: Path, runner_python: Path, dry_run: bool) -> str:
+def run(*, config_path: Path, mapping_path: Path, evidence_path: Path, output: Path, brain_root: Path, platform_root: Path, brain_python: Path, runner_python: Path, dry_run: bool, reuse_completed: bool = False) -> str:
     config = read_yaml(config_path)
     output.mkdir(parents=True, exist_ok=True)
     blockers: list[str] = []
@@ -133,7 +134,16 @@ def run(*, config_path: Path, mapping_path: Path, evidence_path: Path, output: P
     for seed in seeds:
         seed_output = output / "results" / f"seed_{seed:03d}"
         if seed_output.exists() and any(seed_output.iterdir()):
-            raise RuntimeError(f"Refusing to overwrite existing seed output; no retry is allowed: {seed_output}")
+            if not reuse_completed:
+                raise RuntimeError(f"Refusing to overwrite existing seed output; no retry is allowed: {seed_output}")
+            rollout = seed_output / "rollout.npz"
+            if not rollout.is_file():
+                raise RuntimeError(f"Existing seed output is incomplete; no retry is allowed: {seed_output}")
+            metrics = rollout_seed_metrics(rollout)
+            if not metrics["contact_detected"]:
+                raise RuntimeError(f"Existing seed output failed contact QC: {seed_output}")
+            rows.append(_row(seed, status="PASS", message="reused completed rollout for post-processing only", burden=burden, output=seed_output, metrics=metrics))
+            continue
         _assert_gpu_idle()
         gpu_before = _gpu_telemetry()
         command = [

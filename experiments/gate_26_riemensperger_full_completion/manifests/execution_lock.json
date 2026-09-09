@@ -1,9 +1,9 @@
 {
-  "freeze_sha256": "f6559ad1e4766e67ebe7ad5f518cdfc80ebc7a89937424b8aa5f34c62867a914",
-  "simulation_count_authorized": 10,
-  "simulation_jobs_started": 5,
-  "started_at_utc": "2026-09-09T17:10:36.882815+00:00",
-  "status": "GATE26_POSTPROCESS_REPAIR_REQUIRED",
-  "failure": "All five healthy rollouts completed and were preserved, but aggregation rejected an additional finite metric field. The next run may only reuse these five completed rollouts for post-processing; no healthy seed may be rerun.",
+  "freeze_sha256": "fe5957aad92617f4e2d11afa92b48813d1373773ef6362f1d8dffb8cbf4ae7a3",
+  "healthy_jobs_reused_for_postprocess": true,
+  "recorded_at_utc": "2026-09-09T17:20:23.322803+00:00",
+  "simulation_jobs_started": 10,
+  "status": "GATE26_POSTPROCESS_DISEASE_REPAIR_REQUIRED",
+  "failure": "All five healthy and five disease rollouts completed and were preserved, but disease aggregation rejected an additional finite metric field. The next run may only reuse the ten completed rollouts for post-processing; no scientific seed may be rerun.",
   "corrected_by_commit_pending": true
 }

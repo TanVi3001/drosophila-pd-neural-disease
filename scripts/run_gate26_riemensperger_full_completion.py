@@ -290,13 +290,18 @@ def execute() -> dict[str, Any]:
                 prior_lock.get("status") == "GATE26_POSTPROCESS_REPAIR_REQUIRED"
                 and prior_lock.get("simulation_jobs_started") == 5
             )
+            or (
+                prior_lock.get("status") == "GATE26_POSTPROCESS_DISEASE_REPAIR_REQUIRED"
+                and prior_lock.get("simulation_jobs_started") == 10
+            )
         ):
             raise Gate26Error("Scientific execution lock already exists; no retry is allowed")
     prior_lock = read_json(EXECUTION_LOCK) if EXECUTION_LOCK.exists() else {}
-    reuse_completed_healthy = (
-        prior_lock.get("status") == "GATE26_POSTPROCESS_REPAIR_REQUIRED"
-        and prior_lock.get("simulation_jobs_started") == 5
-    )
+    reuse_completed_healthy = prior_lock.get("status") in {
+        "GATE26_POSTPROCESS_REPAIR_REQUIRED",
+        "GATE26_POSTPROCESS_DISEASE_REPAIR_REQUIRED",
+    }
+    reuse_completed_disease = prior_lock.get("status") == "GATE26_POSTPROCESS_DISEASE_REPAIR_REQUIRED"
     freeze = _assert_freeze()
     runtime = verify_runtime_and_brain()
     write_json(EXECUTION_LOCK, {"status": "GATE26_EXECUTION_STARTED", "simulation_count_authorized": 10, "simulation_jobs_started": 0, "freeze_sha256": freeze["gate26_execution_freeze_sha256"], "started_at_utc": datetime.now(UTC).isoformat()})
@@ -319,7 +324,7 @@ def execute() -> dict[str, Any]:
     if comparability_status != "HEALTHY_COMPARABILITY_ACCEPTABLE_FOR_RATIO_ANALYSIS":
         raise Gate26Error(f"Healthy comparability failed: {comparability_status}")
 
-    disease_status = run_disease(config_path=DISEASE_CONFIG, mapping_path=MAPPING_SUMMARY, evidence_path=EVIDENCE, output=DISEASE_OUTPUT, brain_root=BRAIN_ROOT, platform_root=RUNTIME_ROOT, brain_python=BRAIN_PYTHON, runner_python=Path(sys.executable), dry_run=False)
+    disease_status = run_disease(config_path=DISEASE_CONFIG, mapping_path=MAPPING_SUMMARY, evidence_path=EVIDENCE, output=DISEASE_OUTPUT, brain_root=BRAIN_ROOT, platform_root=RUNTIME_ROOT, brain_python=BRAIN_PYTHON, runner_python=Path(sys.executable), dry_run=False, reuse_completed=reuse_completed_disease)
     _run_status("disease", disease_status)
     if disease_status != "DOPAMINE_DEFICIENCY_VIRTUAL_REPLICATION_PASS":
         write_json(EXECUTION_LOCK, {"status": "GATE26_INCOMPLETE_TECHNICAL_EXECUTION", "failed_stage": "disease", "healthy_status": healthy_status, "disease_status": disease_status, "freeze_sha256": freeze["gate26_execution_freeze_sha256"], "simulation_count_started": 10})
