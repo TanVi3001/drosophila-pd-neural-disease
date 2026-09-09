@@ -15,7 +15,7 @@ provenance only; it does not rerun Gate24E or create new scientific evidence.
 - Scientific result: `NEGATIVE_VALIDATION_RESULT`.
 - Cross-assay decision: `DIRECTIONAL_CROSS_ASSAY_DISCORDANCE`.
 - Inventory entries: `95` deterministic lightweight files.
-- Gate25-R2 canonical freeze SHA256: `7c7b59d3abbeaaf78e26eb58e4a019986e2eb04a12b277e81331684f72b7e5dc`.
+- Gate25-R2 canonical freeze SHA256: `147bc90ea017b0a88a580e95d07f9d85548f157f45479283f67ac1b54444e36b`.
 - Previous Gate25-R2 freeze SHA256: `5aa0d5bf05dac950761b8636fdea001072f27c8226139ec1dac9066be6146d05`.
 - Historical Gate25 report SHA256: `e09347664edbc069c8d8bdd0340811cbaf8a4b9f75a25d1e356a24086cb309f0`.
 - Refresh reason: `CROSS_PLATFORM_FROZEN_ARTIFACT_TRANSPORT_FIX`.

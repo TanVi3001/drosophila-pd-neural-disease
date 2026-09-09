@@ -111,7 +111,10 @@ def test_reviewer_verification_and_root_id_resolution():
     mapping = _mapping()
     assert mapping.reviewer_1 == "Tuan Le"
     assert mapping.reviewer_2 == "To Dang Minh Tuan"
-    connectome = load_completeness_root_ids(ROOT.parent / "external/fly-brain-audit/data/2025_Completeness_783.csv")
+    connectome_path = ROOT.parent / "external/fly-brain-audit/data/2025_Completeness_783.csv"
+    if not connectome_path.is_file():
+        pytest.skip("external FlyWire completeness export is not distributed in Git")
+    connectome = load_completeness_root_ids(connectome_path)
     assert set(mapping.root_ids).issubset(set(connectome))
 
 

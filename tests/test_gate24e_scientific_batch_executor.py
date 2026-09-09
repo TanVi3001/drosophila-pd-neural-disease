@@ -316,6 +316,8 @@ def test_dry_run_is_read_only_and_prints_no_scientific_metrics(
 
 
 def test_runtime_git_contract_is_frozen_and_clean() -> None:
+    if not executor.EXPECTED_RUNTIME_ROOT.is_dir():
+        pytest.skip("external frozen FlyGym runtime is not distributed in Git")
     executor.validate_runtime_git_contract()
 
 

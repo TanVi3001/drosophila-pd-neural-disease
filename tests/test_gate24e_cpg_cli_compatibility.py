@@ -76,6 +76,8 @@ def test_platform_contract_is_version_safe() -> None:
 
 def test_external_platform_is_not_modified() -> None:
     platform = ROOT.parent / "drosophila-pd-flygym-gate24-clean"
+    if not platform.is_dir():
+        pytest.skip("external FlyGym platform worktree is not distributed in Git")
     assert platform.is_dir()
     assert not (platform / ".gate24e_cpg_cli_compatibility_modified").exists()
 

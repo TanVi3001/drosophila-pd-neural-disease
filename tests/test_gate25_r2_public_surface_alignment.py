@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from scripts.run_gate25_r2_reproducibility_freeze import (
     EXPECTED_FINAL_EVIDENCE_SHA256,
     EXPECTED_RAW_TREE_SHA256,
@@ -13,6 +15,7 @@ from scripts.run_gate25_r2_reproducibility_freeze import (
     HISTORICAL_REPORT_SHA256,
     PREVIOUS_R2_FREEZE_SHA256,
     REFRESH_REASON,
+    ARCHIVE_RUNS,
     FREEZE_PATH,
     audit,
     sha256_file,
@@ -71,6 +74,8 @@ def test_historical_evidence_remains_present_and_unchanged() -> None:
 
 
 def test_r2_refresh_records_provenance_without_changing_science() -> None:
+    if not ARCHIVE_RUNS.is_dir():
+        pytest.skip("external Gate24E raw archive is not distributed in GitHub Actions")
     result = audit()
     freeze = _json("experiments/gate_25_r2_parkin_reproducibility/manifests/gate25_r2_reproducibility_freeze.json")
     assert result["status"] == "GATE25_R2_REPRODUCIBILITY_FREEZE_COMPLETE"

@@ -3,6 +3,7 @@ from __future__ import annotations
 from copy import deepcopy
 import json
 from pathlib import Path
+import sys
 from types import SimpleNamespace
 
 import pytest
@@ -34,7 +35,8 @@ def test_01_build_command_has_exact_technical_contract() -> None:
     assert command[command.index("--steps") + 1] == "100000"
     assert command[command.index("--device") + 1] == "cuda"
     assert command[command.index("--artifact-profile") + 1] == "GATE24E_MEMORY_SAFE"
-    assert command[command.index("--output") + 1].endswith("attempt_04\\run")
+    output = command[command.index("--output") + 1].replace("\\", "/")
+    assert output.endswith("attempt_04/run")
 
 
 @pytest.mark.parametrize(
@@ -73,6 +75,7 @@ def test_04_approved_authorization_manifest_is_required(monkeypatch: pytest.Monk
     monkeypatch.setattr(runner, "_verify_platform", lambda: {"head": runner.PLATFORM_COMMIT, "clean": True})
     monkeypatch.setattr(runner, "_environment_snapshot", lambda _python: _approved_context()["environment"])
     monkeypatch.setattr(runner, "_assert_unused", lambda: None)
+    monkeypatch.setattr(runner, "PYTHON_RUNTIME", Path(sys.executable))
     assert runner.verify_preflight()["authorization"]["status"] == "READY_FOR_GATE24E_ATTEMPT04"
 
 

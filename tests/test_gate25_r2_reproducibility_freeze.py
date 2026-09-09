@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 from scripts.run_gate25_r2_reproducibility_freeze import (
+    ARCHIVE_RUNS,
     ANCHOR_COMMIT,
     EXPECTED_FINAL_EVIDENCE_SHA256,
     EXPECTED_RAW_TREE_SHA256,
@@ -32,6 +33,8 @@ def _json(path: Path) -> dict:
 
 
 def test_gate25_r2_audit_is_complete_and_file_only() -> None:
+    if not ARCHIVE_RUNS.is_dir():
+        pytest.skip("external Gate24E raw archive is not distributed in GitHub Actions")
     result = audit()
     assert result["status"] == "GATE25_R2_REPRODUCIBILITY_FREEZE_COMPLETE"
     assert result["gate24e_final_status"] == "GATE24E_VALIDATION_COMPLETE_DIRECTIONAL_DISCORDANCE"

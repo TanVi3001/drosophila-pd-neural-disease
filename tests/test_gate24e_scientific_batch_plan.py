@@ -84,7 +84,7 @@ def test_all_commands_are_non_video_cuda_contracts_without_forbidden_flags() -> 
     for job in build_plan()["jobs"]:
         command = job["command"]
         assert command[0].endswith(r".venv\Scripts\python.exe")
-        assert command[1].endswith(r"scripts\run_neural_experiment.py")
+        assert command[1].replace("\\", "/").endswith("scripts/run_neural_experiment.py")
         assert "--device" in command and command[command.index("--device") + 1] == "cuda"
         assert not forbidden.intersection(command)
         assert "--steps" in command and command[command.index("--steps") + 1] == "100000"

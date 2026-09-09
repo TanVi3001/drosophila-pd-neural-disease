@@ -563,14 +563,14 @@
     {
       "path": "tests/test_gate25_r2_public_surface_alignment.py",
       "role": "Runtime or claim contract",
-      "sha256": "6c7eea7ab7c5b4c8c78612f60785ad482632537b772f305910ecc0cfcfe71312",
-      "size_bytes": 3766
+      "sha256": "5ec94fd175b9e03f852b4ee55f1e0d25327234848924561773f9c2f59e5d4f43",
+      "size_bytes": 3922
     },
     {
       "path": "tests/test_gate25_r2_reproducibility_freeze.py",
       "role": "Runtime or claim contract",
-      "sha256": "ec43bb115e3fd17875dd3f6ef5217d0e9117f940d6a514e1bc6e4d2ec09a2509",
-      "size_bytes": 4029
+      "sha256": "873f195e6608756c4275e431c300fe73f0ba28d4722d6e619c9ab0fb9315c40c",
+      "size_bytes": 4170
     }
   ],
   "gate24e_closed": true,

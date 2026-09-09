@@ -67,8 +67,10 @@ def test_retry_command_has_no_disease_video_or_parameter_flags() -> None:
 
 def test_retry_command_is_healthy_storage_only() -> None:
     command = build_retry_command(Path("python.exe"))
-    assert command[command.index("--brain-root") + 1].endswith("external\\fly-brain-audit")
-    assert command[command.index("--output") + 1].endswith("gate_24e_storage_probe\\attempt_02\\run")
+    brain_root = command[command.index("--brain-root") + 1].replace("\\", "/")
+    output = command[command.index("--output") + 1].replace("\\", "/")
+    assert brain_root.endswith("external/fly-brain-audit")
+    assert output.endswith("gate_24e_storage_probe/attempt_02/run")
 
 
 def test_projection_uses_fixed_20_percent_reserve() -> None:
