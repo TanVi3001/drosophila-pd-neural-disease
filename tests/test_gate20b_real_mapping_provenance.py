@@ -23,6 +23,8 @@ FORBIDDEN_POSITIVE_CLAIMS = (
     "disease mechanism validated",
 )
 PLACEHOLDER_IDS = ("TODO_ROOT_ID", "FAKE_ROOT_ID", "SYNTHETIC_ROOT", "000000", "TBD_ROOT", "MOCK_ROOT")
+HISTORICAL_CLAIM_LOCK_PATH = "docs/claims/current_claim_lock.md"
+HISTORICAL_CLAIM_LOCK_SHA256 = "09cf89ae339ff7a1e497ef6c319f8fe10e4c64a9080abe10b938f5d92be39b64"
 
 
 def _json(path: Path) -> dict:
@@ -96,6 +98,12 @@ def test_gate20b_manifest_hashes_and_scientific_boundaries() -> None:
     for relative, expected in manifest["sha256"].items():
         path = ROOT / relative
         assert path.is_file(), relative
+        if relative == HISTORICAL_CLAIM_LOCK_PATH:
+            # Gate20B is an immutable historical snapshot. The live claim lock
+            # advances independently and is frozen by the current Gate25-R2.
+            assert expected == HISTORICAL_CLAIM_LOCK_SHA256
+            assert hashlib.sha256(path.read_bytes()).hexdigest() != expected
+            continue
         assert hashlib.sha256(path.read_bytes()).hexdigest() == expected
 
     text = "\n".join(
