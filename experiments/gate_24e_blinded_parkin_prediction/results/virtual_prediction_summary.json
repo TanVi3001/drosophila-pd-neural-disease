@@ -1,0 +1,86 @@
+{
+  "allowed_statement": "Frozen blinded computational prediction under the preregistered locomotor-direction protocol.",
+  "artifact_qc": "PASS",
+  "artifact_record_count_verified": 125,
+  "biological_validation_claim": "NOT_ALLOWED_AT_GATE24E",
+  "failed_jobs": [],
+  "frame_is_statistical_replicate": false,
+  "grid_decision": "DIRECTIONAL_VALIDATION_NOT_SUPPORTED",
+  "holdout": "SEALED",
+  "holdout_opened": false,
+  "job_count_expected": 25,
+  "job_count_valid": 25,
+  "metric_provenance_counts": {
+    "DERIVED_FROM_FROZEN_ROLLOUT": 0,
+    "DIRECT_LOCKED_METRIC": 25
+  },
+  "parameter_summaries": [
+    {
+      "direction_pass": false,
+      "distance_ratio": 1.0,
+      "median_healthy_distance_mm": 26.88814896332126,
+      "median_healthy_speed_mm_s": 2.441404537983768,
+      "median_paired_delta_speed_mm_s": 0.0,
+      "median_parkin_distance_mm": 26.88814896332126,
+      "median_parkin_speed_mm_s": 2.441404537983768,
+      "parameter": 0.25,
+      "qc_pass": true,
+      "speed_ratio": 1.0,
+      "valid_seed_count": 5
+    },
+    {
+      "direction_pass": false,
+      "distance_ratio": 1.0002058394053688,
+      "median_healthy_distance_mm": 26.88814896332126,
+      "median_healthy_speed_mm_s": 2.441404537983768,
+      "median_paired_delta_speed_mm_s": 7.742386846043559e-05,
+      "median_parkin_distance_mm": 26.893683603915335,
+      "median_parkin_speed_mm_s": 2.4414819618522285,
+      "parameter": 0.5,
+      "qc_pass": true,
+      "speed_ratio": 1.0000317128387597,
+      "valid_seed_count": 5
+    },
+    {
+      "direction_pass": false,
+      "distance_ratio": 1.0002058394053688,
+      "median_healthy_distance_mm": 26.88814896332126,
+      "median_healthy_speed_mm_s": 2.441404537983768,
+      "median_paired_delta_speed_mm_s": 7.742386846043559e-05,
+      "median_parkin_distance_mm": 26.893683603915335,
+      "median_parkin_speed_mm_s": 2.4414819618522285,
+      "parameter": 0.75,
+      "qc_pass": true,
+      "speed_ratio": 1.0000317128387597,
+      "valid_seed_count": 5
+    },
+    {
+      "direction_pass": false,
+      "distance_ratio": 1.0002058394053688,
+      "median_healthy_distance_mm": 26.88814896332126,
+      "median_healthy_speed_mm_s": 2.441404537983768,
+      "median_paired_delta_speed_mm_s": 6.026947785287007e-08,
+      "median_parkin_distance_mm": 26.893683603915335,
+      "median_parkin_speed_mm_s": 2.4414819618522285,
+      "parameter": 1.0,
+      "qc_pass": true,
+      "speed_ratio": 1.0000317128387597,
+      "valid_seed_count": 5
+    }
+  ],
+  "posthoc_parameter_selection": false,
+  "primary_metric": "median_planar_speed_mm_s",
+  "primary_rule": "median_across_five_same_seed_paired_deltas_lt_0",
+  "primary_validation_axis": "LOCOMOTOR_IMPAIRMENT_DIRECTION",
+  "secondary_metric": "distance_traveled_mm",
+  "seed_list": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "statistical_unit": "seed",
+  "status": "GATE24E_VIRTUAL_PREDICTION_COMPUTED",
+  "tuning_using_holdout": false
+}

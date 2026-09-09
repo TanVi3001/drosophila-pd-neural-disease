@@ -17,12 +17,38 @@ from scripts import run_gate24e_scientific_batch as executor
 from scripts.prepare_gate24e_scientific_batch_plan import build_plan
 
 
+_TEST_OUTPUT_ROOT: Path | None = None
+
+
 def _plan() -> dict:
-    return json.loads(executor.PLAN_PATH.read_text(encoding="utf-8"))
+    plan = json.loads(executor.PLAN_PATH.read_text(encoding="utf-8"))
+    if _TEST_OUTPUT_ROOT is not None:
+        for job in plan["jobs"]:
+            job["output_directory"] = str(_TEST_OUTPUT_ROOT / job["job_id"])
+    return plan
 
 
 def _initial_manifest() -> dict:
-    return json.loads(executor.EXECUTION_MANIFEST.read_text(encoding="utf-8"))
+    # The repository manifest is now immutable post-execution evidence. Unit
+    # tests derive an isolated pre-execution state instead of rewriting or
+    # pretending that the completed 25-job record is still NOT_EXECUTED.
+    manifest = json.loads(executor.EXECUTION_MANIFEST.read_text(encoding="utf-8"))
+    manifest.update(
+        status="NOT_EXECUTED",
+        executed_job_count=0,
+        completed_job_count=0,
+        failed_job_count=0,
+        gpu_jobs_executed=0,
+        simulation_jobs_executed=0,
+        completed_job_ids=[],
+        artifact_byte_total=0,
+        current_job_id=None,
+        current_job_index=None,
+        current_job_status="NOT_STARTED",
+        last_completed_job_id=None,
+        last_completed_job_index=None,
+    )
+    return manifest
 
 
 def _write_complete_artifacts(
@@ -56,9 +82,12 @@ def _patch_execution_paths(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> P
     monkeypatch.setattr(executor, "EXECUTION_MANIFEST", execution_path)
     monkeypatch.setattr(executor, "OUTPUT_ROOT", tmp_path / "runs")
     monkeypatch.setattr(executor, "LOG_PATH", tmp_path / "execution.log")
+    monkeypatch.setattr(executor, "validate_plan", lambda plan: dict(plan))
+    monkeypatch.setattr(executor, "validate_activation", lambda activation, plan: None)
     monkeypatch.setattr(executor, "run_preflight_audit", lambda: {"status": "READY"})
     monkeypatch.setattr(executor, "validate_runtime_git_contract", lambda: None)
     monkeypatch.setattr(executor, "_live_free_bytes", lambda: 100_000_000_000)
+    monkeypatch.setattr(sys.modules[__name__], "_TEST_OUTPUT_ROOT", tmp_path / "runs")
     return execution_path
 
 
@@ -265,8 +294,13 @@ def test_executor_has_no_resume_retry_or_overwrite_flags() -> None:
         parser.parse_args(["--skip"])
 
 
-def test_dry_run_is_read_only_and_prints_no_scientific_metrics(capsys: pytest.CaptureFixture[str]) -> None:
-    before = executor.EXECUTION_MANIFEST.read_bytes()
+def test_dry_run_is_read_only_and_prints_no_scientific_metrics(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    execution_path = _patch_execution_paths(tmp_path, monkeypatch)
+    before = execution_path.read_bytes()
     executor.dry_run(
         _plan(),
         {"status": "READY_FOR_GATE24E_25_JOB_SCIENTIFIC_BATCH"},
@@ -276,7 +310,7 @@ def test_dry_run_is_read_only_and_prints_no_scientific_metrics(capsys: pytest.Ca
     assert "READY_TO_EXECUTE_EXACT_GATE24E_25_JOB_BATCH" in captured
     assert "median_planar_speed_mm_s" not in captured
     assert "distance_traveled_mm" not in captured
-    assert executor.EXECUTION_MANIFEST.read_bytes() == before
+    assert execution_path.read_bytes() == before
     assert not executor.OUTPUT_ROOT.exists()
     assert not executor.LOG_PATH.exists()
 

@@ -1,0 +1,43 @@
+{
+  "analysis_artifacts": [
+    {
+      "path": "experiments/gate_24e_blinded_parkin_prediction/results/virtual_per_seed.csv",
+      "sha256": "ac394edb862a91c48cf43c53b67739f27b8cb1413d36329980951554a0defa90",
+      "size_bytes": 3910
+    },
+    {
+      "path": "experiments/gate_24e_blinded_parkin_prediction/results/paired_effects.csv",
+      "sha256": "1d4cd657dec56ae3f958c170671609652512ed5d975c373ad2423a44382bb50a",
+      "size_bytes": 2888
+    },
+    {
+      "path": "experiments/gate_24e_blinded_parkin_prediction/results/parameter_summary.csv",
+      "sha256": "ac0ac76b7ff830b6d154f661ddb71c47985a80824b97f36ede76cb3b2d49c781",
+      "size_bytes": 768
+    },
+    {
+      "path": "experiments/gate_24e_blinded_parkin_prediction/results/virtual_prediction_summary.json",
+      "sha256": "c42dd68791139c7829959c599c851548c479f8af48253403e96b1dbad981a590",
+      "size_bytes": 2939
+    }
+  ],
+  "analyzer_source_sha256": "7e0315196f6f041faebf5e6872b4605222a97cf2b45ce2db381545809319c42f",
+  "biological_validation_claim": "NOT_ALLOWED_AT_GATE24E",
+  "executor_sha256": "4d10edecbc8d987285ea82eb36a7bcfd686da3abde3b5160a3dcec23a2e78f3f",
+  "grid_decision": "DIRECTIONAL_VALIDATION_NOT_SUPPORTED",
+  "holdout": "SEALED",
+  "holdout_opened": false,
+  "model_commit": "be4b10a80755d9f7bad931f56b8a739bd64e3619",
+  "posthoc_parameter_selection": false,
+  "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "schema_version": "gate24e-immutable-virtual-prediction-freeze-v1",
+  "source_artifact_inventory_analyzed_worktree_sha256": "945c9d465e90f092c301f7137e8598842c0faab91aeec42685ab55c3fd4ec63f",
+  "source_artifact_inventory_sha256": "84c084921dade3cc91a10df7c008fe1d93e548790b2c2d171374f8700576589a",
+  "source_execution_manifest_analyzed_worktree_sha256": "3b1cb88202fa3e07ba646f15df4a5aa12262386c75e09c62122d4c08ba49126b",
+  "source_execution_manifest_sha256": "376c594758ec01a65de0bbef1b35dacf366e4b001c4f4b4648538638065c7882",
+  "source_scientific_plan_file_sha256": "bbdde682ae73b5af06192c20bd9bd1183d5f485f101183fe6e9507ac931a20c3",
+  "source_scientific_plan_sha256": "4515e1916631b019711154dccb5fb887110d5572e3eb82b7ea5118c643db5aac",
+  "status": "IMMUTABLE_VIRTUAL_PREDICTION_FROZEN",
+  "tuning_using_holdout": false,
+  "virtual_prediction_freeze_sha256": "f44e9ad10b9fc4795ae2173d3e8b27fc9ea0d8202925bfc08cdcc72d06b00863"
+}

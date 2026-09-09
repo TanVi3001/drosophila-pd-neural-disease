@@ -34,13 +34,14 @@ def test_exact_25_job_seed_major_matrix() -> None:
 
 
 def test_job_ids_and_output_paths_are_unique_and_deterministic() -> None:
+    existed_before = preflight.OUTPUT_ROOT.exists()
     jobs = build_plan()["jobs"]
     assert len({job["job_id"] for job in jobs}) == 25
     assert len({job["output_directory"] for job in jobs}) == 25
     assert jobs[0]["job_id"] == "seed00_healthy"
     assert jobs[1]["job_id"] == "seed00_parkin_p025"
     assert jobs[-1]["job_id"] == "seed04_parkin_p100"
-    assert not preflight.OUTPUT_ROOT.exists()
+    assert preflight.OUTPUT_ROOT.exists() is existed_before
 
 
 def test_checkpoint_paths_and_hashes_are_locked() -> None:
@@ -130,8 +131,9 @@ def test_human_authorization_rejects_duplicate_reviewers_and_invalid_date() -> N
 
 def test_no_attempt05_and_no_job_runner_side_effects() -> None:
     assert not preflight.ATTEMPT_05.exists()
-    assert not preflight.OUTPUT_ROOT.exists()
+    output_existed_before = preflight.OUTPUT_ROOT.exists()
     source = preflight.ROOT / "scripts/preview_gate24e_scientific_batch.py"
     text = source.read_text(encoding="utf-8")
     assert "subprocess.run" not in text
     assert "subprocess.Popen" not in text
+    assert preflight.OUTPUT_ROOT.exists() is output_existed_before
