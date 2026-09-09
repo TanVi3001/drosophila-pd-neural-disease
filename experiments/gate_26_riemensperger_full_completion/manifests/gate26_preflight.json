@@ -1,0 +1,30 @@
+{
+  "created_at_utc": "2026-09-09T17:07:19.579431+00:00",
+  "dry_run_contract_checked": true,
+  "freeze_sha256": "e55a36ee396a247055ec40cd8b0e86a61f1403ae33350bf7796cbbfa251f5d60",
+  "gpu_executed": false,
+  "locks": {
+    "gate24e_cross_assay": "DIRECTIONAL_CROSS_ASSAY_DISCORDANCE",
+    "gate24e_result": "NEGATIVE_VALIDATION_RESULT",
+    "gate24e_status": "GATE24E_VALIDATION_COMPLETE_DIRECTIONAL_DISCORDANCE",
+    "gate25_r2_freeze_sha256": "147bc90ea017b0a88a580e95d07f9d85548f157f45479283f67ac1b54444e36b",
+    "gate25_status": "GATE25_R2_REPRODUCIBILITY_FREEZE_COMPLETE"
+  },
+  "mapping": {
+    "mapping_level": "DOPAMINE_CLASS_LEVEL_EXPLORATORY",
+    "mapping_spec_sha256": "a416b22f642e4f4c65d2eee720fbe91cb7724808897446bb48f3a691de938dee",
+    "mapping_summary_sha256": "ebf39c21a8f25eb93055abf9f66786e1b335b0fd8b3e5689f75bd8d0f333f1f2",
+    "status": "READY_FOR_RIEMENSPERGER_DISEASE_REPLICATION",
+    "target_count": 342
+  },
+  "runtime": {
+    "brain_root": "E:\\Drosophila_Parkinson\\external\\fly-brain-audit",
+    "cli_video_supported": false,
+    "flygym": "2.1.0",
+    "healthy_checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+    "profile": "GATE24E_MEMORY_SAFE",
+    "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1"
+  },
+  "simulation_executed": false,
+  "status": "GATE26_SCIENTIFIC_PREFLIGHT_PASS"
+}
