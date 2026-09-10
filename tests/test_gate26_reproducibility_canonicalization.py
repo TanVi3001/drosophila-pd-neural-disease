@@ -73,8 +73,17 @@ def test_legacy_manifests_are_preserved_and_only_new_reconciliation_is_added() -
     assert legacy["record_count"] == 37
     assert len(CHECKSUMS.read_text(encoding="utf-8").splitlines()) == 37
     changed = subprocess.run(["git", "diff", "--name-only", "origin/main...HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.splitlines()
-    allowed = ("gate_26_riemensperger_full_completion/reconciliation/", "reproducibility_inventory_v2_git_blob.json", "checksums_v2_git_blob.sha256", "gate26_reproducibility_canonicalization_amendment.json")
-    assert all(any(token in path for token in allowed) or path.endswith("build_gate26_reproducibility_v2.py") or path.endswith("verify_gate26_reproducibility_v2.py") or path.endswith("test_gate26_reproducibility_canonicalization.py") or path.endswith("test_riemensperger2011_reproducibility.py") or path.endswith("gate26_reproducibility_canonicalization_reviewer_signoff.json") for path in changed)
+    gate26_evidence_or_provenance = [
+        path for path in changed
+        if path.startswith("experiments/gate_26_riemensperger_full_completion/")
+        or path == "research/validation/prospective/gate26_reproducibility_canonicalization_reviewer_signoff.json"
+        or path in {
+            "scripts/build_gate26_reproducibility_v2.py",
+            "scripts/verify_gate26_reproducibility_v2.py",
+            "tests/test_riemensperger2011_reproducibility.py",
+        }
+    ]
+    assert gate26_evidence_or_provenance == [], gate26_evidence_or_provenance
 
 
 def test_amendment_and_signoff_keep_scientific_and_human_locks() -> None:
@@ -86,7 +95,7 @@ def test_amendment_and_signoff_keep_scientific_and_human_locks() -> None:
     for field in ("scientific_evidence_modified", "scientific_result_changed", "execution_freeze_changed", "simulation_rerun", "gpu_used", "retuning"):
         assert amendment[field] is False
     signoff = json.loads(SIGNOFF.read_text(encoding="utf-8"))
-    assert signoff["status"] == "WAITING_GATE26_REPRODUCIBILITY_CANONICALIZATION_HUMAN_REVIEW"
-    assert signoff["decision"] == "PENDING_HUMAN_REVIEW"
+    assert signoff["status"] == "GATE26_REPRODUCIBILITY_CANONICALIZATION_REVIEW_APPROVED"
+    assert signoff["decision"] == "APPROVED_GATE26_REPRODUCIBILITY_CANONICALIZATION_CLOSURE"
     assert signoff["no_auto_sign"] is True
-    assert signoff["gate26_reconciliation_closed"] is False
+    assert signoff["gate26_reconciliation_closed"] is True
