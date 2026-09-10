@@ -1,0 +1,9 @@
+{
+  "claim_safe_wording": "The baseline remains a real historical engineering execution, but it cannot serve as the cryptographically controlled counterpart for a new trace-only non-perturbation comparison.",
+  "old_baseline_preserved": true,
+  "old_baseline_scientific_evidence": false,
+  "reason": "EXACT_BASELINE_BRAIN_SOURCE_BYTES_NOT_RECOVERABLE",
+  "recommended_next_action": "DESIGN_NEW_CANONICAL_PAIRED_GATE29_ENGINEERING_RUN",
+  "schema_version": "gate29-baseline-source-reconstruction-failure-v1",
+  "status": "GATE29_OLD_BASELINE_NOT_SUITABLE_FOR_TRACE_ONLY_PAIRING"
+}

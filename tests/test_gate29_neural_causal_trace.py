@@ -17,6 +17,7 @@ from drosophila_pd_neural.causal_trace.validation import (
     compare_trace_arrays,
 )
 from scripts import run_gate29_neural_causal_trace as gate29
+from scripts import forensic_gate29_baseline_brain_source as forensic
 
 
 def test_gate28b_is_closed_and_historical_inventory_is_preserved() -> None:
@@ -43,6 +44,9 @@ def test_gate29_manifest_is_computational_only() -> None:
     assert manifest["trace_runner_optimization_status"] == "STATICALLY_QUALIFIED"
     assert manifest["trace_execution_authorization"] == "WAITING_HUMAN_AUTHORIZATION"
     assert manifest["runtime_trace_evidence_available"] is False
+    assert manifest["baseline_brain_source_forensic_status"] == (
+        "GATE29_BASELINE_BRAIN_SOURCE_RECONSTRUCTION_INCOMPLETE"
+    )
 
 
 def test_gate29_runtime_contract_is_locked() -> None:
@@ -711,6 +715,89 @@ def test_reproducibility_scope_excludes_raw_trace_npz() -> None:
     verification = gate29.verify_reproducibility_inventory()
     assert verification["status"] == "GATE29_REPRODUCIBILITY_PASS"
     assert verification["mismatches"] == []
+
+
+def test_forensic_reconstruction_is_fail_closed_and_checkpoint_only() -> None:
+    manifest = gate29._json(gate29.BASELINE_BRAIN_SOURCE_FORENSIC)
+    assert manifest["overall_classification"] == (
+        "GATE29_BASELINE_BRAIN_SOURCE_RECONSTRUCTION_INCOMPLETE"
+    )
+    assert manifest["critical_file_count"] == 5
+    assert sum(
+        record["historical_content_established"] is True
+        for record in manifest["critical_files"]
+    ) == 1
+    checkpoint = next(
+        record for record in manifest["critical_files"]
+        if record["path"] == "data/plastic_weights.pt"
+    )
+    assert checkpoint["historical_content_established"] is True
+    assert checkpoint["evidence_level"] == "A_BASELINE_ARTIFACT_DIRECT_SHA"
+    for record in manifest["critical_files"]:
+        if record["path"] != "data/plastic_weights.pt":
+            assert record["clean_commit_git_blob_sha"] is None
+            assert record["current_equals_clean_commit"] is None
+            assert record["historical_content_established"] is False
+            assert record["evidence_level"] == "B_CANDIDATE_NOT_TIED_TO_BASELINE"
+    decision = gate29._json(gate29.BASELINE_SOURCE_RECONSTRUCTION_FAILURE)
+    assert decision["status"] == "GATE29_OLD_BASELINE_NOT_SUITABLE_FOR_TRACE_ONLY_PAIRING"
+    assert decision["old_baseline_preserved"] is True
+    assert decision["old_baseline_scientific_evidence"] is False
+
+
+def test_dirty_baseline_commit_alone_and_current_equality_are_insufficient() -> None:
+    current = {
+        "git_head": "ea00d987edfe65346b36bfa4ce37b628231a5c42",
+        "worktree_dirty": False,
+        "files": [],
+    }
+    result = gate29._baseline_source_equivalence(current)
+    assert result["status"] == "TRACE_BASELINE_SOURCE_BLOCKED"
+    assert "GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_NOT_REPRODUCIBLE" in result["blockers"]
+    assert result["forensic_reconstruction"]["overall_classification"] == (
+        "GATE29_BASELINE_BRAIN_SOURCE_RECONSTRUCTION_INCOMPLETE"
+    )
+
+
+def test_partial_reconstruction_fails_and_fingerprint_is_deterministic() -> None:
+    partial = [
+        {"path": "b", "historical_candidate_sha256": "2", "historical_content_established": True},
+        {"path": "a", "historical_candidate_sha256": "1", "historical_content_established": False},
+    ]
+    exact = [
+        {"path": "b", "historical_candidate_sha256": "2", "historical_content_established": True},
+        {"path": "a", "historical_candidate_sha256": "1", "historical_content_established": True},
+    ]
+    assert forensic.classify_reconstruction(partial) == (
+        "GATE29_BASELINE_BRAIN_SOURCE_RECONSTRUCTION_INCOMPLETE"
+    )
+    assert forensic.deterministic_source_fingerprint(partial) is None
+    assert forensic.classify_reconstruction(exact) == (
+        "GATE29_BASELINE_BRAIN_SOURCE_EXACTLY_RECONSTRUCTED"
+    )
+    assert forensic.deterministic_source_fingerprint(exact) == forensic.deterministic_source_fingerprint(
+        list(reversed(exact))
+    )
+
+
+def test_baseline_snapshot_cannot_claim_forensic_reconstruction_without_hashes() -> None:
+    snapshot = gate29._json(gate29.BASELINE_SOURCE_SNAPSHOT)
+    assert snapshot.get("source_hashes_forensically_reconstructed", False) is False
+    assert all(record.get("sha256") is None for record in snapshot["critical_files"])
+
+
+def test_preflight_remains_blocked_when_forensic_reconstruction_is_incomplete(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    original = gate29._baseline_source_equivalence
+    _mock_valid_preflight(monkeypatch, paths)
+    monkeypatch.setattr(gate29, "_baseline_source_equivalence", original)
+    result = gate29.trace_only_execution_preflight(paths)
+    assert result["status"] == "GATE29_TRACE_ONLY_EXECUTION_PREFLIGHT_BLOCKED"
+    assert "GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_NOT_REPRODUCIBLE" in result["blockers"]
+    assert result["simulation_execution"] is False
+    assert result["gpu_execution"] is False
 
 
 def test_report_contains_claim_lock_and_human_review_boundary() -> None:

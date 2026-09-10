@@ -68,6 +68,9 @@ TRACE_AUTHORIZATION = MANIFEST_ROOT / "trace_execution_authorization.json"
 TRACE_ATTEMPT_PROVENANCE = MANIFEST_ROOT / "trace_attempt_provenance.json"
 TRACE_OPTIMIZATION_QUALIFICATION = MANIFEST_ROOT / "trace_runner_optimization_qualification.json"
 BASELINE_SOURCE_SNAPSHOT = MANIFEST_ROOT / "baseline_source_snapshot.json"
+BASELINE_BRAIN_SOURCE_FORENSIC = MANIFEST_ROOT / "baseline_brain_source_forensic_reconstruction.json"
+BASELINE_SOURCE_RECONSTRUCTION_FAILURE = MANIFEST_ROOT / "baseline_source_reconstruction_failure_decision.json"
+BASELINE_BRAIN_SOURCE_FORENSIC_SCRIPT = ROOT / "scripts/forensic_gate29_baseline_brain_source.py"
 TRACE_ONLY_PREFLIGHT_SCHEMA = MANIFEST_ROOT / "trace_only_execution_preflight_schema.json"
 REPRODUCIBILITY_INVENTORY = MANIFEST_ROOT / "reproducibility_inventory.json"
 REPRODUCIBILITY_CHECKSUMS = MANIFEST_ROOT / "checksums.sha256"
@@ -152,6 +155,7 @@ def _gate29_reproducibility_paths() -> list[Path]:
         ROOT / "research/validation/prospective/gate29_neural_causal_trace_reviewer_signoff.json",
         ROOT / "tests/test_gate29_neural_causal_trace.py",
         ROOT / "scripts/run_gate29_neural_causal_trace.py",
+        BASELINE_BRAIN_SOURCE_FORENSIC_SCRIPT,
         GATE29_MANIFEST,
         ALIGNMENT,
         RUNTIME_AUDIT,
@@ -160,6 +164,8 @@ def _gate29_reproducibility_paths() -> list[Path]:
         MANIFEST_ROOT / "controller_layer_interpretation.json",
         BASELINE_LOCK,
         BASELINE_SOURCE_SNAPSHOT,
+        BASELINE_BRAIN_SOURCE_FORENSIC,
+        BASELINE_SOURCE_RECONSTRUCTION_FAILURE,
         TRACE_ONLY_PREFLIGHT_SCHEMA,
         TRACE_AUTHORIZATION,
         TRACE_ATTEMPT_PROVENANCE,
@@ -375,6 +381,7 @@ def _current_brain_source_snapshot(brain_root: Path) -> dict[str, Any]:
 def _baseline_source_equivalence(current: Mapping[str, Any]) -> dict[str, Any]:
     baseline = _json(BASELINE_SOURCE_SNAPSHOT)
     blockers: list[str] = []
+    forensic = _json(BASELINE_BRAIN_SOURCE_FORENSIC) if BASELINE_BRAIN_SOURCE_FORENSIC.is_file() else {}
     expected_commit = baseline.get("brain_source_commit")
     if expected_commit and current.get("git_head") != expected_commit:
         blockers.append("GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_COMMIT_MISMATCH")
@@ -391,6 +398,9 @@ def _baseline_source_equivalence(current: Mapping[str, Any]) -> dict[str, Any]:
             not record.get("sha256") for record in baseline_files.values()
         ):
             blockers.append("GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_NOT_REPRODUCIBLE")
+    if forensic.get("overall_classification") != "GATE29_BASELINE_BRAIN_SOURCE_EXACTLY_RECONSTRUCTED":
+        if "GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_NOT_REPRODUCIBLE" not in blockers:
+            blockers.append("GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_NOT_REPRODUCIBLE")
     for current_record in current.get("files", []):
         baseline_record = baseline_files.get(current_record.get("path"))
         if not baseline_record:
@@ -406,6 +416,7 @@ def _baseline_source_equivalence(current: Mapping[str, Any]) -> dict[str, Any]:
         "status": "TRACE_BASELINE_SOURCE_MATCH" if not blockers else "TRACE_BASELINE_SOURCE_BLOCKED",
         "blockers": blockers,
         "baseline": baseline,
+        "forensic_reconstruction": forensic,
         "current": current,
     }
 

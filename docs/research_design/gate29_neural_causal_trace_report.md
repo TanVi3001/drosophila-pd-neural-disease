@@ -174,6 +174,31 @@ The preflight must report
 content-hash evidence is supplied. No trace is authorized or executed by this
 hardening task.
 
+## 21. Baseline brain-source forensic reconstruction
+
+The Gate29 baseline metadata records the brain source commit
+`ea00d987edfe65346b36bfa4ce37b628231a5c42` and
+`brain_source_worktree_dirty: true`, but it does not record historical
+per-file hashes for the five execution-critical source files. The forensic
+manifest therefore checks each file independently rather than treating the
+commit ID as proof of executed bytes.
+
+The checkpoint `data/plastic_weights.pt` is independently hash-locked by the
+baseline metadata and the Gate29 execution lock. The other four files have
+matching hashes in the committed Gate11 source audit and in the current source
+tree, but that audit is not cryptographically tied to the Gate29 baseline
+execution. The source files are also under the ignored `external/` subtree and
+no corresponding Git blobs exist at the baseline commit. No historical dirty
+path set or unambiguous unreachable object mapping was recovered.
+
+The resulting classification is
+`GATE29_BASELINE_BRAIN_SOURCE_RECONSTRUCTION_INCOMPLETE`. The old baseline is
+preserved as a real historical engineering execution, but it is not suitable
+as the cryptographically controlled counterpart for a new trace-only
+non-perturbation comparison. Preflight remains blocked with
+`GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_NOT_REPRODUCIBLE`. This forensic
+task did not run GPU, simulation, baseline rerun, or trace attempt 02.
+
 ## Claim lock
 
 Allowed wording:
