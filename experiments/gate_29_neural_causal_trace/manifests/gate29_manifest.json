@@ -30,6 +30,8 @@
   "technical_abort_reason": "TRACE_RUNNER_TERMINATED_AFTER_UNBOUNDED_STARTUP_OVERHEAD; NO_TRACE_ARTIFACT_WRITTEN",
   "automatic_retry": false,
   "baseline_execution_locked": true,
+  "authorization_mechanism_status": "GATE29_AUTHORIZATION_MECHANISM_COMMIT_SAFE",
+  "trace_execution_authorization_model": "AUTHORIZATION_COMMIT_PARENT_PROOF_V2",
   "trace_runner_optimization_status": "STATICALLY_QUALIFIED",
   "trace_execution_authorization": "WAITING_HUMAN_AUTHORIZATION",
   "runtime_trace_evidence_available": false,

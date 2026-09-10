@@ -15,6 +15,7 @@ import json
 import math
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -68,6 +69,18 @@ TRACE_ATTEMPT_PROVENANCE = MANIFEST_ROOT / "trace_attempt_provenance.json"
 TRACE_OPTIMIZATION_QUALIFICATION = MANIFEST_ROOT / "trace_runner_optimization_qualification.json"
 REPRODUCIBILITY_INVENTORY = MANIFEST_ROOT / "reproducibility_inventory.json"
 REPRODUCIBILITY_CHECKSUMS = MANIFEST_ROOT / "checksums.sha256"
+AUTHORIZATION_ONLY_PATH = (
+    "experiments/gate_29_neural_causal_trace/manifests/"
+    "trace_execution_authorization.json"
+)
+AUTHORIZATION_SCHEMA_VERSION = "gate29-trace-execution-authorization-v2"
+EXECUTION_CODE_SNAPSHOT_PATHS = (
+    "scripts/run_gate29_neural_causal_trace.py",
+    "configs/generation2/gate29_causal_trace_policy.yaml",
+    "configs/generation2/gate29_trace_temporal_contract.yaml",
+    "experiments/gate_29_neural_causal_trace/manifests/baseline_execution_lock.json",
+    "experiments/gate_29_neural_causal_trace/manifests/trace_attempt_provenance.json",
+)
 OUTPUT_ROOT = ROOT.parent / "gate29_technical_outputs/neural_causal_trace"
 RUNTIME_ROOT_DEFAULT = ROOT.parent / "drosophila-pd-flygym-gate24-memorysafe-clean"
 BRAIN_ROOT_DEFAULT = ROOT.parent / "drosophila-pd-neural-disease/external/fly-brain"
@@ -274,6 +287,64 @@ def _git(root: Path, *args: str) -> str:
     if result.returncode != 0:
         raise Gate29Error(f"git command failed: {' '.join(args)}: {result.stderr.strip()}")
     return result.stdout.strip()
+
+
+def _git_blob_sha(root: Path, revision: str, relative_path: str) -> str:
+    """Return one committed file's blob identity, failing closed if absent."""
+
+    return _git(root, "rev-parse", f"{revision}:{relative_path}")
+
+
+def _validate_authorization_commit_structure(
+    root: Path, authorization: Mapping[str, Any]
+) -> dict[str, str]:
+    """Validate the Git parent proof for a committed authorization transition."""
+
+    if _git(root, "status", "--porcelain"):
+        raise Gate29Error("GATE29_TRACE_EXECUTION_DIRTY_WORKTREE")
+
+    authorized_code_head = authorization.get("authorized_code_head")
+    if not isinstance(authorized_code_head, str) or not re.fullmatch(
+        r"[0-9a-f]{40}", authorized_code_head
+    ):
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_CODE_HEAD_INVALID")
+    try:
+        object_type = _git(root, "cat-file", "-t", authorized_code_head)
+    except Gate29Error as exc:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_CODE_HEAD_INVALID") from exc
+    if object_type != "commit":
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_CODE_HEAD_INVALID")
+
+    current_head = _git(root, "rev-parse", "HEAD")
+    parent_record = _git(root, "rev-list", "--parents", "-n", "1", "HEAD").split()
+    if len(parent_record) != 2:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_MERGE_COMMIT_REJECTED")
+    if parent_record[1] != authorized_code_head:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_PARENT_MISMATCH")
+
+    changed_paths = _git(
+        root, "diff", "--name-only", f"{authorized_code_head}..HEAD"
+    ).splitlines()
+    if changed_paths != [AUTHORIZATION_ONLY_PATH]:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_COMMIT_SCOPE_INVALID")
+
+    for relative_path in EXECUTION_CODE_SNAPSHOT_PATHS:
+        try:
+            authorized_blob = _git_blob_sha(root, authorized_code_head, relative_path)
+            current_blob = _git_blob_sha(root, current_head, relative_path)
+        except Gate29Error as exc:
+            raise Gate29Error(
+                f"GATE29_TRACE_EXECUTION_AUTHORIZATION_CODE_DRIFT:{relative_path}"
+            ) from exc
+        if authorized_blob != current_blob:
+            raise Gate29Error(
+                f"GATE29_TRACE_EXECUTION_AUTHORIZATION_CODE_DRIFT:{relative_path}"
+            )
+
+    return {
+        "authorized_code_head": authorized_code_head,
+        "authorization_commit": current_head,
+    }
 
 
 def _resolve_paths(args: argparse.Namespace) -> dict[str, Path]:
@@ -810,11 +881,14 @@ def qualify_tracer_scope() -> dict[str, Any]:
 
 def _validate_trace_authorization(paths: Mapping[str, Path]) -> tuple[dict[str, Any], Path]:
     authorization = _json(TRACE_AUTHORIZATION)
-    current_head = _git(ROOT, "rev-parse", "HEAD")
+    if (
+        authorization.get("schema_version") != AUTHORIZATION_SCHEMA_VERSION
+        or "authorized_head" in authorization
+    ):
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_SCHEMA_INVALID")
     if authorization.get("authorized") is not True:
         raise Gate29Error("GATE29_TRACE_EXECUTION_HUMAN_AUTHORIZATION_REQUIRED")
-    if authorization.get("authorized_head") != current_head:
-        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_STALE_HEAD")
+    authorization_commit = _validate_authorization_commit_structure(ROOT, authorization)
     if authorization.get("authorized_seed") != TECHNICAL_SEED:
         raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_SEED_MISMATCH")
     if authorization.get("authorized_jobs") != 1 or authorization.get("trace_only") is not True:
@@ -827,6 +901,7 @@ def _validate_trace_authorization(paths: Mapping[str, Path]) -> tuple[dict[str, 
         raise Gate29Error("GATE29_TRACE_ALREADY_EXECUTED")
     if _contains_files(trace_output) or trace_output.exists():
         raise Gate29Error("GATE29_TRACE_ATTEMPT_02_ALREADY_EXISTS")
+    authorization["authorization_commit"] = authorization_commit["authorization_commit"]
     return authorization, trace_output
 
 
@@ -842,7 +917,8 @@ def execute_authorized_trace_only(paths: Mapping[str, Path]) -> dict[str, Any]:
     summary = analyze_trace(analysis_paths)
     summary["trace_execution"] = result
     summary["trace_only"] = True
-    summary["authorization_head"] = authorization["authorized_head"]
+    summary["authorized_code_head"] = authorization["authorized_code_head"]
+    summary["execution_head"] = authorization["authorization_commit"]
     _write_json(SUMMARY_PATH, summary)
     _update_gate29_manifest(summary, completed=2)
     write_reproducibility_inventory()

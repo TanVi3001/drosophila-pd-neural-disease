@@ -1,8 +1,8 @@
 {
-  "schema_version": "gate29-trace-execution-authorization-v1",
+  "schema_version": "gate29-trace-execution-authorization-v2",
   "status": "WAITING_GATE29_TRACE_EXECUTION_HUMAN_AUTHORIZATION",
   "authorized": false,
-  "authorized_head": "",
+  "authorized_code_head": "",
   "authorized_seed": 9201,
   "authorized_jobs": 1,
   "baseline_rerun_authorized": false,
