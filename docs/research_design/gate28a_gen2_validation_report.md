@@ -1,48 +1,51 @@
-# Gate 28A Generation 2 Validation Report
+# Báo cáo xác nhận Gate 28A sau canonicalization Gate26
 
-## Kết quả contract
+## Trạng thái
 
-- Status: `GATE28A_GEN2_SCIENTIFIC_CONTRACT_COMPLETE`.
-- Human review: `WAITING_GATE28A_GEN2_HUMAN_REVIEW`.
-- GPU: không chạy.
-- Simulation: không chạy.
-- Model fitting: không chạy.
-- Calibration: không chạy.
-- Data fabrication: không có.
+- `GATE28A_GEN2_SCIENTIFIC_CONTRACT_COMPLETE`
+- `WAITING_GATE28A_GEN2_HUMAN_REVIEW`
+- `NO ACTIVE GENERATION-1 REPRODUCIBILITY BLOCKER`
 
-Các test riêng của Gate 28A pass. Các artifact mới chỉ là contract, registry,
-audit, manifest và checksum nhẹ.
+Gate 28A vẫn là một scientific contract cho Generation 2. Task này không chạy
+GPU, simulation, fitting, calibration hoặc retuning; Gate28B cũng chưa được
+triển khai.
 
-## Blocker kế thừa được phát hiện
+## Reconciliation Gate26
 
-Gate26 inventory có đủ 37 record, nhưng checksum audit tại thời điểm Gate28A
-cho thấy 11 record không khớp với file đang ở `origin/main`. Gate28A không
-sửa các file lịch sử và không cập nhật checksum lịch sử để ép kết quả thành
-37/37. Chi tiết được lưu tại:
+Ở lần tạo Gate28A ban đầu, legacy inventory của Gate26 có 37 record và ghi
+nhận 11 mismatch. Audit lịch sử đó được giữ nguyên tại
+`manifests/gate26_legacy_checksum_audit.json` và không bị xoá hoặc sửa lịch sử.
 
-`experiments/gate_28a_gen2_scope_metric_study_split/manifests/gate26_legacy_checksum_audit.json`
+Một task provenance độc lập sau đó đã kiểm tra raw Git blob và giải thích toàn
+bộ 11 mismatch:
 
-Vì vậy:
+- 10 trường hợp là `UNIFORM_CRLF_WORKTREE_SERIALIZATION`;
+- 1 trường hợp là `MIXED_CRLF_FINAL_LF_WORKTREE_SERIALIZATION`;
+- 0 trường hợp content drift không giải thích được.
 
-```text
-gate26_reproducibility_37_of_37 = false
-legacy_evidence_reconciliation_status = BLOCKED_STALE_INVENTORY
-```
+Gate26 canonical v2 dùng byte của Git blob, đạt 37/37 và đã được human review
+approved/closed trên `main`. Kết quả khoa học Gate26 vẫn là `NOT_REPRODUCED`;
+canonicalization không thay đổi kết quả, evidence hoặc execution freeze.
 
-## Kiểm tra hiện tại
+## Nội dung khoa học được giữ nguyên
 
-- Gate25 verify-only: PASS.
-- Compileall: PASS.
-- Gate28A contract tests: PASS.
-- `git diff --check`: PASS.
-- Full pytest: `669 passed, 2 skipped, 1 failed`.
-- Failure hiện tại nằm ở checksum artifact Generation 1 trong
-  `tests/test_riemensperger2011_reproducibility.py`, không phải artifact mới
-  của Gate28A.
+Gate28A giữ nguyên Generation-2 scope, metric dictionary, duration policy,
+experimental-unit contract, assay registry, literature registry, study split,
+claim policy và các audit metric ban đầu. Các số audit vẫn là:
 
-## Quyết định
+- metric occurrences: 6059;
+- walking-speed occurrences: 440;
+- ambiguous walking-speed occurrences: 418;
+- assay contracts: 5;
+- literature registry records: 13.
 
-Không được chuyển sang Gate28B hoặc human signoff cuối cùng cho tới khi nhóm
-quyết định riêng cách reconcile checksum lịch sử. Việc reconcile đó phải là
-một task được review độc lập; không được sửa raw metrics, kết luận khoa học,
-checkpoint hoặc claim lock trong Gate28A.
+Pozo 2022 vẫn là `HISTORICAL_EXPOSED_EVALUATION_SOURCE`, không phải future
+sealed holdout. Riemensperger 2011 vẫn là
+`GEN2_DOPAMINE_FUNCTIONAL_DEFICIENCY_REFERENCE`. Alpha-synuclein LOSO vẫn
+`NOT_YET_FROZEN`.
+
+## Giới hạn và phê duyệt
+
+Gate28A chưa phải biological Parkinson validation, gene-specific validation,
+clinical validation hay drug validation. Gate28A human signoff vẫn để pending;
+không được chuyển sang Gate28B chỉ dựa trên refresh provenance này.

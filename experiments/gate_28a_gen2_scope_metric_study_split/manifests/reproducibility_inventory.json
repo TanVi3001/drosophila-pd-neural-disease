@@ -1,6 +1,7 @@
 {
+  "canonical_policy": "GIT_BLOB_BYTES",
   "raw_gpu_artifacts_included": false,
-  "record_count": 33,
+  "record_count": 35,
   "records": [
     {
       "path": "configs/generation2/assays/aggarwal_2019_rotating_vertical.yaml",
@@ -89,8 +90,8 @@
     },
     {
       "path": "docs/research_design/gate28a_gen2_validation_report.md",
-      "sha256": "5cc6ccafde4facb5d271fbd0fc0e09c775f29ae90c920febc63a7e0ba4c019a0",
-      "size_bytes": 1744
+      "sha256": "db7ebed92f95bf8076f1c69ba40b9f9fa95dac5b9382f6a85d548e936fa0558a",
+      "size_bytes": 2205
     },
     {
       "path": "docs/research_design/generation2_research_charter.md",
@@ -99,28 +100,33 @@
     },
     {
       "path": "docs/research_design/parkinson_in_silico_research_synthesis_vi.md",
-      "sha256": "46f82d3c4577567cf02b5bb41a50164e9709a1ba26a363a71d05098667ac22b4",
-      "size_bytes": 60569
+      "sha256": "26109d1e9ca9dfef711cc525c4187ec6b37f098f3266f1f68f89b4572127181f",
+      "size_bytes": 58974
+    },
+    {
+      "path": "experiments/gate_28a_gen2_scope_metric_study_split/manifests/gate26_canonical_recheck.json",
+      "sha256": "d912a2c40e376792afe73029296f0d66af45d07fe4fe7fe043d3b186952b144a",
+      "size_bytes": 900
     },
     {
       "path": "experiments/gate_28a_gen2_scope_metric_study_split/manifests/gate26_legacy_checksum_audit.json",
-      "sha256": "3a01acde30d9b51fc6c854b4a8e5f396c383e917882ea3267834df07e011174b",
-      "size_bytes": 3696
+      "sha256": "b3cf4f474495d32d75f58b4676989da4b844ed812c6f5cb04601f50e874e1c1d",
+      "size_bytes": 3630
     },
     {
       "path": "experiments/gate_28a_gen2_scope_metric_study_split/manifests/gate28a_manifest.json",
-      "sha256": "495f4d03ada82f71451e529d4d18204cfe94bca189b7b94e1a42b51ad35c72b0",
-      "size_bytes": 1997
+      "sha256": "d4a97ea62db240b581ad5544d21d2680c7c610f51e0f975f544c2a6f7956b124",
+      "size_bytes": 2346
     },
     {
       "path": "experiments/gate_28a_gen2_scope_metric_study_split/manifests/generation2_pipeline_plan.json",
-      "sha256": "acf3374deeeb79db80f73bf97d3b1483449bfe3ec60a69e88782f23645c0fd65",
-      "size_bytes": 1226
+      "sha256": "c81a133c8502cf5e5dcb2aeb23099387199d6f19605ac814cb0ba99ecd47fef4",
+      "size_bytes": 1173
     },
     {
       "path": "experiments/gate_28a_gen2_scope_metric_study_split/metrics/current_metric_audit.csv",
-      "sha256": "35335844895ac857b3bcdaafc7052d0681f394f620c9688bad5bf7fe4be73061",
-      "size_bytes": 2085790
+      "sha256": "7ef1bbd25214534fa7840c8849d9e9f20e23ee5b70d2bfae58c3de6fd7b02b27",
+      "size_bytes": 2079730
     },
     {
       "path": "research/literature_v2/literature_endpoint_registry_v2.csv",
@@ -139,8 +145,8 @@
     },
     {
       "path": "research/validation/prospective/gate28a_gen2_scope_metric_study_split_reviewer_signoff.json",
-      "sha256": "f5a4dd283045f05e95deeaf1fb754869e6bae7be062f06c620c91b76c19b36fe",
-      "size_bytes": 699
+      "sha256": "97b14f34b2c317258a190e8abde234729303d699cfc63a7639ec227875e7e4eb",
+      "size_bytes": 678
     },
     {
       "path": "results/duration_comparability_audit.csv",
@@ -149,13 +155,13 @@
     },
     {
       "path": "results/public_personal_path_audit.csv",
-      "sha256": "6c54ece2c45e185da4b70533b6d44571c61bf3f2aa296a57deaf6fed8d5c0ffa",
-      "size_bytes": 30149
+      "sha256": "14d56144b93f64cccd1f2bb34ccc01a95cfdb4fc3be9f41e4a6af2fc275706a8",
+      "size_bytes": 29950
     },
     {
       "path": "results/walking_speed_semantic_audit.csv",
-      "sha256": "3a54c2f84d68ecfb5c5f5517a0dc15d3e477dd9534a6ba854023ca59ead86fdf",
-      "size_bytes": 120817
+      "sha256": "116ec98d817c68772780ca0e531755df4b975961e1987d6f2da16a873bff93fe",
+      "size_bytes": 120376
     },
     {
       "path": "scripts/build_gate28a_contract_artifacts.py",
@@ -163,11 +169,16 @@
       "size_bytes": 18502
     },
     {
+      "path": "scripts/refresh_gate28a_after_gate26.py",
+      "sha256": "17224e124f581f2d1181fac7075191b6d5821028cbc9a5a91555a4a14279749b",
+      "size_bytes": 9745
+    },
+    {
       "path": "tests/test_gate28a_gen2_scientific_contract.py",
-      "sha256": "f0d53777107b392afa73fa3389ab2dcaf2f4628dccb637467e4a26ca5e5d475f",
-      "size_bytes": 8652
+      "sha256": "19df1fad383a4bcc07bb83240f9e4a2394211b7f6784298f8f37ead4e07aabca",
+      "size_bytes": 11376
     }
   ],
-  "schema_version": "gate28a-reproducibility-inventory-v1",
-  "status": "COMPLETE"
+  "schema_version": "gate28a-reproducibility-inventory-v2-git-blob-compatible",
+  "status": "COMPLETE_CANONICAL_TEXT_BYTES"
 }

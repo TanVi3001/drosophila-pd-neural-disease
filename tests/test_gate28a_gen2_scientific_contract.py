@@ -6,9 +6,13 @@ import json
 import subprocess
 from pathlib import Path
 
+from scripts.verify_gate26_reproducibility_v2 import verify as verify_gate26_v2
+
 
 ROOT = Path(__file__).resolve().parents[1]
 GATE = ROOT / "experiments/gate_28a_gen2_scope_metric_study_split"
+CURRENT_MAIN = "cbd1ca071b2a8f28983d1cb78096501847fefbc1"
+ORIGINAL_GATE28A = "2dafaafc5a09eca1908457a54d8a0a5dc4e45b24"
 
 
 def _json(relative: str) -> dict:
@@ -17,6 +21,16 @@ def _json(relative: str) -> dict:
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _git_blob(relative: str, ref: str = "HEAD") -> bytes:
+    result = subprocess.run(
+        ["git", "cat-file", "blob", f"{ref}:{relative}"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    )
+    return result.stdout
 
 
 def test_generation2_and_gate_status() -> None:
@@ -47,23 +61,57 @@ def test_generation1_protected_directories_are_unchanged() -> None:
     assert not [path for path in changed if path.startswith(protected_prefixes)]
 
 
-def test_gate26_inventory_is_37_records_and_stale_hashes_are_not_hidden() -> None:
+def test_gate26_legacy_mismatch_is_preserved_and_canonical_v2_passes() -> None:
     inventory_path = ROOT / "experiments/gate_26_riemensperger_full_completion/manifests/reproducibility_inventory.json"
     inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
     assert inventory["record_count"] == 37
-    mismatches = []
-    for record in inventory["records"]:
-        path = ROOT / record["path"]
-        assert path.is_file(), record["path"]
-        if _sha256(path) != record["sha256"]:
-            mismatches.append(record["path"])
     legacy_audit = _json("experiments/gate_28a_gen2_scope_metric_study_split/manifests/gate26_legacy_checksum_audit.json")
     assert legacy_audit["record_count"] == 37
-    assert legacy_audit["mismatch_count"] == len(mismatches)
+    assert legacy_audit["mismatch_count"] == 11
     assert legacy_audit["hashes_verified"] is False
     assert legacy_audit["action"] == "DEFERRED_LEGACY_EVIDENCE_RECONCILIATION"
+    canonical = _json("experiments/gate_26_riemensperger_full_completion/manifests/reproducibility_inventory_v2_git_blob.json")
+    assert canonical["record_count"] == 37
+    assert canonical["status"] == "COMPLETE_CANONICAL_GIT_BLOB"
+    assert verify_gate26_v2("HEAD") == (37, [])
+    recheck = _json("experiments/gate_28a_gen2_scope_metric_study_split/manifests/gate26_canonical_recheck.json")
+    assert recheck["status"] == "GATE26_CANONICAL_RECHECK_PASS"
+    assert recheck["checked_against_main"] == CURRENT_MAIN
+    assert recheck["legacy_mismatch_count"] == 11
+    assert recheck["canonical_verified_count"] == 37
+    assert recheck["canonical_verification_pass"] is True
+    assert recheck["canonical_reconciliation_status"] == "HUMAN_APPROVED_CLOSED"
+    assert recheck["unexplained_content_drift"] is False
+    gate26_signoff = _json("research/validation/prospective/gate26_reproducibility_canonicalization_reviewer_signoff.json")
+    assert gate26_signoff["status"] == "GATE26_REPRODUCIBILITY_CANONICALIZATION_REVIEW_APPROVED"
+    assert gate26_signoff["decision"] == "APPROVED_GATE26_REPRODUCIBILITY_CANONICALIZATION_CLOSURE"
+    assert gate26_signoff["gate26_reconciliation_closed"] is True
     completion = _json("experiments/gate_26_riemensperger_full_completion/manifests/gate26_completion_manifest.json")
     assert completion["final_directional_decision"] == "NOT_REPRODUCED"
+
+
+def test_generation2_scientific_content_matches_original_gate28a_commit() -> None:
+    paths = subprocess.run(
+        ["git", "ls-tree", "-r", "--name-only", ORIGINAL_GATE28A, "configs/generation2"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.splitlines()
+    paths += [
+        "docs/research_design/canonical_metric_dictionary.md",
+        "docs/research_design/generation2_research_charter.md",
+        "docs/research_design/parkinson_in_silico_research_synthesis_vi.md",
+        "docs/claims/generation2_claim_policy.md",
+        "research/literature_v2/literature_endpoint_registry_v2.csv",
+        "research/literature_v2/riemensperger_2011_endpoint_contract.yaml",
+        "research/literature_v2/study_split_manifest.yaml",
+        "results/duration_comparability_audit.csv",
+        "results/walking_speed_semantic_audit.csv",
+        "experiments/gate_28a_gen2_scope_metric_study_split/metrics/current_metric_audit.csv",
+    ]
+    for relative in sorted(set(paths)):
+        assert _git_blob(relative, "HEAD") == _git_blob(relative, ORIGINAL_GATE28A), relative
 
 
 def test_metric_dictionary_keeps_endpoints_distinct() -> None:
@@ -111,6 +159,7 @@ def test_pozo_is_not_a_new_future_holdout() -> None:
     manifest = _json("experiments/gate_28a_gen2_scope_metric_study_split/manifests/gate28a_manifest.json")
     assert "HISTORICAL_EXPOSED_EVALUATION_SOURCE" in split
     assert "future_sealed_holdout: false" in split
+    assert "NOT_YET_FROZEN" in split
     assert manifest["pozo_future_holdout_allowed"] is False
 
 
@@ -146,6 +195,8 @@ def test_no_execution_or_fitting_in_gate28a() -> None:
     assert manifest["gpu_simulation_run"] is False
     assert manifest["model_fitting_run"] is False
     assert manifest["parameter_calibration_run"] is False
+    assert manifest["retuning"] is False
+    assert manifest["gate28b_execution"] is False
     assert manifest["data_fabricated"] is False
     pipeline = _json("experiments/gate_28a_gen2_scope_metric_study_split/manifests/generation2_pipeline_plan.json")
     assert all(item["status"] in {"COMPLETE", "NOT_STARTED"} for item in pipeline["gates"])
@@ -167,11 +218,11 @@ def test_gate28a_inventory_and_checksums_verify() -> None:
     inventory = _json("experiments/gate_28a_gen2_scope_metric_study_split/manifests/reproducibility_inventory.json")
     assert inventory["record_count"] > 0
     for record in inventory["records"]:
-        path = ROOT / record["path"]
-        assert path.is_file(), record["path"]
-        assert _sha256(path) == record["sha256"], record["path"]
+        blob = _git_blob(record["path"])
+        assert hashlib.sha256(blob).hexdigest() == record["sha256"], record["path"]
+        assert len(blob) == record["size_bytes"], record["path"]
     checksums = (GATE / "manifests/checksums.sha256").read_text(encoding="utf-8").splitlines()
     assert len(checksums) == inventory["record_count"] + 1
     for line in checksums:
         expected, relative = line.split("  ", 1)
-        assert _sha256(ROOT / relative) == expected, relative
+        assert hashlib.sha256(_git_blob(relative)).hexdigest() == expected, relative

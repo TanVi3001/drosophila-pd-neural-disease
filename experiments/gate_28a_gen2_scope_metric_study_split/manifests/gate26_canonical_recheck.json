@@ -1,0 +1,20 @@
+{
+  "canonical_inventory": "reproducibility_inventory_v2_git_blob.json",
+  "canonical_policy": "GIT_BLOB_BYTES",
+  "canonical_reconciliation_commit": "cbd1ca071b2a8f28983d1cb78096501847fefbc1",
+  "canonical_reconciliation_status": "HUMAN_APPROVED_CLOSED",
+  "canonical_record_count": 37,
+  "canonical_verification_pass": true,
+  "canonical_verified_count": 37,
+  "checked_against_main": "cbd1ca071b2a8f28983d1cb78096501847fefbc1",
+  "gate26_result": "NOT_REPRODUCED",
+  "gate26_result_changed": false,
+  "legacy_inventory_record_count": 37,
+  "legacy_mismatch_count": 11,
+  "legacy_mismatch_status": "EXPLAINED_PLATFORM_SERIALIZATION_HISTORY",
+  "original_gate28a_commit": "2dafaafc5a09eca1908457a54d8a0a5dc4e45b24",
+  "schema_version": "gate28a-gate26-canonical-recheck-v1",
+  "scientific_evidence_changed": false,
+  "status": "GATE26_CANONICAL_RECHECK_PASS",
+  "unexplained_content_drift": false
+}
