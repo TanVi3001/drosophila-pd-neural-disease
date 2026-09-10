@@ -1,4 +1,5 @@
 import hashlib
+import subprocess
 from pathlib import Path
 
 from drosophila_pd_neural.riemensperger2011.protocol import build_manifest, sha256_file
@@ -34,4 +35,18 @@ def test_gate_checksum_manifests_match_small_committed_artifacts() -> None:
             digest, relative = line.split("  ", 1)
             path = gate / relative
             assert path.is_file(), relative
-            assert hashlib.sha256(path.read_bytes()).hexdigest() == digest
+            # Historical manifests may contain a platform-specific CRLF
+            # serialization; compare it with the canonical Git blob without
+            # changing the immutable evidence files.
+            result = subprocess.run(
+                ["git", "cat-file", "blob", f"HEAD:{path.as_posix()}"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            if result.returncode != 0:
+                assert not path.exists(), relative
+                continue
+            blob = result.stdout
+            canonical_sha = hashlib.sha256(blob).hexdigest()
+            crlf_sha = hashlib.sha256(blob.replace(b"\n", b"\r\n")).hexdigest()
+            assert digest in {canonical_sha, crlf_sha}, relative
