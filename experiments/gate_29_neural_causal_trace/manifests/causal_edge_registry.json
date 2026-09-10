@@ -10,8 +10,11 @@
       "target_layer": "BRAIN_BOUNDARY",
       "target_signal": "DN_SPIKES",
       "dependency_class": "STATE_UPDATE_DEPENDENCY",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE",
+      "source_code_verified": true,
+      "runtime_trace_required": true,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     },
     {
@@ -21,8 +24,11 @@
       "target_layer": "DECODER",
       "target_signal": "DN_DECODER_STATE",
       "dependency_class": "DECODER_DEPENDENCY",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE",
+      "source_code_verified": true,
+      "runtime_trace_required": true,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     },
     {
@@ -32,8 +38,11 @@
       "target_layer": "BRAIN_BODY_BRIDGE",
       "target_signal": "BRAIN_BODY_DRIVE",
       "dependency_class": "DIRECT_ARGUMENT_DEPENDENCY",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE",
+      "source_code_verified": true,
+      "runtime_trace_required": true,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     },
     {
@@ -43,8 +52,11 @@
       "target_layer": "CONTROLLER",
       "target_signal": "CONTROLLER_STEP",
       "dependency_class": "DIRECT_ARGUMENT_DEPENDENCY",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE",
+      "source_code_verified": true,
+      "runtime_trace_required": true,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     },
     {
@@ -54,8 +66,11 @@
       "target_layer": "CONTROLLER",
       "target_signal": "CONTROLLER_OBSERVATION_T",
       "dependency_class": "CONTROL_FEEDBACK_DEPENDENCY",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE",
+      "source_code_verified": true,
+      "runtime_trace_required": true,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     },
     {
@@ -65,8 +80,11 @@
       "target_layer": "CONTROLLER",
       "target_signal": "CONTROLLER_STEP",
       "dependency_class": "CONTROL_FEEDBACK_DEPENDENCY",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE",
+      "source_code_verified": true,
+      "runtime_trace_required": true,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     },
     {
@@ -76,8 +94,11 @@
       "target_layer": "CONTROLLER",
       "target_signal": "LOCOMOTION_ACTION",
       "dependency_class": "DIRECT_ARGUMENT_DEPENDENCY",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE",
+      "source_code_verified": true,
+      "runtime_trace_required": true,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     },
     {
@@ -87,8 +108,11 @@
       "target_layer": "ACTUATION",
       "target_signal": "ACTUATOR_WRITE",
       "dependency_class": "ACTUATION_DEPENDENCY",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE",
+      "source_code_verified": true,
+      "runtime_trace_required": true,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     },
     {
@@ -98,8 +122,11 @@
       "target_layer": "PHYSICS",
       "target_signal": "PHYSICS_STEP",
       "dependency_class": "PHYSICS_TRANSITION_DEPENDENCY",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE",
+      "source_code_verified": true,
+      "runtime_trace_required": true,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     },
     {
@@ -109,8 +136,11 @@
       "target_layer": "EMBODIED_BODY",
       "target_signal": "BODY_STATE_T_PLUS_1",
       "dependency_class": "PHYSICS_TRANSITION_DEPENDENCY",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE",
+      "source_code_verified": true,
+      "runtime_trace_required": true,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     },
     {
@@ -120,8 +150,11 @@
       "target_layer": "GATE28B_ASSAY",
       "target_signal": "GATE28B_ASSAY_OBSERVATION",
       "dependency_class": "OBSERVATIONAL_DERIVATION",
-      "source_basis": "SOURCE_CODE_AND_RUNTIME_TRACE",
-      "runtime_verified": true,
+      "source_basis": "SOURCE_CODE+INHERITED_GATE28B_ENGINEERING_VALIDATION",
+      "source_code_verified": true,
+      "runtime_trace_required": false,
+      "runtime_verified": false,
+      "runtime_verification_artifact": null,
       "biological_causality_established": false
     }
   ]

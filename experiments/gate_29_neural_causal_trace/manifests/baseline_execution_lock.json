@@ -1,0 +1,27 @@
+{
+  "schema_version": "gate29-baseline-execution-lock-v1",
+  "status": "GATE29_BASELINE_EXECUTION_LOCKED",
+  "baseline_rerun_allowed": false,
+  "baseline_seed": 9201,
+  "baseline_scope": "GATE29_ENGINEERING_ONLY",
+  "baseline_condition": "healthy",
+  "baseline_steps": 5000,
+  "baseline_duration_s": 0.5,
+  "baseline_timestep_s": 0.0001,
+  "baseline_rollout_sha256": "ab4e92477222c06e45252d223ce6477f4e3caa317efcd14505fca002265a59b9",
+  "baseline_metadata_sha256": "328715d665eab2dd334df4f0f1db3a363d7992526c63db7f03d1f9d2a2e86ff6",
+  "critical_artifact_sha256": {
+    "manifest.json": "1ef86ae3f35c26b4db18b73f110bae48a2378432f851cbdcca7abddf83a734c1",
+    "rollout_index.json": "80a5b06367cc46a48707d89a46189630713fdde7e4f79b09e2388196bdeeca11",
+    "brain_body_summary.json": "f0023c283ea16aab9b5ce04011286c91710d3d0483c256497e20984a8e93cf1d",
+    "brain_body_manifest.json": "df13312f6637b22ec04336bf5c1d6ce02262539a567e39dbe039cca1f0730391",
+    "metrics/metrics.json": "fb636db2b7e155f8937d14a8d218e82ab37695dd0821f2dbb1924483867e2688",
+    "metrics/metrics.csv": "cb62488af7f13a7b7b5b8da541329446e9a63686f134b476377fa8f8dd0b4e79",
+    "report/summary.md": "3de15407822f5a278c4a47c87807fd32bd885112cab9aec7ad795fc9aefe970a"
+  },
+  "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "healthy_checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+  "scientific_evidence": false,
+  "baseline_source": "E:/Drosophila_Parkinson/gate29_technical_outputs/neural_causal_trace/baseline",
+  "notes": "Existing completed baseline is immutable input for the separately authorized trace-only continuation."
+}

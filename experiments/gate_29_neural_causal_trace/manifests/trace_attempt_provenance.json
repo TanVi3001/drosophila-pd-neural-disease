@@ -1,0 +1,20 @@
+{
+  "schema_version": "gate29-trace-attempt-provenance-v1",
+  "attempt_01": {
+    "status": "ABORTED_BEFORE_TRACE_ARTIFACT",
+    "reason": "UNBOUNDED_OR_EXCESSIVE_TRACING_STARTUP_OVERHEAD",
+    "scientific_result": "NONE",
+    "trace_artifact_written": false,
+    "preserved": true
+  },
+  "attempt_02": {
+    "status": "NOT_EXECUTED",
+    "runner": "BOUNDED_RUNTIME_SCRIPT_TRACE",
+    "human_authorization_required": true,
+    "authorized": false,
+    "trace_only": true,
+    "seed": 9201,
+    "baseline_rerun": false
+  },
+  "interpretation": "Attempt 02 is a continuation of technical engineering qualification, not a retry of scientific evidence."
+}

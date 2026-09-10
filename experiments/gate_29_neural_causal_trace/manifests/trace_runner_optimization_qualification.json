@@ -1,0 +1,20 @@
+{
+  "current_tracer_scope": "AUDITED_RUNTIME_SCRIPT_ONLY",
+  "gpu_execution_in_qualification": false,
+  "measurement": {
+    "current_tracer_scope": "AUDITED_RUNTIME_SCRIPT_ONLY",
+    "gpu_execution_in_qualification": false,
+    "non_runtime_line_events": 0,
+    "real_simulation_execution": false,
+    "runtime_line_events": 53,
+    "status": "PASS",
+    "synthetic_result": 325
+  },
+  "non_runtime_line_events": 0,
+  "previous_trace_artifact_written": false,
+  "previous_trace_execution": "ABORTED_STARTUP_OVERHEAD",
+  "real_simulation_execution": false,
+  "schema_version": "gate29-trace-runner-optimization-qualification-v1",
+  "status": "GATE29_TRACE_RUNNER_OPTIMIZATION_STATICALLY_QUALIFIED",
+  "synthetic_scope_test": "PASS"
+}

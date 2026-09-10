@@ -62,6 +62,10 @@ EDGE_REGISTRY = MANIFEST_ROOT / "causal_edge_registry.json"
 RUNTIME_AUDIT = MANIFEST_ROOT / "runtime_execution_path_audit.json"
 SUMMARY_PATH = RESULT_ROOT / "technical_trace_summary.json"
 COMPARISON_PATH = RESULT_ROOT / "nonperturbation_comparison.json"
+BASELINE_LOCK = MANIFEST_ROOT / "baseline_execution_lock.json"
+TRACE_AUTHORIZATION = MANIFEST_ROOT / "trace_execution_authorization.json"
+TRACE_ATTEMPT_PROVENANCE = MANIFEST_ROOT / "trace_attempt_provenance.json"
+TRACE_OPTIMIZATION_QUALIFICATION = MANIFEST_ROOT / "trace_runner_optimization_qualification.json"
 REPRODUCIBILITY_INVENTORY = MANIFEST_ROOT / "reproducibility_inventory.json"
 REPRODUCIBILITY_CHECKSUMS = MANIFEST_ROOT / "checksums.sha256"
 OUTPUT_ROOT = ROOT.parent / "gate29_technical_outputs/neural_causal_trace"
@@ -111,6 +115,10 @@ def _gate29_reproducibility_paths() -> list[Path]:
         SIGNAL_INVENTORY,
         EDGE_REGISTRY,
         MANIFEST_ROOT / "controller_layer_interpretation.json",
+        BASELINE_LOCK,
+        TRACE_AUTHORIZATION,
+        TRACE_ATTEMPT_PROVENANCE,
+        TRACE_OPTIMIZATION_QUALIFICATION,
         SUMMARY_PATH,
         COMPARISON_PATH,
     ]
@@ -174,6 +182,89 @@ def verify_reproducibility_inventory() -> dict[str, Any]:
         "raw_trace_committed": inventory.get("raw_trace_committed"),
         "mismatches": mismatches,
     }
+
+
+def _baseline_root() -> Path:
+    return OUTPUT_ROOT / "baseline"
+
+
+def _baseline_artifacts() -> tuple[str, ...]:
+    return (
+        "rollout.npz",
+        "metadata.json",
+        "manifest.json",
+        "rollout_index.json",
+        "brain_body_summary.json",
+        "brain_body_manifest.json",
+        "metrics/metrics.json",
+        "metrics/metrics.csv",
+        "report/summary.md",
+    )
+
+
+def _baseline_hashes() -> dict[str, str]:
+    root = _baseline_root()
+    missing = [name for name in _baseline_artifacts() if not (root / name).is_file()]
+    if missing:
+        raise Gate29Error(f"baseline artifacts missing: {missing}")
+    return {name: _sha256(root / name) for name in _baseline_artifacts()}
+
+
+def verify_baseline_execution_lock() -> dict[str, Any]:
+    lock = _json(BASELINE_LOCK)
+    root = _baseline_root()
+    blockers: list[str] = []
+    if lock.get("status") != "GATE29_BASELINE_EXECUTION_LOCKED":
+        blockers.append("baseline lock status is not locked")
+    if lock.get("baseline_rerun_allowed") is not False:
+        blockers.append("baseline rerun is not explicitly blocked")
+    if lock.get("baseline_seed") != TECHNICAL_SEED:
+        blockers.append("baseline seed does not match technical seed")
+    if lock.get("runtime_commit") != RUNTIME_COMMIT:
+        blockers.append("baseline runtime commit mismatch")
+    if lock.get("healthy_checkpoint_sha256") != HEALTHY_CHECKPOINT_SHA256:
+        blockers.append("baseline checkpoint mismatch")
+    if not root.is_dir():
+        blockers.append("baseline output directory missing")
+        return {"status": "GATE29_BASELINE_EXECUTION_LOCK_BLOCKED", "blockers": blockers}
+    try:
+        hashes = _baseline_hashes()
+    except Gate29Error as exc:
+        blockers.append(str(exc))
+        hashes = {}
+    if hashes.get("rollout.npz") != lock.get("baseline_rollout_sha256"):
+        blockers.append("baseline rollout SHA256 mismatch")
+    if hashes.get("metadata.json") != lock.get("baseline_metadata_sha256"):
+        blockers.append("baseline metadata SHA256 mismatch")
+    metadata = _json(root / "metadata.json") if (root / "metadata.json").is_file() else {}
+    simulation = metadata.get("simulation", {})
+    required = {
+        "condition_id": "healthy",
+        "random_seed": TECHNICAL_SEED,
+        "timestep_s": 0.0001,
+        "repository_commit": RUNTIME_COMMIT,
+        "brain_checkpoint_sha256": HEALTHY_CHECKPOINT_SHA256,
+    }
+    for key, expected in required.items():
+        if simulation.get(key) != expected:
+            blockers.append(f"baseline metadata {key} mismatch")
+    if metadata.get("timestep_s") != 0.0001:
+        blockers.append("baseline top-level timestep mismatch")
+    summary = _json(root / "brain_body_summary.json") if (root / "brain_body_summary.json").is_file() else {}
+    if summary.get("condition") != "healthy" or summary.get("seed") != TECHNICAL_SEED:
+        blockers.append("baseline summary condition/seed mismatch")
+    if summary.get("steps") != TECHNICAL_STEPS:
+        blockers.append("baseline summary step count mismatch")
+    return {
+        "status": "GATE29_BASELINE_EXECUTION_LOCK_PASS" if not blockers else "GATE29_BASELINE_EXECUTION_LOCK_BLOCKED",
+        "blockers": blockers,
+        "baseline_rerun_allowed": False,
+        "baseline_hashes": hashes,
+    }
+
+
+def _contains_files(path: Path) -> bool:
+    return path.is_dir() and any(item.is_file() for item in path.rglob("*"))
 
 
 def _git(root: Path, *args: str) -> str:
@@ -412,6 +503,8 @@ class _RuntimeTraceCollector:
         self.rows: list[dict[str, Any]] = []
         self.current: dict[str, Any] | None = None
         self._inside_capture = False
+        self.runtime_line_events = 0
+        self.non_runtime_line_events = 0
 
     def _capture(self, frame: Any, line: int) -> None:
         if self._inside_capture:
@@ -504,7 +597,11 @@ class _RuntimeTraceCollector:
             # module makes startup prohibitively expensive without adding
             # signal-path evidence.
             return self if Path(frame.f_code.co_filename).resolve() == self.runtime_script else None
-        if event == "line" and Path(frame.f_code.co_filename).resolve() == self.runtime_script:
+        if event == "line":
+            if Path(frame.f_code.co_filename).resolve() != self.runtime_script:
+                self.non_runtime_line_events += 1
+                return None
+            self.runtime_line_events += 1
             if frame.f_lineno in self.STEP_LINES:
                 self._capture(frame, frame.f_lineno)
             return self
@@ -640,6 +737,118 @@ def _prepare_commands(paths: Mapping[str, Path]) -> tuple[list[str], list[str]]:
     return baseline_command, trace_command
 
 
+def _prepare_trace_only_command(paths: Mapping[str, Path], trace_output: Path) -> list[str]:
+    """Build the single future trace command without a baseline command."""
+
+    return [
+        str(paths["runtime_python"]),
+        str(Path(__file__).resolve()),
+        "--internal-trace",
+        "--runtime-root",
+        str(paths["runtime_root"]),
+        "--brain-root",
+        str(paths["brain_root"]),
+        "--runtime-python",
+        str(paths["runtime_python"]),
+        "--output-root",
+        str(trace_output),
+    ]
+
+
+def qualify_tracer_scope() -> dict[str, Any]:
+    """Qualify tracer scope with a deterministic non-GPU synthetic loop."""
+
+    runtime_script = ROOT / "scripts/run_brain_body_rollout.py"
+    collector = _RuntimeTraceCollector(runtime_script)
+
+    def unrelated_nested_function(value: int) -> int:
+        return value + 1
+
+    namespace: dict[str, Any] = {"unrelated_nested_function": unrelated_nested_function}
+    source = (
+        "def synthetic_runtime_target():\n"
+        "    total = 0\n"
+        "    for value in range(25):\n"
+        "        total += unrelated_nested_function(value)\n"
+        "    return total\n"
+    )
+    exec(compile(source, str(runtime_script), "exec"), namespace)
+    previous_trace = sys.gettrace()
+    sys.settrace(collector)
+    try:
+        result = namespace["synthetic_runtime_target"]()
+    finally:
+        sys.settrace(previous_trace)
+    passed = (
+        result == sum(value + 1 for value in range(25))
+        and collector.runtime_line_events > 0
+        and collector.non_runtime_line_events == 0
+    )
+    payload = {
+        "status": "PASS" if passed else "FAIL",
+        "current_tracer_scope": "AUDITED_RUNTIME_SCRIPT_ONLY",
+        "runtime_line_events": collector.runtime_line_events,
+        "non_runtime_line_events": collector.non_runtime_line_events,
+        "synthetic_result": result,
+        "gpu_execution_in_qualification": False,
+        "real_simulation_execution": False,
+    }
+    _write_json(TRACE_OPTIMIZATION_QUALIFICATION, {
+        "schema_version": "gate29-trace-runner-optimization-qualification-v1",
+        "previous_trace_execution": "ABORTED_STARTUP_OVERHEAD",
+        "previous_trace_artifact_written": False,
+        "current_tracer_scope": "AUDITED_RUNTIME_SCRIPT_ONLY",
+        "non_runtime_line_events": collector.non_runtime_line_events,
+        "synthetic_scope_test": "PASS" if passed else "FAIL",
+        "gpu_execution_in_qualification": False,
+        "real_simulation_execution": False,
+        "status": "GATE29_TRACE_RUNNER_OPTIMIZATION_STATICALLY_QUALIFIED" if passed else "GATE29_TRACE_RUNNER_OPTIMIZATION_BLOCKED",
+        "measurement": payload,
+    })
+    return payload
+
+
+def _validate_trace_authorization(paths: Mapping[str, Path]) -> tuple[dict[str, Any], Path]:
+    authorization = _json(TRACE_AUTHORIZATION)
+    current_head = _git(ROOT, "rev-parse", "HEAD")
+    if authorization.get("authorized") is not True:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_HUMAN_AUTHORIZATION_REQUIRED")
+    if authorization.get("authorized_head") != current_head:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_STALE_HEAD")
+    if authorization.get("authorized_seed") != TECHNICAL_SEED:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_SEED_MISMATCH")
+    if authorization.get("authorized_jobs") != 1 or authorization.get("trace_only") is not True:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_SCOPE_INVALID")
+    baseline_lock = verify_baseline_execution_lock()
+    if baseline_lock["status"] != "GATE29_BASELINE_EXECUTION_LOCK_PASS":
+        raise Gate29Error(json.dumps(baseline_lock, sort_keys=True))
+    trace_output = paths["output_root"] / "trace_attempt_02"
+    if (paths["output_root"] / "trace" / "trace_arrays.npz").is_file():
+        raise Gate29Error("GATE29_TRACE_ALREADY_EXECUTED")
+    if _contains_files(trace_output) or trace_output.exists():
+        raise Gate29Error("GATE29_TRACE_ATTEMPT_02_ALREADY_EXISTS")
+    return authorization, trace_output
+
+
+def execute_authorized_trace_only(paths: Mapping[str, Path]) -> dict[str, Any]:
+    """Run exactly one future trace after an explicit human authorization."""
+
+    authorization, trace_output = _validate_trace_authorization(paths)
+    command = _prepare_trace_only_command(paths, trace_output)
+    trace_output.parent.mkdir(parents=True, exist_ok=True)
+    result = _run_guarded(command, paths["output_root"] / "logs/trace_attempt_02.log", paths)
+    analysis_paths = dict(paths)
+    analysis_paths["trace_root"] = trace_output
+    summary = analyze_trace(analysis_paths)
+    summary["trace_execution"] = result
+    summary["trace_only"] = True
+    summary["authorization_head"] = authorization["authorized_head"]
+    _write_json(SUMMARY_PATH, summary)
+    _update_gate29_manifest(summary, completed=2)
+    write_reproducibility_inventory()
+    return summary
+
+
 def _preflight(paths: Mapping[str, Path]) -> dict[str, Any]:
     closure = audit_gate28b_closure()
     runtime = audit_runtime_contract(paths)
@@ -698,8 +907,9 @@ def _load_trace_arrays(path: Path) -> dict[str, np.ndarray]:
 
 def analyze_trace(paths: Mapping[str, Path]) -> dict[str, Any]:
     baseline = paths["output_root"] / "baseline" / "rollout.npz"
-    trace_rollout = paths["output_root"] / "trace" / "rollout.npz"
-    trace_arrays_path = paths["output_root"] / "trace" / "trace_arrays.npz"
+    trace_root = paths.get("trace_root", paths["output_root"] / "trace")
+    trace_rollout = trace_root / "rollout.npz"
+    trace_arrays_path = trace_root / "trace_arrays.npz"
     if not baseline.is_file() or not trace_rollout.is_file() or not trace_arrays_path.is_file():
         raise Gate29Error("baseline rollout, trace rollout, and trace_arrays.npz are required")
     baseline_arrays = _load_trace_arrays(baseline)
@@ -849,9 +1059,11 @@ def _parser() -> argparse.ArgumentParser:
     modes.add_argument("--validate-fixtures", action="store_true")
     modes.add_argument("--preflight", action="store_true")
     modes.add_argument("--execute-paired-technical-trace", action="store_true")
+    modes.add_argument("--execute-authorized-trace-only", action="store_true", help=argparse.SUPPRESS)
     modes.add_argument("--analyze-trace", action="store_true")
     modes.add_argument("--write-reproducibility", action="store_true")
     modes.add_argument("--verify-reproducibility", action="store_true")
+    modes.add_argument("--validate-optimization", action="store_true")
     modes.add_argument("--internal-trace", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument("--runtime-root", type=Path, default=None)
     parser.add_argument("--brain-root", type=Path, default=None)
@@ -871,6 +1083,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.validate_fixtures:
         print(json.dumps(validate_fixtures(), indent=2, sort_keys=True))
         return 0
+    if args.validate_optimization:
+        print(json.dumps(qualify_tracer_scope(), indent=2, sort_keys=True))
+        return 0
     if args.preflight:
         print(json.dumps(_preflight(paths), indent=2, sort_keys=True))
         return 0
@@ -885,6 +1100,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     if args.execute_paired_technical_trace:
         execute_paired_trace(paths)
+        return 0
+    if args.execute_authorized_trace_only:
+        print(json.dumps(execute_authorized_trace_only(paths), indent=2, sort_keys=True))
         return 0
     print(json.dumps({"status": "GATE29_NO_EXECUTION_DEFAULT", "gpu": False, "simulation": False}))
     return 0

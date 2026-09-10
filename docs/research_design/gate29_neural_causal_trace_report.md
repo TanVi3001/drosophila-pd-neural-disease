@@ -134,18 +134,26 @@ result. Gate29 does not authorize dopamine parameters or disease jobs.
 
 The initial signoff template remains
 `WAITING_GATE29_HUMAN_REVIEW`. The engineering result cannot self-approve the
-gate. The exact next action is `HUMAN_REVIEW_GATE29_NEURAL_CAUSAL_TRACE`.
+gate. The bounded trace runner is statically qualified, but that qualification
+does not authorize a real trace execution. The exact next action is
+`HUMAN_AUTHORIZE_SINGLE_GATE29_TRACE_ONLY_EXECUTION`, followed by the separate
+Gate29 human scientific review, `HUMAN_REVIEW_GATE29_NEURAL_CAUSAL_TRACE`.
 
 ## 19. Technical execution outcome
 
 The canonical healthy baseline job completed with seed `9201` and its raw
 artifact remains outside Git. The first trace implementation was terminated
-after excessive startup overhead before it wrote a trace artifact. Therefore
-the paired non-perturbation comparison is
-`NOT_AVAILABLE_TRACE_JOB_ABORTED`. Gate29 does not report this as PASS or FAIL,
-does not retry in this task, and does not make any scientific claim from the
-baseline alone. The architecture remains complete but technical execution is
-blocked pending a separately authorized corrected run.
+after excessive startup overhead before it wrote a trace artifact. That failed
+attempt is preserved in the attempt provenance manifest and is not silently
+replaced by a retry. The corrected collector is restricted to the audited
+runtime script and has passed a deterministic non-GPU scope qualification with
+zero non-runtime line events. Therefore the paired non-perturbation comparison
+is still `NOT_AVAILABLE_TRACE_JOB_ABORTED`: no real trace artifact exists yet.
+Gate29 does not report this as PASS or FAIL, does not execute a trace in this
+correction, and does not make any scientific claim from the baseline alone.
+The architecture is complete, the trace runner is statically qualified, and
+technical execution remains blocked until a human authorizes exactly one
+trace-only run at the current commit.
 
 ## Claim lock
 
