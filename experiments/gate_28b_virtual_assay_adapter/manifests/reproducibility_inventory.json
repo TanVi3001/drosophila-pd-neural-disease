@@ -1,0 +1,119 @@
+{
+  "file_count": 22,
+  "files": [
+    {
+      "path": "configs/generation2/adapters/riemensperger_2011_open_arena_adapter_v1.yaml",
+      "sha256": "0440b794cb098c041d54ebbea42b50ccc4811555e8a8882c1203fd08e55d9f07",
+      "size_bytes": 1857
+    },
+    {
+      "path": "configs/generation2/adapters/segmented_aggregation_contract.yaml",
+      "sha256": "fea857051d04e4aa5152ec6659de79992fc7397d60177037a1f3b024d5209b2b",
+      "size_bytes": 1219
+    },
+    {
+      "path": "configs/generation2/adapters/statistical_hierarchy_contract.yaml",
+      "sha256": "bd48a6c92e38435fac91ad3102e1ebdc2c260e17b1ffff9a9bca00e3b905b917",
+      "size_bytes": 1521
+    },
+    {
+      "path": "docs/research_design/gate28b_virtual_assay_adapter_report.md",
+      "sha256": "4f2b1fb4929b28e6cd89224fe9da86d4d976581a44e35ea550e231105eae7a11",
+      "size_bytes": 4896
+    },
+    {
+      "path": "experiments/gate_28b_virtual_assay_adapter/manifests/duration_benchmark_preflight.json",
+      "sha256": "431ae771519b4052bcd1539a6c2d023394f17fa65c1ec78489dfc5f15e2a131f",
+      "size_bytes": 2456
+    },
+    {
+      "path": "experiments/gate_28b_virtual_assay_adapter/manifests/gate28a_human_closure_test_alignment.json",
+      "sha256": "83fa37448f090d65f6713f738a060ad36057a84ce5bf360cc6dbca9b59f0e45a",
+      "size_bytes": 990
+    },
+    {
+      "path": "experiments/gate_28b_virtual_assay_adapter/manifests/gate28b_manifest.json",
+      "sha256": "e1d639a380a14d6b188c087d5008d4c53a53cca2c9eb8943f317a26066799311",
+      "size_bytes": 1437
+    },
+    {
+      "path": "experiments/gate_28b_virtual_assay_adapter/manifests/riemensperger_assay_source_review.json",
+      "sha256": "4eb5521c818e928b30fd715fbd6cd486bc0ef836d570942d343a51d14d8d4c67",
+      "size_bytes": 1139
+    },
+    {
+      "path": "experiments/gate_28b_virtual_assay_adapter/manifests/riemensperger_assay_source_review_amendment.json",
+      "sha256": "ab71a755b0e0dc55dda49f3088a0ab3358d4434f3e0e7a383406a05faf80fd02",
+      "size_bytes": 1314
+    },
+    {
+      "path": "experiments/gate_28b_virtual_assay_adapter/manifests/runtime_rollout_schema_audit.json",
+      "sha256": "73e8c389a5d30531a0d3fd963165545be2ac6ad8435a48988386bf1471df2676",
+      "size_bytes": 7653
+    },
+    {
+      "path": "experiments/gate_28b_virtual_assay_adapter/results/synthetic_fixture_validation.json",
+      "sha256": "c46752144de4e5e47e8a7f65794cb8b323e5ab1e124e8d13d4b3e43be3159921",
+      "size_bytes": 1282
+    },
+    {
+      "path": "research/validation/prospective/gate28b_virtual_assay_adapter_reviewer_signoff.json",
+      "sha256": "75704b4a49103dd3dd52df517cb730969b110bc6ad134bb31ade6d1baee8a042",
+      "size_bytes": 670
+    },
+    {
+      "path": "scripts/run_gate28b_virtual_assay_adapter.py",
+      "sha256": "70cca6da086e82708501f5ccfea62e966935153a84dfac14c816ce4e61796a6b",
+      "size_bytes": 50774
+    },
+    {
+      "path": "src/drosophila_pd_neural/assays/__init__.py",
+      "sha256": "2b1abdca8acd825282543908de3fa6bf06e275e2cd2d8a2e4d1c363d96758740",
+      "size_bytes": 1071
+    },
+    {
+      "path": "src/drosophila_pd_neural/assays/aggregation.py",
+      "sha256": "28b5ddcf1dcea9bce6f79b2969c611213af1223f659eed60828277f1bad70f1c",
+      "size_bytes": 4721
+    },
+    {
+      "path": "src/drosophila_pd_neural/assays/base.py",
+      "sha256": "6d93cb65f5345ca4a4c5eebe5e1facb1dfbb9fd36ebef5f9385e72d97c523f4d",
+      "size_bytes": 547
+    },
+    {
+      "path": "src/drosophila_pd_neural/assays/riemensperger2011.py",
+      "sha256": "a52937e4a65159e2627975bb96f361020f9310dd1f6da61913798e479eb00dc9",
+      "size_bytes": 4702
+    },
+    {
+      "path": "src/drosophila_pd_neural/assays/trajectory.py",
+      "sha256": "a9c26e5e38f7ed4a7766b0e7da354eee4b6988ad5f587fc0114c604ab47328e2",
+      "size_bytes": 8339
+    },
+    {
+      "path": "src/drosophila_pd_neural/assays/types.py",
+      "sha256": "67fd6272511d501cee11ffa971b83e15a3508730d6f49c748327e41219d218a2",
+      "size_bytes": 5407
+    },
+    {
+      "path": "src/drosophila_pd_neural/assays/validation.py",
+      "sha256": "bf8994906e0a3d8724b98c2fd89b87d51ed746ff994da2e2d9904cd28bcc557c",
+      "size_bytes": 3172
+    },
+    {
+      "path": "tests/test_gate28a_gen2_scientific_contract.py",
+      "sha256": "7f74f5ca9e606ebdcd2bf8c4ab89d25fdd27ed0a53258769b635a08caa158246",
+      "size_bytes": 12649
+    },
+    {
+      "path": "tests/test_gate28b_virtual_assay_adapter.py",
+      "sha256": "4104f26bb1fa2e456d9365fa6a6ec2124545e3176275a7b15a7285f42eb9b5fd",
+      "size_bytes": 12965
+    }
+  ],
+  "raw_rollouts_committed": false,
+  "schema_version": "gate28b-reproducibility-inventory-v1",
+  "source_main_commit": "5a99a2f5646f754b2f9ed878ad5335bbc1b9b951",
+  "status": "GATE28B_REPRODUCIBILITY_INVENTORY_COMPLETE"
+}

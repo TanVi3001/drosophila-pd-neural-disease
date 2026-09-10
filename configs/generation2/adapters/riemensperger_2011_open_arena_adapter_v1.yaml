@@ -1,0 +1,55 @@
+schema_version: generation2-assay-adapter-v1
+adapter_id: RIEMENSPERGER_2011_OPEN_ARENA_V1
+adapter_version: 1.0.0
+status: VIRTUAL_ASSAY_ADAPTER_IMPLEMENTED
+source_assay_contract_path: configs/generation2/assays/riemensperger_2011_open_arena.yaml
+source_assay_contract_sha256: 9c3a86dd0fbe25ccae5e180ba110427298bd34892ae21d312ecd511bd0e5a60f
+supported_inputs:
+  required:
+    timestamps_s:
+      shape: [T]
+      unit: s
+    planar_position_mm:
+      shape: [T, 2]
+      unit: mm
+  optional:
+    - body_position_mm
+    - body_orientation
+    - joint_position
+    - joint_velocity
+    - contact_state
+    - adhesion_state
+    - action
+    - neural_controller_trace_reference
+native_metrics:
+  - per_run_mean_planar_speed_mm_s
+  - per_run_median_framewise_speed_mm_s
+  - distance_traveled_mm
+  - displacement_mm
+threshold_dependent_metrics:
+  activity_time_s: NOT_COMPUTED_MISSING_MOVEMENT_THRESHOLD
+  percent_moving: NOT_COMPUTED_MISSING_MOVEMENT_THRESHOLD
+  movement_bout_count: NOT_COMPUTED_MISSING_MOVEMENT_THRESHOLD
+  walking_duration: NOT_COMPUTED_MISSING_MOVEMENT_THRESHOLD
+resampling_policy:
+  default: NATIVE_SIMULATION
+  paper_frame_rate_match: NOT_ASSESSED_SOURCE_UNKNOWN
+  unknown_paper_frame_rate_must_not_be_invented: true
+window_policy:
+  explicit_start_and_end: true
+  deterministic_boundary_interpolation: true
+  silent_truncation: forbidden
+  overflow_status: OBSERVATION_WINDOW_EXCEEDS_ROLLOUT
+group_aggregation_policy:
+  replicate_unit: simulation_seed
+  median_label: COMPUTATIONAL_GROUP_MEDIAN
+  paper_equivalence_without_source_hierarchy: forbidden
+paper_equivalence_policy:
+  paper_assay_equivalence_established: false
+  strongest_allowed_state: VIRTUAL_ASSAY_ADAPTER_IMPLEMENTED
+  reason: UNRESOLVED_SOURCE_PROTOCOL_FIELDS
+unresolved_source_fields:
+  - frame_rate
+  - movement_threshold
+  - exclusion_rule
+  - per_fly_speed_computation

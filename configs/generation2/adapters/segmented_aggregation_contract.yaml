@@ -1,0 +1,28 @@
+schema_version: generation2-segmented-aggregation-v1
+status: LOCKED_BEFORE_GATE28B_BENCHMARK
+segment_role: engineering_observation_window_not_independent_replicate
+boundary_policy:
+  contiguous_windows_share_boundary_sample: true
+  boundary_position_method: exact_sample_or_linear_interpolation
+  no_edge_loss: true
+  no_edge_double_count: true
+additive_metrics:
+  distance_traveled_mm: sum_contiguous_non_overlapping_segments
+  activity_time_s: sum_only_when_movement_threshold_is_declared
+rate_and_mean_metrics:
+  rule: pool_numerators_and_denominators_or_use_time_weighting
+  unequal_duration_simple_mean: forbidden
+median_and_quantile_metrics:
+  median_of_segment_medians: forbidden
+  allowed_global_recovery:
+    - pool_compatible_underlying_observations
+    - preserve_independent_unit_values_and_aggregate_at_correct_higher_level
+replication_rules:
+  segment_is_biological_replicate: false
+  frame_is_biological_replicate: false
+  physics_step_is_biological_replicate: false
+  simulation_seed_may_be_computational_replicate: true
+biological_validity:
+  segmented_metric_aggregation_can_be_implemented: true
+  segmented_15_min_biological_equivalence_established: false
+  long_horizon_state_dependence: unresolved

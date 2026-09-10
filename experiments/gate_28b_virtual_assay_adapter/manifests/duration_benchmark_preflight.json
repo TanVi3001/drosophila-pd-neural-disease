@@ -1,0 +1,78 @@
+{
+  "automatic_retry": false,
+  "calibration": false,
+  "condition": "HEALTHY",
+  "cuda_runtime": {
+    "available": true,
+    "cuda": "12.1",
+    "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "torch": "2.5.1+cu121"
+  },
+  "direct_15_minute_execution": false,
+  "disease_jobs": 0,
+  "disease_perturbation": "NONE",
+  "durations_s": [
+    0.5,
+    1.0,
+    2.0,
+    5.0
+  ],
+  "fixture_status": "PASS",
+  "gate28a_closure": {
+    "alpha_syn_loso_unfrozen": true,
+    "approved_head": true,
+    "closed": true,
+    "decision": true,
+    "first_track": true,
+    "pozo_future_holdout_false": true,
+    "riemensperger_external_validation_false": true,
+    "status": true
+  },
+  "gate28a_immutability": {
+    "assay_contract_sha256": "9c3a86dd0fbe25ccae5e180ba110427298bd34892ae21d312ecd511bd0e5a60f",
+    "gate28a_changed": false,
+    "protected_path_count": 9
+  },
+  "gpu_before_benchmark": {
+    "compute_process_query": [
+      "16200, C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe, [N/A]",
+      "12580, [Insufficient Permissions], [N/A]"
+    ],
+    "memory_free_mb": 5900.0,
+    "memory_total_mb": 6144.0,
+    "memory_used_mb": 103.0,
+    "name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "temperature_c": 43.0,
+    "utilization_percent": 0.0
+  },
+  "healthy_checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+  "model_fitting": false,
+  "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "runtime_profile": "GATE24E_MEMORY_SAFE",
+  "runtime_python": "E:\\Drosophila_Parkinson\\drosophila-pd-flygym\\.venv\\Scripts\\python.exe",
+  "runtime_worktree_clean": true,
+  "schema_version": "gate28b-duration-benchmark-preflight-v1",
+  "scientific_jobs": 0,
+  "source_main_commit": "5a99a2f5646f754b2f9ed878ad5335bbc1b9b951",
+  "status": "GATE28B_TECHNICAL_BENCHMARK_PREFLIGHT_PASS",
+  "steps": [
+    5000,
+    10000,
+    20000,
+    50000
+  ],
+  "storage": {
+    "available_free_bytes": 16997625856,
+    "basis": "HISTORICAL_GATE26_HEALTHY_0_5S_ROLLOUT",
+    "capacity_pass": true,
+    "conservative_reserve_bytes": 5368709120,
+    "estimated_bytes_per_step": 5614.5082,
+    "historical_rollout_bytes": 28072541,
+    "historical_rollout_steps": 5000,
+    "projected_four_job_raw_bytes": 477233197,
+    "required_free_bytes": 5845942317,
+    "strict_capacity_rule": "available_free_bytes > required_free_bytes"
+  },
+  "technical_jobs_planned": 4,
+  "technical_seed": 9101
+}

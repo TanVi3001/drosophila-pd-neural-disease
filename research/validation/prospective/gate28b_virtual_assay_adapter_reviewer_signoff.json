@@ -1,0 +1,20 @@
+{
+  "schema_version": "gate28b-human-review-v1",
+  "status": "WAITING_GATE28B_HUMAN_REVIEW",
+  "decision": "PENDING_HUMAN_REVIEW",
+  "adapter_architecture_approved": false,
+  "statistical_hierarchy_approved": false,
+  "segmented_aggregation_policy_approved": false,
+  "riemensperger_adapter_approved": false,
+  "source_gap_handling_approved": false,
+  "synthetic_validation_approved": false,
+  "runtime_schema_audit_approved": false,
+  "duration_benchmark_approved": false,
+  "engineering_extrapolation_approved": false,
+  "claim_boundary_approved": false,
+  "gate28b_closed": false,
+  "reviewer_1": "",
+  "reviewer_2": "",
+  "review_date": "",
+  "no_auto_sign": true
+}

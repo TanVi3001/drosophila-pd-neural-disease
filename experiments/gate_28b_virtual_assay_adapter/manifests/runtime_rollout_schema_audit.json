@@ -1,0 +1,283 @@
+{
+  "key_count": 20,
+  "keys": [
+    {
+      "confidence": "HIGH",
+      "dtype": "float64",
+      "name": "timestamp_s",
+      "semantic_interpretation": "simulation timestamp",
+      "shape": [
+        5001
+      ],
+      "unit": "s",
+      "unit_source": "runtime_metadata:timestep_s",
+      "used_by_adapter": true
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "int64",
+      "name": "step",
+      "semantic_interpretation": "simulation step index",
+      "shape": [
+        5001
+      ],
+      "unit": "index",
+      "unit_source": "runtime_export_name",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "HIGH",
+      "dtype": "float64",
+      "name": "thorax",
+      "semantic_interpretation": "thorax Cartesian position",
+      "shape": [
+        5001,
+        3
+      ],
+      "unit": "mm",
+      "unit_source": "existing_repo_metric_contract",
+      "used_by_adapter": true
+    },
+    {
+      "confidence": "HIGH",
+      "dtype": "float64",
+      "name": "com",
+      "semantic_interpretation": "center-of-mass Cartesian position",
+      "shape": [
+        5001,
+        3
+      ],
+      "unit": "mm",
+      "unit_source": "existing_repo_metric_contract",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "HIGH",
+      "dtype": "float64",
+      "name": "orientation",
+      "semantic_interpretation": "thorax orientation quaternion",
+      "shape": [
+        5001,
+        4
+      ],
+      "unit": "unitless_wxyz",
+      "unit_source": "runtime_metadata:quaternion_order",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "body_positions",
+      "semantic_interpretation": "body-segment Cartesian positions",
+      "shape": [
+        5001,
+        69,
+        3
+      ],
+      "unit": "mm",
+      "unit_source": "runtime_body_schema",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "HIGH",
+      "dtype": "float64",
+      "name": "body_orientations",
+      "semantic_interpretation": "body-segment orientation quaternions",
+      "shape": [
+        5001,
+        69,
+        4
+      ],
+      "unit": "unitless_wxyz",
+      "unit_source": "runtime_metadata:quaternion_order",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "joint_positions",
+      "semantic_interpretation": "joint position observations",
+      "shape": [
+        5001,
+        66
+      ],
+      "unit": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "unit_source": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "joint_velocity",
+      "semantic_interpretation": "joint velocity observations",
+      "shape": [
+        5001,
+        66
+      ],
+      "unit": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "unit_source": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "joint_acceleration",
+      "semantic_interpretation": "joint acceleration observations",
+      "shape": [
+        5001,
+        66
+      ],
+      "unit": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "unit_source": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "time_s",
+      "semantic_interpretation": "legacy simulation timestamp alias",
+      "shape": [
+        5001
+      ],
+      "unit": "s",
+      "unit_source": "runtime_export_name",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "HIGH",
+      "dtype": "float64",
+      "name": "thorax_positions",
+      "semantic_interpretation": "legacy thorax-position alias",
+      "shape": [
+        5001,
+        3
+      ],
+      "unit": "mm",
+      "unit_source": "existing_repo_metric_contract",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "HIGH",
+      "dtype": "float64",
+      "name": "thorax_quaternions",
+      "semantic_interpretation": "legacy thorax-orientation alias",
+      "shape": [
+        5001,
+        4
+      ],
+      "unit": "unitless_wxyz",
+      "unit_source": "runtime_metadata:quaternion_order",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "contact_found",
+      "semantic_interpretation": "per-leg contact indicator",
+      "shape": [
+        5001,
+        6
+      ],
+      "unit": "indicator",
+      "unit_source": "runtime_export_name",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "contact_forces",
+      "semantic_interpretation": "per-leg contact force vector",
+      "shape": [
+        5001,
+        6,
+        3
+      ],
+      "unit": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "unit_source": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "contact_torques",
+      "semantic_interpretation": "per-leg contact torque vector",
+      "shape": [
+        5001,
+        6,
+        3
+      ],
+      "unit": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "unit_source": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "contact_positions",
+      "semantic_interpretation": "per-leg contact position",
+      "shape": [
+        5001,
+        6,
+        3
+      ],
+      "unit": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "unit_source": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "contact_normals",
+      "semantic_interpretation": "per-leg contact normal",
+      "shape": [
+        5001,
+        6,
+        3
+      ],
+      "unit": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "unit_source": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "contact_tangents",
+      "semantic_interpretation": "per-leg contact tangent",
+      "shape": [
+        5001,
+        6,
+        3
+      ],
+      "unit": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "unit_source": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "used_by_adapter": false
+    },
+    {
+      "confidence": "LOW_REQUIRES_RUNTIME_REVIEW",
+      "dtype": "float64",
+      "name": "actuator_position",
+      "semantic_interpretation": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "shape": [
+        5001,
+        42
+      ],
+      "unit": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "unit_source": "UNKNOWN_REQUIRES_RUNTIME_REVIEW",
+      "used_by_adapter": false
+    }
+  ],
+  "raw_artifact_copied_to_git": false,
+  "raw_artifact_modified": false,
+  "required_trajectory_keys_resolved": true,
+  "schema_mapping": {
+    "planar_position_mm": "thorax",
+    "timestamps_s": "timestamp_s"
+  },
+  "schema_version": "gate28b-runtime-rollout-schema-audit-v1",
+  "source_frame_count": 5001,
+  "source_kind": "HISTORICAL_GATE26_HEALTHY_SEED_000_READ_ONLY",
+  "source_raw_committed_to_git": false,
+  "source_rollout_sha256": "c0839ee36286edcb09c3de802169445867c565a8513e7fb9d4d9a7baa50e4909",
+  "source_runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "status": "RUNTIME_ROLLOUT_SCHEMA_AUDITED"
+}

@@ -1,0 +1,43 @@
+schema_version: generation2-statistical-hierarchy-v1
+status: LOCKED_BEFORE_GATE28B_BENCHMARK
+levels:
+  LEVEL_0_FRAME:
+    unit: within_run_observation
+    independent_replicate: false
+    examples:
+      - framewise_planar_speed_mm_s
+      - joint_state
+      - contact_state
+  LEVEL_1_RUN:
+    unit: one_virtual_fly_one_simulation_seed
+    independent_replicate: conditional_on_unique_seed
+    examples:
+      - per_run_mean_planar_speed_mm_s
+      - per_run_median_framewise_speed_mm_s
+      - distance_traveled_mm
+      - displacement_mm
+      - activity_time_s
+  LEVEL_2_COMPUTATIONAL_GROUP:
+    unit: independent_simulation_seed
+    independent_replicate: true
+    examples:
+      - median_of_per_run_individual_fly_metrics
+      - mean_of_per_run_individual_fly_metrics
+  LEVEL_3_BIOLOGICAL_STUDY:
+    unit: paper_declared_experimental_unit
+    independent_replicate: requires_primary_source_support
+    examples:
+      - paper_reported_group_median
+rules:
+  frame_is_not_replicate: true
+  physics_step_is_not_replicate: true
+  segment_is_not_replicate: true
+  joint_sample_is_not_replicate: true
+  unique_simulation_seed_may_be_computational_replicate: true
+  level_1_framewise_median_is_not_level_3_group_median: true
+  like_with_like_required: true
+historical_metric_audit:
+  metric: median_planar_speed_mm_s
+  ambiguity: Historical code may use this name for a per-run median of framewise speeds.
+  status: RIEMENSPERGER_SPEED_STATISTICAL_HIERARCHY_REQUIRES_SOURCE_REVIEW
+  paper_equivalence_established: false

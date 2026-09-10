@@ -1,0 +1,46 @@
+{
+  "schema_version": "gate28b-source-review-amendment-v1",
+  "amends_gate28a_contract": false,
+  "gate28a_contract_changed": false,
+  "source_sha256": "1a1fc771d9cdcf960032e494169569c5c49839f42e7c2731acb2ef251443aa49",
+  "directly_supported_observations": [
+    {
+      "field": "experimental_unit",
+      "value": "individual_fly",
+      "source_location": "Materials and Methods, Locomotor Behavior"
+    },
+    {
+      "field": "observation_duration",
+      "value": "15 min",
+      "source_location": "Materials and Methods, Locomotor Behavior"
+    },
+    {
+      "field": "arena",
+      "value": "open arena",
+      "source_location": "Materials and Methods, Locomotor Behavior"
+    },
+    {
+      "field": "flight_status",
+      "value": "flight-disabled",
+      "source_location": "Materials and Methods, Locomotor Behavior"
+    },
+    {
+      "field": "age_for_figure_2",
+      "value": "5-day-old",
+      "source_location": "Figure 2 caption"
+    },
+    {
+      "field": "reported_group_center",
+      "value": "median",
+      "source_location": "Figure 2 caption and Results"
+    }
+  ],
+  "unresolved_fields_preserved": [
+    "frame_rate",
+    "movement_threshold",
+    "exclusion_rule",
+    "per_fly_speed_computation"
+  ],
+  "claim_effect": "NO_PAPER_EQUIVALENCE_CLAIM",
+  "direct_quote_used": false
+}

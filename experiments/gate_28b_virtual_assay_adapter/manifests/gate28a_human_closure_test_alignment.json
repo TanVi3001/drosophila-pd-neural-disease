@@ -1,0 +1,21 @@
+{
+  "schema_version": "gate28b-inherited-test-alignment-v1",
+  "status": "GATE28A_HUMAN_CLOSURE_TEST_ALIGNED_FAIL_CLOSED",
+  "reason": "The human closure commit changed only the Gate28A signoff after the historical Gate28A inventory was frozen.",
+  "source_main_commit": "5a99a2f5646f754b2f9ed878ad5335bbc1b9b951",
+  "signoff_path": "research/validation/prospective/gate28a_gen2_scope_metric_study_split_reviewer_signoff.json",
+  "historical_pending_signoff": {
+    "sha256": "97b14f34b2c317258a190e8abde234729303d699cfc63a7639ec227875e7e4eb",
+    "size_bytes": 678,
+    "inventory_preserved": true
+  },
+  "approved_signoff": {
+    "sha256": "91aa08d68434e127ca91c5fa3fe13bdadd27bde89a985b1c069809ae0566583b",
+    "size_bytes": 998,
+    "status": "GATE28A_GEN2_SCIENTIFIC_CONTRACT_REVIEW_APPROVED",
+    "decision": "APPROVED_GATE28A_GEN2_SCIENTIFIC_CONTRACT_CLOSURE"
+  },
+  "fail_closed": true,
+  "undocumented_signoff_sha_allowed": false,
+  "gate28a_scientific_artifact_modified": false
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "gate28b-riemensperger-source-review-v1",
+  "primary_source_available": true,
+  "source_locator": "LOCAL_PRIMARY_PDF_NOT_COMMITTED",
+  "source_sha256": "1a1fc771d9cdcf960032e494169569c5c49839f42e7c2731acb2ef251443aa49",
+  "source_title": "Behavioral consequences of dopamine deficiency in the Drosophila central nervous system",
+  "frame_rate_status": "NOT_REPORTED_IN_AVAILABLE_PRIMARY_PDF_REQUIRES_SOURCE_REVIEW",
+  "movement_threshold_status": "NOT_REPORTED_IN_AVAILABLE_PRIMARY_PDF_REQUIRES_SOURCE_REVIEW",
+  "exclusion_rule_status": "NOT_REPORTED_IN_AVAILABLE_PRIMARY_PDF_REQUIRES_SOURCE_REVIEW",
+  "speed_statistical_hierarchy_status": "PARTIALLY_RESOLVED_GROUP_MEDIAN_OVER_INDIVIDUAL_FLY_OBSERVATIONS_PER_FLY_SPEED_COMPUTATION_UNRESOLVED",
+  "individual_fly_aggregation_status": "SUPPORTED_BY_MATERIALS_AND_FIGURE_2_CAPTION",
+  "direct_quote_used": false,
+  "source_review_complete": false,
+  "unresolved_fields": [
+    "frame_rate",
+    "movement_threshold",
+    "exclusion_rule",
+    "per_fly_speed_computation"
+  ],
+  "review_scope": "ASSAY_SEMANTICS_ONLY",
+  "paper_assay_equivalence_established": false
+}

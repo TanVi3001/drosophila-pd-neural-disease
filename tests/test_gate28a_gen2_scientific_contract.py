@@ -13,6 +13,11 @@ ROOT = Path(__file__).resolve().parents[1]
 GATE = ROOT / "experiments/gate_28a_gen2_scope_metric_study_split"
 CURRENT_MAIN = "cbd1ca071b2a8f28983d1cb78096501847fefbc1"
 ORIGINAL_GATE28A = "2dafaafc5a09eca1908457a54d8a0a5dc4e45b24"
+GATE28A_SIGNOFF = "research/validation/prospective/gate28a_gen2_scope_metric_study_split_reviewer_signoff.json"
+PENDING_SIGNOFF_SHA256 = "97b14f34b2c317258a190e8abde234729303d699cfc63a7639ec227875e7e4eb"
+PENDING_SIGNOFF_SIZE = 678
+APPROVED_SIGNOFF_SHA256 = "91aa08d68434e127ca91c5fa3fe13bdadd27bde89a985b1c069809ae0566583b"
+APPROVED_SIGNOFF_SIZE = 998
 
 
 def _json(relative: str) -> dict:
@@ -204,14 +209,16 @@ def test_no_execution_or_fitting_in_gate28a() -> None:
     assert all(item["status"] == "NOT_STARTED" for item in pipeline["gates"][1:])
 
 
-def test_human_review_is_pending_and_cannot_auto_approve() -> None:
+def test_human_review_is_closed_by_the_explicit_gate28a_signoff() -> None:
     review = _json("research/validation/prospective/gate28a_gen2_scope_metric_study_split_reviewer_signoff.json")
-    assert review["status"] == "WAITING_GATE28A_GEN2_HUMAN_REVIEW"
-    assert review["decision"] == "PENDING_HUMAN_REVIEW"
+    assert review["status"] == "GATE28A_GEN2_SCIENTIFIC_CONTRACT_REVIEW_APPROVED"
+    assert review["decision"] == "APPROVED_GATE28A_GEN2_SCIENTIFIC_CONTRACT_CLOSURE"
     assert review["no_auto_sign"] is True
-    assert review["gate28a_closed"] is False
-    assert review["reviewer_1"] == ""
-    assert review["reviewer_2"] == ""
+    assert review["gate28a_closed"] is True
+    assert review["reviewer_1"]
+    assert review["reviewer_2"]
+    assert review["review_date"]
+    assert review["approved_head"] == "2bd8bc39337abe37b30acfe305a87123293ccf7c"
 
 
 def test_gate28a_inventory_and_checksums_verify() -> None:
@@ -219,10 +226,23 @@ def test_gate28a_inventory_and_checksums_verify() -> None:
     assert inventory["record_count"] > 0
     for record in inventory["records"]:
         blob = _git_blob(record["path"])
+        if record["path"] == GATE28A_SIGNOFF:
+            # The inventory deliberately preserves the pre-review template.
+            # Commit 5a99a2f later closed Gate28A by changing only this signoff.
+            # Accept exactly that reviewed transition; any other blob fails.
+            assert record["sha256"] == PENDING_SIGNOFF_SHA256
+            assert record["size_bytes"] == PENDING_SIGNOFF_SIZE
+            assert hashlib.sha256(blob).hexdigest() == APPROVED_SIGNOFF_SHA256
+            assert len(blob) == APPROVED_SIGNOFF_SIZE
+            continue
         assert hashlib.sha256(blob).hexdigest() == record["sha256"], record["path"]
         assert len(blob) == record["size_bytes"], record["path"]
     checksums = (GATE / "manifests/checksums.sha256").read_text(encoding="utf-8").splitlines()
     assert len(checksums) == inventory["record_count"] + 1
     for line in checksums:
         expected, relative = line.split("  ", 1)
+        if relative == GATE28A_SIGNOFF:
+            assert expected == PENDING_SIGNOFF_SHA256
+            assert hashlib.sha256(_git_blob(relative)).hexdigest() == APPROVED_SIGNOFF_SHA256
+            continue
         assert hashlib.sha256(_git_blob(relative)).hexdigest() == expected, relative
