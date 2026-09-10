@@ -1,0 +1,30 @@
+schema_version: gate29-causal-trace-policy-v1
+gate: 29
+status: COMPUTATIONAL_EXECUTION_PATH_TRACE
+scope: computational_execution_path_trace
+interpretation: >-
+  Direct software/runtime dependencies and temporal signal flow through the
+  implemented healthy model and embodied locomotion loop.
+allowed_strongest_interpretation: COMPUTATIONAL_EXECUTION_PATH_TRACE
+forbidden_interpretations:
+  - BIOLOGICAL_CAUSALITY_ESTABLISHED
+  - DISEASE_MECHANISM_ESTABLISHED
+  - DOPAMINE_CAUSAL_MECHANISM_ESTABLISHED
+  - VNC_BIOLOGICAL_MODEL_VALIDATED
+  - PARKINSON_PATHWAY_VALIDATED
+software_edge_classes:
+  - DIRECT_ARGUMENT_DEPENDENCY
+  - STATE_UPDATE_DEPENDENCY
+  - DECODER_DEPENDENCY
+  - CONTROL_FEEDBACK_DEPENDENCY
+  - ACTUATION_DEPENDENCY
+  - PHYSICS_TRANSITION_DEPENDENCY
+  - OBSERVATIONAL_DERIVATION
+  - SOURCE_CODE_SUPPORTED_STRUCTURE
+  - UNKNOWN_UNVERIFIED_EDGE
+biological_causal_edge_allowed: false
+dopamine_neuromodulation_implemented: false
+disease_simulation_allowed: false
+calibration_allowed: false
+technical_seed: 9201
+technical_seed_scope: GATE29_ENGINEERING_ONLY

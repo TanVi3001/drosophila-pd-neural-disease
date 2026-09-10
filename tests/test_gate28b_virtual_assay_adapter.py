@@ -393,13 +393,15 @@ def test_no_biological_validation_claim() -> None:
     assert "paper assay equivalence: `false`" in report
 
 
-def test_human_signoff_cannot_auto_approve() -> None:
+def test_human_signoff_transition_is_explicit_and_not_automatic() -> None:
     signoff = json.loads(gate28b.SIGNOFF.read_text(encoding="utf-8"))
-    assert signoff["status"] == "WAITING_GATE28B_HUMAN_REVIEW"
-    assert signoff["decision"] == "PENDING_HUMAN_REVIEW"
-    assert signoff["gate28b_closed"] is False
+    assert signoff["status"] == "GATE28B_VIRTUAL_ASSAY_ADAPTER_REVIEW_APPROVED"
+    assert signoff["decision"] == "APPROVED_GATE28B_VIRTUAL_ASSAY_ADAPTER_CLOSURE"
+    assert signoff["gate28b_closed"] is True
+    assert signoff["approved_head"]
+    assert signoff["reviewer_1"] and signoff["reviewer_2"]
+    assert signoff["review_date"]
     assert signoff["no_auto_sign"] is True
-    assert not signoff["reviewer_1"] and not signoff["reviewer_2"]
 
 
 def test_npz_loader_uses_explicit_audited_mapping(tmp_path: Path) -> None:

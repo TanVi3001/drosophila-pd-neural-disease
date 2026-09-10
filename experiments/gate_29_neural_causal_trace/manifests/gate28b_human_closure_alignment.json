@@ -1,0 +1,30 @@
+{
+  "schema_version": "gate29-gate28b-human-closure-alignment-v1",
+  "historical_pending_signoff": {
+    "commit": "0e278f5b64dcd9f72f3fa48bd7d16217309eeeda",
+    "git_blob_sha1": "6316936da52cfb6e44d35cd6df3952156609075d",
+    "file_sha256": "75704b4a49103dd3dd52df517cb730969b110bc6ad134bb31ade6d1baee8a042",
+    "status": "WAITING_GATE28B_HUMAN_REVIEW"
+  },
+  "current_approved_signoff": {
+    "commit": "004b9ee3c8938206e71b9908123f74cd0b7d2c97",
+    "git_blob_sha1": "d93bb09e99153e5766074cb1aa12fe3093b9dd7d",
+    "file_sha256": "8db468baad5b2752737113bb9435accffb6553fa07fe166cc5ae71ac86d8bf62",
+    "status": "GATE28B_VIRTUAL_ASSAY_ADAPTER_REVIEW_APPROVED",
+    "decision": "APPROVED_GATE28B_VIRTUAL_ASSAY_ADAPTER_CLOSURE",
+    "gate28b_closed": true
+  },
+  "approved_signoff_commit": "004b9ee3c8938206e71b9908123f74cd0b7d2c97",
+  "exact_expected_transition": {
+    "from_status": "WAITING_GATE28B_HUMAN_REVIEW",
+    "to_status": "GATE28B_VIRTUAL_ASSAY_ADAPTER_REVIEW_APPROVED",
+    "from_decision": "PENDING_HUMAN_REVIEW",
+    "to_decision": "APPROVED_GATE28B_VIRTUAL_ASSAY_ADAPTER_CLOSURE",
+    "from_gate28b_closed": false,
+    "to_gate28b_closed": true
+  },
+  "historical_inventory_preserved": true,
+  "undocumented_signoff_sha_allowed": false,
+  "Gate28B_scientific_artifact_modified": false,
+  "scope": "TEST_ALIGNMENT_ONLY"
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": "gate29-controller-layer-interpretation-v1",
+  "engineered_locomotor_cpg_controller": {
+    "status": "PRESENT",
+    "implementation": "HybridTurningController plus make_tripod_cpg_network",
+    "controller_observation": "HybridControllerObservation",
+    "controller_action": "LocomotionAction",
+    "public_internal_state_export": "CONTROLLER_INTERNAL_STATE_EXPORT_NOT_AVAILABLE"
+  },
+  "biologically_grounded_vnc_neural_model": {
+    "status": "NOT_ESTABLISHED"
+  },
+  "gate28a_contract_amendment": {
+    "previous_status": "NOT_YET_IMPLEMENTED",
+    "new_runtime_interpretation": "ENGINEERED_LOCOMOTOR_CPG_CONTROLLER_PRESENT",
+    "biological_vnc_status_unchanged": true
+  },
+  "biological_causality_established": false
+}

@@ -1,0 +1,116 @@
+{
+  "schema_version": "gate29-runtime-execution-path-audit-v1",
+  "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "runtime_file": "scripts/run_brain_body_rollout.py",
+  "source_basis": "SOURCE_CODE",
+  "operations": [
+    {
+      "order": 1,
+      "operation": "brain.step()",
+      "source_file": "scripts/run_brain_body_rollout.py",
+      "source_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "function_or_class": "_run_simulation",
+      "source_line": 317,
+      "input": "BrainEngine state and sensory rates",
+      "output": "updated brain state and spike tensor",
+      "state_mutation": "BrainEngine state is advanced by the runtime",
+      "confidence": "HIGH"
+    },
+    {
+      "order": 2,
+      "operation": "brain.get_dn_spikes()",
+      "source_file": "scripts/run_brain_body_rollout.py",
+      "source_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "function_or_class": "_run_simulation / BrainEngine.get_dn_spikes",
+      "source_line": 318,
+      "input": "current brain spike state",
+      "output": "dict of DN names to float spike values",
+      "state_mutation": "none observed in getter",
+      "confidence": "HIGH"
+    },
+    {
+      "order": 3,
+      "operation": "decoder.update(dn_spikes)",
+      "source_file": "scripts/run_brain_body_rollout.py; external/fly-brain/brain_body_bridge.py",
+      "source_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "function_or_class": "DNRateDecoder.update",
+      "source_line": "runner 318; bridge 511",
+      "input": "DN spike dictionary",
+      "output": "None; decoder rates and buffers are updated",
+      "state_mutation": "sliding buffers and rates",
+      "confidence": "HIGH"
+    },
+    {
+      "order": 4,
+      "operation": "bridge.compute_drive(dt=float(simulation.timestep))",
+      "source_file": "scripts/run_brain_body_rollout.py; external/fly-brain/brain_body_bridge.py",
+      "source_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "function_or_class": "BrainBodyBridge.compute_drive",
+      "source_line": "runner 319; bridge 609",
+      "input": "decoder public rate getters and bridge state",
+      "output": "NumPy array [left_drive, right_drive], shape (2,)",
+      "state_mutation": "mode timer, mode, threat and drive state",
+      "confidence": "HIGH"
+    },
+    {
+      "order": 5,
+      "operation": "HybridControllerObservation.from_sim(simulation, fly.name)",
+      "source_file": "scripts/run_brain_body_rollout.py; flygym_demo/complex_terrain/hybrid_controller.py",
+      "source_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "function_or_class": "HybridControllerObservation.from_sim",
+      "source_line": "runner 321; package 54",
+      "input": "current FlyGym/MuJoCo simulation state",
+      "output": "thorax_z, tarsus5_z, stumbling_contact_forces, fly_heading",
+      "state_mutation": "none in observation construction",
+      "confidence": "HIGH"
+    },
+    {
+      "order": 6,
+      "operation": "controller.step(drive, body_observation)",
+      "source_file": "scripts/run_brain_body_rollout.py; flygym_demo/complex_terrain/turning_controller.py",
+      "source_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "function_or_class": "HybridTurningController.step",
+      "source_line": "runner 320-322; package 18-36",
+      "input": "drive shape (2,) plus HybridControllerObservation",
+      "output": "LocomotionAction",
+      "state_mutation": "CPG/controller state is advanced",
+      "confidence": "HIGH"
+    },
+    {
+      "order": 7,
+      "operation": "apply_locomotion_action(simulation, fly.name, action)",
+      "source_file": "scripts/run_brain_body_rollout.py; flygym_demo/complex_terrain/common.py",
+      "source_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "function_or_class": "apply_locomotion_action",
+      "source_line": "runner 338; package 99-109",
+      "input": "LocomotionAction joint_angles (42,) and adhesion_onoff (6,)",
+      "output": "simulation actuator/adhesion inputs written",
+      "state_mutation": "simulation control inputs",
+      "confidence": "HIGH"
+    },
+    {
+      "order": 8,
+      "operation": "simulation.step()",
+      "source_file": "scripts/run_brain_body_rollout.py",
+      "source_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "function_or_class": "_run_simulation",
+      "source_line": 339,
+      "input": "current control inputs",
+      "output": "next MuJoCo physical state",
+      "state_mutation": "physics state and simulation time",
+      "confidence": "HIGH"
+    },
+    {
+      "order": 9,
+      "operation": "recorder.record()",
+      "source_file": "scripts/run_brain_body_rollout.py; drosophila_pd/flygym_adapter/recorder.py",
+      "source_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "function_or_class": "RolloutRecorder.record",
+      "source_line": "runner 340; recorder 60",
+      "input": "post-step public simulation getters",
+      "output": "ObservationFrame and rollout channels",
+      "state_mutation": "recorder buffer only, not simulation",
+      "confidence": "HIGH"
+    }
+  ]
+}

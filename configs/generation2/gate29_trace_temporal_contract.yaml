@@ -1,0 +1,50 @@
+schema_version: gate29-trace-temporal-contract-v1
+status: FROZEN_BEFORE_TRACE_EXECUTION
+source_of_truth: runtime_execution_path_audit.json
+step_semantics:
+  - order: 1
+    phase: PRE_STEP
+    operation: brain.step()
+    time_label: t_k
+  - order: 2
+    phase: PRE_STEP
+    operation: brain.get_dn_spikes()
+    time_label: t_k
+  - order: 3
+    phase: PRE_STEP
+    operation: decoder.update(dn_spikes)
+    time_label: t_k
+  - order: 4
+    phase: PRE_STEP
+    operation: bridge.compute_drive(dt=simulation.timestep)
+    time_label: t_k
+  - order: 5
+    phase: PRE_STEP
+    operation: HybridControllerObservation.from_sim(simulation, fly.name)
+    time_label: t_k
+  - order: 6
+    phase: PRE_STEP
+    operation: controller.step(drive, body_observation)
+    time_label: t_k
+  - order: 7
+    phase: PRE_STEP
+    operation: apply_locomotion_action(simulation, fly.name, action)
+    time_label: t_k
+  - order: 8
+    phase: PHYSICS
+    operation: simulation.step()
+    time_label: t_k_to_t_k_plus_1
+  - order: 9
+    phase: POST_STEP
+    operation: recorder.record()
+    time_label: t_k_plus_1
+alignment_rules:
+  step_index: strictly_monotonic_integer
+  pre_time_s: strictly_increasing
+  post_time_s: strictly_increasing
+  post_time_after_pre_time: true
+  action_before_physics: true
+  post_body_after_physics: true
+  floating_rtol: 0.0
+  floating_atol_s: 1.0e-12
+  discrete_arrays: exact_equality

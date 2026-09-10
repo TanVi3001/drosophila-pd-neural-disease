@@ -1,0 +1,21 @@
+{
+  "schema_version": "gate29-human-review-v1",
+  "status": "WAITING_GATE29_HUMAN_REVIEW",
+  "decision": "PENDING_HUMAN_REVIEW",
+  "runtime_execution_path_approved": false,
+  "closed_loop_graph_approved": false,
+  "brain_dn_boundary_approved": false,
+  "decoder_bridge_path_approved": false,
+  "body_feedback_path_approved": false,
+  "controller_interpretation_approved": false,
+  "biological_vnc_boundary_approved": false,
+  "action_physics_path_approved": false,
+  "Gate28B_observation_path_approved": false,
+  "trace_nonperturbation_approved": false,
+  "claim_boundary_approved": false,
+  "gate29_closed": false,
+  "reviewer_1": "",
+  "reviewer_2": "",
+  "review_date": "",
+  "no_auto_sign": true
+}

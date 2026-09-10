@@ -1,0 +1,34 @@
+{
+  "schema_version": "gate29-closed-loop-dependency-graph-v1",
+  "interpretation": "COMPUTATIONAL_EXECUTION_PATH_TRACE",
+  "closed_loop": true,
+  "biological_causality_established": false,
+  "nodes": [
+    "BRAIN_STATE_T",
+    "DN_SPIKES_T",
+    "DN_DECODER_STATE_T",
+    "BRAIN_BODY_DRIVE_T",
+    "BODY_STATE_T",
+    "CONTROLLER_OBSERVATION_T",
+    "CONTROLLER_STATE_T",
+    "CONTROLLER_STEP_T",
+    "LOCOMOTION_ACTION_T",
+    "ACTUATOR_WRITE_T",
+    "PHYSICS_STEP_T",
+    "BODY_STATE_T_PLUS_1",
+    "THORAX_TRAJECTORY",
+    "GATE28B_ASSAY_OBSERVATION"
+  ],
+  "feedback_path": [
+    "BODY_STATE_T",
+    "CONTROLLER_OBSERVATION_T",
+    "CONTROLLER_STEP_T"
+  ],
+  "brain_path": [
+    "BRAIN_STATE_T",
+    "DN_SPIKES_T",
+    "DN_DECODER_STATE_T",
+    "BRAIN_BODY_DRIVE_T",
+    "CONTROLLER_STEP_T"
+  ]
+}

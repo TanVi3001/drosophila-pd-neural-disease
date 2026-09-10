@@ -1,0 +1,103 @@
+{
+  "file_count": 19,
+  "files": [
+    {
+      "path": "configs/generation2/gate29_causal_trace_policy.yaml",
+      "sha256": "80508428c163f3320fbe87e0a26b167c89da80058bdeb89dc97c9768ff112b15",
+      "size_bytes": 1068
+    },
+    {
+      "path": "configs/generation2/gate29_trace_temporal_contract.yaml",
+      "sha256": "fddc29ffa0a3440b9afbc81c9ba9e268ed292f996d9d330cd587d67f5bbeb9a6",
+      "size_bytes": 1388
+    },
+    {
+      "path": "docs/research_design/gate29_neural_causal_trace_report.md",
+      "sha256": "02b8fe478f52cc0540e629e70a200b1fbd274740cb892ac193f9a987b6653eea",
+      "size_bytes": 7107
+    },
+    {
+      "path": "research/validation/prospective/gate29_neural_causal_trace_reviewer_signoff.json",
+      "sha256": "2c5b88b873f88cbdc0dca67550289962f0653200f763a5741e04fac09c5d01de",
+      "size_bytes": 702
+    },
+    {
+      "path": "tests/test_gate29_neural_causal_trace.py",
+      "sha256": "d7d5901d4784a0485e2d7d7661d913bae695eb989adbe6762bcbc1d0776a2aaf",
+      "size_bytes": 5841
+    },
+    {
+      "path": "scripts/run_gate29_neural_causal_trace.py",
+      "sha256": "ed177bb07e728c04341fddcb185ffc56cf7b61cda7e3c5f9e37f05cc34cf3d45",
+      "size_bytes": 36955
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/gate29_manifest.json",
+      "sha256": "7e8d0aad59aa595e51e2004dbf461c17e481e41b54e43f3bf77276e6d60caf8d",
+      "size_bytes": 1678
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/gate28b_human_closure_alignment.json",
+      "sha256": "d9dac3db3621dd9a54ad586aebe4fdd639e431adb9e7873b2b51224eee9e29bd",
+      "size_bytes": 1341
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/runtime_execution_path_audit.json",
+      "sha256": "c79c7411cbe5fb62981fa8aeefd508d0ae8b9a7e2dd94f78bb8b1fe41c3eb9e8",
+      "size_bytes": 5098
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/runtime_signal_inventory.json",
+      "sha256": "47acc3d536a132a726ed49ced45cbaa93f7a765edaaa1297ac619507ac74fe0c",
+      "size_bytes": 7674
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/causal_edge_registry.json",
+      "sha256": "b6b430aaa5015d8c712c86b931d4c1b169108a10621493674c0d3b4ea13d6291",
+      "size_bytes": 4732
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/controller_layer_interpretation.json",
+      "sha256": "d30a0f9f02a73d45f32cdbe1e6e78f07cba2e4483cace93a578529298a533c42",
+      "size_bytes": 748
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/results/technical_trace_summary.json",
+      "sha256": "f10fdf62634c27cbb41a4fade5984a8a1da2183bdd7febc19c304a9b197a2803",
+      "size_bytes": 1262
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/results/nonperturbation_comparison.json",
+      "sha256": "f7e9a2d049baef1a62220d7571262f1e525122e0c7932e8740b0efff537ce87d",
+      "size_bytes": 506
+    },
+    {
+      "path": "src/drosophila_pd_neural/causal_trace/__init__.py",
+      "sha256": "8224fde57cc003192b73dcdd9bd9a8927e40309288fcbea81323c58ecee7064a",
+      "size_bytes": 816
+    },
+    {
+      "path": "src/drosophila_pd_neural/causal_trace/analysis.py",
+      "sha256": "3757974cdbe9997beb46b2c4df7a6183b1b156ec7f94a509d67873b4f87f4c14",
+      "size_bytes": 1572
+    },
+    {
+      "path": "src/drosophila_pd_neural/causal_trace/schema.py",
+      "sha256": "46e6e9ec90b147554430a8b363290a0ef7c469755ef4b507924e3dd151e00084",
+      "size_bytes": 966
+    },
+    {
+      "path": "src/drosophila_pd_neural/causal_trace/types.py",
+      "sha256": "aa1f01d62726436f2ef151b1bbbd778b45ff83aabaa56806f26e85eba57a4df6",
+      "size_bytes": 2571
+    },
+    {
+      "path": "src/drosophila_pd_neural/causal_trace/validation.py",
+      "sha256": "8b5a73270a5003db22937d7cc6ae6089530df9b204afbe98072626a0666e3c91",
+      "size_bytes": 3976
+    }
+  ],
+  "raw_trace_committed": false,
+  "schema_version": "gate29-reproducibility-inventory-v1",
+  "scope": "LIGHTWEIGHT_GATE29_METADATA_ONLY"
+}
