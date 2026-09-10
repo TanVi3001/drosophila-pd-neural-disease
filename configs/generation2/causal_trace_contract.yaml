@@ -1,0 +1,33 @@
+schema_version: generation2-causal-trace-contract-v1
+execution_status: DESIGN_ONLY
+layers:
+  - name: disease_or_neuromodulator_state
+    status: NOT_YET_IMPLEMENTED
+    requires: new_model
+  - name: brain_neuron_state
+    status: available_now
+    requires: state_export_audit
+  - name: descending_neuron_state
+    status: available_now
+    requires: state_export_audit
+  - name: brain_body_bridge_output
+    status: available_now
+    requires: action_contract_audit
+  - name: vnc_cpg_or_motor_controller_state
+    status: NOT_YET_IMPLEMENTED
+    requires: new_model
+  - name: raw_action_command
+    status: available_now
+    requires: export
+  - name: joint_state
+    status: available_now
+    requires: export
+  - name: contact_adhesion
+    status: available_now
+    requires: export
+  - name: thorax_body_trajectory
+    status: available_now
+    requires: export
+  - name: assay_observation
+    status: NOT_YET_IMPLEMENTED
+    requires: assay_adapter

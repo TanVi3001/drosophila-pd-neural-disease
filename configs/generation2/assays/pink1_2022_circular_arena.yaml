@@ -1,0 +1,15 @@
+schema_version: generation2-assay-contract-v1
+assay_id: pink1_2022_circular_arena
+geometry: circular_arena
+orientation_gravity: horizontal_surface
+stimulus: REQUIRES_SOURCE_REVIEW
+individual_vs_group: individual_fly
+duration: 3
+duration_unit: min
+frame_rate: REQUIRES_SOURCE_REVIEW
+movement_threshold: REQUIRES_SOURCE_REVIEW
+exclusion_rule: REQUIRES_SOURCE_REVIEW
+endpoint_definition: distance_or_activity_time_as_reported
+aggregation_statistic: paper_reported
+experimental_unit: individual_fly
+status: CONTRACT_ONLY

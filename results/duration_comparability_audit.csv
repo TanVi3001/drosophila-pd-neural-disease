@@ -1,0 +1,7 @@
+study_or_gate,assay,duration,duration_unit,simulation_or_biology,raw_scale_comparable,reason,required_adapter
+Gate26_current_FlyGym,current_FlyGym_rollout,0.5,s,simulation,false,Short virtual rollout is not the 15-minute biological assay,Gate28B direct longer rollout or validated aggregation
+Riemensperger_2011,individual_open_arena,15,min,biology,reference_only,Paper endpoint is a 15-minute individual assay,Gate28B open-arena observation adapter
+Pokrzywa_2017,vial_tracking,10,s,biology,reference_only,Group/vial protocol and short tracking segment,Gate28B vial/group observation adapter
+Pozo_2022,circular_arena,3,min,biology,historical_only,Exposed historical source with different assay and endpoint,study-specific observation model
+Aggarwal_2019,rotating_vertical,approximately_5,min,biology,reference_only,Vertical rotating assay and gait endpoints differ,vertical assay adapter
+Hwang_2013,negative_geotaxis,4,s,biology,reference_only,Climbing success window is not planar speed,negative-geotaxis adapter

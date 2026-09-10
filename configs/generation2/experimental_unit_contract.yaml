@@ -1,0 +1,31 @@
+schema_version: generation2-experimental-unit-contract-v1
+units:
+  individual_fly:
+    independent_by_default: false
+    notes: Independence must be supported by the paper design.
+  independent_vial:
+    independent_by_default: true
+    notes: Vial-level analysis must not be expanded to fly count.
+  group_of_flies:
+    independent_by_default: false
+    notes: Group is not automatically a set of independent flies.
+  trial:
+    independent_by_default: false
+    notes: Trial nesting must be declared.
+  biological_replication:
+    independent_by_default: true
+    notes: Use only when source defines biological replicate.
+  simulation_seed:
+    independent_by_default: true
+    notes: Computational replicate, not biological replicate.
+  frame:
+    independent_by_default: false
+    notes: A frame is not an independent replicate.
+  physics_step:
+    independent_by_default: false
+    notes: A physics step is not an independent replicate.
+rules:
+  no_inferred_independence: true
+  ten_flies_in_one_vial_are_not_ten_vial_units: true
+  frames_are_not_replicates: true
+  physics_steps_are_not_replicates: true

@@ -1,0 +1,18 @@
+schema_version: generation2-riemensperger-2011-endpoint-contract-v1
+paper_id: riemensperger_2011_dopamine_deficiency
+role: GEN2_DOPAMINE_FUNCTIONAL_DEFICIENCY_REFERENCE
+primary_assay: individual_spontaneous_walking_in_open_arena
+duration: 15
+duration_unit: min
+primary_statistic: median
+speed_values_mm_s:
+  dopamine_deficient: 7.8
+  control_or_rescue: 10.8
+  wild_type: 15.0
+distance_values_cm:
+  dopamine_deficient: 193
+  control_or_rescue: 425
+  wild_type: 474
+spread_for_speed: NOT_REPORTED
+uncertainty_policy: keep_paper_statistic_and_do_not_invent_spread
+gate31_rule: virtual_mean_must_not_be_compared_directly_to_paper_median

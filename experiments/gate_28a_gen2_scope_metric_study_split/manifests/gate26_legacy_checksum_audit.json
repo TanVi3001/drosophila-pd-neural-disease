@@ -1,0 +1,66 @@
+{
+  "action": "DEFERRED_LEGACY_EVIDENCE_RECONCILIATION",
+  "hashes_verified": false,
+  "mismatch_count": 11,
+  "mismatches": [
+    {
+      "actual_sha256": "6c92e2a7e110aff069d73dd786371b94c0ce43f215fd319f6b1ee059f3c6ede8",
+      "path": "experiments/gate_26_riemensperger_full_completion/manifests/gate26_execution_freeze.json",
+      "recorded_sha256": "0c3f2760c9a48183b5e00149513090237e95705b3829283bb1212e98fe199267"
+    },
+    {
+      "actual_sha256": "d5ab9f3f77f7b2bf354028e979a649d6dfb6195b72363bac3e23c4a870793271",
+      "path": "experiments/gate_26_riemensperger_full_completion/manifests/gate26_completion_manifest.json",
+      "recorded_sha256": "9169aeabdd7a40852472cea536f0c6ad7d5571b4399aafca023fc6288c0ccb7b"
+    },
+    {
+      "actual_sha256": "8837c4d1f1666160b786ceac531ff74864c3f62dbcaa9a917436a468ee791d13",
+      "path": "experiments/gate_26_riemensperger_full_completion/manifests/gate26_preflight.json",
+      "recorded_sha256": "a09a627a5f800b7ce7dc09cbc9969cf7b4ba54bf42daf91ded8c742153ba42a6"
+    },
+    {
+      "actual_sha256": "4317324f812f2493d7ad0073f3ad3111219ff62b7d7a0ecbb45a8a953ada4486",
+      "path": "experiments/gate_26_riemensperger_full_completion/manifests/execution_lock.json",
+      "recorded_sha256": "af8b2bc839423869d4f1ab9c241d14a77cf8c1153814fa07df85a9a09fc00fe5"
+    },
+    {
+      "actual_sha256": "80bde64fbba5b48121a6821daadb529d8d282f8110d198707a877e32be9c468e",
+      "path": "experiments/gate_21b_riemensperger_healthy/results/healthy_summary.json",
+      "recorded_sha256": "a288e93362d6f38e1ba359ad9391afa6a7f0b2174a8c222c384c8794be5163d9"
+    },
+    {
+      "actual_sha256": "6e48791cfd630c11669e7ba4c9de4b6f78267b410522083fb7c878325a0ecd44",
+      "path": "experiments/gate_21b_riemensperger_healthy/results/gpu_telemetry.json",
+      "recorded_sha256": "4b237ef3b2d667a4cb058b653ad1911c302fb6d3232618fe333d4ddd6dc9a352"
+    },
+    {
+      "actual_sha256": "4c5035d9937e973523280fd8048f4faca248b2b6a31637a24db261dc557e6c13",
+      "path": "experiments/gate_21e_riemensperger_disease/checkpoint_materialization/riemensperger_dopamine_checkpoint_manifest.json",
+      "recorded_sha256": "ac1eb9a58ea47899623c87578e5397e99033ddf370feb9b580016ba54b24b58a"
+    },
+    {
+      "actual_sha256": "28b6b7f34b4d41659bbb492bcb76ee0b42570a3f0a57ac4f191e8c2c161cd97e",
+      "path": "experiments/gate_21e_riemensperger_disease/checkpoint_materialization/status.json",
+      "recorded_sha256": "6bae6ea3e64d7e6e864a1f0824e3174ae4493e26d89a2e081596ec0a1797689b"
+    },
+    {
+      "actual_sha256": "559f31859bd7ea79f92d6506089607dd29a6487bd14fca5a5f98fc339db10bdb",
+      "path": "experiments/gate_21e_riemensperger_disease/results/disease_summary.json",
+      "recorded_sha256": "32978c7dacc125d342de7c397814d532c0fa775dfcf7560269905e4d0535bb78"
+    },
+    {
+      "actual_sha256": "6e48791cfd630c11669e7ba4c9de4b6f78267b410522083fb7c878325a0ecd44",
+      "path": "experiments/gate_21e_riemensperger_disease/results/gpu_telemetry.json",
+      "recorded_sha256": "4b237ef3b2d667a4cb058b653ad1911c302fb6d3232618fe333d4ddd6dc9a352"
+    },
+    {
+      "actual_sha256": "4597ad9790680c9eff7b527cb803d7b429927a2d7b54b6b9359a3d93485dca51",
+      "path": "docs/replications/riemensperger_2011/riemensperger_2011_pipeline_completion_update.md",
+      "recorded_sha256": "0f3282fbac756aea56092338e8c7420e6c53d7b895a5c9379337cc0decf55a55"
+    }
+  ],
+  "record_count": 37,
+  "schema_version": "gate28a-gate26-legacy-checksum-audit-v1",
+  "scientific_evidence_modified": false,
+  "source_inventory": "experiments/gate_26_riemensperger_full_completion/manifests/reproducibility_inventory.json"
+}

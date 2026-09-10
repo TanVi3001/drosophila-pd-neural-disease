@@ -1,0 +1,133 @@
+schema_version: generation2-canonical-metric-dictionary-v1
+policy: metrics_are_endpoint_specific
+metrics:
+  - name: mean_planar_speed_mm_s
+    definition: Mean planar locomotor speed over a declared observation window.
+    unit: mm/s
+    center_statistic: mean
+    valid_statistics: [mean, SE, SEM, SD, CI]
+    experimental_unit: individual_or_declared_group_unit
+    simulation_unit: simulation_seed
+    temporal_window: assay_declared
+    assay_dependence: high
+    conversion_policy: raw_planar_trajectory_and_window_required
+  - name: median_planar_speed_mm_s
+    definition: Median planar locomotor speed over a declared observation window.
+    unit: mm/s
+    center_statistic: median
+    valid_statistics: [median, IQR, range, CI]
+    experimental_unit: individual_or_declared_group_unit
+    simulation_unit: simulation_seed
+    temporal_window: assay_declared
+    assay_dependence: high
+    conversion_policy: never_alias_to_mean_without_distribution_model
+  - name: distance_traveled_mm
+    definition: Cumulative planar path distance over the observation window.
+    unit: mm
+    center_statistic: study_declared
+    valid_statistics: [mean, median, SE, SEM, SD, IQR, range, CI]
+    experimental_unit: individual_or_declared_group_unit
+    simulation_unit: simulation_seed
+    temporal_window: assay_declared
+    assay_dependence: high
+    conversion_policy: never_convert_to_speed_without_time_aligned_endpoint
+  - name: displacement_mm
+    definition: Straight-line planar displacement from start to end.
+    unit: mm
+    center_statistic: study_declared
+    valid_statistics: [mean, median, SE, SEM, SD, IQR, range, CI]
+    experimental_unit: individual_or_declared_group_unit
+    simulation_unit: simulation_seed
+    temporal_window: assay_declared
+    assay_dependence: high
+    conversion_policy: distinct_from_distance_traveled_mm
+  - name: activity_time_s
+    definition: Time classified as active under a declared movement threshold.
+    unit: s
+    center_statistic: study_declared
+    valid_statistics: [mean, median, SE, SEM, SD, IQR, range, CI]
+    experimental_unit: individual_or_declared_group_unit
+    simulation_unit: simulation_seed
+    temporal_window: assay_declared
+    assay_dependence: very_high
+    conversion_policy: never_alias_to_walking_speed
+  - name: percent_moving
+    definition: Percentage of observation time or subjects classified as moving.
+    unit: percent
+    center_statistic: study_declared
+    valid_statistics: [mean, median, proportion, CI]
+    experimental_unit: declared_by_assay
+    simulation_unit: simulation_seed
+    temporal_window: assay_declared
+    assay_dependence: very_high
+    conversion_policy: no_speed_conversion
+  - name: climbing_success_fraction
+    definition: Fraction of subjects crossing a declared climbing threshold.
+    unit: fraction
+    center_statistic: proportion
+    valid_statistics: [proportion, CI, range]
+    experimental_unit: individual_or_declared_group_unit
+    simulation_unit: simulation_seed
+    temporal_window: assay_declared
+    assay_dependence: very_high
+    conversion_policy: climbing_is_not_planar_speed
+  - name: geotactic_index
+    definition: Declared directional or height-based geotaxis index.
+    unit: assay_specific
+    center_statistic: study_declared
+    valid_statistics: [mean, median, SE, SEM, SD, IQR, range, CI]
+    experimental_unit: declared_by_assay
+    simulation_unit: simulation_seed
+    temporal_window: assay_declared
+    assay_dependence: very_high
+    conversion_policy: assay_formula_required
+  - name: turn_rate
+    definition: Turns per declared unit of time.
+    unit: turns/s
+    center_statistic: study_declared
+    valid_statistics: [mean, median, SE, SEM, SD, IQR, range, CI]
+    experimental_unit: individual_fly
+    simulation_unit: simulation_seed
+    temporal_window: assay_declared
+    assay_dependence: high
+    conversion_policy: raw_trajectory_and_turn_definition_required
+  - name: heading_change
+    definition: Change or variability of planar heading over time.
+    unit: degree_or_radian
+    center_statistic: study_declared
+    valid_statistics: [mean, median, SE, SEM, SD, IQR, range, CI]
+    experimental_unit: individual_fly
+    simulation_unit: simulation_seed
+    temporal_window: assay_declared
+    assay_dependence: high
+    conversion_policy: angle_definition_required
+  - name: gait_concurrency
+    definition: Number or fraction of legs participating in a concurrent gait.
+    unit: count_or_fraction
+    center_statistic: study_declared
+    valid_statistics: [mean, median, SE, SEM, SD, IQR, range, CI]
+    experimental_unit: individual_fly
+    simulation_unit: simulation_seed
+    temporal_window: gait_event_window
+    assay_dependence: very_high
+    conversion_policy: leg_event_classifier_required
+  - name: swing_duration
+    definition: Duration of a declared leg swing phase.
+    unit: s
+    center_statistic: study_declared
+    valid_statistics: [mean, median, SE, SEM, SD, IQR, range, CI]
+    experimental_unit: individual_fly
+    simulation_unit: simulation_seed
+    temporal_window: gait_event_window
+    assay_dependence: very_high
+    conversion_policy: gait_event_definition_required
+  - name: stance_duration
+    definition: Duration of a declared leg stance phase.
+    unit: s
+    center_statistic: study_declared
+    valid_statistics: [mean, median, SE, SEM, SD, IQR, range, CI]
+    experimental_unit: individual_fly
+    simulation_unit: simulation_seed
+    temporal_window: gait_event_window
+    assay_dependence: very_high
+    conversion_policy: gait_event_definition_required

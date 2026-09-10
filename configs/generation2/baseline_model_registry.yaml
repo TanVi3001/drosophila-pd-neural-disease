@@ -1,0 +1,12 @@
+schema_version: generation2-baseline-model-registry-v1
+execution_status: CONTRACT_ONLY
+baselines:
+  B0_NO_EFFECT: no disease change from healthy state
+  B1_GLOBAL_ACTION_ATTENUATION: generic action-level attenuation comparator
+  B2_GLOBAL_SPEED_SCALAR: endpoint scalar comparator
+  B3_NONCONNECTOME_AGE_CURVE: age-only non-connectome comparator
+  B4_CONNECTOME_ONLY_NO_NEUROMODULATION: connectome without disease neuromodulation
+  B5_GLOBAL_DOPAMINE_GAIN: global dopamine gain comparator
+  B6_POPULATION_DA_NEUROMODULATION: population-level dopamine comparator
+  B7_DISEASE_SPECIFIC_LATENT_MODEL: disease-specific latent state candidate
+principle: complex models must show predictive value beyond simple baselines
