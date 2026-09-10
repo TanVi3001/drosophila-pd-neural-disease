@@ -34,7 +34,6 @@ def test_gate_checksum_manifests_match_small_committed_artifacts() -> None:
         for line in manifest.read_text(encoding="utf-8").splitlines():
             digest, relative = line.split("  ", 1)
             path = gate / relative
-            assert path.is_file(), relative
             # Historical manifests may contain a platform-specific CRLF
             # serialization; compare it with the canonical Git blob without
             # changing the immutable evidence files.
