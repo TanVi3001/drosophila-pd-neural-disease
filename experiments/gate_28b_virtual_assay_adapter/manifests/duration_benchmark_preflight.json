@@ -1,4 +1,5 @@
 {
+  "adapter_implementation_commit": "9e2525bbe4da947bbabe55a5c01ae90a63959f09",
   "automatic_retry": false,
   "calibration": false,
   "condition": "HEALTHY",
@@ -42,7 +43,7 @@
     "memory_total_mb": 6144.0,
     "memory_used_mb": 103.0,
     "name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
-    "temperature_c": 43.0,
+    "temperature_c": 42.0,
     "utilization_percent": 0.0
   },
   "healthy_checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
@@ -62,7 +63,7 @@
     50000
   ],
   "storage": {
-    "available_free_bytes": 16997625856,
+    "available_free_bytes": 16995459072,
     "basis": "HISTORICAL_GATE26_HEALTHY_0_5S_ROLLOUT",
     "capacity_pass": true,
     "conservative_reserve_bytes": 5368709120,

@@ -13,11 +13,10 @@ ROOT = Path(__file__).resolve().parents[1]
 GATE = ROOT / "experiments/gate_28a_gen2_scope_metric_study_split"
 CURRENT_MAIN = "cbd1ca071b2a8f28983d1cb78096501847fefbc1"
 ORIGINAL_GATE28A = "2dafaafc5a09eca1908457a54d8a0a5dc4e45b24"
-GATE28A_SIGNOFF = "research/validation/prospective/gate28a_gen2_scope_metric_study_split_reviewer_signoff.json"
-PENDING_SIGNOFF_SHA256 = "97b14f34b2c317258a190e8abde234729303d699cfc63a7639ec227875e7e4eb"
-PENDING_SIGNOFF_SIZE = 678
-APPROVED_SIGNOFF_SHA256 = "91aa08d68434e127ca91c5fa3fe13bdadd27bde89a985b1c069809ae0566583b"
-APPROVED_SIGNOFF_SIZE = 998
+ALIGNMENT_MANIFEST = (
+    "experiments/gate_28b_virtual_assay_adapter/manifests/"
+    "gate28a_human_closure_test_alignment.json"
+)
 
 
 def _json(relative: str) -> dict:
@@ -36,6 +35,15 @@ def _git_blob(relative: str, ref: str = "HEAD") -> bytes:
         capture_output=True,
     )
     return result.stdout
+
+
+def _documented_gate28a_transitions() -> dict[str, dict]:
+    alignment = _json(ALIGNMENT_MANIFEST)
+    assert alignment["status"] == "GATE28A_HUMAN_CLOSURE_TEST_ALIGNED_FAIL_CLOSED"
+    assert alignment["fail_closed"] is True
+    transitions = alignment["documented_transitions"]
+    assert len(transitions) == 2
+    return {item["path"]: item for item in transitions}
 
 
 def test_generation2_and_gate_status() -> None:
@@ -223,17 +231,18 @@ def test_human_review_is_closed_by_the_explicit_gate28a_signoff() -> None:
 
 def test_gate28a_inventory_and_checksums_verify() -> None:
     inventory = _json("experiments/gate_28a_gen2_scope_metric_study_split/manifests/reproducibility_inventory.json")
+    transitions = _documented_gate28a_transitions()
     assert inventory["record_count"] > 0
     for record in inventory["records"]:
         blob = _git_blob(record["path"])
-        if record["path"] == GATE28A_SIGNOFF:
-            # The inventory deliberately preserves the pre-review template.
-            # Commit 5a99a2f later closed Gate28A by changing only this signoff.
-            # Accept exactly that reviewed transition; any other blob fails.
-            assert record["sha256"] == PENDING_SIGNOFF_SHA256
-            assert record["size_bytes"] == PENDING_SIGNOFF_SIZE
-            assert hashlib.sha256(blob).hexdigest() == APPROVED_SIGNOFF_SHA256
-            assert len(blob) == APPROVED_SIGNOFF_SIZE
+        transition = transitions.get(record["path"])
+        if transition is not None:
+            # Gate 28A remains immutable. Only the two exact, documented
+            # post-freeze review/test transitions are accepted.
+            assert record["sha256"] == transition["historical"]["sha256"]
+            assert record["size_bytes"] == transition["historical"]["size_bytes"]
+            assert hashlib.sha256(blob).hexdigest() == transition["current"]["sha256"]
+            assert len(blob) == transition["current"]["size_bytes"]
             continue
         assert hashlib.sha256(blob).hexdigest() == record["sha256"], record["path"]
         assert len(blob) == record["size_bytes"], record["path"]
@@ -241,8 +250,11 @@ def test_gate28a_inventory_and_checksums_verify() -> None:
     assert len(checksums) == inventory["record_count"] + 1
     for line in checksums:
         expected, relative = line.split("  ", 1)
-        if relative == GATE28A_SIGNOFF:
-            assert expected == PENDING_SIGNOFF_SHA256
-            assert hashlib.sha256(_git_blob(relative)).hexdigest() == APPROVED_SIGNOFF_SHA256
+        transition = transitions.get(relative)
+        if transition is not None:
+            assert expected == transition["historical"]["sha256"]
+            blob = _git_blob(relative)
+            assert hashlib.sha256(blob).hexdigest() == transition["current"]["sha256"]
+            assert len(blob) == transition["current"]["size_bytes"]
             continue
         assert hashlib.sha256(_git_blob(relative)).hexdigest() == expected, relative

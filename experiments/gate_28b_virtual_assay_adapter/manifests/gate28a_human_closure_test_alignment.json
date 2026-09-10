@@ -15,6 +15,32 @@
     "status": "GATE28A_GEN2_SCIENTIFIC_CONTRACT_REVIEW_APPROVED",
     "decision": "APPROVED_GATE28A_GEN2_SCIENTIFIC_CONTRACT_CLOSURE"
   },
+  "documented_transitions": [
+    {
+      "path": "research/validation/prospective/gate28a_gen2_scope_metric_study_split_reviewer_signoff.json",
+      "reason": "Human review closed Gate 28A after its historical inventory was frozen.",
+      "historical": {
+        "sha256": "97b14f34b2c317258a190e8abde234729303d699cfc63a7639ec227875e7e4eb",
+        "size_bytes": 678
+      },
+      "current": {
+        "sha256": "91aa08d68434e127ca91c5fa3fe13bdadd27bde89a985b1c069809ae0566583b",
+        "size_bytes": 998
+      }
+    },
+    {
+      "path": "tests/test_gate28a_gen2_scientific_contract.py",
+      "reason": "The inherited regression test was aligned fail-closed with the exact human-approved signoff transition.",
+      "historical": {
+        "sha256": "19df1fad383a4bcc07bb83240f9e4a2394211b7f6784298f8f37ead4e07aabca",
+        "size_bytes": 11376
+      },
+      "current": {
+        "sha256": "5d0ff6e4b15e11fb60cb1f2f160a4925f5025ca9b75cb42220eadba42cc24ef6",
+        "size_bytes": 13005
+      }
+    }
+  ],
   "fail_closed": true,
   "undocumented_signoff_sha_allowed": false,
   "gate28a_scientific_artifact_modified": false

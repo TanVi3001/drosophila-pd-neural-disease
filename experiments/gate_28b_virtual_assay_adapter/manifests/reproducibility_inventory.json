@@ -23,13 +23,13 @@
     },
     {
       "path": "experiments/gate_28b_virtual_assay_adapter/manifests/duration_benchmark_preflight.json",
-      "sha256": "431ae771519b4052bcd1539a6c2d023394f17fa65c1ec78489dfc5f15e2a131f",
-      "size_bytes": 2456
+      "sha256": "f79b80d2a7569c74006c5457105501c6caa453bc962ea48799eb0937e9cc31b7",
+      "size_bytes": 2535
     },
     {
       "path": "experiments/gate_28b_virtual_assay_adapter/manifests/gate28a_human_closure_test_alignment.json",
-      "sha256": "83fa37448f090d65f6713f738a060ad36057a84ce5bf360cc6dbca9b59f0e45a",
-      "size_bytes": 990
+      "sha256": "5f5abff4d44b91f101ec0313f6c811db69252268d214607ea81ecb4dec30c47d",
+      "size_bytes": 2005
     },
     {
       "path": "experiments/gate_28b_virtual_assay_adapter/manifests/gate28b_manifest.json",
@@ -103,8 +103,8 @@
     },
     {
       "path": "tests/test_gate28a_gen2_scientific_contract.py",
-      "sha256": "7f74f5ca9e606ebdcd2bf8c4ab89d25fdd27ed0a53258769b635a08caa158246",
-      "size_bytes": 12649
+      "sha256": "5d0ff6e4b15e11fb60cb1f2f160a4925f5025ca9b75cb42220eadba42cc24ef6",
+      "size_bytes": 13005
     },
     {
       "path": "tests/test_gate28b_virtual_assay_adapter.py",
