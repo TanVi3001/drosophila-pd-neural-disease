@@ -116,6 +116,11 @@ class AdapterProvenance:
     source_runtime_commit: str
     simulation_seed: int
     technical_or_scientific_source: str
+    aggregation_group_id: str
+
+    def __post_init__(self) -> None:
+        if not self.aggregation_group_id.strip():
+            raise ValueError("aggregation_group_id must be non-empty.")
 
 
 @dataclass(frozen=True, slots=True)
@@ -127,6 +132,7 @@ class RunObservation:
     source_runtime_commit: str
     simulation_seed: int
     technical_or_scientific_source: str
+    aggregation_group_id: str
     window_start_s: float
     window_end_s: float
     observed_duration_s: float
@@ -148,6 +154,10 @@ class RunObservation:
     paper_assay_equivalence_established: bool
     limitations: tuple[str, ...]
 
+    def __post_init__(self) -> None:
+        if not self.aggregation_group_id.strip():
+            raise ValueError("aggregation_group_id must be non-empty.")
+
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
@@ -157,10 +167,18 @@ class GroupObservation:
     metric: str
     statistic: str
     value: float
+    aggregation_group_id: str
+    adapter_id: str
+    adapter_version: str
+    assay_contract_sha256: str
+    source_runtime_commit: str
+    observed_duration_s: float
     n_simulation_seeds: int
     simulation_seeds: tuple[int, ...]
     replicate_unit: str
     interpretation: str
+    like_with_like_verified: bool
+    aggregation_signature_sha256: str
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

@@ -75,9 +75,12 @@ PAPER_DURATION_S = 900.0
 PAPER_DURATION_STEPS = 9_000_000
 MAX_TECHNICAL_JOBS = 4
 GPU_STOP_TEMPERATURE_C = 82.0
+GPU_MONITOR_INTERVAL_S = 1.0
 GPU_IDLE_MEMORY_LIMIT_MB = 1024.0
 GPU_IDLE_UTILIZATION_LIMIT_PERCENT = 50.0
 CONSERVATIVE_STORAGE_RESERVE_BYTES = 5 * 1024**3
+PRE_ACTIVE_THERMAL_ABORT_GUARD = "PRE_ACTIVE_THERMAL_ABORT_GUARD"
+ACTIVE_THERMAL_ABORT_GUARD = "ACTIVE_THERMAL_ABORT_GUARD"
 
 GATE_ROOT = ROOT / "experiments/gate_28b_virtual_assay_adapter"
 MANIFESTS = GATE_ROOT / "manifests"
@@ -88,6 +91,7 @@ SOURCE_REVIEW = MANIFESTS / "riemensperger_assay_source_review.json"
 SOURCE_AMENDMENT = MANIFESTS / "riemensperger_assay_source_review_amendment.json"
 GATE28A_TEST_ALIGNMENT = MANIFESTS / "gate28a_human_closure_test_alignment.json"
 PREFLIGHT = MANIFESTS / "duration_benchmark_preflight.json"
+HARDENING_MANIFEST = MANIFESTS / "gate28b_pre_signoff_hardening.json"
 INVENTORY = MANIFESTS / "reproducibility_inventory.json"
 CHECKSUMS = MANIFESTS / "checksums.sha256"
 FIXTURE_RESULTS = RESULTS / "synthetic_fixture_validation.json"
@@ -153,6 +157,15 @@ PROTECTED_GATE28A_PATHS = (
 
 class Gate28BError(RuntimeError):
     """Fail-closed Gate28B contract violation."""
+
+
+class Gate28BJobAbort(Gate28BError):
+    """Active-job safety abort carrying lightweight diagnostics."""
+
+    def __init__(self, status: str, diagnostics: Mapping[str, Any]) -> None:
+        super().__init__(status)
+        self.status = status
+        self.diagnostics = dict(diagnostics)
 
 
 def _json(path: Path) -> dict[str, Any]:
@@ -367,7 +380,9 @@ def inspect_rollout(path: Path) -> dict[str, Any]:
     return result
 
 
-def _metadata_provenance(rollout: Path, source_label: str) -> AdapterProvenance:
+def _metadata_provenance(
+    rollout: Path, source_label: str, aggregation_group_id: str
+) -> AdapterProvenance:
     metadata_path = rollout.parent / "metadata.json"
     metadata = _json(metadata_path) if metadata_path.is_file() else {}
     simulation = metadata.get("simulation", {})
@@ -380,20 +395,27 @@ def _metadata_provenance(rollout: Path, source_label: str) -> AdapterProvenance:
         source_runtime_commit=runtime_commit,
         simulation_seed=seed,
         technical_or_scientific_source=source_label,
+        aggregation_group_id=aggregation_group_id,
     )
 
 
 def observe_rollout(
     rollout: Path,
     *,
+    aggregation_group_id: str,
     source_label: str = "READ_ONLY_ROLLOUT_OBSERVATION",
     window: ObservationWindow | None = None,
 ) -> dict[str, Any]:
     rollout = rollout.resolve()
     trajectory = load_npz_trajectory(rollout)
-    provenance = _metadata_provenance(rollout, source_label)
+    provenance = _metadata_provenance(rollout, source_label, aggregation_group_id)
     adapter = Riemensperger2011OpenArenaAdapter()
     return adapter.observe(trajectory, provenance=provenance, window=window).to_dict()
+
+
+def _engineering_group_id(duration_s: float) -> str:
+    duration_token = str(duration_s).replace(".", "_")
+    return f"GATE28B_ENGINEERING_HEALTHY_DURATION_{duration_token}S"
 
 
 def _runtime_root() -> Path:
@@ -614,6 +636,95 @@ def _process_tree_rss_mb(process: subprocess.Popen[bytes]) -> float | None:
         return None
 
 
+def _terminate_process_tree(process: subprocess.Popen[bytes]) -> None:
+    """Terminate a runtime process and every child, escalating only as needed."""
+
+    psutil_module: Any | None
+    try:
+        import psutil as psutil_module
+    except ImportError:
+        psutil_module = None
+
+    if psutil_module is not None:
+        try:
+            root = psutil_module.Process(process.pid)
+            children = root.children(recursive=True)
+            for child in reversed(children):
+                child.terminate()
+            root.terminate()
+            _, alive = psutil_module.wait_procs(
+                [*children, root], timeout=5.0
+            )
+            for remaining in alive:
+                remaining.kill()
+            if alive:
+                psutil_module.wait_procs(alive, timeout=5.0)
+        except (psutil_module.Error, OSError):
+            pass
+
+    if process.poll() is None:
+        process.terminate()
+        try:
+            process.wait(timeout=5.0)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.wait(timeout=5.0)
+
+
+def _active_gpu_monitor_sample(
+    process: subprocess.Popen[bytes],
+    *,
+    max_temperature_c: float | None,
+    device_peak_memory_used_mb: float | None,
+) -> tuple[float, float]:
+    """Sample active-job safety telemetry and fail closed if it is unavailable."""
+
+    try:
+        snapshot = _gpu_snapshot()
+        temperature_c = float(snapshot["temperature_c"])
+        device_memory_mb = float(snapshot["memory_used_mb"])
+    except (Gate28BError, KeyError, TypeError, ValueError, OSError) as exc:
+        _terminate_process_tree(process)
+        raise Gate28BJobAbort(
+            "GATE28B_TECHNICAL_BENCHMARK_ABORTED_GPU_MONITOR_FAILURE",
+            {
+                "status": "FAIL",
+                "max_observed_gpu_temperature_c": max_temperature_c,
+                "temperature_monitor_interval_s": GPU_MONITOR_INTERVAL_S,
+                "thermal_abort_triggered": False,
+                "gpu_monitor_failure_triggered": True,
+                "process_tree_termination_invoked": True,
+                "execution_guard_version": ACTIVE_THERMAL_ABORT_GUARD,
+            },
+        ) from exc
+
+    next_max_temperature = (
+        temperature_c
+        if max_temperature_c is None
+        else max(max_temperature_c, temperature_c)
+    )
+    next_peak_memory = (
+        device_memory_mb
+        if device_peak_memory_used_mb is None
+        else max(device_peak_memory_used_mb, device_memory_mb)
+    )
+    if temperature_c >= GPU_STOP_TEMPERATURE_C:
+        _terminate_process_tree(process)
+        raise Gate28BJobAbort(
+            "GATE28B_TECHNICAL_BENCHMARK_ABORTED_GPU_TEMPERATURE",
+            {
+                "status": "FAIL",
+                "max_observed_gpu_temperature_c": next_max_temperature,
+                "temperature_monitor_interval_s": GPU_MONITOR_INTERVAL_S,
+                "thermal_abort_triggered": True,
+                "gpu_monitor_failure_triggered": False,
+                "process_tree_termination_invoked": True,
+                "execution_guard_version": ACTIVE_THERMAL_ABORT_GUARD,
+            },
+        )
+    return next_max_temperature, next_peak_memory
+
+
 def _run_one_technical_job(
     runtime: Path,
     *,
@@ -634,7 +745,8 @@ def _run_one_technical_job(
     started_utc = datetime.now(UTC).isoformat()
     started = time.perf_counter()
     peak_ram_mb: float | None = None
-    peak_gpu_memory_mb: float | None = None
+    max_temperature_c: float | None = None
+    device_peak_memory_used_mb: float | None = None
     with log_path.open("wb") as log:
         process = subprocess.Popen(
             command,
@@ -647,16 +759,14 @@ def _run_one_technical_job(
             rss = _process_tree_rss_mb(process)
             if rss is not None:
                 peak_ram_mb = rss if peak_ram_mb is None else max(peak_ram_mb, rss)
-            try:
-                gpu_memory = float(_gpu_snapshot()["memory_used_mb"])
-                peak_gpu_memory_mb = (
-                    gpu_memory
-                    if peak_gpu_memory_mb is None
-                    else max(peak_gpu_memory_mb, gpu_memory)
+            max_temperature_c, device_peak_memory_used_mb = (
+                _active_gpu_monitor_sample(
+                    process,
+                    max_temperature_c=max_temperature_c,
+                    device_peak_memory_used_mb=device_peak_memory_used_mb,
                 )
-            except Gate28BError:
-                pass
-            time.sleep(1.0)
+            )
+            time.sleep(GPU_MONITOR_INTERVAL_S)
         return_code = process.wait()
     wall_clock_s = time.perf_counter() - started
     ended_utc = datetime.now(UTC).isoformat()
@@ -683,7 +793,18 @@ def _run_one_technical_job(
         "raw_output_bytes": raw_output_bytes,
         "bytes_per_step": raw_output_bytes / steps,
         "peak_process_ram_mb": peak_ram_mb,
-        "gpu_peak_memory_mb": peak_gpu_memory_mb,
+        "device_peak_memory_used_mb": device_peak_memory_used_mb,
+        "device_gpu_memory_measurement_semantics": (
+            "PEAK_DEVICE_WIDE_NVIDIA_SMI_MEMORY_USED_DURING_JOB"
+        ),
+        "process_gpu_peak_memory_mb": None,
+        "process_gpu_memory_measurement_status": "NOT_MEASURED_RELIABLY",
+        "max_observed_gpu_temperature_c": max_temperature_c,
+        "temperature_monitor_interval_s": GPU_MONITOR_INTERVAL_S,
+        "thermal_abort_triggered": False,
+        "gpu_monitor_failure_triggered": False,
+        "gpu_temperature_measurement_status": "ACTIVE_MONITOR_RECORDED",
+        "execution_guard_version": ACTIVE_THERMAL_ABORT_GUARD,
         "starting_free_disk_bytes": free_before,
         "ending_free_disk_bytes": free_after,
         "rollout_sha256": sha256_file(rollout),
@@ -730,6 +851,16 @@ def execute_technical_duration_benchmark() -> dict[str, Any]:
             record = _run_one_technical_job(
                 runtime, duration_s=duration_s, steps=steps
             )
+        except Gate28BJobAbort as exc:
+            state["status"] = exc.status
+            state["failure"] = str(exc)
+            state["failed_job"] = {
+                "duration_s": duration_s,
+                "steps": steps,
+                **exc.diagnostics,
+            }
+            _write_json(EXTERNAL_EXECUTION_STATE, state)
+            raise
         except Gate28BError as exc:
             state["status"] = "TECHNICAL_DURATION_BENCHMARK_INCOMPLETE"
             state["failure"] = str(exc)
@@ -745,6 +876,50 @@ def execute_technical_duration_benchmark() -> dict[str, Any]:
     return analyze_technical_benchmark()
 
 
+def _canonical_benchmark_record(record: Mapping[str, Any]) -> dict[str, Any]:
+    legacy_memory_field = "gpu_peak_memory_mb" in record
+    device_peak = record.get("device_peak_memory_used_mb")
+    if device_peak is None and legacy_memory_field:
+        device_peak = record.get("gpu_peak_memory_mb")
+    return {
+        **dict(record),
+        "device_peak_memory_used_mb": device_peak,
+        "device_gpu_memory_measurement_semantics": (
+            "PEAK_DEVICE_WIDE_NVIDIA_SMI_MEMORY_USED_DURING_JOB"
+        ),
+        "process_gpu_peak_memory_mb": record.get("process_gpu_peak_memory_mb"),
+        "process_gpu_memory_measurement_status": record.get(
+            "process_gpu_memory_measurement_status", "NOT_MEASURED_RELIABLY"
+        ),
+        "max_observed_gpu_temperature_c": record.get(
+            "max_observed_gpu_temperature_c"
+        ),
+        "temperature_monitor_interval_s": record.get(
+            "temperature_monitor_interval_s"
+        ),
+        "thermal_abort_triggered": record.get("thermal_abort_triggered", False),
+        "gpu_monitor_failure_triggered": record.get(
+            "gpu_monitor_failure_triggered"
+        ),
+        "gpu_temperature_measurement_status": record.get(
+            "gpu_temperature_measurement_status",
+            "HISTORICAL_MAX_TEMPERATURE_NOT_CANONICALLY_RECONSTRUCTED"
+            if legacy_memory_field
+            else "ACTIVE_MONITOR_RECORDED",
+        ),
+        "execution_guard_version": record.get(
+            "execution_guard_version",
+            PRE_ACTIVE_THERMAL_ABORT_GUARD
+            if legacy_memory_field
+            else ACTIVE_THERMAL_ABORT_GUARD,
+        ),
+        "legacy_field_name": "gpu_peak_memory_mb" if legacy_memory_field else None,
+        "legacy_field_semantics": "DEVICE_WIDE_MEMORY_USED"
+        if legacy_memory_field
+        else None,
+    }
+
+
 def _write_benchmark_csv(records: Sequence[Mapping[str, Any]]) -> None:
     fields = (
         "duration_s",
@@ -754,7 +929,18 @@ def _write_benchmark_csv(records: Sequence[Mapping[str, Any]]) -> None:
         "raw_output_bytes",
         "bytes_per_step",
         "peak_process_ram_mb",
-        "gpu_peak_memory_mb",
+        "device_peak_memory_used_mb",
+        "device_gpu_memory_measurement_semantics",
+        "process_gpu_peak_memory_mb",
+        "process_gpu_memory_measurement_status",
+        "max_observed_gpu_temperature_c",
+        "temperature_monitor_interval_s",
+        "thermal_abort_triggered",
+        "gpu_monitor_failure_triggered",
+        "gpu_temperature_measurement_status",
+        "execution_guard_version",
+        "legacy_field_name",
+        "legacy_field_semantics",
         "starting_free_disk_bytes",
         "ending_free_disk_bytes",
         "rollout_sha256",
@@ -765,7 +951,8 @@ def _write_benchmark_csv(records: Sequence[Mapping[str, Any]]) -> None:
         writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for record in records:
-            writer.writerow({field: record.get(field) for field in fields})
+            canonical = _canonical_benchmark_record(record)
+            writer.writerow({field: canonical.get(field) for field in fields})
 
 
 def _segmentation_analysis(rollout: Path) -> dict[str, Any]:
@@ -833,15 +1020,18 @@ def analyze_technical_benchmark() -> dict[str, Any]:
 
     observations = []
     for record in records:
+        duration_s = float(record["duration_s"])
         output = Path(str(record["output_directory"]))
         rollout = output / "rollout.npz"
         observation = observe_rollout(
-            rollout, source_label="GATE28B_ENGINEERING_ONLY_SEED_9101"
+            rollout,
+            source_label="GATE28B_ENGINEERING_ONLY_SEED_9101",
+            aggregation_group_id=_engineering_group_id(duration_s),
         )
         if observation["simulation_seed"] != TECHNICAL_SEED:
             raise Gate28BError("Technical rollout seed differs from 9101.")
         observations.append(
-            {"duration_s": record["duration_s"], "observation": observation}
+            {"duration_s": duration_s, "observation": observation}
         )
     _write_json(
         RUN_OBSERVATIONS,
@@ -851,6 +1041,21 @@ def analyze_technical_benchmark() -> dict[str, Any]:
             "technical_seed": TECHNICAL_SEED,
             "scientific_evidence": False,
             "paper_assay_equivalence_established": False,
+            "execution_guard_version_at_original_run": PRE_ACTIVE_THERMAL_ABORT_GUARD,
+            "current_code_guard": ACTIVE_THERMAL_ABORT_GUARD,
+            "historical_max_temperature_status": (
+                "HISTORICAL_MAX_TEMPERATURE_NOT_CANONICALLY_RECONSTRUCTED"
+            ),
+            "gpu_memory_semantics": {
+                "canonical_field": "device_peak_memory_used_mb",
+                "canonical_interpretation": (
+                    "PEAK_DEVICE_WIDE_NVIDIA_SMI_MEMORY_USED_DURING_JOB"
+                ),
+                "legacy_field_name": "gpu_peak_memory_mb",
+                "legacy_field_semantics": "DEVICE_WIDE_MEMORY_USED",
+                "process_gpu_peak_memory_mb": None,
+                "process_gpu_memory_measurement_status": "NOT_MEASURED_RELIABLY",
+            },
             "runs": observations,
         },
     )
@@ -947,6 +1152,17 @@ def _manifest_document() -> dict[str, Any]:
         "technical_benchmark_seed": TECHNICAL_SEED,
         "technical_jobs_planned": MAX_TECHNICAL_JOBS,
         "technical_jobs_completed": completed,
+        "technical_jobs_rerun_for_hardening": 0,
+        "pre_signoff_hardening": "COMPLETE"
+        if HARDENING_MANIFEST.is_file()
+        else "INCOMPLETE",
+        "like_with_like_enforcement": "STRICT_FAIL_CLOSED",
+        "active_gpu_temperature_abort_guard": "IMPLEMENTED",
+        "gpu_monitor_failure_policy": "ABORT_FAIL_CLOSED",
+        "execution_guard_version_at_original_run": PRE_ACTIVE_THERMAL_ABORT_GUARD,
+        "current_code_guard": ACTIVE_THERMAL_ABORT_GUARD,
+        "gpu_memory_metric_scope": "DEVICE_WIDE",
+        "process_specific_gpu_memory_measured": False,
         "scientific_jobs_run": 0,
         "disease_jobs_run": 0,
         "calibration_run": False,
@@ -1112,6 +1328,25 @@ does not establish biological equivalence to one continuous 15-minute assay.
 The reviewer template remains `PENDING_HUMAN_REVIEW`; no field is auto-signed.
 Exact next action after engineering completion:
 `HUMAN_REVIEW_GATE28B_VIRTUAL_ASSAY_ADAPTER`.
+
+## 18. Pre-signoff engineering hardening
+
+- LEVEL_2 aggregation now fails closed unless every run has the same explicit
+  protocol signature and a non-empty `aggregation_group_id`; time fields use
+  absolute tolerance `1e-9 s` and zero relative tolerance.
+- Future GPU execution polls telemetry every `1.0 s` and terminates the process
+  tree if temperature reaches `82 C` or telemetry becomes unavailable.
+- The original four engineering jobs predate this active abort guard. They were
+  not rerun, and their historical maximum temperature cannot be canonically
+  reconstructed from the preserved execution state.
+- The historical `gpu_peak_memory_mb` input was device-wide NVIDIA SMI
+  `memory.used`. Canonical lightweight output now calls it
+  `device_peak_memory_used_mb`.
+- The preserved value `1096 MB` means peak device-wide GPU memory observed
+  during each monitoring period. Process-specific VRAM was not measured
+  reliably and remains `null`.
+- This hardening changes no benchmark numeric result, raw rollout, scientific
+  job, disease job, calibration, fitting, retuning, or claim boundary.
 """
 
 
@@ -1123,6 +1358,7 @@ def _inventory_paths() -> list[Path]:
         SOURCE_REVIEW,
         SOURCE_AMENDMENT,
         GATE28A_TEST_ALIGNMENT,
+        HARDENING_MANIFEST,
         SCHEMA_AUDIT,
         PREFLIGHT,
         FIXTURE_RESULTS,
@@ -1212,6 +1448,7 @@ def _parser() -> argparse.ArgumentParser:
     modes.add_argument("--analyze-technical-benchmark", action="store_true")
     modes.add_argument("--verify-reproducibility", action="store_true")
     parser.add_argument("--output", type=Path, default=None)
+    parser.add_argument("--aggregation-group-id", default=None)
     parser.add_argument("--start-time-s", type=float, default=None)
     parser.add_argument("--end-time-s", type=float, default=None)
     parser.add_argument("--duration-s", type=float, default=None)
@@ -1243,7 +1480,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif args.inspect_rollout:
             result = inspect_rollout(args.inspect_rollout)
         elif args.observe:
-            result = observe_rollout(args.observe, window=_window_from_args(args))
+            if not args.aggregation_group_id:
+                raise Gate28BError(
+                    "--observe requires a non-empty --aggregation-group-id."
+                )
+            result = observe_rollout(
+                args.observe,
+                aggregation_group_id=args.aggregation_group_id,
+                window=_window_from_args(args),
+            )
         elif args.benchmark_preflight:
             result = benchmark_preflight()
         elif args.execute_technical_duration_benchmark:

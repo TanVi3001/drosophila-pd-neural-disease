@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
+import math
 import statistics
 from typing import Iterable, Sequence
 
@@ -9,6 +12,29 @@ import numpy as np
 
 from .types import GroupObservation, RunObservation, TrajectoryData, TrajectoryMetrics
 from .validation import AggregationError, require_computational_replicate_unit, validate_trajectory
+
+
+LIKE_WITH_LIKE_TIME_ABS_TOLERANCE_S = 1e-9
+_TIME_SIGNATURE_FIELDS = frozenset(
+    {"window_start_s", "window_end_s", "observed_duration_s"}
+)
+_AGGREGATION_SIGNATURE_FIELDS = (
+    "aggregation_group_id",
+    "adapter_id",
+    "adapter_version",
+    "assay_contract_sha256",
+    "source_runtime_commit",
+    "technical_or_scientific_source",
+    "sampling_mode",
+    "movement_threshold_status",
+    "exclusion_rule_status",
+    "frame_rate_status",
+    "assay_compatibility_state",
+    "paper_assay_equivalence_established",
+    "window_start_s",
+    "window_end_s",
+    "observed_duration_s",
+)
 
 
 def calculate_trajectory_metrics(trajectory: TrajectoryData) -> TrajectoryMetrics:
@@ -84,6 +110,42 @@ def _run_metric(observation: RunObservation, metric: str) -> float:
     return float(getattr(observation, metric))
 
 
+def run_aggregation_signature(observation: RunObservation) -> dict[str, object]:
+    """Return the explicit protocol identity used for LEVEL_2 aggregation."""
+
+    return {
+        field: getattr(observation, field) for field in _AGGREGATION_SIGNATURE_FIELDS
+    }
+
+
+def _signature_differences(
+    reference: dict[str, object], candidate: dict[str, object]
+) -> tuple[str, ...]:
+    differences: list[str] = []
+    for field in _AGGREGATION_SIGNATURE_FIELDS:
+        first = reference[field]
+        second = candidate[field]
+        if field in _TIME_SIGNATURE_FIELDS:
+            compatible = math.isclose(
+                float(first),
+                float(second),
+                rel_tol=0.0,
+                abs_tol=LIKE_WITH_LIKE_TIME_ABS_TOLERANCE_S,
+            )
+        else:
+            compatible = first == second
+        if not compatible:
+            differences.append(field)
+    return tuple(differences)
+
+
+def _signature_sha256(signature: dict[str, object]) -> str:
+    payload = json.dumps(
+        signature, ensure_ascii=True, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
 def aggregate_run_observations(
     observations: Iterable[RunObservation],
     *,
@@ -97,6 +159,18 @@ def aggregate_run_observations(
     rows = tuple(observations)
     if not rows:
         raise AggregationError("At least one run observation is required.")
+    reference_signature = run_aggregation_signature(rows[0])
+    violations: list[str] = []
+    for index, observation in enumerate(rows[1:], start=1):
+        differences = _signature_differences(
+            reference_signature, run_aggregation_signature(observation)
+        )
+        if differences:
+            violations.append(f"run_index={index}:fields={','.join(differences)}")
+    if violations:
+        raise AggregationError(
+            "LIKE_WITH_LIKE_AGGREGATION_VIOLATION: " + "; ".join(violations)
+        )
     seeds = tuple(item.simulation_seed for item in rows)
     if len(seeds) != len(set(seeds)):
         raise AggregationError("Duplicate simulation seed is not an independent replicate.")
@@ -111,8 +185,16 @@ def aggregate_run_observations(
         metric=metric,
         statistic=statistic,
         value=value,
+        aggregation_group_id=rows[0].aggregation_group_id,
+        adapter_id=rows[0].adapter_id,
+        adapter_version=rows[0].adapter_version,
+        assay_contract_sha256=rows[0].assay_contract_sha256,
+        source_runtime_commit=rows[0].source_runtime_commit,
+        observed_duration_s=rows[0].observed_duration_s,
         n_simulation_seeds=len(rows),
         simulation_seeds=tuple(sorted(seeds)),
         replicate_unit=replicate_unit,
         interpretation="COMPUTATIONAL_GROUP_MEDIAN" if statistic == "median" else "COMPUTATIONAL_GROUP_MEAN",
+        like_with_like_verified=True,
+        aggregation_signature_sha256=_signature_sha256(reference_signature),
     )

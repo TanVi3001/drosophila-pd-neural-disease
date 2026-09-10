@@ -83,6 +83,7 @@ class Riemensperger2011OpenArenaAdapter(AssayAdapter):
             source_runtime_commit=provenance.source_runtime_commit,
             simulation_seed=provenance.simulation_seed,
             technical_or_scientific_source=provenance.technical_or_scientific_source,
+            aggregation_group_id=provenance.aggregation_group_id,
             window_start_s=float(observed.timestamps_s[0]),
             window_end_s=float(observed.timestamps_s[-1]),
             observed_duration_s=metrics.observed_duration_s,

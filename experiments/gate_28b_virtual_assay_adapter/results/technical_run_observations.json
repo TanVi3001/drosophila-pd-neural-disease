@@ -1,4 +1,15 @@
 {
+  "current_code_guard": "ACTIVE_THERMAL_ABORT_GUARD",
+  "execution_guard_version_at_original_run": "PRE_ACTIVE_THERMAL_ABORT_GUARD",
+  "gpu_memory_semantics": {
+    "canonical_field": "device_peak_memory_used_mb",
+    "canonical_interpretation": "PEAK_DEVICE_WIDE_NVIDIA_SMI_MEMORY_USED_DURING_JOB",
+    "legacy_field_name": "gpu_peak_memory_mb",
+    "legacy_field_semantics": "DEVICE_WIDE_MEMORY_USED",
+    "process_gpu_memory_measurement_status": "NOT_MEASURED_RELIABLY",
+    "process_gpu_peak_memory_mb": null
+  },
+  "historical_max_temperature_status": "HISTORICAL_MAX_TEMPERATURE_NOT_CANONICALLY_RECONSTRUCTED",
   "paper_assay_equivalence_established": false,
   "runs": [
     {
@@ -8,6 +19,7 @@
         "activity_time_unavailable_reason": "NOT_COMPUTED_MISSING_MOVEMENT_THRESHOLD",
         "adapter_id": "RIEMENSPERGER_2011_OPEN_ARENA_V1",
         "adapter_version": "1.0.0",
+        "aggregation_group_id": "GATE28B_ENGINEERING_HEALTHY_DURATION_0_5S",
         "assay_compatibility_state": "SOURCE_PROTOCOL_FIELDS_MISSING",
         "assay_contract_sha256": "9c3a86dd0fbe25ccae5e180ba110427298bd34892ae21d312ecd511bd0e5a60f",
         "displacement_mm": 0.7780442427127526,
@@ -45,6 +57,7 @@
         "activity_time_unavailable_reason": "NOT_COMPUTED_MISSING_MOVEMENT_THRESHOLD",
         "adapter_id": "RIEMENSPERGER_2011_OPEN_ARENA_V1",
         "adapter_version": "1.0.0",
+        "aggregation_group_id": "GATE28B_ENGINEERING_HEALTHY_DURATION_1_0S",
         "assay_compatibility_state": "SOURCE_PROTOCOL_FIELDS_MISSING",
         "assay_contract_sha256": "9c3a86dd0fbe25ccae5e180ba110427298bd34892ae21d312ecd511bd0e5a60f",
         "displacement_mm": 1.672809721845438,
@@ -82,6 +95,7 @@
         "activity_time_unavailable_reason": "NOT_COMPUTED_MISSING_MOVEMENT_THRESHOLD",
         "adapter_id": "RIEMENSPERGER_2011_OPEN_ARENA_V1",
         "adapter_version": "1.0.0",
+        "aggregation_group_id": "GATE28B_ENGINEERING_HEALTHY_DURATION_2_0S",
         "assay_compatibility_state": "SOURCE_PROTOCOL_FIELDS_MISSING",
         "assay_contract_sha256": "9c3a86dd0fbe25ccae5e180ba110427298bd34892ae21d312ecd511bd0e5a60f",
         "displacement_mm": 3.693795681334564,
@@ -119,6 +133,7 @@
         "activity_time_unavailable_reason": "NOT_COMPUTED_MISSING_MOVEMENT_THRESHOLD",
         "adapter_id": "RIEMENSPERGER_2011_OPEN_ARENA_V1",
         "adapter_version": "1.0.0",
+        "aggregation_group_id": "GATE28B_ENGINEERING_HEALTHY_DURATION_5_0S",
         "assay_compatibility_state": "SOURCE_PROTOCOL_FIELDS_MISSING",
         "assay_contract_sha256": "9c3a86dd0fbe25ccae5e180ba110427298bd34892ae21d312ecd511bd0e5a60f",
         "displacement_mm": 10.22340588944114,

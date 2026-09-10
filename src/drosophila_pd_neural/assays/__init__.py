@@ -6,6 +6,7 @@ from .aggregation import (
     calculate_trajectory_metrics,
     demonstrate_median_of_medians,
     pool_segment_metrics,
+    run_aggregation_signature,
 )
 from .riemensperger2011 import Riemensperger2011OpenArenaAdapter
 from .trajectory import load_npz_trajectory, segment_trajectory, slice_trajectory
@@ -36,6 +37,7 @@ __all__ = [
     "demonstrate_median_of_medians",
     "load_npz_trajectory",
     "pool_segment_metrics",
+    "run_aggregation_signature",
     "segment_trajectory",
     "slice_trajectory",
 ]

@@ -130,3 +130,22 @@ does not establish biological equivalence to one continuous 15-minute assay.
 The reviewer template remains `PENDING_HUMAN_REVIEW`; no field is auto-signed.
 Exact next action after engineering completion:
 `HUMAN_REVIEW_GATE28B_VIRTUAL_ASSAY_ADAPTER`.
+
+## 18. Pre-signoff engineering hardening
+
+- LEVEL_2 aggregation now fails closed unless every run has the same explicit
+  protocol signature and a non-empty `aggregation_group_id`; time fields use
+  absolute tolerance `1e-9 s` and zero relative tolerance.
+- Future GPU execution polls telemetry every `1.0 s` and terminates the process
+  tree if temperature reaches `82 C` or telemetry becomes unavailable.
+- The original four engineering jobs predate this active abort guard. They were
+  not rerun, and their historical maximum temperature cannot be canonically
+  reconstructed from the preserved execution state.
+- The historical `gpu_peak_memory_mb` input was device-wide NVIDIA SMI
+  `memory.used`. Canonical lightweight output now calls it
+  `device_peak_memory_used_mb`.
+- The preserved value `1096 MB` means peak device-wide GPU memory observed
+  during each monitoring period. Process-specific VRAM was not measured
+  reliably and remains `null`.
+- This hardening changes no benchmark numeric result, raw rollout, scientific
+  job, disease job, calibration, fitting, retuning, or claim boundary.
