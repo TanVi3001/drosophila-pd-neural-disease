@@ -24,11 +24,11 @@
   "segmented_biological_validity_claimed": false,
   "source_main_commit": "5a99a2f5646f754b2f9ed878ad5335bbc1b9b951",
   "statistical_hierarchy_status": "RIEMENSPERGER_SPEED_STATISTICAL_HIERARCHY_REQUIRES_SOURCE_REVIEW",
-  "status": "GATE28B_ADAPTER_COMPLETE_DURATION_BENCHMARK_PENDING",
+  "status": "GATE28B_VIRTUAL_ASSAY_ADAPTER_ENGINEERING_COMPLETE",
   "synthetic_fixture_validation": "PASS",
   "technical_benchmark_authorized": true,
   "technical_benchmark_seed": 9101,
-  "technical_jobs_completed": 0,
+  "technical_jobs_completed": 4,
   "technical_jobs_planned": 4,
   "unresolved_source_fields": [
     "frame_rate",

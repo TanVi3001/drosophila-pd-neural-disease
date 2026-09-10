@@ -1,5 +1,5 @@
 {
-  "file_count": 22,
+  "file_count": 26,
   "files": [
     {
       "path": "configs/generation2/adapters/riemensperger_2011_open_arena_adapter_v1.yaml",
@@ -18,12 +18,12 @@
     },
     {
       "path": "docs/research_design/gate28b_virtual_assay_adapter_report.md",
-      "sha256": "4f2b1fb4929b28e6cd89224fe9da86d4d976581a44e35ea550e231105eae7a11",
-      "size_bytes": 4896
+      "sha256": "b2612e0eae23efc98037d9fa2e077ef9b27327a4c289f1fbb8a642f54da44f38",
+      "size_bytes": 5431
     },
     {
       "path": "experiments/gate_28b_virtual_assay_adapter/manifests/duration_benchmark_preflight.json",
-      "sha256": "f79b80d2a7569c74006c5457105501c6caa453bc962ea48799eb0937e9cc31b7",
+      "sha256": "17a4c50be21c04b019cabf69e02e160bb60e984573c5aac4e371bcf568016493",
       "size_bytes": 2535
     },
     {
@@ -33,8 +33,8 @@
     },
     {
       "path": "experiments/gate_28b_virtual_assay_adapter/manifests/gate28b_manifest.json",
-      "sha256": "e1d639a380a14d6b188c087d5008d4c53a53cca2c9eb8943f317a26066799311",
-      "size_bytes": 1437
+      "sha256": "204d1bf1b85fdfb705e5aef284af96970715c87eede9fd93e2c7d26f8f6c204c",
+      "size_bytes": 1436
     },
     {
       "path": "experiments/gate_28b_virtual_assay_adapter/manifests/riemensperger_assay_source_review.json",
@@ -52,9 +52,29 @@
       "size_bytes": 7653
     },
     {
+      "path": "experiments/gate_28b_virtual_assay_adapter/results/duration_benchmark.csv",
+      "sha256": "c1649915eb8d2f2d3085d7a6963b20db3c8455af16615bace70325742be70161",
+      "size_bytes": 915
+    },
+    {
+      "path": "experiments/gate_28b_virtual_assay_adapter/results/duration_scaling_summary.json",
+      "sha256": "d5e8cd6b960817b847adddad96251650872488310ab0d4761bdb78959a2a6fef",
+      "size_bytes": 1142
+    },
+    {
+      "path": "experiments/gate_28b_virtual_assay_adapter/results/segmentation_consistency.json",
+      "sha256": "5d99d1c324c1f83d7f11743f5e0a0fb6f3044f32e15f93525e9b20f61579355d",
+      "size_bytes": 1226
+    },
+    {
       "path": "experiments/gate_28b_virtual_assay_adapter/results/synthetic_fixture_validation.json",
       "sha256": "c46752144de4e5e47e8a7f65794cb8b323e5ab1e124e8d13d4b3e43be3159921",
       "size_bytes": 1282
+    },
+    {
+      "path": "experiments/gate_28b_virtual_assay_adapter/results/technical_run_observations.json",
+      "sha256": "0c20af948fbd72f2f6a7ad5471a386ae353c84ef979e7b995a4516e6c17e9438",
+      "size_bytes": 7602
     },
     {
       "path": "research/validation/prospective/gate28b_virtual_assay_adapter_reviewer_signoff.json",

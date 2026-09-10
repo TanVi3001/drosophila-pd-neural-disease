@@ -1,6 +1,6 @@
 # Gate28B virtual assay adapter report
 
-**Status:** `GATE28B_ADAPTER_COMPLETE_DURATION_BENCHMARK_PENDING`
+**Status:** `GATE28B_VIRTUAL_ASSAY_ADAPTER_ENGINEERING_COMPLETE`
 **Human review:** `WAITING_GATE28B_HUMAN_REVIEW`
 
 ## 1. Purpose
@@ -89,11 +89,21 @@ The only authorized execution is Healthy, no perturbation, technical seed
 `9101`, and durations `0.5, 1.0, 2.0, 5.0 s`. This is engineering evidence,
 not a scientific replicate.
 
-No technical GPU benchmark has been executed yet.
+| Duration (s) | Steps | Wall clock (s) | Steps/s | Bytes | Bytes/step |
+|---:|---:|---:|---:|---:|---:|
+| 0.5 | 5000 | 67.518 | 74.055 | 28023873 | 5604.775 |
+| 1.0 | 10000 | 92.443 | 108.175 | 56050266 | 5605.027 |
+| 2.0 | 20000 | 167.538 | 119.376 | 112024563 | 5601.228 |
+| 5.0 | 50000 | 346.003 | 144.507 | 279739173 | 5594.783 |
 
 ## 13. 15-minute engineering extrapolation
 
-Engineering extrapolation is not available before all four jobs pass.
+- Median wall-clock projection: `79295.162 s`.
+- Conservative wall-clock projection: `121531.733 s`.
+- Median storage projection: `50427012375 bytes`.
+- Conservative storage projection: `50445239400 bytes`.
+- Label: `ENGINEERING_EXTRAPOLATION_ONLY`.
+- Direct 15-minute execution: `DIRECT_15_MINUTE_EXECUTION_NOT_TESTED`.
 
 ## 14. What is NOT validated
 

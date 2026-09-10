@@ -1,5 +1,5 @@
 {
-  "adapter_implementation_commit": "9e2525bbe4da947bbabe55a5c01ae90a63959f09",
+  "adapter_implementation_commit": "077d1d1c797a72a4b6e234b122bc8baa61c1b318",
   "automatic_retry": false,
   "calibration": false,
   "condition": "HEALTHY",
@@ -63,7 +63,7 @@
     50000
   ],
   "storage": {
-    "available_free_bytes": 16995459072,
+    "available_free_bytes": 16995409920,
     "basis": "HISTORICAL_GATE26_HEALTHY_0_5S_ROLLOUT",
     "capacity_pass": true,
     "conservative_reserve_bytes": 5368709120,

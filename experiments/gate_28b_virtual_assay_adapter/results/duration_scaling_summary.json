@@ -1,0 +1,26 @@
+{
+  "bytes_per_step_min_max_ratio": 1.0018308376138654,
+  "completed_duration_s": [
+    0.5,
+    1.0,
+    2.0,
+    5.0
+  ],
+  "direct_15_minute_execution_status": "DIRECT_15_MINUTE_EXECUTION_NOT_TESTED",
+  "direct_15_minute_execution_tested": false,
+  "extrapolation_validated": false,
+  "maximum_observed_bytes_per_step": 5605.0266,
+  "maximum_observed_wall_seconds_per_step": 0.013503525939999964,
+  "median_observed_bytes_per_step": 5603.001375,
+  "median_observed_wall_seconds_per_step": 0.008810573544999714,
+  "nonlinear_resource_scaling_status": "REPORTED_WITHOUT_POSTHOC_ACCEPTANCE_THRESHOLD",
+  "projected_15_minute_rollout_steps": 9000000,
+  "projected_15_minute_storage_bytes_conservative_max_scaling": 50445239400,
+  "projected_15_minute_storage_bytes_median_scaling": 50427012375,
+  "projected_15_minute_wall_clock_s_conservative_max_scaling": 121531.73345999967,
+  "projected_15_minute_wall_clock_s_median_scaling": 79295.16190499743,
+  "schema_version": "gate28b-duration-scaling-summary-v1",
+  "status": "ENGINEERING_EXTRAPOLATION_ONLY",
+  "technical_seed": 9101,
+  "wall_seconds_per_step_min_max_ratio": 1.9513602718392702
+}

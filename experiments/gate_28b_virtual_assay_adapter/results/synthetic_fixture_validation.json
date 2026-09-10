@@ -1,0 +1,71 @@
+{
+  "case_count": 8,
+  "cases": {
+    "constant_straight": {
+      "observed": [
+        4.0,
+        4.0,
+        2.0,
+        2.0
+      ],
+      "status": "PASS"
+    },
+    "invalid_nan": {
+      "status": "PASS_REJECTED_AS_INVALID"
+    },
+    "irregular_timestamps": {
+      "observed": [
+        4.0,
+        4.0,
+        2.0,
+        2.0
+      ],
+      "status": "PASS"
+    },
+    "piecewise_speed": {
+      "observed": [
+        6.0,
+        6.0,
+        2.0,
+        2.0
+      ],
+      "status": "PASS"
+    },
+    "segment_reconstruction": {
+      "median_of_medians": {
+        "status": "INVALID_AS_GENERAL_GLOBAL_MEDIAN_AGGREGATOR",
+        "value": 2.0
+      },
+      "segment_count": 10,
+      "status": "PASS"
+    },
+    "stationary": {
+      "observed": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "status": "PASS"
+    },
+    "turning": {
+      "observed": [
+        2.0,
+        1.4142135623730951,
+        1.0,
+        1.0
+      ],
+      "status": "PASS"
+    },
+    "window_slicing": {
+      "distance_traveled_mm": 2.0,
+      "status": "PASS"
+    }
+  },
+  "deterministic": true,
+  "gpu": false,
+  "schema_version": "gate28b-synthetic-fixture-validation-v1",
+  "simulation": false,
+  "status": "PASS",
+  "unseeded_random_generation": false
+}

@@ -1,0 +1,28 @@
+{
+  "boundary_policy": "SHARED_BOUNDARY_SAMPLE_NO_EDGE_LOSS_OR_DOUBLE_COUNT",
+  "continuous_15_minute_equivalence_established": false,
+  "distance_consistent": true,
+  "distance_delta_mm": 1.7763568394002505e-15,
+  "full_distance_mm": 13.90710292264558,
+  "full_duration_s": 5.000000000001686,
+  "full_mean_planar_speed_mm_s": 2.781420584528178,
+  "full_median_framewise_planar_speed_mm_s": 2.5211098944143058,
+  "long_horizon_state_dependence": "UNRESOLVED",
+  "mean_delta_mm_s": 4.440892098500626e-16,
+  "median_of_segment_medians_demonstration": {
+    "status": "INVALID_AS_GENERAL_GLOBAL_MEDIAN_AGGREGATOR",
+    "value": 2.5852052964044017
+  },
+  "pooled_framewise_median_consistent": false,
+  "pooled_framewise_median_delta_mm_s": -0.00045104585210253845,
+  "pooled_framewise_median_planar_speed_mm_s": 2.5206588485622032,
+  "pooled_interval_mean_planar_speed_mm_s": 2.7814205845281785,
+  "pooled_mean_consistent": true,
+  "schema_version": "gate28b-segmentation-consistency-v1",
+  "segment_count": 10,
+  "segment_duration_s": 0.5,
+  "segment_is_replicate": false,
+  "segmented_biological_validity_claimed": false,
+  "status": "SEGMENTED_METRIC_AGGREGATION_IMPLEMENTED",
+  "sum_segment_distance_mm": 13.907102922645581
+}
