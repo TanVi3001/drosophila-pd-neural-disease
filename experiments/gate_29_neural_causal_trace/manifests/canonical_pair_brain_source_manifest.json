@@ -1,0 +1,104 @@
+{
+  "canonical_brain_source_tree_sha256": "cb01029b77112c39a11554aeb1c6610de65439b822b291e62830a3c566e2ed08",
+  "checkpoint_relative_path": "data/plastic_weights.pt",
+  "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+  "file_count": 11,
+  "files": [
+    {
+      "relative_path": "LICENSE",
+      "role": "METADATA",
+      "sha256": "577e9dd0fdc76261bfeb61fbf694830cdff87f05752c3ef1255750d0eefa8eff",
+      "size_bytes": 1084,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/LICENSE",
+      "source_original_path": "external/fly-brain/LICENSE"
+    },
+    {
+      "relative_path": "brain_body_bridge.py",
+      "role": "CODE",
+      "sha256": "1ea350109fc5ffbae8baa54212fedc98267d70e2ea0c72f309572d25ba8c0a3f",
+      "size_bytes": 34396,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/brain_body_bridge.py",
+      "source_original_path": "external/fly-brain/brain_body_bridge.py"
+    },
+    {
+      "relative_path": "code/benchmark.py",
+      "role": "CODE",
+      "sha256": "c811c0d5dc91369ee6cff5ec9f7b18dd64dc692844046a4b5bde8a6503b84724",
+      "size_bytes": 10972,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/code/benchmark.py",
+      "source_original_path": "external/fly-brain/code/benchmark.py"
+    },
+    {
+      "relative_path": "code/run_pytorch.py",
+      "role": "CODE",
+      "sha256": "333c09d54ee308e78916f20cc7ebca41d41e5307c7f5d7aab011a23bfc194c5b",
+      "size_bytes": 19180,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/code/run_pytorch.py",
+      "source_original_path": "external/fly-brain/code/run_pytorch.py"
+    },
+    {
+      "relative_path": "data/2025_Completeness_783.csv",
+      "role": "CONNECTIVITY",
+      "sha256": "bbb847a4cc2caaa7a16349722d220c087317b946d148d4d592d94d250617a311",
+      "size_bytes": 3327347,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/data/2025_Completeness_783.csv",
+      "source_original_path": "external/fly-brain/data/2025_Completeness_783.csv"
+    },
+    {
+      "relative_path": "data/2025_Connectivity_783.parquet",
+      "role": "CONNECTIVITY",
+      "sha256": "efeb23fb99098e9c390f6869969b2a121a2ee92c833cfc45ecb2c1d8e1af0347",
+      "size_bytes": 100804642,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/data/2025_Connectivity_783.parquet",
+      "source_original_path": "external/fly-brain/data/2025_Connectivity_783.parquet"
+    },
+    {
+      "relative_path": "data/flywire_annotations.tsv",
+      "role": "CONNECTIVITY",
+      "sha256": "533db093e12d8de350fd20875a967f8f74acace633ff22118eefff550d5dcbc1",
+      "size_bytes": 32638576,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/data/flywire_annotations.tsv",
+      "source_original_path": "external/fly-brain/data/flywire_annotations.tsv"
+    },
+    {
+      "relative_path": "data/plastic_weights.pt",
+      "role": "MODEL",
+      "sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+      "size_bytes": 60369156,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/data/plastic_weights.pt",
+      "source_original_path": "external/fly-brain/data/plastic_weights.pt"
+    },
+    {
+      "relative_path": "data/weight_coo.pkl",
+      "role": "AUXILIARY",
+      "sha256": "4911101de0dc681cbca1993fb4881e084ff66f339ab55e7a51ad111d199bd249",
+      "size_bytes": 301840506,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/data/weight_coo.pkl",
+      "source_original_path": "external/fly-brain/data/weight_coo.pkl"
+    },
+    {
+      "relative_path": "data/weight_csr.pkl",
+      "role": "AUXILIARY",
+      "sha256": "38c4aa108e252a46aa096d906c97009f9ab0b2a6e9190b91c569ff2ef534bae6",
+      "size_bytes": 302949919,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/data/weight_csr.pkl",
+      "source_original_path": "external/fly-brain/data/weight_csr.pkl"
+    },
+    {
+      "relative_path": "source_manifest.json",
+      "role": "METADATA",
+      "sha256": "426b85612864401e2d794147e44768b16d3b9801a0543478fd4c50e9c2d90073",
+      "size_bytes": 1561,
+      "snapshot_path": "gate29_canonical_inputs/canonical_pair_v1/brain_source/source_manifest.json",
+      "source_original_path": "external/fly-brain/source_manifest.json"
+    }
+  ],
+  "fingerprint_encoding": "UTF-8(relative_path) NUL ASCII(sha256) NUL ASCII(size_bytes) LF; sorted relative_path",
+  "pair_id": "GATE29_CANONICAL_PAIR_V1",
+  "schema_version": "gate29-canonical-brain-source-manifest-v1",
+  "snapshot_root_logical": "gate29_canonical_inputs/canonical_pair_v1/brain_source",
+  "source_root_logical": "external/fly-brain",
+  "source_snapshot_outside_git": true,
+  "status": "CANONICAL_SOURCE_FROZEN",
+  "total_size_bytes": 801997339
+}

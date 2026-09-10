@@ -1,0 +1,10 @@
+{
+  "historical_baseline_preserved": true,
+  "historical_baseline_scientific_evidence": false,
+  "historical_seed": 9201,
+  "old_trace_only_execution_allowed": false,
+  "reason": "HISTORICAL_BASELINE_SOURCE_NOT_CRYPTOGRAPHICALLY_REPRODUCIBLE",
+  "replacement_strategy": "NEW_CANONICAL_PAIRED_ENGINEERING_RUN",
+  "schema_version": "gate29-trace-only-plan-supersession-v1",
+  "status": "GATE29_TRACE_ONLY_PLAN_SUPERSEDED"
+}

@@ -125,7 +125,7 @@ def test_trace_authorization_is_pending_and_trace_only_is_guarded() -> None:
     assert authorization["authorized_jobs"] == 1
     assert authorization["trace_only"] is True
     paths = gate29._resolve_paths(gate29._parser().parse_args([]))
-    with pytest.raises(gate29.Gate29Error, match="HUMAN_AUTHORIZATION_REQUIRED"):
+    with pytest.raises(gate29.Gate29Error, match="GATE29_TRACE_ONLY_PLAN_SUPERSEDED"):
         gate29.execute_authorized_trace_only(paths)
 
 

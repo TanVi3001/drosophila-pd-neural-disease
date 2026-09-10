@@ -1,0 +1,132 @@
+{
+  "allowed_differences": [
+    "instrumentation_enabled",
+    "output_directory",
+    "job_label"
+  ],
+  "attempt": "01",
+  "common": {
+    "artifact_profile": "GATE24E_MEMORY_SAFE",
+    "brain_source_tree_sha256": "cb01029b77112c39a11554aeb1c6610de65439b822b291e62830a3c566e2ed08",
+    "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+    "condition": "healthy",
+    "device": "cuda",
+    "duration_s": 0.5,
+    "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+    "seed": 9202,
+    "steps": 5000,
+    "stimulus": "p9",
+    "timestep_s": 0.0001
+  },
+  "jobs": {
+    "baseline": {
+      "artifact_profile": "GATE24E_MEMORY_SAFE",
+      "attempt": "01",
+      "brain_source_tree_sha256": "cb01029b77112c39a11554aeb1c6610de65439b822b291e62830a3c566e2ed08",
+      "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+      "condition": "healthy",
+      "device": "cuda",
+      "duration_s": 0.5,
+      "instrumentation_enabled": false,
+      "job_label": "CANONICAL_UNTRACED_HEALTHY_BASELINE",
+      "output_directory": "baseline",
+      "pair_id": "GATE29_CANONICAL_PAIR_V1",
+      "repository_head": "a45fa582c6cff4541e69312f661d4d2f3349f64b",
+      "retry": false,
+      "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "seed": 9202,
+      "steps": 5000,
+      "stimulus": "p9",
+      "timestep_s": 0.0001
+    },
+    "trace": {
+      "artifact_profile": "GATE24E_MEMORY_SAFE",
+      "attempt": "01",
+      "brain_source_tree_sha256": "cb01029b77112c39a11554aeb1c6610de65439b822b291e62830a3c566e2ed08",
+      "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+      "condition": "healthy",
+      "device": "cuda",
+      "duration_s": 0.5,
+      "instrumentation_enabled": true,
+      "job_label": "CANONICAL_TRACE_INSTRUMENTED_HEALTHY",
+      "output_directory": "trace",
+      "pair_id": "GATE29_CANONICAL_PAIR_V1",
+      "repository_head": "a45fa582c6cff4541e69312f661d4d2f3349f64b",
+      "retry": false,
+      "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "seed": 9202,
+      "steps": 5000,
+      "stimulus": "p9",
+      "timestep_s": 0.0001
+    }
+  },
+  "normalized_spec_comparison": {
+    "allowed_differences": [
+      "instrumentation_enabled",
+      "output_directory",
+      "job_label"
+    ],
+    "baseline_normalized": {
+      "artifact_profile": "GATE24E_MEMORY_SAFE",
+      "attempt": "01",
+      "brain_source_tree_sha256": "cb01029b77112c39a11554aeb1c6610de65439b822b291e62830a3c566e2ed08",
+      "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+      "condition": "healthy",
+      "device": "cuda",
+      "duration_s": 0.5,
+      "pair_id": "GATE29_CANONICAL_PAIR_V1",
+      "repository_head": "a45fa582c6cff4541e69312f661d4d2f3349f64b",
+      "retry": false,
+      "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "seed": 9202,
+      "steps": 5000,
+      "stimulus": "p9",
+      "timestep_s": 0.0001
+    },
+    "mismatches": [],
+    "status": "MATCH",
+    "trace_normalized": {
+      "artifact_profile": "GATE24E_MEMORY_SAFE",
+      "attempt": "01",
+      "brain_source_tree_sha256": "cb01029b77112c39a11554aeb1c6610de65439b822b291e62830a3c566e2ed08",
+      "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+      "condition": "healthy",
+      "device": "cuda",
+      "duration_s": 0.5,
+      "pair_id": "GATE29_CANONICAL_PAIR_V1",
+      "repository_head": "a45fa582c6cff4541e69312f661d4d2f3349f64b",
+      "retry": false,
+      "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+      "seed": 9202,
+      "steps": 5000,
+      "stimulus": "p9",
+      "timestep_s": 0.0001
+    }
+  },
+  "normalized_specs_match": true,
+  "pair_id": "GATE29_CANONICAL_PAIR_V1",
+  "runtime_versions": {
+    "flygym": "2.1.0",
+    "mujoco": "3.9.0",
+    "python": "3.12.10",
+    "torch": "2.5.1+cu121"
+  },
+  "sanitized_environment": {
+    "artifact_profile": "GATE24E_MEMORY_SAFE",
+    "cuda_visible_devices": null,
+    "cwd_logical": "repository root",
+    "device": "cuda",
+    "python_executable": "drosophila-pd-flygym/.venv/Scripts/python.exe",
+    "pythonpath": ".;src",
+    "pytorch_cuda_alloc_conf": null,
+    "repository_head_at_design": "a45fa582c6cff4541e69312f661d4d2f3349f64b",
+    "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+    "runtime_root_logical": "drosophila-pd-flygym-gate24-memorysafe-clean",
+    "seed": 9202,
+    "snapshot_root_logical": "gate29_canonical_inputs/canonical_pair_v1/brain_source",
+    "steps": 5000,
+    "stimulus": "p9"
+  },
+  "schema_version": "gate29-canonical-pair-execution-context-v1",
+  "status": "FROZEN_COMMON_CONTEXT"
+}

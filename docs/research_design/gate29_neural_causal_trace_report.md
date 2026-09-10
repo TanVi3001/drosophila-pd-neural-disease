@@ -212,6 +212,62 @@ Also allowed:
 > The locomotor controller is closed-loop because current embodied state is
 > also supplied to `controller.step()`.
 
+## 22. Canonical paired engineering design
+
+The historical seed-9201 baseline remains preserved, but its dirty brain-source
+state cannot be reconstructed cryptographically. It is therefore not reused as
+the counterpart of a new trace. This gate designs a new pair,
+`GATE29_CANONICAL_PAIR_V1`, with engineering seed `9202`. Seed 9202 is not a
+scientific replicate, does not replace seed 9201, and is not a Gate31 seed or an
+effect-size result.
+
+The pair contains exactly two fresh healthy jobs: an untraced baseline and an
+instrumented trace. Both use the same runtime, brain snapshot, checkpoint,
+physics, timestep, stimulus, duration, seed, controller, decoder, bridge,
+recorder and export profile. The only semantic difference is bounded trace
+instrumentation. The two job specifications are compared after removing the
+explicit whitelist (`instrumentation_enabled`, `output_directory`, and
+`job_label`).
+
+The complete usable `external/fly-brain` source tree is copied once to the
+external snapshot root `gate29_canonical_inputs/canonical_pair_v1/brain_source`.
+The snapshot is outside Git, every copied file is verified immediately by
+SHA-256, and the committed manifest records a deterministic sorted tree
+fingerprint. The checkpoint is independently locked to
+`d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691`.
+The original working-tree brain source is no longer an execution input for the
+canonical pair.
+
+## 23. Authorization and execution boundary
+
+The committed authorization file starts as
+`WAITING_GATE29_CANONICAL_PAIR_HUMAN_AUTHORIZATION` with `authorized=false`.
+Future authorization must bind the current code head, pair ID, seed, canonical
+source-tree fingerprint and runtime commit. It authorizes exactly two jobs,
+with no automatic retry; it does not authorize scientific, disease,
+calibration, fitting, retuning or dopamine work. The old trace-only plan is
+explicitly superseded and its execution path fails with
+`GATE29_TRACE_ONLY_PLAN_SUPERSEDED`.
+
+The new output root is
+`gate29_technical_outputs/canonical_pair_v1/`, separate from the historical
+`neural_causal_trace` output. Design creates only empty baseline, trace and
+log directories plus a `NOT_EXECUTED` state marker. No GPU, simulation, trace,
+calibration or scientific job is run by this gate. The bounded tracer remains
+`AUDITED_RUNTIME_SCRIPT_ONLY`; source-code edge count remains 11 and runtime
+verified edge count remains 0.
+
+## 24. Current canonical-pair status
+
+The design artifacts and source snapshot are complete only after the design
+command has verified the full copy and fingerprint. The static preflight may
+report `GATE29_CANONICAL_PAIR_PREFLIGHT_READY_FOR_HUMAN_AUTHORIZATION` while
+the execution state remains `NOT_EXECUTED`. This means the pair is ready for
+human authorization, not that a trace result exists. Future comparison is
+limited to the new baseline and new trace, with `rtol=0`, `atol=1e-12`, and
+exact discrete comparisons. No interpretation of neural causality or biology
+is permitted at the design stage.
+
 Forbidden wording includes: “brain activity biologically causes the locomotor
 phenotype”, “VNC mechanism validated”, “dopamine pathway validated”, “Parkinson
 causal chain proven”, and “connectome causality proven”.

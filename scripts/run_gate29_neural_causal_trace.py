@@ -67,6 +67,12 @@ BASELINE_LOCK = MANIFEST_ROOT / "baseline_execution_lock.json"
 TRACE_AUTHORIZATION = MANIFEST_ROOT / "trace_execution_authorization.json"
 TRACE_ATTEMPT_PROVENANCE = MANIFEST_ROOT / "trace_attempt_provenance.json"
 TRACE_OPTIMIZATION_QUALIFICATION = MANIFEST_ROOT / "trace_runner_optimization_qualification.json"
+TRACE_ONLY_PLAN_SUPERSESSION = MANIFEST_ROOT / "trace_only_plan_supersession.json"
+CANONICAL_PAIR_DESIGN = MANIFEST_ROOT / "canonical_pair_design.json"
+CANONICAL_PAIR_SOURCE_MANIFEST = MANIFEST_ROOT / "canonical_pair_brain_source_manifest.json"
+CANONICAL_PAIR_CONTEXT = MANIFEST_ROOT / "canonical_pair_execution_context.json"
+CANONICAL_PAIR_AUTHORIZATION = MANIFEST_ROOT / "canonical_pair_execution_authorization.json"
+CANONICAL_PAIR_RUNNER = ROOT / "scripts/run_gate29_canonical_pair.py"
 BASELINE_SOURCE_SNAPSHOT = MANIFEST_ROOT / "baseline_source_snapshot.json"
 BASELINE_BRAIN_SOURCE_FORENSIC = MANIFEST_ROOT / "baseline_brain_source_forensic_reconstruction.json"
 BASELINE_SOURCE_RECONSTRUCTION_FAILURE = MANIFEST_ROOT / "baseline_source_reconstruction_failure_decision.json"
@@ -170,6 +176,13 @@ def _gate29_reproducibility_paths() -> list[Path]:
         TRACE_AUTHORIZATION,
         TRACE_ATTEMPT_PROVENANCE,
         TRACE_OPTIMIZATION_QUALIFICATION,
+        TRACE_ONLY_PLAN_SUPERSESSION,
+        CANONICAL_PAIR_DESIGN,
+        CANONICAL_PAIR_SOURCE_MANIFEST,
+        CANONICAL_PAIR_CONTEXT,
+        CANONICAL_PAIR_AUTHORIZATION,
+        CANONICAL_PAIR_RUNNER,
+        ROOT / "tests/test_gate29_canonical_pair.py",
         SUMMARY_PATH,
         COMPARISON_PATH,
     ]
@@ -956,7 +969,7 @@ def _write_trace_arrays(rows: Sequence[Mapping[str, Any]], output: Path) -> Path
     return path
 
 
-def _run_internal_trace(paths: Mapping[str, Path]) -> int:
+def _run_internal_trace(paths: Mapping[str, Path], trace_seed: int = TECHNICAL_SEED) -> int:
     runtime_script = paths["runtime_root"] / "scripts/run_brain_body_rollout.py"
     module = _load_runtime_module(runtime_script)
     collector = _RuntimeTraceCollector(runtime_script)
@@ -967,7 +980,7 @@ def _run_internal_trace(paths: Mapping[str, Path]) -> int:
             root=paths["brain_root"],
             output=paths["output_root"],
             condition="healthy",
-            seed=TECHNICAL_SEED,
+            seed=trace_seed,
             steps=TECHNICAL_STEPS,
             stimulus="p9",
             device="cuda",
@@ -1092,6 +1105,10 @@ def qualify_tracer_scope() -> dict[str, Any]:
 
 
 def _validate_trace_authorization(paths: Mapping[str, Path]) -> tuple[dict[str, Any], Path]:
+    if TRACE_ONLY_PLAN_SUPERSESSION.is_file():
+        supersession = _json(TRACE_ONLY_PLAN_SUPERSESSION)
+        if supersession.get("status") == "GATE29_TRACE_ONLY_PLAN_SUPERSEDED":
+            raise Gate29Error("GATE29_TRACE_ONLY_PLAN_SUPERSEDED")
     authorization = _json(TRACE_AUTHORIZATION)
     if (
         authorization.get("schema_version") != AUTHORIZATION_SCHEMA_VERSION
@@ -1473,11 +1490,15 @@ def _parser() -> argparse.ArgumentParser:
     modes.add_argument("--preflight", action="store_true")
     modes.add_argument("--execute-paired-technical-trace", action="store_true")
     modes.add_argument("--execute-authorized-trace-only", action="store_true", help=argparse.SUPPRESS)
+    modes.add_argument("--design-canonical-pair", action="store_true")
+    modes.add_argument("--canonical-pair-preflight", action="store_true")
+    modes.add_argument("--execute-authorized-canonical-pair", action="store_true")
     modes.add_argument("--analyze-trace", action="store_true")
     modes.add_argument("--write-reproducibility", action="store_true")
     modes.add_argument("--verify-reproducibility", action="store_true")
     modes.add_argument("--validate-optimization", action="store_true")
     modes.add_argument("--internal-trace", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--internal-trace-seed", type=int, default=TECHNICAL_SEED, help=argparse.SUPPRESS)
     parser.add_argument("--runtime-root", type=Path, default=None)
     parser.add_argument("--brain-root", type=Path, default=None)
     parser.add_argument("--runtime-python", type=Path, default=None)
@@ -1489,7 +1510,21 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     paths = _resolve_paths(args)
     if args.internal_trace:
-        return _run_internal_trace(paths)
+        return _run_internal_trace(paths, trace_seed=args.internal_trace_seed)
+    if args.design_canonical_pair or args.canonical_pair_preflight or args.execute_authorized_canonical_pair:
+        try:
+            from scripts import run_gate29_canonical_pair as canonical_pair
+        except ModuleNotFoundError:
+            import run_gate29_canonical_pair as canonical_pair
+
+        if args.design_canonical_pair:
+            result = canonical_pair.design_canonical_pair()
+        elif args.canonical_pair_preflight:
+            result = canonical_pair.canonical_pair_preflight()
+        else:
+            result = canonical_pair.execute_authorized_canonical_pair()
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0
     if args.audit_only:
         print(json.dumps(audit_only(), indent=2, sort_keys=True))
         return 0

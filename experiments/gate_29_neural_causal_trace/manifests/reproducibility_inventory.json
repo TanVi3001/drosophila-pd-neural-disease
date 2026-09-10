@@ -1,5 +1,5 @@
 {
-  "file_count": 28,
+  "file_count": 35,
   "files": [
     {
       "path": "configs/generation2/gate29_causal_trace_policy.yaml",
@@ -13,8 +13,8 @@
     },
     {
       "path": "docs/research_design/gate29_neural_causal_trace_report.md",
-      "sha256": "8ec58e6221c6c95ace450f021d8ec0dcaccae2427a6785209723f0da023f0241",
-      "size_bytes": 10189
+      "sha256": "a7ee23ba6a50292e53e96179d4bcd8c952342cc0213e960cc37fcb1b0b5ecce7",
+      "size_bytes": 13224
     },
     {
       "path": "research/validation/prospective/gate29_neural_causal_trace_reviewer_signoff.json",
@@ -23,13 +23,13 @@
     },
     {
       "path": "tests/test_gate29_neural_causal_trace.py",
-      "sha256": "903edd346d5436eb140f397bd33b27ebdb33e7fabaa9073ea81873db7ca5cd11",
-      "size_bytes": 34784
+      "sha256": "e6b2d4c67f7c49e6d3979a1b2f5d68431bf2ad136c1d834a7d34827044578f77",
+      "size_bytes": 34789
     },
     {
       "path": "scripts/run_gate29_neural_causal_trace.py",
-      "sha256": "101cdf9a449830f264b0583bf2e4bad284d83190ff2e753cb49fa8614966c39c",
-      "size_bytes": 64706
+      "sha256": "1612d46a48ad88a164463b07328a9bfdcf33054a937f90bc97920af5063340a9",
+      "size_bytes": 66780
     },
     {
       "path": "scripts/forensic_gate29_baseline_brain_source.py",
@@ -38,8 +38,8 @@
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/gate29_manifest.json",
-      "sha256": "2c969dd35e3d2be228283c656c10713dcd9af8946284a1fc0180d2727fa8927e",
-      "size_bytes": 2753
+      "sha256": "660879097f103ecf790429df0a72beddbbe3b45715e3b833d1929d59e834a3af",
+      "size_bytes": 3524
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/gate28b_human_closure_alignment.json",
@@ -105,6 +105,41 @@
       "path": "experiments/gate_29_neural_causal_trace/manifests/trace_runner_optimization_qualification.json",
       "sha256": "cc2f810128ddaa6cd73de6b96e50c30c57491791217f1acb687a35c7aa1e6739",
       "size_bytes": 754
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/trace_only_plan_supersession.json",
+      "sha256": "c697e6c265afbb5f06171e6188637f78fb7afa4525231629b104536756e14e41",
+      "size_bytes": 432
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_design.json",
+      "sha256": "422ec8672b4fb721adbf2261c68ca6ed67cceaa20a40a61b97aded54943dff23",
+      "size_bytes": 3879
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_brain_source_manifest.json",
+      "sha256": "97930f0fb96d228070fb753e0b39dcc9f90a25b46bcc5c7e88163c55045fe8be",
+      "size_bytes": 5010
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_execution_context.json",
+      "sha256": "ccc5162166b6286a4847d6a0b64aeb60496819b6643b45e623dcf9fa66c7a4a8",
+      "size_bytes": 4894
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_execution_authorization.json",
+      "sha256": "5274f407c4bbf4892bcaf794a583f8c11c9f5bd458054a22d4e7bb9fca4fad82",
+      "size_bytes": 755
+    },
+    {
+      "path": "scripts/run_gate29_canonical_pair.py",
+      "sha256": "a57fc26fc82805b38815ae089944480fce2ad33b097fd5cc69f70fa64a338642",
+      "size_bytes": 33307
+    },
+    {
+      "path": "tests/test_gate29_canonical_pair.py",
+      "sha256": "97463c8c560d6f7dc23a740cdc6bdd6a76a9e99ec09b4a4eefece401ac9916a7",
+      "size_bytes": 11600
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/results/technical_trace_summary.json",
