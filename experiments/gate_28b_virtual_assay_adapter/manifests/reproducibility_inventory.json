@@ -63,8 +63,8 @@
     },
     {
       "path": "scripts/run_gate28b_virtual_assay_adapter.py",
-      "sha256": "70cca6da086e82708501f5ccfea62e966935153a84dfac14c816ce4e61796a6b",
-      "size_bytes": 50774
+      "sha256": "641a2fd64d1c6f360ff2f07bfee1baf91cd640bd7a8f5c5f67ce3bd0c2690797",
+      "size_bytes": 50963
     },
     {
       "path": "src/drosophila_pd_neural/assays/__init__.py",

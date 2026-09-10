@@ -538,6 +538,7 @@ def benchmark_preflight() -> dict[str, Any]:
         "schema_version": "gate28b-duration-benchmark-preflight-v1",
         "status": "GATE28B_TECHNICAL_BENCHMARK_PREFLIGHT_PASS",
         "source_main_commit": SOURCE_MAIN_COMMIT,
+        "adapter_implementation_commit": _git("rev-parse", "HEAD"),
         "gate28a_closure": closure,
         "gate28a_immutability": immutable,
         "fixture_status": fixture["status"],
@@ -603,11 +604,13 @@ def _technical_command(runtime: Path, output: Path, steps: int) -> list[str]:
 def _process_tree_rss_mb(process: subprocess.Popen[bytes]) -> float | None:
     try:
         import psutil
-
+    except ImportError:
+        return None
+    try:
         root = psutil.Process(process.pid)
         processes = [root, *root.children(recursive=True)]
         return sum(item.memory_info().rss for item in processes if item.is_running()) / 1024**2
-    except (ImportError, OSError):
+    except (psutil.Error, OSError):
         return None
 
 
@@ -708,6 +711,7 @@ def execute_technical_duration_benchmark() -> dict[str, Any]:
     state: dict[str, Any] = {
         "schema_version": "gate28b-duration-benchmark-execution-v1",
         "status": "EXECUTION_IN_PROGRESS",
+        "adapter_implementation_commit": _git("rev-parse", "HEAD"),
         "condition": "HEALTHY",
         "disease_perturbation": "NONE",
         "technical_seed": TECHNICAL_SEED,
