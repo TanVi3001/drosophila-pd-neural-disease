@@ -1,0 +1,53 @@
+{
+  "gates": [
+    {
+      "gate": "28A",
+      "name": "scope_metric_duration_literature_study_split",
+      "status": "COMPLETE"
+    },
+    {
+      "gate": "28B",
+      "name": "virtual_assay_adapter",
+      "status": "NOT_STARTED"
+    },
+    {
+      "gate": "29",
+      "name": "neural_causal_trace",
+      "status": "NOT_STARTED"
+    },
+    {
+      "gate": "30",
+      "name": "dopamine_neuromodulation_v1",
+      "status": "NOT_STARTED"
+    },
+    {
+      "gate": "31",
+      "name": "riemensperger_2011_computational_replication_v2",
+      "status": "NOT_STARTED"
+    },
+    {
+      "gate": "32",
+      "name": "sensitivity_ablation_identifiability",
+      "status": "NOT_STARTED"
+    },
+    {
+      "gate": "33",
+      "name": "alpha_synuclein_progression",
+      "status": "NOT_STARTED"
+    },
+    {
+      "gate": "34",
+      "name": "pink1_serotonin_flagship",
+      "status": "NOT_STARTED"
+    },
+    {
+      "gate": "35",
+      "name": "experiment_prioritization_benchmark",
+      "status": "NOT_STARTED"
+    }
+  ],
+  "generation": 2,
+  "no_later_gate_executed_in_gate28a": true,
+  "schema_version": "generation2-pipeline-plan-v1",
+  "status": "CONTRACT_ONLY"
+}

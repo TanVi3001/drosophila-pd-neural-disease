@@ -1,0 +1,17 @@
+schema_version: generation2-statistic-contract-v1
+default_policy: NO_IMPLICIT_STATISTIC_CONVERSION
+allowed_center_statistics: [mean, median, proportion, study_declared]
+allowed_spread_statistics: [SD, SE, SEM, CI, IQR, range, NOT_REPORTED]
+rules:
+  mean_remains_mean: true
+  median_remains_median: true
+  sd_remains_sd: true
+  se_remains_se: true
+  ci_remains_ci: true
+  iqr_remains_iqr: true
+  not_reported_remains_not_reported: true
+  mean_from_median: forbidden
+  sd_from_se: forbidden
+  se_from_sd: forbidden
+  figure_digitization_requires_uncertainty: true
+  sample_unit_must_be_declared: true

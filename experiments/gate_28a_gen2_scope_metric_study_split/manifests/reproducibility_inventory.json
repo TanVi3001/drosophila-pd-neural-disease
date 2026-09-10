@@ -1,0 +1,173 @@
+{
+  "raw_gpu_artifacts_included": false,
+  "record_count": 33,
+  "records": [
+    {
+      "path": "configs/generation2/assays/aggarwal_2019_rotating_vertical.yaml",
+      "sha256": "27aba6ee8c796c66b4109961c86e42304953be345f49270b3e5711f912e6b94e",
+      "size_bytes": 549
+    },
+    {
+      "path": "configs/generation2/assays/hwang_2013_negative_geotaxis.yaml",
+      "sha256": "e71e2761f74b439e3674e5dc4cc0bb02359282ea47b30726d4d03a3d4619aab8",
+      "size_bytes": 522
+    },
+    {
+      "path": "configs/generation2/assays/pink1_2022_circular_arena.yaml",
+      "sha256": "8b488e4309b00e42c8b9f635795fc0e287e52ad6b1592b241ec5e944edb1bdab",
+      "size_bytes": 517
+    },
+    {
+      "path": "configs/generation2/assays/pokrzywa_2017_vial_startle.yaml",
+      "sha256": "60b7322fcc997954d120d07e4c043c50fc6bdd9e7644eb22d6625b8f7bea0a02",
+      "size_bytes": 519
+    },
+    {
+      "path": "configs/generation2/assays/riemensperger_2011_open_arena.yaml",
+      "sha256": "9c3a86dd0fbe25ccae5e180ba110427298bd34892ae21d312ecd511bd0e5a60f",
+      "size_bytes": 522
+    },
+    {
+      "path": "configs/generation2/baseline_model_registry.yaml",
+      "sha256": "37ae303788c22541b447fe36660c0e171381fa7708e565d20a2fd4bb9e80ca42",
+      "size_bytes": 714
+    },
+    {
+      "path": "configs/generation2/canonical_metric_dictionary.yaml",
+      "sha256": "81991cd7fe9cbb3aba37a11ce1d54975602198de91a1c33132c2da83d7976023",
+      "size_bytes": 5558
+    },
+    {
+      "path": "configs/generation2/causal_trace_contract.yaml",
+      "sha256": "507a0c76b9c4ae90845bfea06a9f7e4cf3e1466eec0a3cbe46092f433b470b3f",
+      "size_bytes": 954
+    },
+    {
+      "path": "configs/generation2/digitization_policy.yaml",
+      "sha256": "69954f5671479680bf07a842bee837bcdcbbc61f0b58e2517afbe0d9e0b69b2e",
+      "size_bytes": 467
+    },
+    {
+      "path": "configs/generation2/dopamine_neuromodulation_contract.yaml",
+      "sha256": "3f86efe9e3400ec07ba905c7111c45e31d2002ec3003d0b34e6dd630d1006bb0",
+      "size_bytes": 647
+    },
+    {
+      "path": "configs/generation2/duration_policy.yaml",
+      "sha256": "6ad5fea6766a448667d904c6f052500da71a0c3e0e31e633c3f33256d781a282",
+      "size_bytes": 724
+    },
+    {
+      "path": "configs/generation2/experimental_unit_contract.yaml",
+      "sha256": "d55cf7f49c753d9d646888cae261855d1c748185186c8af90197a0b7b21aefb6",
+      "size_bytes": 1110
+    },
+    {
+      "path": "configs/generation2/source_tier_policy.yaml",
+      "sha256": "87507e83ee5d485c08488d319771d0e9ee112702132bc44794fcc327108a88a3",
+      "size_bytes": 803
+    },
+    {
+      "path": "configs/generation2/statistic_contract.yaml",
+      "sha256": "c24d6442075a6c7c7580ada3f26f71fa6fd395c327775f4800831537f07178f9",
+      "size_bytes": 599
+    },
+    {
+      "path": "docs/claims/claim_document_scope_audit.md",
+      "sha256": "4dfff64dd4e4b8b0718e3ba5adb53740f0f9bbba6a0f16ca0129accc257d9e64",
+      "size_bytes": 479
+    },
+    {
+      "path": "docs/claims/generation2_claim_policy.md",
+      "sha256": "5ef986bd06778d193b82e5ae6e521027c37025f8e714ec90d16a31d04b5fbcd0",
+      "size_bytes": 939
+    },
+    {
+      "path": "docs/research_design/canonical_metric_dictionary.md",
+      "sha256": "4f4d9304327b70ff333de4d2f359bbd3accfbd25c1a07c4b42b5b8fe024a0bdf",
+      "size_bytes": 1245
+    },
+    {
+      "path": "docs/research_design/gate28a_gen2_validation_report.md",
+      "sha256": "5cc6ccafde4facb5d271fbd0fc0e09c775f29ae90c920febc63a7e0ba4c019a0",
+      "size_bytes": 1744
+    },
+    {
+      "path": "docs/research_design/generation2_research_charter.md",
+      "sha256": "2ef64ffd4511badc36d7ce32891016bf04a86effd6eb1301361493034bc5f21d",
+      "size_bytes": 2298
+    },
+    {
+      "path": "docs/research_design/parkinson_in_silico_research_synthesis_vi.md",
+      "sha256": "46f82d3c4577567cf02b5bb41a50164e9709a1ba26a363a71d05098667ac22b4",
+      "size_bytes": 60569
+    },
+    {
+      "path": "experiments/gate_28a_gen2_scope_metric_study_split/manifests/gate26_legacy_checksum_audit.json",
+      "sha256": "3a01acde30d9b51fc6c854b4a8e5f396c383e917882ea3267834df07e011174b",
+      "size_bytes": 3696
+    },
+    {
+      "path": "experiments/gate_28a_gen2_scope_metric_study_split/manifests/gate28a_manifest.json",
+      "sha256": "495f4d03ada82f71451e529d4d18204cfe94bca189b7b94e1a42b51ad35c72b0",
+      "size_bytes": 1997
+    },
+    {
+      "path": "experiments/gate_28a_gen2_scope_metric_study_split/manifests/generation2_pipeline_plan.json",
+      "sha256": "acf3374deeeb79db80f73bf97d3b1483449bfe3ec60a69e88782f23645c0fd65",
+      "size_bytes": 1226
+    },
+    {
+      "path": "experiments/gate_28a_gen2_scope_metric_study_split/metrics/current_metric_audit.csv",
+      "sha256": "35335844895ac857b3bcdaafc7052d0681f394f620c9688bad5bf7fe4be73061",
+      "size_bytes": 2085790
+    },
+    {
+      "path": "research/literature_v2/literature_endpoint_registry_v2.csv",
+      "sha256": "44e6099b28ce30a88ad189010ea9d156f62e95d7539f44a4d57b7202d039b040",
+      "size_bytes": 9381
+    },
+    {
+      "path": "research/literature_v2/riemensperger_2011_endpoint_contract.yaml",
+      "sha256": "7d6ef2168ba414fb2d916d923d5055b8ee11c25d51e2abd4abcbf9dc0cedd7e9",
+      "size_bytes": 633
+    },
+    {
+      "path": "research/literature_v2/study_split_manifest.yaml",
+      "sha256": "793e8c3dac9ff16a65c4127a9db27641e8e194e89f3867ec03d83016d867435f",
+      "size_bytes": 778
+    },
+    {
+      "path": "research/validation/prospective/gate28a_gen2_scope_metric_study_split_reviewer_signoff.json",
+      "sha256": "f5a4dd283045f05e95deeaf1fb754869e6bae7be062f06c620c91b76c19b36fe",
+      "size_bytes": 699
+    },
+    {
+      "path": "results/duration_comparability_audit.csv",
+      "sha256": "8a4afa9bdfdd58880dbba8b3ced336505b6d311063cdf8a35daddf2dc48cb0b3",
+      "size_bytes": 1014
+    },
+    {
+      "path": "results/public_personal_path_audit.csv",
+      "sha256": "6c54ece2c45e185da4b70533b6d44571c61bf3f2aa296a57deaf6fed8d5c0ffa",
+      "size_bytes": 30149
+    },
+    {
+      "path": "results/walking_speed_semantic_audit.csv",
+      "sha256": "3a54c2f84d68ecfb5c5f5517a0dc15d3e477dd9534a6ba854023ca59ead86fdf",
+      "size_bytes": 120817
+    },
+    {
+      "path": "scripts/build_gate28a_contract_artifacts.py",
+      "sha256": "2a747993e6f53bdb1006d5cb41932c7d36f288af3471f61b86705e8e670bceb7",
+      "size_bytes": 18502
+    },
+    {
+      "path": "tests/test_gate28a_gen2_scientific_contract.py",
+      "sha256": "f0d53777107b392afa73fa3389ab2dcaf2f4628dccb637467e4a26ca5e5d475f",
+      "size_bytes": 8652
+    }
+  ],
+  "schema_version": "gate28a-reproducibility-inventory-v1",
+  "status": "COMPLETE"
+}

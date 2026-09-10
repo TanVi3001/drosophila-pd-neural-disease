@@ -1,0 +1,16 @@
+schema_version: generation2-digitization-policy-v1
+priority:
+  - official_raw_data
+  - supplementary_numeric_table
+  - figure_digitization_with_uncertainty
+figure_requirements:
+  - source_image_hash
+  - axis_calibration
+  - digitization_tool_or_method
+  - digitizer_identity
+  - uncertainty
+  - second_reviewer_for_critical_target
+forbidden:
+  eyeballing_bar_center_as_exact_number: true
+  repeated_redigitization_to_improve_fit: true
+  relabeling_paper_spread: true

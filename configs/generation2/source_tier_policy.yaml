@@ -1,0 +1,21 @@
+schema_version: generation2-source-tier-policy-v1
+tiers:
+  A:
+    description: official raw data with clear protocol
+    allowed_role: calibration_or_holdout_if_allocation_is_locked
+  B:
+    description: numeric table or supplementary data
+    allowed_role: calibration_or_holdout_if_allocation_is_locked
+  C:
+    description: figure digitization with uncertainty and provenance
+    allowed_role: calibration_or_holdout_with_second_review
+  D:
+    description: textual trend without adequate numeric uncertainty
+    allowed_role: directional_or_context_only
+  E:
+    description: concern, ambiguous provenance or hypothesis-only source
+    allowed_role: hypothesis_or_context_only
+special_cases:
+  Poddighe: SOURCE_RISK_HYPOTHESIS_ONLY
+  Pugliese: PREPRINT_FLAG
+  Cha_duplicate_copies: ONE_UNIQUE_STUDY

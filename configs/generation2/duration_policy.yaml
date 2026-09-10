@@ -1,0 +1,17 @@
+schema_version: generation2-duration-policy-v1
+canonical_rule: 0.5-second virtual rollout is not automatically quantitatively comparable with a 15-minute biological assay.
+priority:
+  - DIRECT_LONGER_ROLLOUT_BENCHMARK
+  - SEGMENTED_EMBODIED_ROLLOUT
+  - VALIDATED_LATENT_MOTOR_SURROGATE
+options:
+  DIRECT_LONGER_ROLLOUT_BENCHMARK:
+    status: preferred_first_technical_test
+    requires: computational_feasibility_and_qc
+  SEGMENTED_EMBODIED_ROLLOUT:
+    status: conditional
+    requires: prospective_aggregation_definition_and_validation
+  VALIDATED_LATENT_MOTOR_SURROGATE:
+    status: conditional
+    requires: no_holdout_leakage_and_dedicated_validation
+gate28a_decision: no_quantitative_duration_option_is_validated_here

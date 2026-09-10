@@ -1,0 +1,21 @@
+{
+  "assay_contracts_approved": false,
+  "claim_policy_approved": false,
+  "decision": "PENDING_HUMAN_REVIEW",
+  "duration_policy_approved": false,
+  "experimental_unit_contract_approved": false,
+  "first_track_approved": false,
+  "gate28a_closed": false,
+  "generation2_scope_approved": false,
+  "literature_registry_approved": false,
+  "metric_dictionary_approved": false,
+  "no_auto_sign": true,
+  "personal_path_sanitization_approved": false,
+  "review_date": "",
+  "reviewer_1": "",
+  "reviewer_2": "",
+  "schema_version": "gate28a-human-review-v1",
+  "statistic_contract_approved": false,
+  "status": "WAITING_GATE28A_GEN2_HUMAN_REVIEW",
+  "study_split_approved": false
+}

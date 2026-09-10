@@ -1,0 +1,23 @@
+schema_version: generation2-study-split-manifest-v1
+study_split_locked_for_gate30_31: true
+alpha_syn_final_loso_allocation: NOT_YET_FROZEN
+pozo_2022:
+  role: HISTORICAL_EXPOSED_EVALUATION_SOURCE
+  future_sealed_holdout: false
+riemensperger_2011:
+  role: GEN2_DOPAMINE_FUNCTIONAL_DEFICIENCY_REFERENCE
+  external_validation: false
+pokrzywa_2017:
+  role: FUTURE_ALPHA_SYN_LONGITUDINAL_CALIBRATION_CANDIDATE
+riemensperger_2013:
+  role: FUTURE_ALPHA_SYN_CIRCUIT_GENERALIZATION_CANDIDATE
+haywood_2004:
+  role: FUTURE_INTERVENTION_SPECIFICITY_TEST_CANDIDATE
+aggarwal_2019:
+  role: ASSAY_AND_GAIT_CONTRACT_SOURCE
+dimitrescu_2023:
+  role: AUXILIARY_NEUROMODULATION_CONSTRAINT
+liessem_2026:
+  role: FUNCTIONAL_CIRCUIT_PRIOR
+pugliese_neuromechfly:
+  role: IMPLEMENTATION_ARCHITECTURE_ONLY

@@ -1,0 +1,18 @@
+schema_version: generation2-dopamine-neuromodulation-contract-v1
+execution_status: DESIGN_ONLY
+conceptual_path:
+  - dopamine_population_state
+  - release_state
+  - extracellular_or_volume_modulation_state
+  - target_class_modulation
+  - excitability_gain_or_plasticity_effect
+  - brain_or_motor_circuit
+unknown_mapping_policy:
+  uncertain_parameter: true
+  prior_required: true
+  source_required: true
+  biological_truth_claim: forbidden
+mapping_policy:
+  receptor_specific_map_from_neurotransmitter_annotation: forbidden
+  class_level_mapping_without_gene_specific_claim: allowed_for_exploration
+  disease_transform_implemented_in_gate28a: false
