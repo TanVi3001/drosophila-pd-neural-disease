@@ -1,0 +1,28 @@
+{
+  "schema_version": "gate29-trace-only-execution-preflight-v1",
+  "artifact_kind": "TEMPLATE_ONLY",
+  "status_values": [
+    "GATE29_TRACE_ONLY_EXECUTION_PREFLIGHT_PASS",
+    "GATE29_TRACE_ONLY_EXECUTION_PREFLIGHT_BLOCKED"
+  ],
+  "required_sections": [
+    "baseline_lock",
+    "baseline_source_snapshot",
+    "current_brain_source_snapshot",
+    "baseline_source_equivalence",
+    "runtime",
+    "checkpoint_sha256",
+    "execution_context",
+    "gpu",
+    "storage",
+    "attempt_02"
+  ],
+  "execution_policy": {
+    "trace_only": true,
+    "authorized_jobs": 1,
+    "baseline_rerun_authorized": false,
+    "authorization_bypasses_preflight": false,
+    "raw_result_committed": false
+  },
+  "notes": "Static schema only. No PASS result or live telemetry is stored in this repository file. The actual preflight result is written outside Git immediately before an authorized subprocess launch."
+}

@@ -1,5 +1,5 @@
 {
-  "file_count": 23,
+  "file_count": 25,
   "files": [
     {
       "path": "configs/generation2/gate29_causal_trace_policy.yaml",
@@ -13,8 +13,8 @@
     },
     {
       "path": "docs/research_design/gate29_neural_causal_trace_report.md",
-      "sha256": "a42ba27509a757bf93cfdd5999e0fc487886ed19fccd7767bfbbb98e17b86401",
-      "size_bytes": 7733
+      "sha256": "062814077d4164832868a6ad291c3593eb1da7f8df5b4a449a4cd7c0d8a27d11",
+      "size_bytes": 8773
     },
     {
       "path": "research/validation/prospective/gate29_neural_causal_trace_reviewer_signoff.json",
@@ -23,18 +23,18 @@
     },
     {
       "path": "tests/test_gate29_neural_causal_trace.py",
-      "sha256": "ff93896f2dcc7b5463a6e966c0f62001e2449848e5d1f991a5b5d7d7bdd79eb8",
-      "size_bytes": 18608
+      "sha256": "bf76de79b310dc3de34762e6b449c0c87f7a56dd76f31c30aeddfbf5a1d4265e",
+      "size_bytes": 30590
     },
     {
       "path": "scripts/run_gate29_neural_causal_trace.py",
-      "sha256": "57ac87a9dcdd4f0a32c7a5c199dcfc419a31a428de6a9f56385e024a413a33fa",
-      "size_bytes": 49777
+      "sha256": "99976fde1f26a8d9ff2aa6f8b6f086b4574a8e13118cb4dea4abcff21dfc972f",
+      "size_bytes": 63823
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/gate29_manifest.json",
-      "sha256": "c3e40ed7098ecd0393e3562f20a603058b3a5724f26018f355067c127c8f532b",
-      "size_bytes": 2177
+      "sha256": "2a3035da792900a5bf98de81a6e4d12d82569f943e26fb7165f7dbedbb81763b",
+      "size_bytes": 2405
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/gate28b_human_closure_alignment.json",
@@ -65,6 +65,16 @@
       "path": "experiments/gate_29_neural_causal_trace/manifests/baseline_execution_lock.json",
       "sha256": "42dfae74eedab266030d8d71179e295f0fbecbfbf840bca752c94e767999e36a",
       "size_bytes": 1649
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/baseline_source_snapshot.json",
+      "sha256": "469189dfb1ade6c23c54523efd887c182015b323d46f252d412a53bdd6fff240",
+      "size_bytes": 1770
+    },
+    {
+      "path": "experiments/gate_29_neural_causal_trace/manifests/trace_only_execution_preflight_schema.json",
+      "sha256": "c833247e3a067b3d849b64b120ff949ab93d9485a992e7f8184fbbaf874fd87c",
+      "size_bytes": 899
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/trace_execution_authorization.json",

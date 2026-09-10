@@ -67,6 +67,8 @@ BASELINE_LOCK = MANIFEST_ROOT / "baseline_execution_lock.json"
 TRACE_AUTHORIZATION = MANIFEST_ROOT / "trace_execution_authorization.json"
 TRACE_ATTEMPT_PROVENANCE = MANIFEST_ROOT / "trace_attempt_provenance.json"
 TRACE_OPTIMIZATION_QUALIFICATION = MANIFEST_ROOT / "trace_runner_optimization_qualification.json"
+BASELINE_SOURCE_SNAPSHOT = MANIFEST_ROOT / "baseline_source_snapshot.json"
+TRACE_ONLY_PREFLIGHT_SCHEMA = MANIFEST_ROOT / "trace_only_execution_preflight_schema.json"
 REPRODUCIBILITY_INVENTORY = MANIFEST_ROOT / "reproducibility_inventory.json"
 REPRODUCIBILITY_CHECKSUMS = MANIFEST_ROOT / "checksums.sha256"
 AUTHORIZATION_ONLY_PATH = (
@@ -80,6 +82,34 @@ EXECUTION_CODE_SNAPSHOT_PATHS = (
     "configs/generation2/gate29_trace_temporal_contract.yaml",
     "experiments/gate_29_neural_causal_trace/manifests/baseline_execution_lock.json",
     "experiments/gate_29_neural_causal_trace/manifests/trace_attempt_provenance.json",
+)
+BASELINE_ROLLOUT_SHA256 = "ab4e92477222c06e45252d223ce6477f4e3caa317efcd14505fca002265a59b9"
+TRACE_SOURCE_FILES = (
+    "brain_body_bridge.py",
+    "code/run_pytorch.py",
+    "data/plastic_weights.pt",
+    "data/2025_Completeness_783.csv",
+    "data/2025_Connectivity_783.parquet",
+)
+TRACE_STORAGE_OUTPUT_BYTES = 120 * 1024 * 1024
+TRACE_STORAGE_ARRAY_BYTES = 120 * 1024 * 1024
+TRACE_STORAGE_LOG_BYTES = 16 * 1024 * 1024
+TRACE_STORAGE_RESERVE_BYTES = 5 * 1024**3
+EXECUTION_CONTEXT_FIELDS = (
+    "condition",
+    "seed",
+    "steps",
+    "duration_s",
+    "timestep_s",
+    "stimulus",
+    "runtime_commit",
+    "brain_source_commit",
+    "brain_checkpoint_sha256",
+    "controller_construction",
+    "cpg_seed_config",
+    "world_configuration",
+    "artifact_profile",
+    "device_class",
 )
 OUTPUT_ROOT = ROOT.parent / "gate29_technical_outputs/neural_causal_trace"
 RUNTIME_ROOT_DEFAULT = ROOT.parent / "drosophila-pd-flygym-gate24-memorysafe-clean"
@@ -129,6 +159,8 @@ def _gate29_reproducibility_paths() -> list[Path]:
         EDGE_REGISTRY,
         MANIFEST_ROOT / "controller_layer_interpretation.json",
         BASELINE_LOCK,
+        BASELINE_SOURCE_SNAPSHOT,
+        TRACE_ONLY_PREFLIGHT_SCHEMA,
         TRACE_AUTHORIZATION,
         TRACE_ATTEMPT_PROVENANCE,
         TRACE_OPTIMIZATION_QUALIFICATION,
@@ -274,6 +306,175 @@ def verify_baseline_execution_lock() -> dict[str, Any]:
         "baseline_rerun_allowed": False,
         "baseline_hashes": hashes,
     }
+
+
+def _load_baseline_execution_context() -> dict[str, Any]:
+    root = _baseline_root()
+    metadata = _json(root / "metadata.json")
+    summary = _json(root / "brain_body_summary.json")
+    manifest = _json(root / "manifest.json")
+    simulation = metadata.get("simulation", {})
+    return {
+        "condition": simulation.get("condition_id"),
+        "seed": simulation.get("random_seed"),
+        "steps": summary.get("steps"),
+        "duration_s": _json(BASELINE_LOCK).get("baseline_duration_s"),
+        "timestep_s": simulation.get("timestep_s", metadata.get("timestep_s")),
+        "stimulus": simulation.get("stimulus"),
+        "runtime_commit": simulation.get("repository_commit"),
+        "brain_source_commit": simulation.get("brain_source_commit"),
+        "brain_checkpoint_sha256": simulation.get("brain_checkpoint_sha256"),
+        "controller_construction": simulation.get("controller_construction"),
+        "cpg_seed_config": simulation.get("cpg_seed_config"),
+        "world_configuration": simulation.get("world_configuration"),
+        "artifact_profile": metadata.get("artifact_profile", manifest.get("artifact_profile")),
+        "device_class": simulation.get("brain_device"),
+    }
+
+
+def _current_brain_source_snapshot(brain_root: Path) -> dict[str, Any]:
+    """Hash source inputs without claiming historical baseline equivalence."""
+
+    try:
+        repository_root = Path(_git(brain_root, "rev-parse", "--show-toplevel"))
+        git_head = _git(brain_root, "rev-parse", "HEAD")
+        worktree_status = _git(brain_root, "status", "--porcelain")
+        source_status = _git(brain_root, "status", "--porcelain", "--", ".")
+    except Gate29Error:
+        repository_root = None
+        git_head = None
+        worktree_status = "UNAVAILABLE"
+        source_status = "UNAVAILABLE"
+
+    files: list[dict[str, Any]] = []
+    for relative_path in TRACE_SOURCE_FILES:
+        path = brain_root / relative_path
+        record: dict[str, Any] = {
+            "path": relative_path,
+            "sha256": _sha256(path) if path.is_file() else None,
+            "size_bytes": path.stat().st_size if path.is_file() else None,
+            "git_blob_sha": None,
+        }
+        if repository_root is not None and path.is_file():
+            try:
+                repository_path = path.relative_to(repository_root).as_posix()
+                record["git_blob_sha"] = _git_blob_sha(brain_root, "HEAD", repository_path)
+            except (Gate29Error, ValueError):
+                record["git_blob_sha"] = None
+        files.append(record)
+    return {
+        "source_root": str(brain_root),
+        "git_root": str(repository_root) if repository_root is not None else None,
+        "git_head": git_head,
+        "worktree_dirty": bool(worktree_status and worktree_status != "UNAVAILABLE"),
+        "source_subtree_dirty": bool(source_status and source_status != "UNAVAILABLE"),
+        "files": files,
+    }
+
+
+def _baseline_source_equivalence(current: Mapping[str, Any]) -> dict[str, Any]:
+    baseline = _json(BASELINE_SOURCE_SNAPSHOT)
+    blockers: list[str] = []
+    expected_commit = baseline.get("brain_source_commit")
+    if expected_commit and current.get("git_head") != expected_commit:
+        blockers.append("GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_COMMIT_MISMATCH")
+    if current.get("worktree_dirty"):
+        blockers.append("GATE29_TRACE_EXECUTION_BLOCKED_BRAIN_SOURCE_DIRTY")
+
+    baseline_files = {
+        record.get("path"): record
+        for record in baseline.get("critical_files", [])
+        if record.get("path")
+    }
+    if baseline.get("brain_source_worktree_dirty"):
+        if not baseline_files or any(
+            not record.get("sha256") for record in baseline_files.values()
+        ):
+            blockers.append("GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_NOT_REPRODUCIBLE")
+    for current_record in current.get("files", []):
+        baseline_record = baseline_files.get(current_record.get("path"))
+        if not baseline_record:
+            blockers.append(
+                f"GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_FILE_UNRECORDED:{current_record.get('path')}"
+            )
+            continue
+        if baseline_record.get("sha256") and baseline_record["sha256"] != current_record.get("sha256"):
+            blockers.append(
+                f"GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_HASH_MISMATCH:{current_record.get('path')}"
+            )
+    return {
+        "status": "TRACE_BASELINE_SOURCE_MATCH" if not blockers else "TRACE_BASELINE_SOURCE_BLOCKED",
+        "blockers": blockers,
+        "baseline": baseline,
+        "current": current,
+    }
+
+
+def _trace_execution_context(
+    baseline: Mapping[str, Any], current_source: Mapping[str, Any]
+) -> tuple[dict[str, Any], dict[str, Any], list[str]]:
+    trace = {
+        "condition": "healthy",
+        "seed": TECHNICAL_SEED,
+        "steps": TECHNICAL_STEPS,
+        "duration_s": TECHNICAL_DURATION_S,
+        "timestep_s": 0.0001,
+        "stimulus": "p9",
+        "runtime_commit": RUNTIME_COMMIT,
+        "brain_source_commit": current_source.get("git_head"),
+        "brain_checkpoint_sha256": HEALTHY_CHECKPOINT_SHA256,
+        "controller_construction": baseline.get("controller_construction"),
+        "cpg_seed_config": baseline.get("cpg_seed_config"),
+        "world_configuration": baseline.get("world_configuration"),
+        "artifact_profile": "GATE24E_MEMORY_SAFE",
+        "device_class": baseline.get("device_class", "cuda"),
+    }
+    missing = [field for field in EXECUTION_CONTEXT_FIELDS if baseline.get(field) is None]
+    mismatches = [
+        field
+        for field in EXECUTION_CONTEXT_FIELDS
+        if baseline.get(field) is not None and baseline.get(field) != trace.get(field)
+    ]
+    return dict(baseline), trace, [
+        *(f"baseline execution context missing:{field}" for field in missing),
+        *(f"execution context mismatch:{field}" for field in mismatches),
+    ]
+
+
+def _optional_gpu_name() -> str | None:
+    try:
+        result = subprocess.run(
+            ["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError:
+        return None
+    if result.returncode != 0:
+        return None
+    name = result.stdout.strip().splitlines()
+    return name[0].strip() if name and name[0].strip() else None
+
+
+def _validate_authorization_content(authorization: Mapping[str, Any]) -> None:
+    if authorization.get("schema_version") != AUTHORIZATION_SCHEMA_VERSION:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_SCHEMA_INVALID")
+    if authorization.get("status") != "GATE29_TRACE_EXECUTION_HUMAN_AUTHORIZED":
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_STATUS_INVALID")
+    if authorization.get("authorized") is not True:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_HUMAN_AUTHORIZATION_REQUIRED")
+    if not isinstance(authorization.get("reviewer"), str) or not authorization["reviewer"].strip():
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_REVIEWER_REQUIRED")
+    review_date = authorization.get("review_date")
+    if not isinstance(review_date, str):
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_REVIEW_DATE_INVALID")
+    try:
+        datetime.strptime(review_date, "%Y-%m-%d")
+    except ValueError as exc:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_REVIEW_DATE_INVALID") from exc
+    if authorization.get("no_auto_sign") is not True:
+        raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_SCOPE_INVALID")
 
 
 def _contains_files(path: Path) -> bool:
@@ -888,6 +1089,7 @@ def _validate_trace_authorization(paths: Mapping[str, Path]) -> tuple[dict[str, 
         raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_SCHEMA_INVALID")
     if authorization.get("authorized") is not True:
         raise Gate29Error("GATE29_TRACE_EXECUTION_HUMAN_AUTHORIZATION_REQUIRED")
+    _validate_authorization_content(authorization)
     authorization_commit = _validate_authorization_commit_structure(ROOT, authorization)
     if authorization.get("authorized_seed") != TECHNICAL_SEED:
         raise Gate29Error("GATE29_TRACE_EXECUTION_AUTHORIZATION_SEED_MISMATCH")
@@ -905,12 +1107,136 @@ def _validate_trace_authorization(paths: Mapping[str, Path]) -> tuple[dict[str, 
     return authorization, trace_output
 
 
+def trace_only_execution_preflight(paths: Mapping[str, Path]) -> dict[str, Any]:
+    """Validate every external dependency immediately before one trace launch."""
+
+    blockers: list[str] = []
+    baseline_lock = verify_baseline_execution_lock()
+    if baseline_lock["status"] != "GATE29_BASELINE_EXECUTION_LOCK_PASS":
+        blockers.extend(baseline_lock.get("blockers", []))
+    baseline_hashes = baseline_lock.get("baseline_hashes", {})
+    if baseline_hashes.get("rollout.npz") != BASELINE_ROLLOUT_SHA256:
+        blockers.append("GATE29_TRACE_EXECUTION_BASELINE_ROLLOUT_SHA_MISMATCH")
+
+    baseline_source = _json(BASELINE_SOURCE_SNAPSHOT)
+    current_source = _current_brain_source_snapshot(paths["brain_root"])
+    source_equivalence = _baseline_source_equivalence(current_source)
+    blockers.extend(source_equivalence["blockers"])
+
+    runtime_state: dict[str, Any]
+    try:
+        runtime_head = _git(paths["runtime_root"], "rev-parse", "HEAD")
+        runtime_status = _git(paths["runtime_root"], "status", "--porcelain")
+        runtime_state = {
+            "head": runtime_head,
+            "worktree_dirty": bool(runtime_status),
+        }
+        if runtime_head != RUNTIME_COMMIT:
+            blockers.append("GATE29_TRACE_EXECUTION_BLOCKED_RUNTIME_HEAD_MISMATCH")
+        if runtime_status:
+            blockers.append("GATE29_TRACE_EXECUTION_BLOCKED_RUNTIME_DIRTY")
+    except Gate29Error:
+        runtime_state = {"head": None, "worktree_dirty": None}
+        blockers.append("GATE29_TRACE_EXECUTION_BLOCKED_RUNTIME_UNAVAILABLE")
+
+    checkpoint = paths["brain_root"] / "data/plastic_weights.pt"
+    checkpoint_sha = _sha256(checkpoint) if checkpoint.is_file() else None
+    if checkpoint_sha != HEALTHY_CHECKPOINT_SHA256:
+        blockers.append("GATE29_TRACE_EXECUTION_CHECKPOINT_MISMATCH")
+    if checkpoint_sha != _json(BASELINE_LOCK).get("healthy_checkpoint_sha256"):
+        blockers.append("GATE29_TRACE_EXECUTION_BASELINE_CHECKPOINT_MISMATCH")
+
+    baseline_context = _load_baseline_execution_context()
+    baseline_context["brain_source_commit"] = baseline_source.get("brain_source_commit")
+    baseline_context["brain_checkpoint_sha256"] = baseline_source.get("brain_checkpoint_sha256")
+    baseline_context, trace_context, context_blockers = _trace_execution_context(
+        baseline_context, current_source
+    )
+    blockers.extend(context_blockers)
+
+    gpu: dict[str, Any]
+    try:
+        telemetry = _gpu_snapshot()
+        gpu = {**telemetry, "name": _optional_gpu_name()}
+        if telemetry["temperature_c"] >= GPU_STOP_TEMPERATURE_C:
+            blockers.append("GATE29_TRACE_EXECUTION_BLOCKED_GPU_TEMPERATURE_PREFLIGHT")
+    except (Gate29Error, OSError, ValueError, IndexError) as exc:
+        gpu = {"error": str(exc)}
+        blockers.append("GATE29_TRACE_EXECUTION_BLOCKED_GPU_TELEMETRY")
+
+    disk_path = _existing_disk_path(paths["output_root"])
+    free_bytes = shutil.disk_usage(disk_path).free
+    required_bytes = (
+        TRACE_STORAGE_OUTPUT_BYTES
+        + TRACE_STORAGE_ARRAY_BYTES
+        + TRACE_STORAGE_LOG_BYTES
+        + TRACE_STORAGE_RESERVE_BYTES
+    )
+    if free_bytes <= required_bytes:
+        blockers.append("GATE29_TRACE_EXECUTION_BLOCKED_STORAGE")
+
+    trace_output = paths["output_root"] / "trace_attempt_02"
+    completed_artifacts = [
+        path
+        for path in paths["output_root"].glob("**/trace_arrays.npz")
+        if path.is_file()
+    ] if paths["output_root"].is_dir() else []
+    if trace_output.exists():
+        blockers.append("GATE29_TRACE_ATTEMPT_02_ALREADY_EXISTS")
+    elif completed_artifacts:
+        blockers.append("GATE29_TRACE_ALREADY_EXECUTED")
+
+    return {
+        "status": (
+            "GATE29_TRACE_ONLY_EXECUTION_PREFLIGHT_PASS"
+            if not blockers
+            else "GATE29_TRACE_ONLY_EXECUTION_PREFLIGHT_BLOCKED"
+        ),
+        "blockers": blockers,
+        "baseline_lock": baseline_lock,
+        "baseline_source_snapshot": baseline_source,
+        "current_brain_source_snapshot": current_source,
+        "baseline_source_equivalence": source_equivalence,
+        "runtime": runtime_state,
+        "checkpoint_sha256": checkpoint_sha,
+        "execution_context": {
+            "status": (
+                "TRACE_BASELINE_EXECUTION_CONTEXT_MATCH"
+                if not context_blockers
+                else "TRACE_BASELINE_EXECUTION_CONTEXT_BLOCKED"
+            ),
+            "baseline": baseline_context,
+            "trace": trace_context,
+            "blockers": context_blockers,
+        },
+        "gpu": gpu,
+        "storage": {
+            "free_bytes": free_bytes,
+            "required_bytes": required_bytes,
+            "reserve_bytes": TRACE_STORAGE_RESERVE_BYTES,
+            "trace_only": True,
+        },
+        "attempt_02": {
+            "path": str(trace_output),
+            "exists": trace_output.exists(),
+            "completed_artifacts": [str(path) for path in completed_artifacts],
+        },
+        "authorization_bypasses_preflight": False,
+        "gpu_execution": False,
+        "simulation_execution": False,
+    }
+
+
 def execute_authorized_trace_only(paths: Mapping[str, Path]) -> dict[str, Any]:
     """Run exactly one future trace after an explicit human authorization."""
 
     authorization, trace_output = _validate_trace_authorization(paths)
+    preflight = trace_only_execution_preflight(paths)
+    if preflight["status"] != "GATE29_TRACE_ONLY_EXECUTION_PREFLIGHT_PASS":
+        raise Gate29Error(json.dumps(preflight, sort_keys=True))
     command = _prepare_trace_only_command(paths, trace_output)
     trace_output.parent.mkdir(parents=True, exist_ok=True)
+    _write_json(trace_output / "trace_only_execution_preflight.json", preflight)
     result = _run_guarded(command, paths["output_root"] / "logs/trace_attempt_02.log", paths)
     analysis_paths = dict(paths)
     analysis_paths["trace_root"] = trace_output

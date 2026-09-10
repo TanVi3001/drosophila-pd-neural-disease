@@ -253,6 +253,330 @@ def test_uncommitted_authorization_is_not_accepted(tmp_path: Path) -> None:
         )
 
 
+def _valid_preflight_paths(tmp_path: Path) -> dict[str, Path]:
+    return {
+        "output_root": tmp_path / "trace-output",
+        "brain_root": Path("E:/Drosophila_Parkinson/drosophila-pd-neural-disease/external/fly-brain"),
+        "runtime_root": Path("E:/Drosophila_Parkinson/drosophila-pd-flygym-gate24-memorysafe-clean"),
+    }
+
+
+def _mock_valid_preflight(monkeypatch: pytest.MonkeyPatch, paths: dict[str, Path]) -> None:
+    monkeypatch.setattr(
+        gate29,
+        "verify_baseline_execution_lock",
+        lambda: {
+            "status": "GATE29_BASELINE_EXECUTION_LOCK_PASS",
+            "blockers": [],
+            "baseline_hashes": {"rollout.npz": gate29.BASELINE_ROLLOUT_SHA256},
+        },
+    )
+    monkeypatch.setattr(
+        gate29,
+        "_current_brain_source_snapshot",
+        lambda root: {
+            "git_head": "ea00d987edfe65346b36bfa4ce37b628231a5c42",
+            "worktree_dirty": False,
+            "source_subtree_dirty": False,
+            "files": [],
+        },
+    )
+    monkeypatch.setattr(
+        gate29,
+        "_baseline_source_equivalence",
+        lambda current: {"status": "TRACE_BASELINE_SOURCE_MATCH", "blockers": [], "current": current},
+    )
+    monkeypatch.setattr(
+        gate29,
+        "_load_baseline_execution_context",
+        lambda: {
+            "condition": "healthy",
+            "seed": 9201,
+            "steps": 5000,
+            "duration_s": 0.5,
+            "timestep_s": 0.0001,
+            "stimulus": "p9",
+            "runtime_commit": gate29.RUNTIME_COMMIT,
+            "brain_source_commit": "ea00d987edfe65346b36bfa4ce37b628231a5c42",
+            "brain_checkpoint_sha256": gate29.HEALTHY_CHECKPOINT_SHA256,
+            "controller_construction": "HybridTurningController",
+            "cpg_seed_config": "seed=9201",
+            "world_configuration": "Gate24E frozen world",
+            "artifact_profile": "GATE24E_MEMORY_SAFE",
+            "device_class": "cuda",
+        },
+    )
+    monkeypatch.setattr(
+        gate29,
+        "_gpu_snapshot",
+        lambda: {"temperature_c": 81.9, "memory_used_mb": 100.0, "utilization_percent": 0.0},
+    )
+    monkeypatch.setattr(gate29, "_optional_gpu_name", lambda: "mock-gpu")
+    monkeypatch.setattr(
+        gate29.shutil,
+        "disk_usage",
+        lambda path: SimpleNamespace(free=10 * 1024**3),
+    )
+
+
+def test_trace_only_preflight_valid_full_mocked_state_passes(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    result = gate29.trace_only_execution_preflight(paths)
+    assert result["status"] == "GATE29_TRACE_ONLY_EXECUTION_PREFLIGHT_PASS"
+    assert result["execution_context"]["status"] == "TRACE_BASELINE_EXECUTION_CONTEXT_MATCH"
+    assert result["gpu"]["temperature_c"] == 81.9
+    assert result["storage"]["trace_only"] is True
+
+
+def test_trace_only_preflight_rejects_runtime_head_mismatch(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    original_git = gate29._git
+
+    def wrong_runtime_head(root: Path, *args: str) -> str:
+        if root == paths["runtime_root"] and args == ("rev-parse", "HEAD"):
+            return "wrong-runtime-head"
+        return original_git(root, *args)
+
+    monkeypatch.setattr(gate29, "_git", wrong_runtime_head)
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "GATE29_TRACE_EXECUTION_BLOCKED_RUNTIME_HEAD_MISMATCH" in result["blockers"]
+
+
+def test_trace_only_preflight_rejects_dirty_runtime(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    original_git = gate29._git
+
+    def dirty_runtime(root: Path, *args: str) -> str:
+        if root == paths["runtime_root"] and args == ("status", "--porcelain"):
+            return " M scripts/run_brain_body_rollout.py"
+        return original_git(root, *args)
+
+    monkeypatch.setattr(gate29, "_git", dirty_runtime)
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "GATE29_TRACE_EXECUTION_BLOCKED_RUNTIME_DIRTY" in result["blockers"]
+
+
+def test_trace_only_preflight_rejects_checkpoint_mismatch(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    original_sha = gate29._sha256
+
+    def wrong_checkpoint(path: Path) -> str:
+        if path.name == "plastic_weights.pt":
+            return "wrong-checkpoint"
+        return original_sha(path)
+
+    monkeypatch.setattr(gate29, "_sha256", wrong_checkpoint)
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "GATE29_TRACE_EXECUTION_CHECKPOINT_MISMATCH" in result["blockers"]
+
+
+def test_trace_only_preflight_rejects_baseline_rollout_mismatch(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    monkeypatch.setattr(
+        gate29,
+        "verify_baseline_execution_lock",
+        lambda: {
+            "status": "GATE29_BASELINE_EXECUTION_LOCK_PASS",
+            "blockers": [],
+            "baseline_hashes": {"rollout.npz": "wrong-rollout"},
+        },
+    )
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "GATE29_TRACE_EXECUTION_BASELINE_ROLLOUT_SHA_MISMATCH" in result["blockers"]
+
+
+def test_trace_only_preflight_rejects_brain_source_commit_mismatch(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    monkeypatch.setattr(
+        gate29,
+        "_current_brain_source_snapshot",
+        lambda root: {"git_head": "different-brain-head", "worktree_dirty": False, "files": []},
+    )
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "execution context mismatch:brain_source_commit" in result["blockers"]
+
+
+def test_trace_only_preflight_rejects_dirty_brain_source(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    monkeypatch.setattr(
+        gate29,
+        "_current_brain_source_snapshot",
+        lambda root: {"git_head": "ea00d987edfe65346b36bfa4ce37b628231a5c42", "worktree_dirty": True, "files": []},
+    )
+    monkeypatch.setattr(
+        gate29,
+        "_baseline_source_equivalence",
+        lambda current: {
+            "status": "TRACE_BASELINE_SOURCE_BLOCKED",
+            "blockers": ["GATE29_TRACE_EXECUTION_BLOCKED_BRAIN_SOURCE_DIRTY"],
+            "current": current,
+        },
+    )
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "GATE29_TRACE_EXECUTION_BLOCKED_BRAIN_SOURCE_DIRTY" in result["blockers"]
+
+
+def test_trace_only_preflight_rejects_execution_context_mismatch(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    monkeypatch.setattr(
+        gate29,
+        "_load_baseline_execution_context",
+        lambda: {
+            "condition": "healthy",
+            "seed": 1234,
+            "steps": 5000,
+            "duration_s": 0.5,
+            "timestep_s": 0.0001,
+            "stimulus": "p9",
+            "runtime_commit": gate29.RUNTIME_COMMIT,
+            "brain_source_commit": "ea00d987edfe65346b36bfa4ce37b628231a5c42",
+            "brain_checkpoint_sha256": gate29.HEALTHY_CHECKPOINT_SHA256,
+            "controller_construction": "HybridTurningController",
+            "cpg_seed_config": "seed=9201",
+            "world_configuration": "Gate24E frozen world",
+            "artifact_profile": "GATE24E_MEMORY_SAFE",
+            "device_class": "cuda",
+        },
+    )
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "execution context mismatch:seed" in result["blockers"]
+
+
+def test_trace_only_preflight_rejects_hot_gpu(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    monkeypatch.setattr(
+        gate29,
+        "_gpu_snapshot",
+        lambda: {"temperature_c": 82.0, "memory_used_mb": 100.0, "utilization_percent": 0.0},
+    )
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "GATE29_TRACE_EXECUTION_BLOCKED_GPU_TEMPERATURE_PREFLIGHT" in result["blockers"]
+
+
+def test_trace_only_preflight_rejects_gpu_telemetry_failure(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+
+    def telemetry_failure() -> dict[str, float]:
+        raise gate29.Gate29Error("telemetry unavailable")
+
+    monkeypatch.setattr(gate29, "_gpu_snapshot", telemetry_failure)
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "GATE29_TRACE_EXECUTION_BLOCKED_GPU_TELEMETRY" in result["blockers"]
+
+
+def test_trace_only_preflight_rejects_insufficient_storage(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    monkeypatch.setattr(gate29.shutil, "disk_usage", lambda path: SimpleNamespace(free=1))
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "GATE29_TRACE_EXECUTION_BLOCKED_STORAGE" in result["blockers"]
+
+
+def test_trace_only_preflight_rejects_existing_attempt02(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    _mock_valid_preflight(monkeypatch, paths)
+    (paths["output_root"] / "trace_attempt_02").mkdir(parents=True)
+    result = gate29.trace_only_execution_preflight(paths)
+    assert "GATE29_TRACE_ATTEMPT_02_ALREADY_EXISTS" in result["blockers"]
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "error"),
+    [
+        ("reviewer", "", "REVIEWER_REQUIRED"),
+        ("review_date", "", "REVIEW_DATE_INVALID"),
+        ("status", "WAITING_GATE29_TRACE_EXECUTION_HUMAN_AUTHORIZATION", "STATUS_INVALID"),
+    ],
+)
+def test_authorization_content_requires_human_complete_fields(
+    field: str, value: str, error: str
+) -> None:
+    authorization = {
+        "schema_version": gate29.AUTHORIZATION_SCHEMA_VERSION,
+        "status": "GATE29_TRACE_EXECUTION_HUMAN_AUTHORIZED",
+        "authorized": True,
+        "authorized_code_head": "a" * 40,
+        "authorized_seed": 9201,
+        "authorized_jobs": 1,
+        "baseline_rerun_authorized": False,
+        "trace_only": True,
+        "reviewer": "Reviewer",
+        "review_date": "2026-09-10",
+        "no_auto_sign": True,
+    }
+    authorization[field] = value
+    with pytest.raises(gate29.Gate29Error, match=error):
+        gate29._validate_authorization_content(authorization)
+
+
+def test_authorization_cannot_bypass_failed_preflight(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    paths = _valid_preflight_paths(tmp_path)
+    trace_output = paths["output_root"] / "trace_attempt_02"
+    monkeypatch.setattr(
+        gate29,
+        "_validate_trace_authorization",
+        lambda current_paths: (
+            {"authorized": True, "authorized_code_head": "a" * 40},
+            trace_output,
+        ),
+    )
+    monkeypatch.setattr(
+        gate29,
+        "trace_only_execution_preflight",
+        lambda current_paths: {
+            "status": "GATE29_TRACE_ONLY_EXECUTION_PREFLIGHT_BLOCKED",
+            "blockers": ["forced blocker"],
+        },
+    )
+    run_called = False
+
+    def unexpected_run(*args: object, **kwargs: object) -> dict[str, object]:
+        nonlocal run_called
+        run_called = True
+        return {}
+
+    monkeypatch.setattr(gate29, "_run_guarded", unexpected_run)
+    with pytest.raises(gate29.Gate29Error, match="forced blocker"):
+        gate29.execute_authorized_trace_only(paths)
+    assert run_called is False
+
+
 def test_runner_blob_drift_is_rejected(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     repo, code_head = _git_repo_with_code_snapshot(tmp_path)
     _commit_authorization(repo, code_head)

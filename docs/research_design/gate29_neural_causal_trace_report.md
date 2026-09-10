@@ -155,6 +155,25 @@ The architecture is complete, the trace runner is statically qualified, and
 technical execution remains blocked until a human authorizes exactly one
 trace-only run at the current commit.
 
+## 20. Final pre-authorization hardening
+
+The trace-only execution path now runs a mandatory preflight after human
+authorization validation and before subprocess launch. The preflight checks
+the immutable baseline hashes, baseline brain-source provenance, current brain
+source and runtime worktrees, runtime and checkpoint identities, execution
+context, GPU telemetry and temperature, trace-only storage capacity, and
+attempt-02 existence. Authorization is permission to attempt this preflight;
+it cannot bypass a failed integrity check.
+
+The locked baseline metadata records `brain_source_worktree_dirty: true` but
+does not contain historical hashes for the execution-critical brain files.
+Accordingly, `baseline_source_snapshot.json` records the source commit and
+all available metadata while leaving those historical hashes explicitly null.
+The preflight must report
+`GATE29_TRACE_RESUME_BLOCKED_BASELINE_SOURCE_NOT_REPRODUCIBLE` until exact
+content-hash evidence is supplied. No trace is authorized or executed by this
+hardening task.
+
 ## Claim lock
 
 Allowed wording:

@@ -1,0 +1,50 @@
+{
+  "schema_version": "gate29-baseline-source-snapshot-v1",
+  "source_root": "E:/Drosophila_Parkinson/drosophila-pd-neural-disease/external/fly-brain",
+  "brain_source_commit": "ea00d987edfe65346b36bfa4ce37b628231a5c42",
+  "brain_source_worktree_dirty": true,
+  "brain_checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+  "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "condition": "healthy",
+  "seed": 9201,
+  "steps": 5000,
+  "timestep_s": 0.0001,
+  "stimulus": "p9",
+  "device_class": "cuda",
+  "artifact_profile": "GATE24E_MEMORY_SAFE",
+  "critical_files": [
+    {
+      "path": "brain_body_bridge.py",
+      "sha256": null,
+      "size_bytes": null,
+      "git_blob_sha": null
+    },
+    {
+      "path": "code/run_pytorch.py",
+      "sha256": null,
+      "size_bytes": null,
+      "git_blob_sha": null
+    },
+    {
+      "path": "data/plastic_weights.pt",
+      "sha256": null,
+      "size_bytes": null,
+      "git_blob_sha": null
+    },
+    {
+      "path": "data/2025_Completeness_783.csv",
+      "sha256": null,
+      "size_bytes": null,
+      "git_blob_sha": null
+    },
+    {
+      "path": "data/2025_Connectivity_783.parquet",
+      "sha256": null,
+      "size_bytes": null,
+      "git_blob_sha": null
+    }
+  ],
+  "source_hashes_recorded_in_original_baseline": false,
+  "source_equivalence_status": "BLOCKED_BASELINE_SOURCE_NOT_REPRODUCIBLE",
+  "notes": "The locked baseline metadata states that the brain source worktree was dirty and did not record per-file source hashes. This manifest preserves that fact; it does not infer historical content equivalence. A trace-only preflight must remain blocked until exact historical content hashes are available or the source is independently re-established."
+}
