@@ -13,8 +13,8 @@
     },
     {
       "path": "docs/research_design/gate29_neural_causal_trace_report.md",
-      "sha256": "02e28e620a08f043da0fdc989790ba21b4b3b460d66717b269c4d4f6ebc5eb07",
-      "size_bytes": 14713
+      "sha256": "4f9268ed4f0af15bdadd53062ef997683ad68bcd7659951004eecd3265fd58aa",
+      "size_bytes": 15085
     },
     {
       "path": "research/validation/prospective/gate29_neural_causal_trace_reviewer_signoff.json",
@@ -38,8 +38,8 @@
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/gate29_manifest.json",
-      "sha256": "d1ab5b5c54029f96939adf92238ac338477e1a42d7a0fd5b54d85a08493939e8",
-      "size_bytes": 3963
+      "sha256": "e14d90b537fe423c2c2d4843b9f6f424e3abf21f1e98c97a9dd78e84fc8dd533",
+      "size_bytes": 4226
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/gate28b_human_closure_alignment.json",
@@ -113,7 +113,7 @@
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_design.json",
-      "sha256": "112976b7ddca79b941312311995cd788d28de80c97e9218ff5e8339603f8220c",
+      "sha256": "d1f9eb83b8e6fa4eaa749d40b9e1c8a6630493bf9d79b7226e6392447cbee2c8",
       "size_bytes": 4024
     },
     {
@@ -123,7 +123,7 @@
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_execution_context.json",
-      "sha256": "04a121dc7a0ec7b25425242f0299f694b08c368ae3cb11a577cd274cdcf8a2b4",
+      "sha256": "965b081d6879ddc5c88caf2225363c24f98d584b1c09de143877937dbb1a1970",
       "size_bytes": 5437
     },
     {
@@ -153,8 +153,8 @@
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_execution_freeze.json",
-      "sha256": "7ae39ff0cc0ad67c4c7d3b7c3af123d72d721ce47507e4f9dedec304cde50d0e",
-      "size_bytes": 1033
+      "sha256": "782762e52c0d56633cffac1ce4a7fdb52ed49c495ff010137b7db0351ee2dcc8",
+      "size_bytes": 1221
     },
     {
       "path": "src/drosophila_pd_neural/causal_trace/__init__.py",

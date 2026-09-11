@@ -271,7 +271,7 @@ is permitted at the design stage.
 ## 25. Canonical execution-code freeze
 
 The canonical pair execution code is frozen at commit
-`513b280d809d1c715c3132aefc3bb23bb2427be5`. This is the exact code identity
+`e458c3f8f70c92c28313fa040e9089d44a4d7338`. This is the exact code identity
 that a future human authorization may approve. The historical `a45fa` commit
 is retained only as design-era provenance and is not the execution-code
 identity.
@@ -295,6 +295,12 @@ The engineering pair has no biological holdout role. Its terminology is
 accessed or evaluated, and no previously exposed study is described as
 resealed. Human authorization remains pending, both pair jobs remain
 unauthorized, and execution status remains `NOT_EXECUTED`.
+
+The active execution path uses a monitored `Popen` child with streamed logs.
+It samples `nvidia-smi` every `1.0 s`, records device-wide memory usage, and
+aborts the active process tree at `temperature >= 82 C` or when telemetry is
+unavailable. A baseline failure prevents trace launch; a trace failure leaves
+baseline evidence intact and cannot be retried automatically.
 
 Forbidden wording includes: “brain activity biologically causes the locomotor
 phenotype”, “VNC mechanism validated”, “dopamine pathway validated”, “Parkinson
