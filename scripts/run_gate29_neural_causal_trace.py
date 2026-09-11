@@ -145,7 +145,11 @@ def _json(path: Path) -> dict[str, Any]:
 
 def _write_json(path: Path, value: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(value, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
 
 
 def _sha256(path: Path) -> str:
@@ -226,7 +230,11 @@ def write_reproducibility_inventory() -> dict[str, Any]:
         for record in files
     ]
     REPRODUCIBILITY_CHECKSUMS.parent.mkdir(parents=True, exist_ok=True)
-    REPRODUCIBILITY_CHECKSUMS.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    REPRODUCIBILITY_CHECKSUMS.write_text(
+        "\n".join(lines) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
     return inventory
 
 

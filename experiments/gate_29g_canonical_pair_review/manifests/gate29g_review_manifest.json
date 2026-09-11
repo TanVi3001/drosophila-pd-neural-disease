@@ -1,0 +1,38 @@
+{
+  "biological_validation": false,
+  "calibration_run": false,
+  "claim_scope": "ENGINEERING_NONPERTURBATION_EVIDENCE_ONLY",
+  "condition": "healthy",
+  "disease_jobs": 0,
+  "gpu_executed": false,
+  "locked_signal_count": 5,
+  "locked_signal_max_abs_diff": 0.0,
+  "merge_authorized": true,
+  "next_status": "READY_FOR_GATE29_H_SCIENTIFIC_TRACE_PREREGISTRATION",
+  "package_artifact_count": 5,
+  "pair_id": "GATE29_CANONICAL_PAIR_V1",
+  "raw_artifact_count": 10,
+  "raw_artifact_total_bytes": 66431868,
+  "retuning": false,
+  "review_date": "2026-09-11",
+  "reviewed_evidence_commit": "b991e14cc281086b349bd0d3d817d2a9bba8ce39",
+  "reviewer_count": 2,
+  "reviewers": [
+    {
+      "decision": "APPROVED",
+      "name": "Lê Tấn Vĩ",
+      "role": "project scientific reviewer"
+    },
+    {
+      "decision": "APPROVED",
+      "name": "Tô Đặng Minh Tuấn",
+      "role": "second project reviewer"
+    }
+  ],
+  "schema_version": "gate29g-canonical-pair-review-audit-v1",
+  "scientific_jobs": 0,
+  "seed": 9202,
+  "simulation_executed": false,
+  "status": "GATE29_CANONICAL_PAIR_INDEPENDENTLY_REVIEWED",
+  "trace_instrumentation_status": "TRACE_INSTRUMENTATION_VALIDATED"
+}

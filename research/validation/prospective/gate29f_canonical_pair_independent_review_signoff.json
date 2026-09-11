@@ -1,0 +1,53 @@
+{
+  "schema_version": "gate29g-canonical-pair-human-review-v1",
+  "status": "GATE29F_CANONICAL_PAIR_REVIEW_APPROVED",
+  "decision": "APPROVED_GATE29F_CANONICAL_PAIR_EVIDENCE",
+  "reviewed_evidence_commit": "b991e14cc281086b349bd0d3d817d2a9bba8ce39",
+  "reviewed_gate29f_manifest_git_blob_sha256": "5f4838c62323eba3816203b6c10f9df16fd083126c99b4becb0140441511e8f5",
+  "reviewed_raw_checksum_index_git_blob_sha256": "e552fa48acfff0a7ba86a15f02490b34a54f41823dac5fb2fb0d2df9923c64e4",
+  "pair_id": "GATE29_CANONICAL_PAIR_V1",
+  "seed": 9202,
+  "condition": "healthy",
+  "review_date": "2026-09-11",
+  "reviewers": [
+    {
+      "name": "Lê Tấn Vĩ",
+      "role": "project scientific reviewer",
+      "decision": "APPROVED"
+    },
+    {
+      "name": "Tô Đặng Minh Tuấn",
+      "role": "second project reviewer",
+      "decision": "APPROVED"
+    }
+  ],
+  "raw_artifact_verification": {
+    "completed": true,
+    "method": "SHA256_MANUAL_REVIEW_AGAINST_GATE29F_INDEX",
+    "verified_artifact_count": 10,
+    "mismatch_count": 0,
+    "verified_total_bytes": 66431868
+  },
+  "review_assertions": {
+    "pair_executed_exactly_once": true,
+    "seed_9202_confirmed": true,
+    "two_jobs_confirmed": true,
+    "baseline_returncode_zero": true,
+    "trace_returncode_zero": true,
+    "five_locked_signals_exactly_match": true,
+    "no_retry_confirmed": true,
+    "no_disease_execution_confirmed": true,
+    "no_calibration_confirmed": true,
+    "no_retuning_confirmed": true,
+    "claim_boundary_approved": true
+  },
+  "independence_scope": "DUAL_HUMAN_PROJECT_REVIEW; NOT_EXTERNAL_INSTITUTIONAL_REVIEW",
+  "signature_type": "RECORDED_HUMAN_ATTESTATION_NOT_CRYPTOGRAPHIC",
+  "approved_next_action": "GATE29_H_SCIENTIFIC_TRACE_PREREGISTRATION_ONLY",
+  "scientific_execution_authorized": false,
+  "disease_execution_authorized": false,
+  "gpu_execution_authorized": false,
+  "simulation_execution_authorized": false,
+  "no_auto_sign": true,
+  "notes": "Hai reviewer xác nhận gói bằng chứng canonical pair Gate 29-F. Phê duyệt này chỉ xác nhận tính không gây nhiễu của instrumentation trong healthy engineering pair; không phải xác nhận bệnh Parkinson, dopamine hoặc quan hệ nhân quả sinh học."
+}

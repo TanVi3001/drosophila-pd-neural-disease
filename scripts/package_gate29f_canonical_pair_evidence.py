@@ -92,6 +92,7 @@ def _write_json(path: Path, value: Mapping[str, Any]) -> None:
     path.write_text(
         json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
         encoding="utf-8",
+        newline="\n",
     )
 
 
@@ -409,9 +410,10 @@ def write_package(raw_root: Path) -> dict[str, Any]:
             for item in package["manifest"]["raw_artifacts"]
         ),
         encoding="utf-8",
+        newline="\n",
     )
     REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    REPORT_PATH.write_text(_report(package), encoding="utf-8")
+    REPORT_PATH.write_text(_report(package), encoding="utf-8", newline="\n")
     package_paths = (
         MANIFEST_PATH,
         COMPARISON_PATH,
@@ -425,6 +427,7 @@ def write_package(raw_root: Path) -> dict[str, Any]:
             for path in package_paths
         ),
         encoding="utf-8",
+        newline="\n",
     )
     return package
 
