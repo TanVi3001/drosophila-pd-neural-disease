@@ -1,0 +1,28 @@
+{
+  "rows": [
+    {
+      "baseline": 2.507871018602513,
+      "delta": 0.0,
+      "metric": "median_planar_speed_mm_s",
+      "trace": 2.507871018602513
+    },
+    {
+      "baseline": 1.515922722778644,
+      "delta": 0.0,
+      "metric": "distance_traveled_mm",
+      "trace": 1.515922722778644
+    },
+    {
+      "baseline": 0.9022886571651901,
+      "delta": 0.0,
+      "metric": "thorax_displacement_xy_mm",
+      "trace": 0.9022886571651901
+    }
+  ],
+  "status": "GATE29F_CANONICAL_METRICS_EXACT_MATCH",
+  "unit_context": {
+    "distance_traveled_mm": "mm",
+    "median_planar_speed_mm_s": "mm/s",
+    "thorax_displacement_xy_mm": "mm"
+  }
+}

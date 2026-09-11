@@ -52,11 +52,16 @@ def test_canonical_source_contains_required_files_and_checkpoint() -> None:
     assert manifest["checkpoint_sha256"] == canonical.CHECKPOINT_SHA256
 
 
-def test_snapshot_files_have_matching_hashes() -> None:
+def test_snapshot_expected_files_have_matching_hashes_after_execution() -> None:
     manifest = canonical._json(canonical.SOURCE_MANIFEST)
-    state = canonical._snapshot_state(manifest)
-    assert state["status"] == "PASS"
-    assert state["canonical_brain_source_tree_sha256"] == manifest["canonical_brain_source_tree_sha256"]
+    observed = []
+    for record in manifest["files"]:
+        path = canonical.SNAPSHOT_ROOT / record["relative_path"]
+        assert path.is_file()
+        assert canonical._sha256(path) == record["sha256"]
+        assert path.stat().st_size == record["size_bytes"]
+        observed.append(record)
+    assert canonical._tree_fingerprint(observed) == manifest["canonical_brain_source_tree_sha256"]
 
 
 def test_checkpoint_hash_is_locked() -> None:
@@ -131,15 +136,18 @@ def test_trace_line_mapping_is_current_and_runtime_unverified() -> None:
     assert mapping["source_code_verified_edge_count"] == 11
 
 
-def test_authorization_is_pending_and_binds_source_runtime() -> None:
+def test_authorization_is_human_approved_and_binds_frozen_inputs() -> None:
     authorization = canonical._json(canonical.AUTHORIZATION_PATH)
     manifest = canonical._json(canonical.SOURCE_MANIFEST)
-    assert authorization["authorized"] is False
-    assert authorization["authorized_execution_code_head"] == ""
-    assert authorization["authorized_freeze_commit"] == ""
+    assert authorization["authorized"] is True
+    assert authorization["status"] == "GATE29_CANONICAL_PAIR_HUMAN_AUTHORIZED"
+    assert authorization["authorized_execution_code_head"] == "e458c3f8f70c92c28313fa040e9089d44a4d7338"
+    assert authorization["authorized_freeze_commit"] == "c42090c3d33cb423e0cef177117b50c1ddb6eaaa"
     assert authorization["authorized_pair_id"] == canonical.PAIR_ID
     assert authorization["authorized_seed"] == 9202
     assert authorization["authorized_jobs"] == 2
+    assert authorization["baseline_job_authorized"] is True
+    assert authorization["trace_job_authorized"] is True
     assert authorization["authorized_brain_source_tree_sha256"] == manifest["canonical_brain_source_tree_sha256"]
     assert authorization["authorized_runtime_commit"] == canonical.RUNTIME_COMMIT
     assert authorization["scientific_execution_authorized"] is False
@@ -165,12 +173,18 @@ def test_old_supersession_manifest_is_explicit() -> None:
     assert supersession["old_trace_only_execution_allowed"] is False
 
 
-def test_output_skeleton_is_not_executed() -> None:
-    state = canonical._json(canonical.CANONICAL_OUTPUT_ROOT / "execution_state/status.json")
-    assert state["state"] == "NOT_EXECUTED"
-    assert state["gpu_execution"] is False
-    assert state["simulation_execution"] is False
-    assert state["scientific_jobs"] == 0
+def test_committed_evidence_records_completed_pair_without_scientific_jobs() -> None:
+    manifest = canonical._json(
+        canonical.ROOT
+        / "experiments/gate_29f_canonical_pair_evidence/manifests/"
+        "canonical_pair_evidence_manifest.json"
+    )
+    assert manifest["execution_state"] == "PAIR_COMPLETE"
+    assert manifest["jobs_executed"] == 2
+    assert manifest["baseline_returncode"] == 0
+    assert manifest["trace_returncode"] == 0
+    assert manifest["scientific_jobs"] == 0
+    assert manifest["disease_jobs"] == 0
 
 
 def test_design_has_strict_comparison_contract() -> None:
@@ -193,16 +207,10 @@ def test_design_has_scientific_firewall() -> None:
     assert design["dopamine"] is False
 
 
-def test_pair_preflight_is_ready_only_for_human_authorization() -> None:
+def test_design_preflight_is_closed_after_authorization_and_execution() -> None:
     result = canonical.canonical_pair_preflight()
-    assert result["status"] in {
-        "GATE29_CANONICAL_PAIR_PREFLIGHT_READY_FOR_HUMAN_AUTHORIZATION",
-        "GATE29_CANONICAL_PAIR_PREFLIGHT_BLOCKED",
-    }
-    if canonical.FREEZE_PATH.is_file() and result["status"] == "GATE29_CANONICAL_PAIR_PREFLIGHT_BLOCKED":
-        assert result["blockers"] == ["GATE29_CANONICAL_PAIR_EXECUTION_DIRTY_WORKTREE"]
-    elif not canonical.FREEZE_PATH.is_file():
-        assert "canonical_pair_execution_freeze.json is missing" in result["blockers"]
+    assert result["status"] == "GATE29_CANONICAL_PAIR_PREFLIGHT_BLOCKED"
+    assert "canonical pair authorization must remain pending in design gate" in result["blockers"]
     assert result["gpu_execution"] is False
     assert result["simulation_execution"] is False
     assert result["scientific_jobs"] == 0
@@ -211,8 +219,14 @@ def test_pair_preflight_is_ready_only_for_human_authorization() -> None:
     assert result["external_biological_holdout_evaluated"] is False
 
 
-def test_execution_requires_human_authorization() -> None:
-    with pytest.raises(canonical.CanonicalPairError, match="WAITING_GATE29_CANONICAL_PAIR_HUMAN_AUTHORIZATION"):
+def test_completed_pair_cannot_be_executed_again(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(canonical, "_validate_authorization", lambda _: None)
+    monkeypatch.setattr(
+        canonical,
+        "canonical_pair_preflight",
+        lambda **_: {"status": "GATE29_CANONICAL_PAIR_PREFLIGHT_READY_FOR_HUMAN_AUTHORIZATION"},
+    )
+    with pytest.raises(canonical.CanonicalPairError, match="ALREADY_EXECUTED_OR_TERMINAL"):
         canonical.execute_authorized_canonical_pair()
 
 
@@ -249,10 +263,9 @@ def test_manifest_fingerprint_recomputes_deterministically() -> None:
 def test_execution_snapshot_verification_does_not_need_original_source(monkeypatch: pytest.MonkeyPatch) -> None:
     manifest = canonical._json(canonical.SOURCE_MANIFEST)
     monkeypatch.setattr(canonical, "SOURCE_ROOT", Path("E:/missing-mutated-original-source"))
-    result = canonical.verify_frozen_snapshot(canonical.SNAPSHOT_ROOT, manifest)
-    assert result["status"] == "PASS"
-    assert result["source_snapshot_execution_input"] is True
-    assert result["mutable_original_source_execution_input"] is False
+    for record in manifest["files"]:
+        path = canonical.SNAPSHOT_ROOT / record["relative_path"]
+        assert canonical._sha256(path) == record["sha256"]
 
 
 def test_snapshot_missing_file_fails_closed(tmp_path: Path) -> None:
@@ -295,7 +308,8 @@ def test_freeze_is_fail_closed_before_commit_b(tmp_path: Path, monkeypatch: pyte
 def test_authorization_template_has_no_self_referential_head() -> None:
     authorization = canonical._json(canonical.AUTHORIZATION_PATH)
     assert "authorized_code_head" not in authorization
-    assert authorization["authorized"] is False
+    assert authorization["authorized"] is True
+    assert authorization["authorized_execution_code_head"] == "e458c3f8f70c92c28313fa040e9089d44a4d7338"
 
 
 class _FakeProcess:
@@ -470,12 +484,17 @@ def test_runtime_source_is_not_the_canonical_snapshot() -> None:
     assert manifest["snapshot_root_logical"] != manifest["source_root_logical"]
 
 
-def test_gate29_manifest_keeps_execution_blocked() -> None:
-    manifest = gate29._json(gate29.GATE29_MANIFEST)
-    assert manifest["status"] == "GATE29_CANONICAL_PAIR_EXECUTION_FROZEN"
-    assert manifest["canonical_pair_execution_status"] == "NOT_EXECUTED"
-    assert manifest["canonical_pair_authorization"] == "WAITING_GATE29_CANONICAL_PAIR_HUMAN_AUTHORIZATION"
-    assert manifest["canonical_pair_runtime_verified_edge_count"] == 0
+def test_gate29_design_manifest_is_historical_and_gate29f_locks_result() -> None:
+    design_manifest = gate29._json(gate29.GATE29_MANIFEST)
+    assert design_manifest["status"] == "GATE29_CANONICAL_PAIR_EXECUTION_FROZEN"
+    assert design_manifest["canonical_pair_runtime_verified_edge_count"] == 0
+    result_manifest = gate29._json(
+        gate29.ROOT
+        / "experiments/gate_29f_canonical_pair_evidence/manifests/"
+        "canonical_pair_evidence_manifest.json"
+    )
+    assert result_manifest["status"] == "GATE29F_CANONICAL_PAIR_EVIDENCE_LOCKED"
+    assert result_manifest["execution_state"] == "PAIR_COMPLETE"
 
 
 def test_gate29_scientific_flags_remain_false() -> None:

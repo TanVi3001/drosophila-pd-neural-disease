@@ -1,0 +1,107 @@
+{
+  "analyzer_source_sha256": "4c0df33b8fd1e49e30ec544c22b2f91bff050131931175d890fc19c8005516f4",
+  "authorization_commit": "77867ed400b93f21467ae1d0dd678966005d189b",
+  "baseline_returncode": 0,
+  "biological_validation": false,
+  "brain_source_tree_sha256": "cb01029b77112c39a11554aeb1c6610de65439b822b291e62830a3c566e2ed08",
+  "calibration_run": false,
+  "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+  "claim_scope": "ENGINEERING_NONPERTURBATION_EVIDENCE_ONLY",
+  "comparison_atol": 1e-12,
+  "comparison_rtol": 0.0,
+  "comparison_status": "TRACE_OBSERVATION_NONPERTURBING_PASS",
+  "condition": "healthy",
+  "discrete_comparison": "EXACT_EQUALITY",
+  "disease_jobs": 0,
+  "dopamine_implemented": false,
+  "execution_code_head": "e458c3f8f70c92c28313fa040e9089d44a4d7338",
+  "execution_state": "PAIR_COMPLETE",
+  "fitting_run": false,
+  "freeze_commit": "c42090c3d33cb423e0cef177117b50c1ddb6eaaa",
+  "gpu": {
+    "baseline_max_temperature_c": 59.0,
+    "baseline_peak_memory_mb": 993.0,
+    "memory_scope": "DEVICE_WIDE",
+    "preflight": {
+      "gpu_temperature_abort_threshold_c": 82.0,
+      "memory_scope": "DEVICE_WIDE",
+      "memory_used_mb": 0.0,
+      "status": "PASS",
+      "temperature_c": 39.0,
+      "temperature_monitor_interval_s": 1.0,
+      "utilization_percent": 0.0
+    },
+    "temperature_abort_threshold_c": 82.0,
+    "trace_max_temperature_c": 50.0,
+    "trace_peak_memory_mb": 1138.0
+  },
+  "jobs_executed": 2,
+  "metrics_status": "GATE29F_CANONICAL_METRICS_EXACT_MATCH",
+  "packager_source_sha256": "e34d47f16c4add95583548041389c9056934b3d462258ffb6703494f8a699aa5",
+  "pair_id": "GATE29_CANONICAL_PAIR_V1",
+  "raw_artifact_count": 10,
+  "raw_artifact_root_logical": "gate29_technical_outputs/canonical_pair_v1",
+  "raw_artifact_total_bytes": 66431868,
+  "raw_artifacts": [
+    {
+      "logical_path": "gate29_technical_outputs/canonical_pair_v1/baseline/rollout.npz",
+      "sha256": "d6be2cc7133f5a31eb87d0d9fbd1eb9158b607e0a09f9858c0c76116d20df7bd",
+      "size_bytes": 28089234
+    },
+    {
+      "logical_path": "gate29_technical_outputs/canonical_pair_v1/trace/rollout.npz",
+      "sha256": "3ce27dd922c016f3bcd708abc8c55920764dc4cec728659dffb2c531c009e000",
+      "size_bytes": 28089234
+    },
+    {
+      "logical_path": "gate29_technical_outputs/canonical_pair_v1/trace/trace_arrays.npz",
+      "sha256": "90b9319a707691c95d3d242c92795104b21bf06e1ccf1f83287a3b48672ebcce",
+      "size_bytes": 10241443
+    },
+    {
+      "logical_path": "gate29_technical_outputs/canonical_pair_v1/baseline/metadata.json",
+      "sha256": "d9df079170cf6857888ffe6d6ae9640cace9e8e9ece5b2644a31c052a87ec48b",
+      "size_bytes": 2652
+    },
+    {
+      "logical_path": "gate29_technical_outputs/canonical_pair_v1/trace/metadata.json",
+      "sha256": "d9df079170cf6857888ffe6d6ae9640cace9e8e9ece5b2644a31c052a87ec48b",
+      "size_bytes": 2652
+    },
+    {
+      "logical_path": "gate29_technical_outputs/canonical_pair_v1/baseline/metrics/metrics.json",
+      "sha256": "63a5ce3345530197383c89e188d7ad21a3d585708632175a15be6a7892354bfb",
+      "size_bytes": 1077
+    },
+    {
+      "logical_path": "gate29_technical_outputs/canonical_pair_v1/trace/metrics/metrics.json",
+      "sha256": "985ae98037aae8eab7aea52713ef23557a9277d4b031598c5d5324a601305f3f",
+      "size_bytes": 1074
+    },
+    {
+      "logical_path": "gate29_technical_outputs/canonical_pair_v1/logs/baseline.log",
+      "sha256": "d6b3cb5522f025b029d62b89a6877e33eeedb9e034f97f7d83e90ad1e88c982c",
+      "size_bytes": 2326
+    },
+    {
+      "logical_path": "gate29_technical_outputs/canonical_pair_v1/logs/trace.log",
+      "sha256": "5a972561588e91a348971b3cf0adbcaaf889a17dc197a8a7baece37fc2aa4202",
+      "size_bytes": 764
+    },
+    {
+      "logical_path": "gate29_technical_outputs/canonical_pair_v1/execution_state/status.json",
+      "sha256": "c0ed7b7e994f2fcd63dd97e19c3fc49dc8766258bb0a7e528579734cfb8fdf4c",
+      "size_bytes": 1412
+    }
+  ],
+  "raw_artifacts_outside_git": true,
+  "retuning": false,
+  "review_date": "2026-09-11",
+  "reviewer": "Lê Tấn Vĩ",
+  "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "schema_version": "gate29f-canonical-pair-evidence-v1",
+  "scientific_jobs": 0,
+  "seed": 9202,
+  "status": "GATE29F_CANONICAL_PAIR_EVIDENCE_LOCKED",
+  "trace_returncode": 0
+}

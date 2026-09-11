@@ -24,6 +24,10 @@ from typing import Any, Mapping, Sequence
 
 import numpy as np
 
+_SOURCE_ROOT = Path(__file__).resolve().parents[1] / "src"
+if str(_SOURCE_ROOT) not in sys.path:
+    sys.path.insert(0, str(_SOURCE_ROOT))
+
 from drosophila_pd_neural.causal_trace import (
     TRACE_ATOL,
     TRACE_RTOL,
@@ -581,6 +585,49 @@ def _resolve_paths(args: argparse.Namespace) -> dict[str, Path]:
         "brain_root": Path(args.brain_root or BRAIN_ROOT_DEFAULT).expanduser().resolve(),
         "runtime_python": Path(args.runtime_python or RUNTIME_PYTHON_DEFAULT).expanduser().resolve(),
         "output_root": Path(args.output_root or OUTPUT_ROOT).expanduser().resolve(),
+    }
+
+
+def _paired_execution_identity(paths: Mapping[str, Path]) -> dict[str, Any]:
+    """Read the executed pair identity from both rollout metadata files."""
+
+    metadata_paths = {
+        name: paths["output_root"] / name / "metadata.json"
+        for name in ("baseline", "trace")
+    }
+    simulations: dict[str, Mapping[str, Any]] = {}
+    for name, path in metadata_paths.items():
+        if not path.is_file():
+            raise Gate29Error(f"{name} metadata.json is required")
+        simulation = _json(path).get("simulation")
+        if not isinstance(simulation, Mapping):
+            raise Gate29Error(f"{name} simulation metadata is required")
+        simulations[name] = simulation
+
+    compared_fields = (
+        "condition_id",
+        "random_seed",
+        "repository_commit",
+        "brain_checkpoint_sha256",
+        "brain_device",
+        "stimulus",
+        "timestep_s",
+    )
+    for field in compared_fields:
+        if simulations["baseline"].get(field) != simulations["trace"].get(field):
+            raise Gate29Error(f"baseline/trace metadata mismatch: {field}")
+
+    seed = simulations["baseline"].get("random_seed")
+    if not isinstance(seed, int):
+        raise Gate29Error("executed random_seed must be an integer")
+    return {
+        "condition": simulations["baseline"].get("condition_id"),
+        "seed": seed,
+        "runtime_commit": simulations["baseline"].get("repository_commit"),
+        "checkpoint_sha256": simulations["baseline"].get("brain_checkpoint_sha256"),
+        "brain_device": simulations["baseline"].get("brain_device"),
+        "stimulus": simulations["baseline"].get("stimulus"),
+        "timestep_s": simulations["baseline"].get("timestep_s"),
     }
 
 
@@ -1345,6 +1392,7 @@ def analyze_trace(paths: Mapping[str, Path]) -> dict[str, Any]:
     trace_arrays_path = trace_root / "trace_arrays.npz"
     if not baseline.is_file() or not trace_rollout.is_file() or not trace_arrays_path.is_file():
         raise Gate29Error("baseline rollout, trace rollout, and trace_arrays.npz are required")
+    execution_identity = _paired_execution_identity(paths)
     baseline_arrays = _load_trace_arrays(baseline)
     trace_arrays = _load_trace_arrays(trace_arrays_path)
     baseline_aligned = {
@@ -1370,8 +1418,9 @@ def analyze_trace(paths: Mapping[str, Path]) -> dict[str, Any]:
     summary = {
         "schema_version": TRACE_SCHEMA_VERSION,
         "status": comparison["status"],
-        "technical_seed": TECHNICAL_SEED,
+        "technical_seed": execution_identity["seed"],
         "technical_seed_scope": "GATE29_ENGINEERING_ONLY",
+        "execution_identity": execution_identity,
         "steps": len(steps),
         "duration_s": TECHNICAL_DURATION_S,
         "runtime_commit": RUNTIME_COMMIT,

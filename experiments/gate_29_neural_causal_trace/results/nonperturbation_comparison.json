@@ -1,0 +1,86 @@
+{
+  "atol": 1e-12,
+  "comparisons": {
+    "actuator_position": {
+      "atol": 1e-12,
+      "discrete": false,
+      "max_abs_diff": 0.0,
+      "passed": true,
+      "reason": "EXACT_OR_WITHIN_FROZEN_TOLERANCE",
+      "rtol": 0.0,
+      "shape_baseline": [
+        5000,
+        42
+      ],
+      "shape_trace": [
+        5000,
+        42
+      ]
+    },
+    "contact_found": {
+      "atol": 1e-12,
+      "discrete": true,
+      "max_abs_diff": 0.0,
+      "passed": true,
+      "reason": "EXACT_OR_WITHIN_FROZEN_TOLERANCE",
+      "rtol": 0.0,
+      "shape_baseline": [
+        5000,
+        6
+      ],
+      "shape_trace": [
+        5000,
+        6
+      ]
+    },
+    "joint_positions": {
+      "atol": 1e-12,
+      "discrete": false,
+      "max_abs_diff": 0.0,
+      "passed": true,
+      "reason": "EXACT_OR_WITHIN_FROZEN_TOLERANCE",
+      "rtol": 0.0,
+      "shape_baseline": [
+        5000,
+        66
+      ],
+      "shape_trace": [
+        5000,
+        66
+      ]
+    },
+    "thorax": {
+      "atol": 1e-12,
+      "discrete": false,
+      "max_abs_diff": 0.0,
+      "passed": true,
+      "reason": "EXACT_OR_WITHIN_FROZEN_TOLERANCE",
+      "rtol": 0.0,
+      "shape_baseline": [
+        5000,
+        3
+      ],
+      "shape_trace": [
+        5000,
+        3
+      ]
+    },
+    "timestamp_s": {
+      "atol": 1e-12,
+      "discrete": false,
+      "max_abs_diff": 0.0,
+      "passed": true,
+      "reason": "EXACT_OR_WITHIN_FROZEN_TOLERANCE",
+      "rtol": 0.0,
+      "shape_baseline": [
+        5000
+      ],
+      "shape_trace": [
+        5000
+      ]
+    }
+  },
+  "discrete_comparison": "EXACT_EQUALITY",
+  "rtol": 0.0,
+  "status": "TRACE_OBSERVATION_NONPERTURBING_PASS"
+}

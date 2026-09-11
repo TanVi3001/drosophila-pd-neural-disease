@@ -11,6 +11,10 @@ htmlcov/
 
 # Ket qua sinh tu simulation/calibration, khong commit vao source repo.
 results/
+!experiments/gate_29_neural_causal_trace/results/
+!experiments/gate_29_neural_causal_trace/results/*.json
+!experiments/gate_29f_canonical_pair_evidence/results/
+!experiments/gate_29f_canonical_pair_evidence/results/*.json
 submission/gate_31_internal_scientific_signoff/*.local.yaml
 submission/gate_34_public_archive/*.local.yaml
 submission/gate_35_external_submission/*.local.json

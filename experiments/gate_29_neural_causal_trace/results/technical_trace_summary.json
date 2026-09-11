@@ -1,0 +1,386 @@
+{
+  "baseline_rollout_sha256": "d6be2cc7133f5a31eb87d0d9fbd1eb9158b607e0a09f9858c0c76116d20df7bd",
+  "biological_vnc_neural_model_status": "NOT_ESTABLISHED",
+  "calibration_run": false,
+  "disease_jobs": 0,
+  "duration_s": 0.5,
+  "edge_verification_summary": {
+    "biological_causal_edges_claimed": 0,
+    "registered_edges": 11,
+    "runtime_verified_edges": 0
+  },
+  "execution_identity": {
+    "brain_device": "cuda",
+    "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+    "condition": "healthy",
+    "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+    "seed": 9202,
+    "stimulus": "p9",
+    "timestep_s": 0.0001
+  },
+  "healthy_checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+  "model_fitting_run": false,
+  "nonperturbation_comparison": {
+    "atol": 1e-12,
+    "comparisons": {
+      "actuator_position": {
+        "atol": 1e-12,
+        "discrete": false,
+        "max_abs_diff": 0.0,
+        "passed": true,
+        "reason": "EXACT_OR_WITHIN_FROZEN_TOLERANCE",
+        "rtol": 0.0,
+        "shape_baseline": [
+          5000,
+          42
+        ],
+        "shape_trace": [
+          5000,
+          42
+        ]
+      },
+      "contact_found": {
+        "atol": 1e-12,
+        "discrete": true,
+        "max_abs_diff": 0.0,
+        "passed": true,
+        "reason": "EXACT_OR_WITHIN_FROZEN_TOLERANCE",
+        "rtol": 0.0,
+        "shape_baseline": [
+          5000,
+          6
+        ],
+        "shape_trace": [
+          5000,
+          6
+        ]
+      },
+      "joint_positions": {
+        "atol": 1e-12,
+        "discrete": false,
+        "max_abs_diff": 0.0,
+        "passed": true,
+        "reason": "EXACT_OR_WITHIN_FROZEN_TOLERANCE",
+        "rtol": 0.0,
+        "shape_baseline": [
+          5000,
+          66
+        ],
+        "shape_trace": [
+          5000,
+          66
+        ]
+      },
+      "thorax": {
+        "atol": 1e-12,
+        "discrete": false,
+        "max_abs_diff": 0.0,
+        "passed": true,
+        "reason": "EXACT_OR_WITHIN_FROZEN_TOLERANCE",
+        "rtol": 0.0,
+        "shape_baseline": [
+          5000,
+          3
+        ],
+        "shape_trace": [
+          5000,
+          3
+        ]
+      },
+      "timestamp_s": {
+        "atol": 1e-12,
+        "discrete": false,
+        "max_abs_diff": 0.0,
+        "passed": true,
+        "reason": "EXACT_OR_WITHIN_FROZEN_TOLERANCE",
+        "rtol": 0.0,
+        "shape_baseline": [
+          5000
+        ],
+        "shape_trace": [
+          5000
+        ]
+      }
+    },
+    "discrete_comparison": "EXACT_EQUALITY",
+    "rtol": 0.0,
+    "status": "TRACE_OBSERVATION_NONPERTURBING_PASS"
+  },
+  "paper_assay_equivalence_established": false,
+  "raw_trace_sha256": "90b9319a707691c95d3d242c92795104b21bf06e1ccf1f83287a3b48672ebcce",
+  "retuning": false,
+  "runtime_commit": "655e854544e3d814dfe422883ff0de66b619d6c1",
+  "schema_version": "gate29-neural-causal-trace-v1",
+  "scientific_jobs": 0,
+  "signal_summary": {
+    "applied_action_adhesion": {
+      "change_count": null,
+      "dtype": "bool",
+      "finite_fraction": null,
+      "max": null,
+      "mean": null,
+      "min": null,
+      "nonzero_fraction": null,
+      "shape": [
+        5000,
+        6
+      ],
+      "std": null
+    },
+    "applied_action_joint_angles": {
+      "change_count": 209999,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 2.4483836855786145,
+      "mean": 0.3119305440165835,
+      "min": -2.2744592973414157,
+      "nonzero_fraction": 1.0,
+      "shape": [
+        5000,
+        42
+      ],
+      "std": 1.2284342048326964
+    },
+    "brain_body_drive": {
+      "change_count": 2534,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 0.28875000000000006,
+      "mean": 0.16591796646965426,
+      "min": 0.0,
+      "nonzero_fraction": 0.989,
+      "shape": [
+        5000,
+        2
+      ],
+      "std": 0.04548002520757919
+    },
+    "controller_action_adhesion": {
+      "change_count": null,
+      "dtype": "bool",
+      "finite_fraction": null,
+      "max": null,
+      "mean": null,
+      "min": null,
+      "nonzero_fraction": null,
+      "shape": [
+        5000,
+        6
+      ],
+      "std": null
+    },
+    "controller_action_joint_angles": {
+      "change_count": 209999,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 2.4483836855786145,
+      "mean": 0.3119305440165835,
+      "min": -2.2744592973414157,
+      "nonzero_fraction": 1.0,
+      "shape": [
+        5000,
+        42
+      ],
+      "std": 1.2284342048326964
+    },
+    "controller_observation_fly_heading": {
+      "change_count": 14997,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 1.0,
+      "mean": 0.3468622179841054,
+      "min": -0.06595714722046428,
+      "nonzero_fraction": 0.9997333333333334,
+      "shape": [
+        5000,
+        3
+      ],
+      "std": 0.4615408270873554
+    },
+    "controller_observation_stumbling_contact_forces": {
+      "change_count": 0,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "min": 0.0,
+      "nonzero_fraction": 0.0,
+      "shape": [
+        5000,
+        6,
+        3,
+        3
+      ],
+      "std": 0.0
+    },
+    "controller_observation_tarsus5_z": {
+      "change_count": 29999,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 0.31836000834409317,
+      "mean": 0.0504649426172393,
+      "min": 0.018745507157929695,
+      "nonzero_fraction": 1.0,
+      "shape": [
+        5000,
+        6
+      ],
+      "std": 0.025751313179426628
+    },
+    "controller_observation_thorax_z": {
+      "change_count": 4998,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 1.3121863862521477,
+      "mean": 0.9627801951709096,
+      "min": 0.8961768365230338,
+      "nonzero_fraction": 1.0,
+      "shape": [
+        5000
+      ],
+      "std": 0.06348798749043884
+    },
+    "decoder_rates_hz": {
+      "change_count": 16113,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 178.57142857142858,
+      "mean": 7.596354065317967,
+      "min": 0.0,
+      "nonzero_fraction": 0.12837777777777779,
+      "shape": [
+        5000,
+        18
+      ],
+      "std": 22.06514871986986
+    },
+    "dn_spikes": {
+      "change_count": 138,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 1.0,
+      "mean": 0.0007666666666666667,
+      "min": 0.0,
+      "nonzero_fraction": 0.0007666666666666667,
+      "shape": [
+        5000,
+        18
+      ],
+      "std": 0.0276781301552126
+    },
+    "post_actuator_position": {
+      "change_count": 209999,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 42.40996710026995,
+      "mean": 0.3520612048490784,
+      "min": -18.450985067447,
+      "nonzero_fraction": 1.0,
+      "shape": [
+        5000,
+        42
+      ],
+      "std": 1.615512933925589
+    },
+    "post_contact_found": {
+      "change_count": 12110,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 8.0,
+      "mean": 1.3037,
+      "min": 0.0,
+      "nonzero_fraction": 0.9498666666666666,
+      "shape": [
+        5000,
+        6
+      ],
+      "std": 1.0291418642085584
+    },
+    "post_joint_positions": {
+      "change_count": 329999,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 2.4344288700296426,
+      "mean": 0.14661136397247967,
+      "min": -2.415800910245955,
+      "nonzero_fraction": 1.0,
+      "shape": [
+        5000,
+        66
+      ],
+      "std": 1.0085477047320863
+    },
+    "post_joint_velocity": {
+      "change_count": 329999,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 642.4394212391296,
+      "mean": 0.20259805460590663,
+      "min": -293.0771972352527,
+      "nonzero_fraction": 1.0,
+      "shape": [
+        5000,
+        66
+      ],
+      "std": 9.894999568400237
+    },
+    "post_thorax_position_mm": {
+      "change_count": 14999,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 1.3947529318945922,
+      "mean": 0.6064786299641344,
+      "min": -0.11649571366016112,
+      "nonzero_fraction": 0.9999333333333333,
+      "shape": [
+        5000,
+        3
+      ],
+      "std": 0.5109892340589742
+    },
+    "post_time_s": {
+      "change_count": 4999,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 0.49999999999996125,
+      "mean": 0.2500499999999866,
+      "min": 0.0001,
+      "nonzero_fraction": 1.0,
+      "shape": [
+        5000
+      ],
+      "std": 0.14433756441064224
+    },
+    "pre_time_s": {
+      "change_count": 4999,
+      "dtype": "float64",
+      "finite_fraction": 1.0,
+      "max": 0.49989999999996126,
+      "mean": 0.24994999999998663,
+      "min": 0.0,
+      "nonzero_fraction": 0.9998,
+      "shape": [
+        5000
+      ],
+      "std": 0.14433756441064224
+    },
+    "step_index": {
+      "change_count": 4999,
+      "dtype": "int64",
+      "finite_fraction": 1.0,
+      "max": 4999.0,
+      "mean": 2499.5,
+      "min": 0.0,
+      "nonzero_fraction": 0.9998,
+      "shape": [
+        5000
+      ],
+      "std": 1443.3756441065507
+    }
+  },
+  "status": "TRACE_OBSERVATION_NONPERTURBING_PASS",
+  "steps": 5000,
+  "technical_seed": 9202,
+  "technical_seed_scope": "GATE29_ENGINEERING_ONLY",
+  "trace_rollout_sha256": "3ce27dd922c016f3bcd708abc8c55920764dc4cec728659dffb2c531c009e000"
+}

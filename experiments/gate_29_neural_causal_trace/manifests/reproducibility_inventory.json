@@ -28,8 +28,8 @@
     },
     {
       "path": "scripts/run_gate29_neural_causal_trace.py",
-      "sha256": "66cb0336c245a52d9389ef8ac32e0189a2d4bc66a858387e2b2e17a802034c34",
-      "size_bytes": 66943
+      "sha256": "4c0df33b8fd1e49e30ec544c22b2f91bff050131931175d890fc19c8005516f4",
+      "size_bytes": 68918
     },
     {
       "path": "scripts/forensic_gate29_baseline_brain_source.py",
@@ -128,8 +128,8 @@
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_execution_authorization.json",
-      "sha256": "fa9e5215b1569906a951023827855dcb6e8befb464a5dc7787f880a0867c0eaa",
-      "size_bytes": 927
+      "sha256": "5c70090c566328a3555ba36e42e3cbd1640d398b619b4c52ea01f5541ff4a25b",
+      "size_bytes": 1009
     },
     {
       "path": "scripts/run_gate29_canonical_pair.py",
@@ -138,18 +138,18 @@
     },
     {
       "path": "tests/test_gate29_canonical_pair.py",
-      "sha256": "338fc166b49d1fb765f1bb5c301400c1d1323bd50a05749d0bee7de2c954647b",
-      "size_bytes": 22691
+      "sha256": "9aec327579eefab265d600d077bfe30ea924a22248d52d360641cba536bd41c9",
+      "size_bytes": 23588
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/results/technical_trace_summary.json",
-      "sha256": "5f6db3b9bf4ff630d08434a2b96b797e02b094aac7b442055f33a021eb88a754",
-      "size_bytes": 1434
+      "sha256": "6e110c8f572cdc79c8c60c3d2b00919e00e85c97cb3acf3aa5cc00e1611eb1b0",
+      "size_bytes": 9778
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/results/nonperturbation_comparison.json",
-      "sha256": "621ecbcadccdb8a9e4a8cffbeae7c4182e81d06e9710373aed37b21273905ca5",
-      "size_bytes": 414
+      "sha256": "9f10d6497cb167aaa9109def11069f959b0488156d48a400a2b9403a45277f98",
+      "size_bytes": 1767
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_execution_freeze.json",
