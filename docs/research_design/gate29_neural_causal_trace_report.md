@@ -268,6 +268,34 @@ limited to the new baseline and new trace, with `rtol=0`, `atol=1e-12`, and
 exact discrete comparisons. No interpretation of neural causality or biology
 is permitted at the design stage.
 
+## 25. Canonical execution-code freeze
+
+The canonical pair execution code is frozen at commit
+`513b280d809d1c715c3132aefc3bb23bb2427be5`. This is the exact code identity
+that a future human authorization may approve. The historical `a45fa` commit
+is retained only as design-era provenance and is not the execution-code
+identity.
+
+The freeze binds the healthy pair to seed `9202`, exactly two jobs, the
+memory-safe runtime commit, the 11-file brain snapshot tree, the checkpoint
+SHA-256, and exact comparison tolerances. Only explicit provenance and human
+control metadata may change after the freeze. A source/config/runtime change,
+an uncommitted worktree, or a freeze mismatch fails closed as execution-code
+drift.
+
+Execution-time snapshot validation reads only the immutable canonical snapshot
+and its committed manifest. It does not use the mutable original
+`external/fly-brain` checkout. The snapshot is therefore the execution input
+(`source_snapshot_execution_input=true`), while the mutable original is not
+(`mutable_original_source_execution_input=false`). All 11 files, sizes, hashes
+and the sorted tree fingerprint must match.
+
+The engineering pair has no biological holdout role. Its terminology is
+`NOT_APPLICABLE_GATE29_ENGINEERING_PAIR`; no external biological evidence was
+accessed or evaluated, and no previously exposed study is described as
+resealed. Human authorization remains pending, both pair jobs remain
+unauthorized, and execution status remains `NOT_EXECUTED`.
+
 Forbidden wording includes: “brain activity biologically causes the locomotor
 phenotype”, “VNC mechanism validated”, “dopamine pathway validated”, “Parkinson
 causal chain proven”, and “connectome causality proven”.

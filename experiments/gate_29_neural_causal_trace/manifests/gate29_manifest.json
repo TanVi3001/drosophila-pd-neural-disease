@@ -31,6 +31,10 @@
   "canonical_pair_design_status": "COMPLETE",
   "canonical_pair_source_frozen": true,
   "canonical_pair_source_tree_sha256": "cb01029b77112c39a11554aeb1c6610de65439b822b291e62830a3c566e2ed08",
+  "canonical_pair_execution_freeze": "GATE29_CANONICAL_PAIR_EXECUTION_FROZEN",
+  "canonical_pair_execution_code_head": "513b280d809d1c715c3132aefc3bb23bb2427be5",
+  "canonical_pair_source_snapshot_execution_input": true,
+  "canonical_pair_mutable_original_source_execution_input": false,
   "canonical_pair_authorization": "WAITING_GATE29_CANONICAL_PAIR_HUMAN_AUTHORIZATION",
   "canonical_pair_execution_status": "NOT_EXECUTED",
   "canonical_pair_runtime_trace_evidence_available": false,
@@ -38,6 +42,9 @@
   "canonical_pair_nonperturbation": false,
   "canonical_pair_seed_is_scientific_replicate": false,
   "canonical_pair_scientific_execution": false,
+  "canonical_pair_holdout_role": "NOT_APPLICABLE_GATE29_ENGINEERING_PAIR",
+  "external_biological_evidence_accessed": false,
+  "external_biological_holdout_evaluated": false,
   "technical_jobs_planned": 2,
   "technical_jobs_completed": 1,
   "technical_jobs_aborted": 1,
@@ -72,5 +79,5 @@
   "Gate28B_changed": false,
   "data_fabricated": false,
   "human_review_status": "WAITING_GATE29_HUMAN_REVIEW",
-  "status": "GATE29_TRACE_ARCHITECTURE_COMPLETE_TECHNICAL_EXECUTION_BLOCKED"
+  "status": "GATE29_CANONICAL_PAIR_EXECUTION_FROZEN"
 }
