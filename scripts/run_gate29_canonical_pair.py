@@ -18,7 +18,8 @@ import re
 import shutil
 import subprocess
 import sys
-from typing import Any, Iterable, Mapping
+import time
+from typing import Any, Iterable, Mapping, Sequence
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,6 +45,8 @@ STIMULUS = "p9"
 CONDITION = "healthy"
 DEVICE = "cuda"
 ARTIFACT_PROFILE = "GATE24E_MEMORY_SAFE"
+GPU_MONITOR_INTERVAL_S = 1.0
+GPU_STOP_TEMPERATURE_C = 82.0
 RUNTIME_COMMIT = "655e854544e3d814dfe422883ff0de66b619d6c1"
 CHECKPOINT_SHA256 = "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691"
 RUNTIME_ROOT = ROOT.parent / "drosophila-pd-flygym-gate24-memorysafe-clean"
@@ -818,6 +821,125 @@ def _job_commands() -> dict[str, list[str]]:
     return {"baseline": baseline, "trace": trace}
 
 
+def _gpu_snapshot() -> dict[str, float | str]:
+    """Read device-wide GPU safety telemetry from ``nvidia-smi``."""
+
+    query = "temperature.gpu,memory.used,utilization.gpu"
+    try:
+        result = subprocess.run(
+            ["nvidia-smi", f"--query-gpu={query}", "--format=csv,noheader,nounits"],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=10.0,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_MONITOR_FAILURE") from exc
+    if result.returncode != 0:
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_MONITOR_FAILURE")
+    lines = [line.strip() for line in result.stdout.splitlines() if line.strip()]
+    if not lines:
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_MONITOR_FAILURE")
+    fields = [item.strip() for item in lines[0].split(",")]
+    if len(fields) != 3:
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_MONITOR_FAILURE")
+    try:
+        temperature_c, memory_used_mb, utilization_percent = (float(item) for item in fields)
+    except ValueError as exc:
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_MONITOR_FAILURE") from exc
+    values = (temperature_c, memory_used_mb, utilization_percent)
+    if not all(value >= 0.0 for value in values):
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_MONITOR_FAILURE")
+    return {
+        "temperature_c": temperature_c,
+        "memory_used_mb": memory_used_mb,
+        "utilization_percent": utilization_percent,
+        "memory_scope": "DEVICE_WIDE",
+    }
+
+
+def _terminate_process_tree(process: subprocess.Popen[Any]) -> None:
+    """Terminate a job and its descendants, escalating within a bounded time."""
+
+    try:
+        import psutil
+    except ImportError:
+        psutil = None
+    if psutil is not None:
+        try:
+            root = psutil.Process(process.pid)
+            children = root.children(recursive=True)
+            for child in reversed(children):
+                child.terminate()
+            root.terminate()
+            _, alive = psutil.wait_procs([*children, root], timeout=5.0)
+            for child in alive:
+                child.kill()
+            if alive:
+                psutil.wait_procs(alive, timeout=5.0)
+        except (psutil.Error, OSError):
+            pass
+    if process.poll() is None:
+        process.terminate()
+        try:
+            process.wait(timeout=5.0)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.wait(timeout=5.0)
+
+
+def _run_guarded_canonical_job(command: Sequence[str], log_path: Path) -> dict[str, Any]:
+    """Run one job while actively enforcing the approved GPU safety policy."""
+
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    environment = os.environ.copy()
+    source_path = str(ROOT / "src")
+    existing_pythonpath = environment.get("PYTHONPATH")
+    environment["PYTHONPATH"] = source_path if not existing_pythonpath else os.pathsep.join((source_path, existing_pythonpath))
+    max_temperature_c: float | None = None
+    device_peak_memory_used_mb: float | None = None
+    process: subprocess.Popen[Any] | None = None
+    try:
+        with log_path.open("wb") as log:
+            process = subprocess.Popen(
+                list(command),
+                stdout=log,
+                stderr=subprocess.STDOUT,
+                cwd=ROOT,
+                env=environment,
+            )
+            while process.poll() is None:
+                try:
+                    snapshot = _gpu_snapshot()
+                except CanonicalPairError:
+                    _terminate_process_tree(process)
+                    raise
+                temperature_c = float(snapshot["temperature_c"])
+                memory_used_mb = float(snapshot["memory_used_mb"])
+                max_temperature_c = temperature_c if max_temperature_c is None else max(max_temperature_c, temperature_c)
+                device_peak_memory_used_mb = memory_used_mb if device_peak_memory_used_mb is None else max(device_peak_memory_used_mb, memory_used_mb)
+                if temperature_c >= GPU_STOP_TEMPERATURE_C:
+                    _terminate_process_tree(process)
+                    raise CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_TEMPERATURE")
+                time.sleep(GPU_MONITOR_INTERVAL_S)
+            return_code = process.wait()
+    except CanonicalPairError as exc:
+        with log_path.open("ab") as log:
+            log.write((f"\n{exc}\n").encode("utf-8"))
+        raise
+    if return_code != 0:
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_JOB_FAILED")
+    return {
+        "returncode": return_code,
+        "max_observed_gpu_temperature_c": max_temperature_c,
+        "device_peak_memory_used_mb": device_peak_memory_used_mb,
+        "device_memory_scope": "DEVICE_WIDE",
+        "temperature_monitor_interval_s": GPU_MONITOR_INTERVAL_S,
+        "gpu_temperature_abort_threshold_c": GPU_STOP_TEMPERATURE_C,
+        "log": str(log_path),
+    }
+
+
 def _run_canonical_pair_job(*, instrumentation_enabled: bool, output: Path, authorization: Mapping[str, Any]) -> dict[str, Any]:
     """Run one member of the authorized pair with no retry or hidden mutation."""
 
@@ -827,13 +949,24 @@ def _run_canonical_pair_job(*, instrumentation_enabled: bool, output: Path, auth
     output.mkdir(parents=True, exist_ok=True)
     log = CANONICAL_OUTPUT_ROOT / "logs" / f"{key}.log"
     log.parent.mkdir(parents=True, exist_ok=True)
-    result = subprocess.run(command, capture_output=True, text=True, check=False)
-    log.write_text(result.stdout + result.stderr, encoding="utf-8")
-    if result.returncode != 0:
-        raise CanonicalPairError(f"GATE29_CANONICAL_PAIR_{key.upper()}_FAILED")
+    result = _run_guarded_canonical_job(command, log)
     if not any(output.rglob("*")):
         raise CanonicalPairError(f"GATE29_CANONICAL_PAIR_{key.upper()}_NO_ARTIFACTS")
-    return {"job": key, "returncode": result.returncode, "log": str(log), "instrumentation_enabled": instrumentation_enabled}
+    return {"job": key, **result, "instrumentation_enabled": instrumentation_enabled}
+
+
+def _pre_execution_gpu_check() -> dict[str, Any]:
+    """Require one valid safe GPU sample before launching the baseline."""
+
+    snapshot = _gpu_snapshot()
+    if float(snapshot["temperature_c"]) >= GPU_STOP_TEMPERATURE_C:
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_TEMPERATURE")
+    return {
+        **snapshot,
+        "status": "PASS",
+        "temperature_monitor_interval_s": GPU_MONITOR_INTERVAL_S,
+        "gpu_temperature_abort_threshold_c": GPU_STOP_TEMPERATURE_C,
+    }
 
 
 def execute_authorized_canonical_pair() -> dict[str, Any]:
@@ -851,7 +984,20 @@ def execute_authorized_canonical_pair() -> dict[str, Any]:
         if any(directory.rglob("*")):
             raise CanonicalPairError("GATE29_CANONICAL_PAIR_OUTPUT_ALREADY_CONTAINS_ARTIFACTS")
     try:
-        _write_json(state_path, {**state, "state": "BASELINE_RUNNING"})
+        gpu_preflight = _pre_execution_gpu_check()
+    except CanonicalPairError as exc:
+        _write_json(
+            state_path,
+            {
+                **state,
+                "state": "NOT_EXECUTED",
+                "gpu_preflight": {"status": "BLOCKED", "error": str(exc)},
+                "retry": False,
+            },
+        )
+        raise
+    try:
+        _write_json(state_path, {**state, "state": "BASELINE_RUNNING", "gpu_preflight": gpu_preflight})
         baseline = _run_canonical_pair_job(instrumentation_enabled=False, output=CANONICAL_OUTPUT_ROOT / "baseline", authorization=authorization)
         _write_json(state_path, {**state, "state": "BASELINE_COMPLETE", "baseline": baseline})
         _write_json(state_path, {**state, "state": "TRACE_RUNNING", "baseline": baseline})
@@ -870,6 +1016,7 @@ def execute_authorized_canonical_pair() -> dict[str, Any]:
         "disease_jobs": 0,
         "gpu_execution": True,
         "simulation_execution": True,
+        "gpu_preflight": gpu_preflight,
         "retry": False,
     }
     _write_json(state_path, final)

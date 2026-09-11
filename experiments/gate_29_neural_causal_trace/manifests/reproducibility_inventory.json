@@ -133,13 +133,13 @@
     },
     {
       "path": "scripts/run_gate29_canonical_pair.py",
-      "sha256": "f53dcc96bdf9df3f7f2d54f0b070ea67eb961aeb2308b18f8e15530c40734c8d",
-      "size_bytes": 42081
+      "sha256": "d3d726d71835776a02bae1e097864834d6bcbfb6f4e9b576374ed9764889d054",
+      "size_bytes": 47955
     },
     {
       "path": "tests/test_gate29_canonical_pair.py",
-      "sha256": "a44272287b897139ecd6326f6e374d64ae72c23ede0e316f6917f9850069fe0f",
-      "size_bytes": 14873
+      "sha256": "338fc166b49d1fb765f1bb5c301400c1d1323bd50a05749d0bee7de2c954647b",
+      "size_bytes": 22691
     },
     {
       "path": "experiments/gate_29_neural_causal_trace/results/technical_trace_summary.json",

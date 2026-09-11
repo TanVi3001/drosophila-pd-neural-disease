@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -295,6 +296,166 @@ def test_authorization_template_has_no_self_referential_head() -> None:
     authorization = canonical._json(canonical.AUTHORIZATION_PATH)
     assert "authorized_code_head" not in authorization
     assert authorization["authorized"] is False
+
+
+class _FakeProcess:
+    def __init__(self) -> None:
+        self.pid = 4242
+        self.poll_count = 0
+        self.returncode = 0
+        self.terminated = False
+        self.killed = False
+
+    def poll(self) -> int | None:
+        self.poll_count += 1
+        return None if self.poll_count == 1 else self.returncode
+
+    def wait(self, timeout: float | None = None) -> int:
+        return self.returncode
+
+    def terminate(self) -> None:
+        self.terminated = True
+
+    def kill(self) -> None:
+        self.killed = True
+
+
+def _guarded_job_fakes(monkeypatch: pytest.MonkeyPatch, snapshot: dict[str, float | str]) -> tuple[_FakeProcess, list[dict[str, object]]]:
+    process = _FakeProcess()
+    popen_calls: list[dict[str, object]] = []
+
+    def fake_popen(command: list[str], **kwargs: object) -> _FakeProcess:
+        popen_calls.append({"command": command, **kwargs})
+        return process
+
+    monkeypatch.setattr(canonical.subprocess, "Popen", fake_popen)
+    monkeypatch.setattr(canonical, "_gpu_snapshot", lambda: snapshot)
+    monkeypatch.setattr(canonical, "_terminate_process_tree", lambda current: setattr(current, "terminated", True))
+    monkeypatch.setattr(canonical.time, "sleep", lambda _: None)
+    return process, popen_calls
+
+
+def test_gpu_snapshot_uses_device_wide_memory(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        canonical.subprocess,
+        "run",
+        lambda *args, **kwargs: SimpleNamespace(returncode=0, stdout="81, 1024, 50\n", stderr=""),
+    )
+    snapshot = canonical._gpu_snapshot()
+    assert snapshot["temperature_c"] == 81.0
+    assert snapshot["memory_used_mb"] == 1024.0
+    assert snapshot["memory_scope"] == "DEVICE_WIDE"
+
+
+def test_guarded_job_at_81c_does_not_abort(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    process, _ = _guarded_job_fakes(
+        monkeypatch,
+        {"temperature_c": 81.0, "memory_used_mb": 1024.0, "utilization_percent": 50.0, "memory_scope": "DEVICE_WIDE"},
+    )
+    result = canonical._run_guarded_canonical_job(["fake-runtime"], tmp_path / "job.log")
+    assert result["returncode"] == 0
+    assert result["max_observed_gpu_temperature_c"] == 81.0
+    assert result["device_memory_scope"] == "DEVICE_WIDE"
+    assert process.terminated is False
+
+
+@pytest.mark.parametrize("temperature", [82.0, 82.1])
+def test_guarded_job_at_or_above_82c_aborts(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, temperature: float) -> None:
+    process, _ = _guarded_job_fakes(
+        monkeypatch,
+        {"temperature_c": temperature, "memory_used_mb": 1024.0, "utilization_percent": 50.0, "memory_scope": "DEVICE_WIDE"},
+    )
+    with pytest.raises(canonical.CanonicalPairError, match="GATE29_CANONICAL_PAIR_ABORTED_GPU_TEMPERATURE"):
+        canonical._run_guarded_canonical_job(["fake-runtime"], tmp_path / "job.log")
+    assert process.terminated is True
+
+
+def test_guarded_job_telemetry_failure_aborts_and_terminates(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    process = _FakeProcess()
+    monkeypatch.setattr(canonical.subprocess, "Popen", lambda *args, **kwargs: process)
+    monkeypatch.setattr(
+        canonical,
+        "_gpu_snapshot",
+        lambda: (_ for _ in ()).throw(canonical.CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_MONITOR_FAILURE")),
+    )
+    monkeypatch.setattr(canonical, "_terminate_process_tree", lambda current: setattr(current, "terminated", True))
+    with pytest.raises(canonical.CanonicalPairError, match="GATE29_CANONICAL_PAIR_ABORTED_GPU_MONITOR_FAILURE"):
+        canonical._run_guarded_canonical_job(["fake-runtime"], tmp_path / "job.log")
+    assert process.terminated is True
+
+
+def test_guarded_job_safety_contract_constants() -> None:
+    assert canonical.GPU_MONITOR_INTERVAL_S == 1.0
+    assert canonical.GPU_STOP_TEMPERATURE_C == 82.0
+
+
+def test_pre_execution_gpu_check_rejects_unsafe_temperature(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(canonical, "_gpu_snapshot", lambda: {"temperature_c": 82.0, "memory_used_mb": 1.0, "utilization_percent": 0.0, "memory_scope": "DEVICE_WIDE"})
+    with pytest.raises(canonical.CanonicalPairError, match="GATE29_CANONICAL_PAIR_ABORTED_GPU_TEMPERATURE"):
+        canonical._pre_execution_gpu_check()
+
+
+def test_baseline_failure_prevents_trace_and_is_terminal(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    auth_path = tmp_path / "authorization.json"
+    output_root = tmp_path / "outputs"
+    auth_path.write_text(json.dumps({"authorized": True}), encoding="utf-8")
+    monkeypatch.setattr(canonical, "AUTHORIZATION_PATH", auth_path)
+    monkeypatch.setattr(canonical, "CANONICAL_OUTPUT_ROOT", output_root)
+    monkeypatch.setattr(canonical, "_validate_authorization", lambda _: None)
+    monkeypatch.setattr(canonical, "canonical_pair_preflight", lambda **_: {"status": "GATE29_CANONICAL_PAIR_PREFLIGHT_READY_FOR_HUMAN_AUTHORIZATION"})
+    monkeypatch.setattr(canonical, "_pre_execution_gpu_check", lambda: {"status": "PASS"})
+    canonical._create_output_skeleton()
+    calls: list[bool] = []
+
+    def fail_baseline(*, instrumentation_enabled: bool, **kwargs: object) -> dict[str, object]:
+        calls.append(instrumentation_enabled)
+        raise canonical.CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_TEMPERATURE")
+
+    monkeypatch.setattr(canonical, "_run_canonical_pair_job", fail_baseline)
+    with pytest.raises(canonical.CanonicalPairError):
+        canonical.execute_authorized_canonical_pair()
+    state = canonical._json(output_root / "execution_state/status.json")
+    assert calls == [False]
+    assert state["state"] == "BASELINE_FAILED"
+    assert state["retry"] is False
+
+
+def test_trace_failure_preserves_baseline_and_disallows_retry(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    auth_path = tmp_path / "authorization.json"
+    output_root = tmp_path / "outputs"
+    auth_path.write_text(json.dumps({"authorized": True}), encoding="utf-8")
+    monkeypatch.setattr(canonical, "AUTHORIZATION_PATH", auth_path)
+    monkeypatch.setattr(canonical, "CANONICAL_OUTPUT_ROOT", output_root)
+    monkeypatch.setattr(canonical, "_validate_authorization", lambda _: None)
+    monkeypatch.setattr(canonical, "canonical_pair_preflight", lambda **_: {"status": "GATE29_CANONICAL_PAIR_PREFLIGHT_READY_FOR_HUMAN_AUTHORIZATION"})
+    monkeypatch.setattr(canonical, "_pre_execution_gpu_check", lambda: {"status": "PASS"})
+    canonical._create_output_skeleton()
+    calls: list[bool] = []
+
+    def fail_trace(*, instrumentation_enabled: bool, output: Path, **kwargs: object) -> dict[str, object]:
+        calls.append(instrumentation_enabled)
+        if not instrumentation_enabled:
+            output.mkdir(parents=True, exist_ok=True)
+            (output / "baseline.json").write_text("{}", encoding="utf-8")
+            return {"job": "baseline", "returncode": 0}
+        raise canonical.CanonicalPairError("GATE29_CANONICAL_PAIR_ABORTED_GPU_MONITOR_FAILURE")
+
+    monkeypatch.setattr(canonical, "_run_canonical_pair_job", fail_trace)
+    with pytest.raises(canonical.CanonicalPairError):
+        canonical.execute_authorized_canonical_pair()
+    state = canonical._json(output_root / "execution_state/status.json")
+    assert calls == [False, True]
+    assert state["state"] == "TRACE_FAILED"
+    assert state["retry"] is False
+    assert (output_root / "baseline/baseline.json").is_file()
+    with pytest.raises(canonical.CanonicalPairError, match="ALREADY_EXECUTED_OR_TERMINAL"):
+        canonical.execute_authorized_canonical_pair()
+    assert calls == [False, True]
+
+
+def test_pair_has_exactly_two_jobs_and_no_automatic_retry() -> None:
+    assert set(canonical._job_commands()) == {"baseline", "trace"}
+    assert canonical._json(canonical.DESIGN_PATH)["automatic_retry"] is False
 
 
 def test_snapshot_does_not_include_cache_or_output_names() -> None:
