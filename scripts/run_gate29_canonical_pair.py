@@ -31,6 +31,7 @@ SOURCE_MANIFEST = MANIFEST_ROOT / "canonical_pair_brain_source_manifest.json"
 DESIGN_PATH = MANIFEST_ROOT / "canonical_pair_design.json"
 CONTEXT_PATH = MANIFEST_ROOT / "canonical_pair_execution_context.json"
 AUTHORIZATION_PATH = MANIFEST_ROOT / "canonical_pair_execution_authorization.json"
+FREEZE_PATH = MANIFEST_ROOT / "canonical_pair_execution_freeze.json"
 SUPERSESSION_PATH = MANIFEST_ROOT / "trace_only_plan_supersession.json"
 
 PAIR_ID = "GATE29_CANONICAL_PAIR_V1"
@@ -49,7 +50,28 @@ RUNTIME_ROOT = ROOT.parent / "drosophila-pd-flygym-gate24-memorysafe-clean"
 RUNTIME_PYTHON = ROOT.parent / "drosophila-pd-flygym/.venv/Scripts/python.exe"
 SOURCE_ROOT = ROOT.parent / "drosophila-pd-neural-disease/external/fly-brain"
 EXPECTED_REPOSITORY_HEAD = "a45fa582c6cff4541e69312f661d4d2f3349f64b"
+SOURCE_MAIN_COMMIT = "004b9ee3c8938206e71b9908123f74cd0b7d2c97"
 ALLOWED_SPEC_DIFFERENCES = ("instrumentation_enabled", "output_directory", "job_label")
+FREEZE_RELATIVE_PATH = "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_execution_freeze.json"
+AUTHORIZATION_RELATIVE_PATH = "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_execution_authorization.json"
+CONTEXT_RELATIVE_PATH = "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_execution_context.json"
+DESIGN_RELATIVE_PATH = "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_design.json"
+GATE29_MANIFEST_RELATIVE_PATH = "experiments/gate_29_neural_causal_trace/manifests/gate29_manifest.json"
+REPORT_RELATIVE_PATH = "docs/research_design/gate29_neural_causal_trace_report.md"
+REPRO_INVENTORY_RELATIVE_PATH = "experiments/gate_29_neural_causal_trace/manifests/reproducibility_inventory.json"
+REPRO_CHECKSUMS_RELATIVE_PATH = "experiments/gate_29_neural_causal_trace/manifests/checksums.sha256"
+POST_FREEZE_METADATA_PATHS = frozenset({
+    FREEZE_RELATIVE_PATH,
+    AUTHORIZATION_RELATIVE_PATH,
+    CONTEXT_RELATIVE_PATH,
+    DESIGN_RELATIVE_PATH,
+    GATE29_MANIFEST_RELATIVE_PATH,
+    REPORT_RELATIVE_PATH,
+    REPRO_INVENTORY_RELATIVE_PATH,
+    REPRO_CHECKSUMS_RELATIVE_PATH,
+    "experiments/gate_29_neural_causal_trace/manifests/canonical_pair_brain_source_manifest.json",
+    "experiments/gate_29_neural_causal_trace/manifests/trace_only_plan_supersession.json",
+})
 TRACE_LINE_TARGETS = {
     317: "brain.step()",
     318: "decoder.update(brain.get_dn_spikes())",
@@ -196,6 +218,54 @@ def build_snapshot_manifest(source_root: Path = SOURCE_ROOT, snapshot_root: Path
     }
 
 
+def verify_frozen_snapshot(snapshot_root: Path = SNAPSHOT_ROOT, manifest: Mapping[str, Any] | None = None) -> dict[str, Any]:
+    """Verify only the immutable snapshot against the committed manifest.
+
+    This is the execution-time check.  It intentionally never reads
+    ``SOURCE_ROOT``; the mutable original checkout is design-time input only.
+    """
+
+    manifest = manifest or _json(SOURCE_MANIFEST)
+    expected_records = list(manifest.get("files", []))
+    expected = {record.get("relative_path"): record for record in expected_records}
+    if len(expected) != len(expected_records):
+        return {"status": "BLOCKED", "blockers": ["canonical source manifest has duplicate paths"]}
+    actual_paths = {
+        path.relative_to(snapshot_root).as_posix()
+        for path in snapshot_root.rglob("*")
+        if path.is_file()
+    } if snapshot_root.is_dir() else set()
+    missing = sorted(set(expected) - actual_paths)
+    unexpected = sorted(actual_paths - set(expected))
+    blockers = [f"snapshot missing:{path}" for path in missing]
+    blockers.extend(f"snapshot unexpected:{path}" for path in unexpected)
+    observed_records: list[dict[str, Any]] = []
+    if not blockers:
+        for relative in sorted(expected):
+            path = snapshot_root / relative
+            observed_sha = _sha256(path)
+            observed_size = path.stat().st_size
+            record = expected[relative]
+            if observed_sha != record.get("sha256"):
+                blockers.append(f"snapshot hash mismatch:{relative}")
+            if observed_size != record.get("size_bytes"):
+                blockers.append(f"snapshot size mismatch:{relative}")
+            observed_records.append({"relative_path": relative, "sha256": observed_sha, "size_bytes": observed_size})
+    tree_sha = _tree_fingerprint(observed_records) if not blockers else None
+    if tree_sha != manifest.get("canonical_brain_source_tree_sha256"):
+        blockers.append("GATE29_CANONICAL_SOURCE_MUTATION_DETECTED")
+    return {
+        "status": "PASS" if not blockers else "BLOCKED",
+        "blockers": blockers,
+        "file_count": len(actual_paths),
+        "expected_file_count": len(expected),
+        "total_size_bytes": sum(item["size_bytes"] for item in observed_records),
+        "canonical_brain_source_tree_sha256": tree_sha,
+        "source_snapshot_execution_input": True,
+        "mutable_original_source_execution_input": False,
+    }
+
+
 def _runtime_versions() -> dict[str, Any]:
     if not RUNTIME_PYTHON.is_file():
         raise CanonicalPairError(f"runtime Python is missing: {RUNTIME_PYTHON}")
@@ -222,7 +292,8 @@ def _sanitized_environment(snapshot_manifest: Mapping[str, Any], repository_head
         "runtime_root_logical": "drosophila-pd-flygym-gate24-memorysafe-clean",
         "snapshot_root_logical": snapshot_manifest["snapshot_root_logical"],
         "runtime_commit": RUNTIME_COMMIT,
-        "repository_head_at_design": repository_head,
+        "execution_code_head": repository_head,
+        "historical_design_base_head": EXPECTED_REPOSITORY_HEAD,
         "seed": SEED,
         "steps": STEPS,
         "stimulus": STIMULUS,
@@ -247,7 +318,8 @@ def _job_spec(*, instrumentation_enabled: bool, output_directory: str, job_label
         "device": DEVICE,
         "artifact_profile": ARTIFACT_PROFILE,
         "runtime_commit": RUNTIME_COMMIT,
-        "repository_head": repository_head,
+        "execution_code_head": repository_head,
+        "historical_design_base_head": EXPECTED_REPOSITORY_HEAD,
         "brain_source_tree_sha256": snapshot_manifest["canonical_brain_source_tree_sha256"],
         "checkpoint_sha256": CHECKPOINT_SHA256,
         "retry": False,
@@ -311,21 +383,81 @@ def _runtime_state() -> dict[str, Any]:
     return {"status": "PASS" if not blockers else "BLOCKED", "head": head, "dirty": bool(dirty), "blockers": blockers}
 
 
-def _snapshot_state(manifest: Mapping[str, Any]) -> dict[str, Any]:
-    try:
-        current = build_snapshot_manifest(SOURCE_ROOT, SNAPSHOT_ROOT)
-    except CanonicalPairError as exc:
-        return {"status": "BLOCKED", "blockers": [str(exc)]}
-    blockers = []
-    if current["canonical_brain_source_tree_sha256"] != manifest.get("canonical_brain_source_tree_sha256"):
-        blockers.append("GATE29_CANONICAL_SOURCE_MUTATION_DETECTED")
-    return {
-        "status": "PASS" if not blockers else "BLOCKED",
-        "blockers": blockers,
-        "file_count": current["file_count"],
-        "total_size_bytes": current["total_size_bytes"],
-        "canonical_brain_source_tree_sha256": current["canonical_brain_source_tree_sha256"],
+def _execution_code_freeze_state() -> dict[str, Any]:
+    """Validate the immutable execution-code layer and post-freeze metadata."""
+
+    if not FREEZE_PATH.is_file():
+        return {
+            "status": "GATE29_CANONICAL_PAIR_EXECUTION_CODE_FREEZE_MISSING",
+            "blockers": ["canonical_pair_execution_freeze.json is missing"],
+            "execution_code_head": None,
+        }
+    freeze = _json(FREEZE_PATH)
+    blockers: list[str] = []
+    required = {
+        "schema_version": "gate29-canonical-pair-execution-freeze-v1",
+        "status": "GATE29_CANONICAL_PAIR_EXECUTION_FROZEN",
+        "pair_id": PAIR_ID,
+        "source_main_commit": SOURCE_MAIN_COMMIT,
+        "seed": SEED,
+        "jobs": 2,
+        "condition": CONDITION,
+        "steps": STEPS,
+        "duration_s": DURATION_S,
+        "timestep_s": TIMESTEP_S,
+        "stimulus": STIMULUS,
+        "runtime_commit": RUNTIME_COMMIT,
+        "brain_source_tree_sha256": "cb01029b77112c39a11554aeb1c6610de65439b822b291e62830a3c566e2ed08",
+        "checkpoint_sha256": CHECKPOINT_SHA256,
+        "comparison_rtol": 0.0,
+        "comparison_atol": 1e-12,
+        "discrete_comparison": "EXACT",
+        "automatic_retry": False,
+        "scientific_execution": False,
+        "disease_execution": False,
+        "calibration": False,
+        "fitting": False,
+        "retuning": False,
+        "dopamine": False,
+        "human_authorization_required": True,
+        "execution_status": "NOT_EXECUTED",
     }
+    for key, expected in required.items():
+        if freeze.get(key) != expected:
+            blockers.append(f"freeze field mismatch:{key}")
+    execution_code_head = freeze.get("execution_code_head")
+    if not isinstance(execution_code_head, str) or not re.fullmatch(r"[0-9a-f]{40}", execution_code_head):
+        blockers.append("freeze execution_code_head is invalid")
+        execution_code_head = None
+    current_head = _git(ROOT, "rev-parse", "HEAD")
+    dirty = _git(ROOT, "status", "--porcelain")
+    if dirty:
+        blockers.append("GATE29_CANONICAL_PAIR_EXECUTION_DIRTY_WORKTREE")
+    if execution_code_head:
+        ancestor = subprocess.run(
+            ["git", "-C", str(ROOT), "merge-base", "--is-ancestor", execution_code_head, current_head],
+            capture_output=True,
+            check=False,
+        )
+        if ancestor.returncode != 0:
+            blockers.append("GATE29_CANONICAL_PAIR_EXECUTION_CODE_HEAD_NOT_ANCESTOR")
+        changed = _git(ROOT, "diff", "--name-only", f"{execution_code_head}..{current_head}").splitlines()
+        unexpected = sorted(set(changed) - POST_FREEZE_METADATA_PATHS)
+        if unexpected:
+            blockers.append("GATE29_CANONICAL_PAIR_EXECUTION_CODE_DRIFT")
+            blockers.extend(f"post-freeze source/config changed:{path}" for path in unexpected)
+    return {
+        "status": "PASS" if not blockers else "GATE29_CANONICAL_PAIR_EXECUTION_CODE_DRIFT",
+        "blockers": blockers,
+        "execution_code_head": execution_code_head,
+        "current_head": current_head,
+        "worktree_clean": not bool(dirty),
+        "allowed_post_freeze_paths": sorted(POST_FREEZE_METADATA_PATHS),
+    }
+
+
+def _snapshot_state(manifest: Mapping[str, Any]) -> dict[str, Any]:
+    return verify_frozen_snapshot(SNAPSHOT_ROOT, manifest)
 
 
 def _create_output_skeleton() -> None:
@@ -442,7 +574,8 @@ def design_canonical_pair() -> dict[str, Any]:
             "schema_version": "gate29-canonical-pair-execution-authorization-v1",
             "status": "WAITING_GATE29_CANONICAL_PAIR_HUMAN_AUTHORIZATION",
             "authorized": False,
-            "authorized_code_head": "",
+            "authorized_execution_code_head": "",
+            "authorized_freeze_commit": "",
             "authorized_pair_id": PAIR_ID,
             "authorized_seed": SEED,
             "authorized_jobs": 2,
@@ -453,6 +586,10 @@ def design_canonical_pair() -> dict[str, Any]:
             "automatic_retry_authorized": False,
             "scientific_execution_authorized": False,
             "disease_execution_authorized": False,
+            "calibration_authorized": False,
+            "fitting_authorized": False,
+            "retuning_authorized": False,
+            "dopamine_authorized": False,
             "reviewer": "",
             "review_date": "",
             "no_auto_sign": True,
@@ -461,6 +598,8 @@ def design_canonical_pair() -> dict[str, Any]:
     design = {
         "schema_version": "gate29-canonical-pair-design-v1",
         "status": "COMPLETE",
+        "execution_code_head": current_head,
+        "historical_design_base_head": EXPECTED_REPOSITORY_HEAD,
         "pair_id": PAIR_ID,
         "attempt": ATTEMPT,
         "scope": "HEALTHY_ENGINEERING_NONPERTURBATION_ONLY",
@@ -546,6 +685,9 @@ def canonical_pair_preflight(*, allow_authorized: bool = False) -> dict[str, Any
     authorization = _json(AUTHORIZATION_PATH)
     snapshot = _snapshot_state(manifest)
     blockers.extend(snapshot.get("blockers", []))
+    freeze_state = _execution_code_freeze_state()
+    if freeze_state["status"] != "PASS":
+        blockers.extend(freeze_state.get("blockers", []))
     runtime = _runtime_state()
     blockers.extend(runtime.get("blockers", []))
     mapping = verify_trace_line_mapping(RUNTIME_ROOT)
@@ -576,6 +718,7 @@ def canonical_pair_preflight(*, allow_authorized: bool = False) -> dict[str, Any
         "jobs": 2,
         "authorization": authorization,
         "snapshot": snapshot,
+        "execution_code_freeze": freeze_state,
         "runtime": runtime,
         "runtime_line_mapping": mapping,
         "storage": {"free_bytes": disk.free, "required_bytes": required, "capacity_rule": "free_bytes > required_bytes"},
@@ -584,7 +727,9 @@ def canonical_pair_preflight(*, allow_authorized: bool = False) -> dict[str, Any
         "simulation_execution": False,
         "scientific_jobs": 0,
         "disease_jobs": 0,
-        "holdout": "SEALED",
+        "holdout_role": "NOT_APPLICABLE_GATE29_ENGINEERING_PAIR",
+        "external_biological_evidence_accessed": False,
+        "external_biological_holdout_evaluated": False,
     }
 
 
@@ -603,7 +748,14 @@ def _validate_authorization(authorization: Mapping[str, Any]) -> None:
         raise CanonicalPairError("GATE29_CANONICAL_PAIR_AUTHORIZATION_SCOPE_INVALID")
     if authorization.get("automatic_retry_authorized") is not False:
         raise CanonicalPairError("GATE29_CANONICAL_PAIR_RETRY_NOT_ALLOWED")
-    if authorization.get("scientific_execution_authorized") is not False or authorization.get("disease_execution_authorized") is not False:
+    if any(authorization.get(key) is not False for key in (
+        "scientific_execution_authorized",
+        "disease_execution_authorized",
+        "calibration_authorized",
+        "fitting_authorized",
+        "retuning_authorized",
+        "dopamine_authorized",
+    )):
         raise CanonicalPairError("GATE29_CANONICAL_PAIR_SCIENTIFIC_SCOPE_INVALID")
     reviewer = authorization.get("reviewer")
     if not isinstance(reviewer, str) or not reviewer.strip():
@@ -618,8 +770,32 @@ def _validate_authorization(authorization: Mapping[str, Any]) -> None:
         raise CanonicalPairError("GATE29_CANONICAL_PAIR_SOURCE_FINGERPRINT_MISMATCH")
     if authorization.get("authorized_runtime_commit") != RUNTIME_COMMIT:
         raise CanonicalPairError("GATE29_CANONICAL_PAIR_RUNTIME_COMMIT_MISMATCH")
-    if authorization.get("authorized_code_head") != _git(ROOT, "rev-parse", "HEAD"):
-        raise CanonicalPairError("GATE29_CANONICAL_PAIR_CODE_HEAD_MISMATCH")
+    freeze_state = _execution_code_freeze_state()
+    if freeze_state["status"] != "PASS":
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_EXECUTION_CODE_DRIFT")
+    freeze = _json(FREEZE_PATH)
+    if authorization.get("authorized_execution_code_head") != freeze["execution_code_head"]:
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_EXECUTION_CODE_HEAD_MISMATCH")
+    freeze_commit = authorization.get("authorized_freeze_commit")
+    if not isinstance(freeze_commit, str) or not re.fullmatch(r"[0-9a-f]{40}", freeze_commit):
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_FREEZE_COMMIT_REQUIRED")
+    if _git(ROOT, "cat-file", "-t", freeze_commit) != "commit":
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_FREEZE_COMMIT_INVALID")
+    current_head = _git(ROOT, "rev-parse", "HEAD")
+    ancestor = subprocess.run(
+        ["git", "-C", str(ROOT), "merge-base", "--is-ancestor", freeze_commit, current_head],
+        capture_output=True,
+        check=False,
+    )
+    if ancestor.returncode != 0:
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_FREEZE_COMMIT_NOT_ANCESTOR")
+    freeze_blob = subprocess.run(
+        ["git", "-C", str(ROOT), "cat-file", "blob", f"{freeze_commit}:{FREEZE_RELATIVE_PATH}"],
+        capture_output=True,
+        check=False,
+    )
+    if freeze_blob.returncode != 0 or hashlib.sha256(freeze_blob.stdout).hexdigest() != _sha256(FREEZE_PATH):
+        raise CanonicalPairError("GATE29_CANONICAL_PAIR_FREEZE_CONTENT_MISMATCH")
 
 
 def _job_commands() -> dict[str, list[str]]:
@@ -706,7 +882,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     modes = parser.add_mutually_exclusive_group(required=True)
     modes.add_argument("--design-canonical-pair", action="store_true")
-    modes.add_argument("--canonical-pair-preflight", action="store_true")
+    modes.add_argument("--canonical-pair-preflight", "--preflight", dest="canonical_pair_preflight", action="store_true")
     modes.add_argument("--execute-authorized-canonical-pair", action="store_true")
     args = parser.parse_args(argv)
     try:

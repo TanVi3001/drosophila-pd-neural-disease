@@ -72,6 +72,7 @@ CANONICAL_PAIR_DESIGN = MANIFEST_ROOT / "canonical_pair_design.json"
 CANONICAL_PAIR_SOURCE_MANIFEST = MANIFEST_ROOT / "canonical_pair_brain_source_manifest.json"
 CANONICAL_PAIR_CONTEXT = MANIFEST_ROOT / "canonical_pair_execution_context.json"
 CANONICAL_PAIR_AUTHORIZATION = MANIFEST_ROOT / "canonical_pair_execution_authorization.json"
+CANONICAL_PAIR_FREEZE = MANIFEST_ROOT / "canonical_pair_execution_freeze.json"
 CANONICAL_PAIR_RUNNER = ROOT / "scripts/run_gate29_canonical_pair.py"
 BASELINE_SOURCE_SNAPSHOT = MANIFEST_ROOT / "baseline_source_snapshot.json"
 BASELINE_BRAIN_SOURCE_FORENSIC = MANIFEST_ROOT / "baseline_brain_source_forensic_reconstruction.json"
@@ -186,6 +187,8 @@ def _gate29_reproducibility_paths() -> list[Path]:
         SUMMARY_PATH,
         COMPARISON_PATH,
     ]
+    if CANONICAL_PAIR_FREEZE.is_file():
+        paths.append(CANONICAL_PAIR_FREEZE)
     paths.extend(sorted((ROOT / "src/drosophila_pd_neural/causal_trace").glob("*.py")))
     return paths
 

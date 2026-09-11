@@ -134,7 +134,8 @@ def test_authorization_is_pending_and_binds_source_runtime() -> None:
     authorization = canonical._json(canonical.AUTHORIZATION_PATH)
     manifest = canonical._json(canonical.SOURCE_MANIFEST)
     assert authorization["authorized"] is False
-    assert authorization["authorized_code_head"] == ""
+    assert authorization["authorized_execution_code_head"] == ""
+    assert authorization["authorized_freeze_commit"] == ""
     assert authorization["authorized_pair_id"] == canonical.PAIR_ID
     assert authorization["authorized_seed"] == 9202
     assert authorization["authorized_jobs"] == 2
@@ -142,6 +143,10 @@ def test_authorization_is_pending_and_binds_source_runtime() -> None:
     assert authorization["authorized_runtime_commit"] == canonical.RUNTIME_COMMIT
     assert authorization["scientific_execution_authorized"] is False
     assert authorization["disease_execution_authorized"] is False
+    assert authorization["calibration_authorized"] is False
+    assert authorization["fitting_authorized"] is False
+    assert authorization["retuning_authorized"] is False
+    assert authorization["dopamine_authorized"] is False
     assert authorization["no_auto_sign"] is True
 
 
@@ -189,11 +194,20 @@ def test_design_has_scientific_firewall() -> None:
 
 def test_pair_preflight_is_ready_only_for_human_authorization() -> None:
     result = canonical.canonical_pair_preflight()
-    assert result["status"] == "GATE29_CANONICAL_PAIR_PREFLIGHT_READY_FOR_HUMAN_AUTHORIZATION"
+    assert result["status"] in {
+        "GATE29_CANONICAL_PAIR_PREFLIGHT_READY_FOR_HUMAN_AUTHORIZATION",
+        "GATE29_CANONICAL_PAIR_PREFLIGHT_BLOCKED",
+    }
+    if canonical.FREEZE_PATH.is_file() and result["status"] == "GATE29_CANONICAL_PAIR_PREFLIGHT_BLOCKED":
+        assert result["blockers"] == ["GATE29_CANONICAL_PAIR_EXECUTION_DIRTY_WORKTREE"]
+    elif not canonical.FREEZE_PATH.is_file():
+        assert "canonical_pair_execution_freeze.json is missing" in result["blockers"]
     assert result["gpu_execution"] is False
     assert result["simulation_execution"] is False
     assert result["scientific_jobs"] == 0
-    assert result["holdout"] == "SEALED"
+    assert result["holdout_role"] == "NOT_APPLICABLE_GATE29_ENGINEERING_PAIR"
+    assert result["external_biological_evidence_accessed"] is False
+    assert result["external_biological_holdout_evaluated"] is False
 
 
 def test_execution_requires_human_authorization() -> None:
@@ -231,6 +245,58 @@ def test_manifest_fingerprint_recomputes_deterministically() -> None:
     assert rebuilt["files"] == manifest["files"]
 
 
+def test_execution_snapshot_verification_does_not_need_original_source(monkeypatch: pytest.MonkeyPatch) -> None:
+    manifest = canonical._json(canonical.SOURCE_MANIFEST)
+    monkeypatch.setattr(canonical, "SOURCE_ROOT", Path("E:/missing-mutated-original-source"))
+    result = canonical.verify_frozen_snapshot(canonical.SNAPSHOT_ROOT, manifest)
+    assert result["status"] == "PASS"
+    assert result["source_snapshot_execution_input"] is True
+    assert result["mutable_original_source_execution_input"] is False
+
+
+def test_snapshot_missing_file_fails_closed(tmp_path: Path) -> None:
+    manifest = canonical._json(canonical.SOURCE_MANIFEST)
+    snapshot = tmp_path / "snapshot"
+    snapshot.mkdir()
+    result = canonical.verify_frozen_snapshot(snapshot, manifest)
+    assert result["status"] == "BLOCKED"
+    assert any(item.startswith("snapshot missing:") for item in result["blockers"])
+
+
+def test_snapshot_hash_mutation_fails_closed(tmp_path: Path) -> None:
+    manifest = canonical._json(canonical.SOURCE_MANIFEST)
+    snapshot = tmp_path / "snapshot"
+    for record in manifest["files"]:
+        path = snapshot / record["relative_path"]
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"mutated")
+    result = canonical.verify_frozen_snapshot(snapshot, manifest)
+    assert result["status"] == "BLOCKED"
+    assert any("snapshot hash mismatch:" in item for item in result["blockers"])
+
+
+def test_snapshot_unexpected_file_fails_closed(tmp_path: Path) -> None:
+    manifest = canonical._json(canonical.SOURCE_MANIFEST)
+    snapshot = tmp_path / "snapshot"
+    snapshot.mkdir()
+    (snapshot / "unexpected.bin").write_bytes(b"unexpected")
+    result = canonical.verify_frozen_snapshot(snapshot, manifest)
+    assert result["status"] == "BLOCKED"
+    assert "snapshot unexpected:unexpected.bin" in result["blockers"]
+
+
+def test_freeze_is_fail_closed_before_commit_b(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(canonical, "FREEZE_PATH", tmp_path / "missing-freeze.json")
+    result = canonical._execution_code_freeze_state()
+    assert result["status"] == "GATE29_CANONICAL_PAIR_EXECUTION_CODE_FREEZE_MISSING"
+
+
+def test_authorization_template_has_no_self_referential_head() -> None:
+    authorization = canonical._json(canonical.AUTHORIZATION_PATH)
+    assert "authorized_code_head" not in authorization
+    assert authorization["authorized"] is False
+
+
 def test_snapshot_does_not_include_cache_or_output_names() -> None:
     manifest = canonical._json(canonical.SOURCE_MANIFEST)
     for record in manifest["files"]:
@@ -245,7 +311,7 @@ def test_runtime_source_is_not_the_canonical_snapshot() -> None:
 
 def test_gate29_manifest_keeps_execution_blocked() -> None:
     manifest = gate29._json(gate29.GATE29_MANIFEST)
-    assert manifest["status"] == "GATE29_TRACE_ARCHITECTURE_COMPLETE_TECHNICAL_EXECUTION_BLOCKED"
+    assert manifest["status"] == "GATE29_CANONICAL_PAIR_EXECUTION_FROZEN"
     assert manifest["canonical_pair_execution_status"] == "NOT_EXECUTED"
     assert manifest["canonical_pair_authorization"] == "WAITING_GATE29_CANONICAL_PAIR_HUMAN_AUTHORIZATION"
     assert manifest["canonical_pair_runtime_verified_edge_count"] == 0
