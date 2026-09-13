@@ -201,3 +201,11 @@ Dự án đạt mức reviewer-ready cho một **Chen-calibrated organism-level 
 5. Đăng ký trước tolerance của holdout trước khi chạy một vòng đánh giá mới.
 6. So sánh nhiều proxy operator bằng cùng physics, seed policy và endpoint contract.
 7. Không dùng kết quả hiện tại cho claim clinical, drug hoặc therapeutic.
+
+## 13. Cập nhật kết quả Gate29-H (2026-09-13)
+
+Gate29-H đã hoàn tất đủ 15/15 job theo preregistration: 3 conditions, seeds 0–4. QC/integrity đạt PASS cho toàn bộ job. Ở contrast đã đăng ký trước `dopamine_class_level_full_burden - healthy_control`, cả năm paired difference của endpoint chính `median_planar_speed_mm_s` đều bằng 0; exact one-sided sign-flip p = 1.00 và 95% percentile paired bootstrap CI = [0, 0] mm/s. Endpoint trace `brain_body_drive_mean_l2` cũng có paired difference bằng 0 ở cả năm seed.
+
+Kết luận được khóa là: **full-burden không tạo khác biệt quan sát được so với healthy control trong computational protocol Gate29-H này**. Kết luận này không được mở rộng thành “dopamine depletion không có tác động sinh học”, biological Parkinson validation, gene-specific validation hoặc clinical/drug claim. Sau kết quả, project không retune, không đổi burden, không fitting/calibration và không mở holdout để tìm significance.
+
+Release packet, bảng, figure, QC, statistical analysis, freeze manifest và SHA256 checksum nằm tại [`release/gate29h_continuation_003`](../../release/gate29h_continuation_003/). Báo cáo chi tiết là [`gate29h_final_results_report.md`](../../release/gate29h_continuation_003/reports/gate29h_final_results_report.md); trạng thái review hai người được ghi riêng trong [`gate29h_analysis_review_signoff.json`](../../release/gate29h_continuation_003/manifests/gate29h_analysis_review_signoff.json) và chỉ chuyển PASS sau khi hai reviewer xác nhận trực tiếp.

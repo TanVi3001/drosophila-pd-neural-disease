@@ -1,0 +1,358 @@
+{
+  "analysis_controls": {
+    "biological_causality_established": false,
+    "gpu_execution": false,
+    "holdout_opened": false,
+    "no_best_seed_selection": true,
+    "no_burden_selection": true,
+    "no_calibration": true,
+    "no_fitting": true,
+    "no_frame_level_pseudoreplication": true,
+    "no_posthoc_thresholds": true,
+    "no_retuning": true
+  },
+  "analysis_runner_path": "scripts\\analyze_gate29h_scientific_trace.py",
+  "analysis_runner_sha256": "5354124c13a8b7f27d70a92131cd96545d9d40db6a42fadda7eb32aa4f5f8e0d",
+  "analysis_unit": "simulation_seed",
+  "config_sha256": "fcef78f593d313d276ee07ab3f127acf2625ff58ea0e040beccb369c1f0be070",
+  "decision": {
+    "quantitative_match": "DESCRIPTIVE_ONLY_NO_ASSAY_SCALE_CLAIM",
+    "scope": "class-level computational contrast only; not biological Parkinson validation",
+    "status": "NOT_REPRODUCED_WITHIN_COMPUTATIONAL_SCOPE"
+  },
+  "identity_control": {
+    "expected": "exact identity/no difference from healthy",
+    "metric_differences": {
+      "brain_body_drive_mean_l2": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "contact_fraction": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "decoder_mean_rate_hz": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "distance_traveled_mm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dn_spike_rate_hz_per_dn": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "median_planar_speed_mm_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "status": "PASS",
+    "trace_arrays_exactly_equal_by_seed": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ]
+  },
+  "input_combined_summary_sha256": "bf769f666990945c62187ddb6b2a8047f0245e492e59f2c075db82111d0185d5",
+  "input_qc_report_sha256": "a22889eef41cec79628605d389047bb8e64911e65cf61a714dec7775d8c5f85a",
+  "input_qc_status": "GATE29H_QC_INTEGRITY_PASS",
+  "pairing": "same_seed_across_conditions",
+  "preregistration_id": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1",
+  "primary_contrast": "dopamine_class_level_full_burden_minus_healthy_control",
+  "primary_effect_size": {
+    "median_paired_difference": 0.0,
+    "paired_rank_biserial_correlation": {
+      "defined": false,
+      "reason": "all paired differences are exactly zero",
+      "value": null
+    }
+  },
+  "primary_endpoint": "median_planar_speed_mm_s",
+  "primary_expected_direction": "less_than_zero_is_hypothesis",
+  "primary_paired_differences": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "primary_test": {
+    "alpha": 0.05,
+    "direction_observed": false,
+    "null_permutations": 32,
+    "observed_median": 0.0,
+    "p_value_one_sided_less_than_zero": 1.0,
+    "significant_at_alpha": false,
+    "statistic": "median_paired_difference"
+  },
+  "primary_uncertainty": {
+    "ci_95_percentile": [
+      0.0,
+      0.0
+    ],
+    "median": 0.0,
+    "method": "95_percentile_paired_bootstrap",
+    "resamples": 10000,
+    "seed": 29001
+  },
+  "schema_version": "gate29h-scientific-trace-statistical-analysis-v1",
+  "secondary_endpoints": {
+    "action_trajectory_rms_delta": {
+      "bootstrap": {
+        "ci_95_percentile": [
+          0.0,
+          0.0
+        ],
+        "median": 0.0,
+        "method": "95_percentile_paired_bootstrap",
+        "resamples": 10000,
+        "seed": 29001
+      },
+      "differences_full_minus_healthy": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inference_role": "descriptive_secondary",
+      "median_paired_difference": 0.0,
+      "paired_rank_biserial_correlation": {
+        "defined": false,
+        "reason": "all paired differences are exactly zero",
+        "value": null
+      }
+    },
+    "brain_body_drive_mean_l2": {
+      "bootstrap": {
+        "ci_95_percentile": [
+          0.0,
+          0.0
+        ],
+        "median": 0.0,
+        "method": "95_percentile_paired_bootstrap",
+        "resamples": 10000,
+        "seed": 29001
+      },
+      "differences_full_minus_healthy": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inference_role": "descriptive_secondary",
+      "median_paired_difference": 0.0,
+      "paired_rank_biserial_correlation": {
+        "defined": false,
+        "reason": "all paired differences are exactly zero",
+        "value": null
+      }
+    },
+    "contact_fraction": {
+      "bootstrap": {
+        "ci_95_percentile": [
+          0.0,
+          0.0
+        ],
+        "median": 0.0,
+        "method": "95_percentile_paired_bootstrap",
+        "resamples": 10000,
+        "seed": 29001
+      },
+      "differences_full_minus_healthy": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inference_role": "descriptive_secondary",
+      "median_paired_difference": 0.0,
+      "paired_rank_biserial_correlation": {
+        "defined": false,
+        "reason": "all paired differences are exactly zero",
+        "value": null
+      }
+    },
+    "decoder_mean_rate_hz": {
+      "bootstrap": {
+        "ci_95_percentile": [
+          0.0,
+          0.0
+        ],
+        "median": 0.0,
+        "method": "95_percentile_paired_bootstrap",
+        "resamples": 10000,
+        "seed": 29001
+      },
+      "differences_full_minus_healthy": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inference_role": "descriptive_secondary",
+      "median_paired_difference": 0.0,
+      "paired_rank_biserial_correlation": {
+        "defined": false,
+        "reason": "all paired differences are exactly zero",
+        "value": null
+      }
+    },
+    "displacement_mm": {
+      "bootstrap": {
+        "ci_95_percentile": [
+          0.0,
+          0.0
+        ],
+        "median": 0.0,
+        "method": "95_percentile_paired_bootstrap",
+        "resamples": 10000,
+        "seed": 29001
+      },
+      "differences_full_minus_healthy": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inference_role": "descriptive_secondary",
+      "median_paired_difference": 0.0,
+      "paired_rank_biserial_correlation": {
+        "defined": false,
+        "reason": "all paired differences are exactly zero",
+        "value": null
+      }
+    },
+    "distance_traveled_mm": {
+      "bootstrap": {
+        "ci_95_percentile": [
+          0.0,
+          0.0
+        ],
+        "median": 0.0,
+        "method": "95_percentile_paired_bootstrap",
+        "resamples": 10000,
+        "seed": 29001
+      },
+      "differences_full_minus_healthy": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inference_role": "descriptive_secondary",
+      "median_paired_difference": 0.0,
+      "paired_rank_biserial_correlation": {
+        "defined": false,
+        "reason": "all paired differences are exactly zero",
+        "value": null
+      }
+    },
+    "dn_spike_rate_hz_per_dn": {
+      "bootstrap": {
+        "ci_95_percentile": [
+          0.0,
+          0.0
+        ],
+        "median": 0.0,
+        "method": "95_percentile_paired_bootstrap",
+        "resamples": 10000,
+        "seed": 29001
+      },
+      "differences_full_minus_healthy": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inference_role": "descriptive_secondary",
+      "median_paired_difference": 0.0,
+      "paired_rank_biserial_correlation": {
+        "defined": false,
+        "reason": "all paired differences are exactly zero",
+        "value": null
+      }
+    },
+    "joint_velocity_rms": {
+      "bootstrap": {
+        "ci_95_percentile": [
+          0.0,
+          0.0
+        ],
+        "median": 0.0,
+        "method": "95_percentile_paired_bootstrap",
+        "resamples": 10000,
+        "seed": 29001
+      },
+      "differences_full_minus_healthy": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inference_role": "descriptive_secondary",
+      "median_paired_difference": 0.0,
+      "paired_rank_biserial_correlation": {
+        "defined": false,
+        "reason": "all paired differences are exactly zero",
+        "value": null
+      }
+    },
+    "median_planar_speed_mm_s": {
+      "bootstrap": {
+        "ci_95_percentile": [
+          0.0,
+          0.0
+        ],
+        "median": 0.0,
+        "method": "95_percentile_paired_bootstrap",
+        "resamples": 10000,
+        "seed": 29001
+      },
+      "differences_full_minus_healthy": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inference_role": "primary_confirmatory",
+      "median_paired_difference": 0.0,
+      "paired_rank_biserial_correlation": {
+        "defined": false,
+        "reason": "all paired differences are exactly zero",
+        "value": null
+      }
+    }
+  },
+  "status": "GATE29H_STATISTICAL_ANALYSIS_COMPLETE"
+}
