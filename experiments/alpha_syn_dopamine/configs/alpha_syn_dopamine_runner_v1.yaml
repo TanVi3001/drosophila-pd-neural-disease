@@ -1,0 +1,87 @@
+schema_version: alpha-syn-dopamine-runner-v1
+runner_id: ALPHA_SYN_DOPAMINE_RUNNER_V1
+status: RUNNER_PROTOCOL_LOCKED_FOR_EXECUTION
+protocol_review_status: DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW_PASS
+parameter_lock_status: LOCKED_FOR_EXECUTION
+preregistration_id: ALPHA_SYN_DOPAMINE_LOCOMOTION_V1
+preregistration_sha256: fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644
+
+model:
+  condition_id: alpha_synuclein
+  gene_model: human_alpha_synuclein
+  model_scope: class_level_dopamine_proxy_for_alpha_synuclein
+  gene_specific_mapping: false
+  biological_mapping_claim: false
+  functional_state:
+    name: functional_dopamine_deficiency
+    full_burden:
+      presynaptic_gain: 0.15
+      postsynaptic_gain: 1.0
+      neuron_survival: 1.0
+      energy_capacity: 1.0
+      energy_consumption_scale: 1.0
+      noise_std: 0.0
+      action_delay_steps: 0
+    burden_curve:
+      - age_days: 5.0
+        burden: 1.0
+  structural_comparator:
+    name: structural_loss_comparator
+    full_burden:
+      presynaptic_gain: 1.0
+      postsynaptic_gain: 1.0
+      neuron_survival: 0.5
+      energy_capacity: 1.0
+      energy_consumption_scale: 1.0
+      noise_std: 0.0
+      action_delay_steps: 0
+    burden_curve:
+      - age_days: 5.0
+        burden: 1.0
+
+mapping:
+  mode: shared_dopamine_class_level_proxy
+  source_config: configs/conditions/dopamine_deficiency.exploratory.yaml
+  mapping_status: CLASS_LEVEL_EXPLORATORY_ONLY
+  target_ids_are_explicit: true
+  target_edges: []
+  transfer_statement: The dopamine class-level target set is reused as a functional comparator and is not an alpha-synuclein gene-specific map.
+
+job_matrix:
+  conditions:
+    - job_condition_id: healthy_control
+      state: no_effect
+    - job_condition_id: alpha_synuclein_functional_dopamine
+      state: functional_state
+    - job_condition_id: alpha_synuclein_structural_loss
+      state: structural_comparator
+  seeds: [0, 1, 2, 3, 4]
+
+runtime:
+  backend: scripts/run_neural_experiment.py
+  brain_root: external/fly-brain
+  platform_root: ../drosophila-pd-flygym
+  annotations: annotations/neuron_annotations.csv
+  output_root: research/alpha_syn_dopamine_runs_v1
+  age_days: 5.0
+  steps: 5000
+  timestep_s: 0.0001
+  device: cuda
+  stimulus: p9
+  cpg_frequency_hz: 12.0
+
+controls:
+  no_automatic_retry: true
+  no_overwrite_existing_output: true
+  no_calibration: true
+  no_fitting: true
+  no_retuning: true
+  no_holdout_opening: true
+  no_gpu_until_explicit_authorization: true
+  provisional_parameters_are_not_literature_measurements: true
+
+scientific_boundary:
+  - This runner is a class-level dopamine computational proxy linked to an alpha-synuclein study direction.
+  - It is not a gene-specific alpha-synuclein root-ID/edge-ID mapping.
+  - Functional dopamine deficiency and structural loss remain separate comparator states.
+  - The configuration received separate runner-protocol review before scientific execution authorization.

@@ -1,0 +1,42 @@
+{
+  "analysis_status": "GATE29H_STATISTICAL_ANALYSIS_COMPLETE",
+  "decision": {
+    "quantitative_match": "DESCRIPTIVE_ONLY_NO_ASSAY_SCALE_CLAIM",
+    "scope": "class-level computational contrast only; not biological Parkinson validation",
+    "status": "NOT_REPRODUCED_WITHIN_COMPUTATIONAL_SCOPE"
+  },
+  "input_sha256": {
+    "analysis_runner": "5354124c13a8b7f27d70a92131cd96545d9d40db6a42fadda7eb32aa4f5f8e0d",
+    "combined_execution_summary": "bf769f666990945c62187ddb6b2a8047f0245e492e59f2c075db82111d0185d5",
+    "qc_integrity_report": "a22889eef41cec79628605d389047bb8e64911e65cf61a714dec7775d8c5f85a",
+    "qc_runner": "be2608e05ec36ac1c0ae5edab70524947dca0c8763a5323594786fcff3eb98d6",
+    "statistical_analysis": "8d7163c1eb8b369187beb6ef3a13332cf64b7a986b4a16b370925508a7472768"
+  },
+  "next_action": "Both named reviewers must directly confirm the report and claim boundary before final release signoff.",
+  "preregistration_id": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1",
+  "qc_status": "GATE29H_QC_INTEGRITY_PASS",
+  "review_scope": [
+    "statistical analysis",
+    "QC/integrity report",
+    "primary table",
+    "primary figure",
+    "claim boundary",
+    "freeze manifest and SHA256 checksums"
+  ],
+  "reviewers": [
+    {
+      "attestation": null,
+      "name": "Lê Tấn Vĩ",
+      "role": "reviewer_1",
+      "status": "PENDING_HUMAN_CONFIRMATION"
+    },
+    {
+      "attestation": null,
+      "name": "Tô Đặng Minh Tuấn",
+      "role": "reviewer_2",
+      "status": "PENDING_HUMAN_CONFIRMATION"
+    }
+  ],
+  "schema_version": "gate29h-analysis-review-signoff-v1",
+  "status": "WAITING_DUAL_HUMAN_ANALYSIS_REVIEW"
+}

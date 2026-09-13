@@ -1,0 +1,54 @@
+{
+  "gpu_execution_authorized": false,
+  "holdout_opened": false,
+  "next_action": "Runner protocol review passed and parameters are locked; record separate explicit GPU execution authorization before running.",
+  "parameter_fitting_authorized": false,
+  "preregistration": "alpha_syn_dopamine_preregistration_v1.md",
+  "preregistration_sha256": "fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644",
+  "registry": "literature_endpoint_registry_v2.csv",
+  "registry_sha256": "942b6ddf332035ef1553444790383abc63c58799f6ad89f21001e3abba04e0e1",
+  "required_materials": [
+    "literature_endpoint_registry_v2.csv",
+    "alpha_syn_dopamine_study_split_manifest_v1.json",
+    "alpha_syn_dopamine_preregistration_v1.md",
+    "alpha_syn_dopamine_preregistration_v1.json",
+    "alpha_syn_dopamine_updated_metadata_review_packet.md"
+  ],
+  "reviewers": [
+    {
+      "attestation": "Direct confirmation recorded from Le Tan Vi in the project conversation on 2026-09-13: updated registry, preregistration v1, unresolved metadata policy, and claim boundary reviewed and accepted; this is not GPU execution authorization.",
+      "name": "Lê Tấn Vĩ",
+      "role": "reviewer_1",
+      "status": "CONFIRMED"
+    },
+    {
+      "attestation": "Direct confirmation recorded from To Dang Minh Tuan in the project conversation on 2026-09-13: updated registry, preregistration v1, unresolved metadata policy, and claim boundary reviewed and accepted; this is not GPU execution authorization.",
+      "name": "Tô Đặng Minh Tuấn",
+      "role": "reviewer_2",
+      "status": "CONFIRMED"
+    }
+  ],
+  "schema_version": "alpha-syn-dopamine-updated-registry-prereg-review-v1",
+  "scope": "updated endpoint registry, final preregistration v1, and claim boundary",
+  "status": "DUAL_HUMAN_UPDATED_REGISTRY_AND_PREREG_REVIEW_PASS",
+  "reviewed_at": "2026-09-13",
+  "runner_protocol_status": "DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW_PASS",
+  "runner_protocol_review": {
+    "packet": "alpha_syn_dopamine_runner_protocol_review_packet.md",
+    "decision": "PASS",
+    "reviewed_at": "2026-09-13",
+    "scope": "model-specific alpha-synuclein/dopamine runner protocol and locked parameters; not GPU execution authorization",
+    "reviewers": [
+      {
+        "name": "Le Tan Vi",
+        "status": "CONFIRMED",
+        "attestation": "Direct confirmation recorded from Le Tan Vi in the project conversation on 2026-09-13."
+      },
+      {
+        "name": "To Dang Minh Tuan",
+        "status": "CONFIRMED",
+        "attestation": "Direct confirmation recorded from To Dang Minh Tuan in the project conversation on 2026-09-13."
+      }
+    ]
+  }
+}

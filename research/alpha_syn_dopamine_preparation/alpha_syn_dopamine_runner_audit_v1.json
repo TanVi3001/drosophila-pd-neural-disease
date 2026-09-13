@@ -1,0 +1,119 @@
+{
+  "artifacts": {
+    "code_audit": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_code_audit.json",
+      "sha256": "1e591259685499310a705e992ce75177359df9c97cd4920963b535b62fbc31ec"
+    },
+    "cpu_tests": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_cpu_test_manifest.json",
+      "sha256": "9a57f74d2dce0f07c158ffbf063f229e434f363702726b6aa4eda9e80a2ec2ff"
+    },
+    "preregistration_hash_sidecar": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_preregistration_v1.sha256",
+      "sha256": "c0a2e5a7155af6478641d0cce1ff57e94e4cdc73cb43a631fb8e616bab79a8d0"
+    },
+    "preregistration_json": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_preregistration_v1.json",
+      "sha256": "8197fcbd313460f1a5cf41f015f21038d8d8190ad461885a5a722e4ae9b8627d"
+    },
+    "runner_config": {
+      "path": "experiments\\alpha_syn_dopamine\\configs\\alpha_syn_dopamine_runner_v1.yaml",
+      "sha256": "135b69cb995d9d537926f11671391172281d0c1a0064dfe8f1badb2368b7f2f2"
+    },
+    "runner_dry_run": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_runner_dry_run_manifest.json",
+      "sha256": "475c320f4baf263f7ba35f897dbb9891e8bba3e44323d85a58c45c91e93c5e4f"
+    },
+    "runner_module": {
+      "path": "src\\drosophila_pd_neural\\alpha_syn_dopamine_runner.py",
+      "sha256": "60b6e1f936b47ac0c292c84be71bc023b7a6ac0484f51f4cfc7e48a36b1f3774"
+    },
+    "runner_protocol_packet": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_runner_protocol_review_packet.md",
+      "sha256": "20c1a9c6ad14f60cb610cc574ec78d571258c9a89d7c2eef55ec182abc6ac910"
+    },
+    "runner_script": {
+      "path": "scripts\\run_alpha_syn_dopamine.py",
+      "sha256": "0339770b60664da7a7caf4eced4edae8d4c858a2b1dda3700142bc3525cb8bbe"
+    },
+    "study_split": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_study_split_manifest_v1.json",
+      "sha256": "de93c8525c81cf67a092004069b995e0216f709f0c6c3b5350473d56f2175268"
+    }
+  },
+  "audit_checks": {
+    "code_audit_passed": true,
+    "cpu_tests_passed": true,
+    "dual_human_registry_prereg_review_passed": true,
+    "model_specific_runner_present": true,
+    "no_execution_authorization": true,
+    "no_gene_specific_runner_claimed": true,
+    "preregistration_hash_present": true,
+    "preregistration_hash_sidecar_present": true,
+    "preregistration_is_final_candidate": true,
+    "runner_dry_run_passed": true,
+    "runner_protocol_packet_present": true,
+    "runner_protocol_review_passed_and_locked": true,
+    "runtime_inputs_available": true,
+    "study_split_not_opened_for_holdout": true
+  },
+  "audited_at": "2026-09-13T01:59:09.708572+00:00",
+  "git_head_at_audit": "a40016680b08250a55f3b6615e49650df8d61977",
+  "job_matrix_count": 15,
+  "job_matrix_sha256": "37171ac1236f1a1f5812cc98d168d181b33752569cddaa63c08ef8f283c0cbd8",
+  "model_implementation_status": "MODEL_SPECIFIC_CLASS_LEVEL_DOPAMINE_PROXY_RUNNER_IMPLEMENTED_WITH_NON_SPECIFIC_BOUNDARY",
+  "preregistration_hash_sidecar_sha256": "c0a2e5a7155af6478641d0cce1ff57e94e4cdc73cb43a631fb8e616bab79a8d0",
+  "preregistration_sha256": "fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644",
+  "runner_candidates": [
+    "scripts\\run_alpha_syn_dopamine.py",
+    "src\\drosophila_pd_neural\\alpha_syn_dopamine_runner.py",
+    "experiments\\alpha_syn_dopamine\\configs\\alpha_syn_dopamine_runner_v1.yaml"
+  ],
+  "runner_protocol_status": "DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW_PASS",
+  "runtime_inputs": {
+    "annotations": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\annotations\\neuron_annotations.csv",
+      "sha256": "033a273772202a8277e715a4016708c9a6bc5682c541b0a6834fd3e764416840"
+    },
+    "backend": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\scripts\\run_neural_experiment.py",
+      "sha256": "d1b2079139fade81c1f78ff90bd4753bcde6deb26ebbb13e71a5a9db9db72101"
+    },
+    "brain_root": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain",
+      "sha256": null
+    },
+    "checkpoint": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain\\data\\plastic_weights.pt",
+      "sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691"
+    },
+    "completeness": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain\\data\\2025_Completeness_783.csv",
+      "sha256": "bbb847a4cc2caaa7a16349722d220c087317b946d148d4d592d94d250617a311"
+    },
+    "connectivity": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\external\\fly-brain\\data\\2025_Connectivity_783.parquet",
+      "sha256": "efeb23fb99098e9c390f6869969b2a121a2ee92c833cfc45ecb2c1d8e1af0347"
+    },
+    "mapping_source": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\configs\\conditions\\dopamine_deficiency.exploratory.yaml",
+      "sha256": "8a74ec0c036215a3ff12af69c5acbc6332d6ce7aaf27c735097a874fd57797ec"
+    },
+    "platform_runner": {
+      "path": "E:\\Drosophila_Parkinson\\drosophila-pd-flygym\\scripts\\run_brain_body_rollout.py",
+      "sha256": "bd3a300fef3a10119d3d6ea0d291a256807eadb350d82ac47c50122d0e3b3045"
+    }
+  },
+  "schema_version": "alpha-syn-dopamine-runner-audit-v1",
+  "scientific_gpu_execution": {
+    "allowed_now": false,
+    "reason": "Runner, protocol review, dry-run, runtime inputs, and hashes pass; only separate explicit human GPU authorization remains.",
+    "required": [
+      "separate explicit authorization from both human reviewers",
+      "freeze exact condition/mapping/transform/seed/QC/analysis/claim configuration",
+      "record exact job matrix and checkpoint/config hashes",
+      "start execution only through the guarded runner"
+    ]
+  },
+  "status": "READY_FOR_EXPLICIT_HUMAN_GPU_AUTHORIZATION"
+}

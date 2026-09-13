@@ -1,0 +1,1406 @@
+{
+  "checkpoint_sha256_by_condition": {
+    "dopamine_class_level_burden_zero": [
+      "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691"
+    ],
+    "dopamine_class_level_full_burden": [
+      "75492edf67a03f0afdb95e95ac9256f6d6db99d6496113696f417b5373151a3c"
+    ],
+    "healthy_control": [
+      "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691"
+    ]
+  },
+  "execution_matrix": {
+    "completed_jobs": 15,
+    "conditions": [
+      "healthy_control",
+      "dopamine_class_level_burden_zero",
+      "dopamine_class_level_full_burden"
+    ],
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "freeze_date": "2026-09-13",
+  "freeze_status": "FROZEN_FOR_DUAL_HUMAN_REVIEW",
+  "input_artifacts": [
+    {
+      "path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\gate29h_combined_execution_summary.json",
+      "role": "combined_execution_summary",
+      "sha256": "bf769f666990945c62187ddb6b2a8047f0245e492e59f2c075db82111d0185d5",
+      "status": "gate29h_combined_execution_summary.json"
+    },
+    {
+      "path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\gate29h_qc_integrity_report.json",
+      "role": "qc_integrity_report",
+      "sha256": "a22889eef41cec79628605d389047bb8e64911e65cf61a714dec7775d8c5f85a",
+      "status": "GATE29H_QC_INTEGRITY_PASS"
+    },
+    {
+      "path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\analysis\\gate29h_statistical_analysis.json",
+      "role": "statistical_analysis",
+      "sha256": "8d7163c1eb8b369187beb6ef3a13332cf64b7a986b4a16b370925508a7472768",
+      "status": "GATE29H_STATISTICAL_ANALYSIS_COMPLETE"
+    }
+  ],
+  "package_policy": {
+    "checksums_file": "checksums.sha256",
+    "raw_arrays_copied_into_package": false,
+    "raw_arrays_remain_at_source_paths": true,
+    "review_signoff": "manifests/gate29h_analysis_review_signoff.json"
+  },
+  "preregistration_id": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1",
+  "raw_job_artifacts": [
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\brain_body_summary.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "674b7ef6cd60db44c2b856c5498d24b5403c7878106c285715e6f3053f1e3d05",
+      "size_bytes": 2132,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\gate29h_job_manifest.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "6b9a8d22bf59071ee83e9702e629ae92cf5353e65e7e191b81a05599ed1e662c",
+      "size_bytes": 1956,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\manifest.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "manifest.json",
+      "sha256": "2e111da7f613f76c0fb376b7910e621d1c945a8e0317f81235845cec1f8d9953",
+      "size_bytes": 4273,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\metadata.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "metadata.json",
+      "sha256": "3a90f0a45a9e8be42665e4a1a5a62047c290328b71f1945356933562e217f7c8",
+      "size_bytes": 2646,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\metrics\\metrics.csv",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "95bed0c1d2b935904f3d2c25b7d2c3b1984cca007c0287ba950d9b9092fab041",
+      "size_bytes": 261,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\metrics\\metrics.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "3b3e444c600cc50cd2cfbd021979c712507270295685f35879ef23bde4adcdd4",
+      "size_bytes": 1076,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\report\\summary.md",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "report/summary.md",
+      "sha256": "960804c87e5aa157eb80064f556548eb04ae196c93e0ac1045db9bdbf910ebac",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\rollout.npz",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "rollout.npz",
+      "sha256": "7d856249ac0da848903eabc278a24c83a6ac61518be41e3143c933cf435d0441",
+      "size_bytes": 28072541,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\rollout_index.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "rollout_index.json",
+      "sha256": "1931e7c7aa161077bf1a1a72c93f7c2bc9e9b8eb0ac27dc2d7f85c2481994b74",
+      "size_bytes": 3137,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\trace_arrays.npz",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "00ff0d94b1cc8496cf9f20f26781c5b55fc328c65e9d02c7e0e725cac6d03003",
+      "size_bytes": 10188777,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_000\\trace_metadata.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\brain_body_summary.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "5ec264fed879a589d2bbd5b75d54bdc0a33c803fc4e00d4f6e64dccfb9e3c2cd",
+      "size_bytes": 2132,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\gate29h_job_manifest.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "536303d500ec47e13a647d59206122b7bbc81ae003407249271b153372a066fc",
+      "size_bytes": 1956,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\manifest.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "manifest.json",
+      "sha256": "b380a1dc0cdda4dcb0144251f6055c3a8dc2fe17caba2dcd09cd45c6d7f96985",
+      "size_bytes": 4273,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\metadata.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "metadata.json",
+      "sha256": "f4d337c9812a83b84665e455cac6af232f9a08f80dd023d9fe367f4b51b44b33",
+      "size_bytes": 2646,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\metrics\\metrics.csv",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "40db791ff02202a17b30954d3eb8e714e3211448d188a9ed089bbd7e5af45bf5",
+      "size_bytes": 264,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\metrics\\metrics.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "0152a6c445532fc533b5e943a1d78e1e5fc914ab39e612107fd75b729f03d7ea",
+      "size_bytes": 1080,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\report\\summary.md",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "report/summary.md",
+      "sha256": "94e5b2e55a1ab911b12ca39db5a5417300e49854350fa5865fe19afaab06682c",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\rollout.npz",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "rollout.npz",
+      "sha256": "992ad7f5626e10ebe6898d75d2b77f7f2e6f630973c6b96306c921a7cc49479a",
+      "size_bytes": 28052747,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\rollout_index.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "rollout_index.json",
+      "sha256": "38ed8deb65a96c31e82ad258524bb9357cf7cd68a18ea301fd70d41de2a4489e",
+      "size_bytes": 3137,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\trace_arrays.npz",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "383ba3cca6801bf61d6798ebd31d3f5e8d5d49d7f1bb56bad259ea5ffa4ff2cc",
+      "size_bytes": 10232987,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\dopamine_class_level_burden_zero\\seed_001\\trace_metadata.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\brain_body_summary.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "7e98a8140d8b613080d2d3791ea3628b4743d3bfebe670a0a263375e68381009",
+      "size_bytes": 2251,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\gate29h_job_manifest.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "0dd0944802a8a32ca12c1223397304c554c856a0ff025baf1406693e8554a4d8",
+      "size_bytes": 2149,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\manifest.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "manifest.json",
+      "sha256": "c07e256faf39272dd199350e67df0d20e8bb88fac3126b12f9e6850f81214038",
+      "size_bytes": 4273,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\metadata.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "metadata.json",
+      "sha256": "78e3cfb24eba4019705b0a3ea75dda89dffdbb17db7fcf3e5fc4b40c61ef00eb",
+      "size_bytes": 2646,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\metrics\\metrics.csv",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "609410b6686131b8ab5587308e733b5f7cd3e30d68542a91b6d7b25e97ba84e9",
+      "size_bytes": 265,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\metrics\\metrics.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "841985beca4fa02b5aeef849e7a29baba5437781308f442e8f699fddbcc666a7",
+      "size_bytes": 1082,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\report\\summary.md",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "report/summary.md",
+      "sha256": "64b1ed1357866ff003524941294f69296ba24a8216cf48eff6296b3835afb7a3",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\rollout.npz",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "rollout.npz",
+      "sha256": "190342eca5c1b6ea4785509b2898f3251937ad3e2ec460b8b3c3b383927006a8",
+      "size_bytes": 28086550,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\rollout_index.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "rollout_index.json",
+      "sha256": "179a7e56e888101adef5d28c867d3fc46fbc876df7e65b191e9731c50fed04cd",
+      "size_bytes": 3137,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\trace_arrays.npz",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "6a12de7b2290c8003700cfd106678f9be6267a84290fbb83a7fb6ce96766a425",
+      "size_bytes": 10236598,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_002\\trace_metadata.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\brain_body_summary.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "2f313068c0b3083040f135bf79c2c6e8615884e5b2ccbe08e1cfb56d50901eaf",
+      "size_bytes": 2251,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\gate29h_job_manifest.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "580dd3cb4ab1ecfcb0b81fe0a4b8b8015c8e1b087d911ef0973044c791417d84",
+      "size_bytes": 2149,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\manifest.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "manifest.json",
+      "sha256": "38b869df879325bcba2924fc2700f999ad1d52da2478d61b8710a93fd6de47a3",
+      "size_bytes": 4273,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\metadata.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "metadata.json",
+      "sha256": "e467fb012d891f031382fd63438c003ae7ca0ae8fbcf91d19702d4d373f4e73d",
+      "size_bytes": 2646,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\metrics\\metrics.csv",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "4c012f6c61803c8969de067b36e55bbafb7cba70b0c1281d4e6e8c440c41fdb6",
+      "size_bytes": 265,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\metrics\\metrics.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "0130f265d13a3de9d6ce2f561ad6a667a9bc365b24f3f6dff86a6d4c032c1071",
+      "size_bytes": 1082,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\report\\summary.md",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "report/summary.md",
+      "sha256": "e23b139701c8a49b7f2039bda86a50d06bf3e22d734cf7e3c10c36ee8ac8e621",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\rollout.npz",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "rollout.npz",
+      "sha256": "21e8431c7fb6897d1d6a26e45eca05d0343baf033b16d0b34f13d0f6b2f837e4",
+      "size_bytes": 28082971,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\rollout_index.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "rollout_index.json",
+      "sha256": "a5231e21c8a99b6f433b2d5c916a1767afdc60498760b04ab6c2c1f1da45cb1e",
+      "size_bytes": 3137,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\trace_arrays.npz",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "3d46ea1112c064dc362e5f33aaadc50091e3d138bef2558b1acd13ab8c4a8af4",
+      "size_bytes": 10213229,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_003\\trace_metadata.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\brain_body_summary.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "9280de006600c2d7233a7ce147054b0e911ee4a08619be30d8d21f56506b1a44",
+      "size_bytes": 2251,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\gate29h_job_manifest.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "7940bcf30ebfc2ad479f1867b17b120037aa4c931e567a1118221956e27886a0",
+      "size_bytes": 2149,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\manifest.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "manifest.json",
+      "sha256": "69967ecd641984910bd24a58e5b1b582d3b35a2bbab606ac3345bb09712ae931",
+      "size_bytes": 4273,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\metadata.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "metadata.json",
+      "sha256": "f6817bba2dfdd7437626b4519aa32817f891668ca0cac224a6e1391ac3bd54ef",
+      "size_bytes": 2646,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\metrics\\metrics.csv",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "c58bb23038ab91ea3ce92766caffadf20a1ecf54bffea0458203f85fba4740f6",
+      "size_bytes": 263,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\metrics\\metrics.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "3f239a83f541ae8ff4d37b0abc896dd3245ec3e53b53cf538926ceb3901f4911",
+      "size_bytes": 1080,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\report\\summary.md",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "report/summary.md",
+      "sha256": "e3246fbade3615d6a6dad864a8f66551a8e10e1d6206915ed2cb4f326b38df72",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\rollout.npz",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "rollout.npz",
+      "sha256": "3b35edff135d00fee104079e807f7f023548f3490608a2378a0ddcdf0d324eb6",
+      "size_bytes": 28055865,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\rollout_index.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "rollout_index.json",
+      "sha256": "b20ff5d75445377b52d080c23e0d48c577500b47a45da78a0fce6ed8728538ce",
+      "size_bytes": 3137,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\trace_arrays.npz",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "c0b379d3175a00badb4ea3601f49b0a41731d046a18ba9653c33920b7a68d0df",
+      "size_bytes": 10193684,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_burden_zero\\seed_004\\trace_metadata.json",
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\brain_body_summary.json",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "a43d8ca45f537251e1b925829f6466d48f1ca616a57681be8bfcf38f9cdc107c",
+      "size_bytes": 2245,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\gate29h_job_manifest.json",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "286f7c015daf7dd19ab28bbd683589b3a49c24baf34dc6d3ad07ac5bb66a8b5e",
+      "size_bytes": 2135,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\manifest.json",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "manifest.json",
+      "sha256": "8072ca4988b5617d32f2d1f003269df8104d98fa70e3c1b266d0105f97fe381e",
+      "size_bytes": 4266,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\metadata.json",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "metadata.json",
+      "sha256": "0de2ddc97446c84caf5454133bbd7b6e520a914067a12098118204ca9e0e17d3",
+      "size_bytes": 2639,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\metrics\\metrics.csv",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "95bed0c1d2b935904f3d2c25b7d2c3b1984cca007c0287ba950d9b9092fab041",
+      "size_bytes": 261,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\metrics\\metrics.json",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "3b3e444c600cc50cd2cfbd021979c712507270295685f35879ef23bde4adcdd4",
+      "size_bytes": 1076,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\report\\summary.md",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "report/summary.md",
+      "sha256": "960804c87e5aa157eb80064f556548eb04ae196c93e0ac1045db9bdbf910ebac",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\rollout.npz",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "rollout.npz",
+      "sha256": "e002903e4ffa6ee4064b24a72d95c5cfece54ca524c64d3eefdeb8a7690e70e8",
+      "size_bytes": 28072541,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\rollout_index.json",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "rollout_index.json",
+      "sha256": "6458c67afe4c8913a1d9e42bf19f9ada9a22a1d51268d096abf95e4a25865d9b",
+      "size_bytes": 3130,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\trace_arrays.npz",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "00ff0d94b1cc8496cf9f20f26781c5b55fc328c65e9d02c7e0e725cac6d03003",
+      "size_bytes": 10188777,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002\\dopamine_class_level_full_burden\\seed_000\\trace_metadata.json",
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\brain_body_summary.json",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "26f88ee18f544e70c86405237e5b60fc09d9985d9bc8a7db1f1fd543b4bdb571",
+      "size_bytes": 2245,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\gate29h_job_manifest.json",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "f137bfa14c6df0772d25b86bce63e1d2efa2cf3684d0a737b0448faed5f05beb",
+      "size_bytes": 2135,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\manifest.json",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "manifest.json",
+      "sha256": "56a78d6f4bab077d48d443541884ca0b8bd4a1532f43730a134dcb73bdab245f",
+      "size_bytes": 4266,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\metadata.json",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "metadata.json",
+      "sha256": "cd11d6cb2a907937acbeb7fcec3900272faaedb254eb8254e3fb7183da41d50e",
+      "size_bytes": 2639,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\metrics\\metrics.csv",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "40db791ff02202a17b30954d3eb8e714e3211448d188a9ed089bbd7e5af45bf5",
+      "size_bytes": 264,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\metrics\\metrics.json",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "0152a6c445532fc533b5e943a1d78e1e5fc914ab39e612107fd75b729f03d7ea",
+      "size_bytes": 1080,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\report\\summary.md",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "report/summary.md",
+      "sha256": "94e5b2e55a1ab911b12ca39db5a5417300e49854350fa5865fe19afaab06682c",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\rollout.npz",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "rollout.npz",
+      "sha256": "1b5bf43ed8716fa2543f37c4cd96da36f0e270e4c318385f97170a6b975f2b02",
+      "size_bytes": 28052747,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\rollout_index.json",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "rollout_index.json",
+      "sha256": "ee35ef938edcced8d7d41067fd30302d9db403316d449026a708b46ca8dc6136",
+      "size_bytes": 3130,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\trace_arrays.npz",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "383ba3cca6801bf61d6798ebd31d3f5e8d5d49d7f1bb56bad259ea5ffa4ff2cc",
+      "size_bytes": 10232987,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_001\\trace_metadata.json",
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\brain_body_summary.json",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "4dd963f38a6be97755e30dca56d8768acdd546c024ae724b3b4585152cfdf0c1",
+      "size_bytes": 2245,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\gate29h_job_manifest.json",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "3103f94a87fb31ef3be39daee0a7efdcc340dffa714951c93aaf4a2a8b900f48",
+      "size_bytes": 2135,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\manifest.json",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "manifest.json",
+      "sha256": "fd8f4ae9f446dc5e5fe129765c308265e2e9ff70a729d37ea375e7fd43db8cb7",
+      "size_bytes": 4266,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\metadata.json",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "metadata.json",
+      "sha256": "82034cd3cdd8d833e95078b9d54aad7179dd829dbdf0df04aa9ffb4200a6d986",
+      "size_bytes": 2639,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\metrics\\metrics.csv",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "609410b6686131b8ab5587308e733b5f7cd3e30d68542a91b6d7b25e97ba84e9",
+      "size_bytes": 265,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\metrics\\metrics.json",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "841985beca4fa02b5aeef849e7a29baba5437781308f442e8f699fddbcc666a7",
+      "size_bytes": 1082,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\report\\summary.md",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "report/summary.md",
+      "sha256": "64b1ed1357866ff003524941294f69296ba24a8216cf48eff6296b3835afb7a3",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\rollout.npz",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "rollout.npz",
+      "sha256": "0e07e14827d5c0039d1b91430c1c38e4b78f6510fc58e046010d1725bb016058",
+      "size_bytes": 28086550,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\rollout_index.json",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "rollout_index.json",
+      "sha256": "bc8cd5bd095cadf2d7ba9e6e3af9b62f09540b0376691664654b15c8f51571ec",
+      "size_bytes": 3130,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\trace_arrays.npz",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "6a12de7b2290c8003700cfd106678f9be6267a84290fbb83a7fb6ce96766a425",
+      "size_bytes": 10236598,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_002\\trace_metadata.json",
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\brain_body_summary.json",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "0a14f845b0eb4c4b509413adec421ba2ba3ec33d50c4122ef9438e07f0bf4860",
+      "size_bytes": 2245,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\gate29h_job_manifest.json",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "828a952ac1c22ca4c54865a37e5e9226dcb7a7fed2fb5bebd729a7443c44df9b",
+      "size_bytes": 2135,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\manifest.json",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "manifest.json",
+      "sha256": "b3f18214fee317797965565b6aaf5ffb0af0bd2e139fdd94031be1c4cbac06a4",
+      "size_bytes": 4266,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\metadata.json",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "metadata.json",
+      "sha256": "0613e3395e7e03be661b4945f424b92ad153abe2d9570a2c6de6b6cd6119d98a",
+      "size_bytes": 2639,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\metrics\\metrics.csv",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "4c012f6c61803c8969de067b36e55bbafb7cba70b0c1281d4e6e8c440c41fdb6",
+      "size_bytes": 265,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\metrics\\metrics.json",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "0130f265d13a3de9d6ce2f561ad6a667a9bc365b24f3f6dff86a6d4c032c1071",
+      "size_bytes": 1082,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\report\\summary.md",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "report/summary.md",
+      "sha256": "e23b139701c8a49b7f2039bda86a50d06bf3e22d734cf7e3c10c36ee8ac8e621",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\rollout.npz",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "rollout.npz",
+      "sha256": "753af89dcec9eae58726be896e9c3bf001c76d9fe3f062edac0177c67c8bb6eb",
+      "size_bytes": 28082971,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\rollout_index.json",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "rollout_index.json",
+      "sha256": "5f1b942e7acfc28198d28d5cec896549512fc6bf299680111096b8187e8c5623",
+      "size_bytes": 3130,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\trace_arrays.npz",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "3d46ea1112c064dc362e5f33aaadc50091e3d138bef2558b1acd13ab8c4a8af4",
+      "size_bytes": 10213229,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_003\\trace_metadata.json",
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\brain_body_summary.json",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "2b4272d8cc31e0a0af9b35c1d2a17f084581ad2509b60d631bf5c2f4961ac369",
+      "size_bytes": 2251,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\gate29h_job_manifest.json",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "d87d2035479cd75efa7a773e51497d7eb57d121da0fae2e04caa3028141a3986",
+      "size_bytes": 2135,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\manifest.json",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "manifest.json",
+      "sha256": "57c2489a23b6792c4dda5a05a4ea3fb56652c4c6b0d4d3d6d266301b74ff7ca7",
+      "size_bytes": 4266,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\metadata.json",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "metadata.json",
+      "sha256": "532581b21b080effcf5b067d9b446545784b8103900e0a44246e5f37196d0892",
+      "size_bytes": 2639,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\metrics\\metrics.csv",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "c58bb23038ab91ea3ce92766caffadf20a1ecf54bffea0458203f85fba4740f6",
+      "size_bytes": 263,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\metrics\\metrics.json",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "3f239a83f541ae8ff4d37b0abc896dd3245ec3e53b53cf538926ceb3901f4911",
+      "size_bytes": 1080,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\report\\summary.md",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "report/summary.md",
+      "sha256": "e3246fbade3615d6a6dad864a8f66551a8e10e1d6206915ed2cb4f326b38df72",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\rollout.npz",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "rollout.npz",
+      "sha256": "ad4ed733775982d97185c780ed22a6ff17a4dd65c83a38106e9e3bd00b1fc16b",
+      "size_bytes": 28055865,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\rollout_index.json",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "rollout_index.json",
+      "sha256": "8b8590ac0d2daa04b47192b71ea0f5775c36db9c8c1954b832fa8f7b2e998183",
+      "size_bytes": 3130,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\trace_arrays.npz",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "c0b379d3175a00badb4ea3601f49b0a41731d046a18ba9653c33920b7a68d0df",
+      "size_bytes": 10193684,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003\\dopamine_class_level_full_burden\\seed_004\\trace_metadata.json",
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\brain_body_summary.json",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "89c721ef8dd13e3f73f574d5015905feedc835bcd8bf3006de1e545f7613e78c",
+      "size_bytes": 2013,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\gate29h_job_manifest.json",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "a771e826feb3d8e8bb4e719d83c35c2ff9a0e866cd28cf8f744fe46337cd34c7",
+      "size_bytes": 1871,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\manifest.json",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "manifest.json",
+      "sha256": "71ee8c6334f45708e4cbbc7d0a99cdeb03d16925f6c6c800903f9fc558f40fe5",
+      "size_bytes": 4273,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\metadata.json",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "metadata.json",
+      "sha256": "3a90f0a45a9e8be42665e4a1a5a62047c290328b71f1945356933562e217f7c8",
+      "size_bytes": 2646,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\metrics\\metrics.csv",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "95bed0c1d2b935904f3d2c25b7d2c3b1984cca007c0287ba950d9b9092fab041",
+      "size_bytes": 261,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\metrics\\metrics.json",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "3b3e444c600cc50cd2cfbd021979c712507270295685f35879ef23bde4adcdd4",
+      "size_bytes": 1076,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\report\\summary.md",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "report/summary.md",
+      "sha256": "960804c87e5aa157eb80064f556548eb04ae196c93e0ac1045db9bdbf910ebac",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\rollout.npz",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "rollout.npz",
+      "sha256": "e5c0e794bef76a6064dbc347697434373bf4f2f6ecc68b62af4264d3c74c49c1",
+      "size_bytes": 28072541,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\rollout_index.json",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "rollout_index.json",
+      "sha256": "191cb81cfe10f59887248cd1a35f65af6e26cf01f57f6ebd936d312f328164fb",
+      "size_bytes": 3137,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\trace_arrays.npz",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "00ff0d94b1cc8496cf9f20f26781c5b55fc328c65e9d02c7e0e725cac6d03003",
+      "size_bytes": 10188777,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_000\\trace_metadata.json",
+      "job_id": "healthy_control_seed_000",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\brain_body_summary.json",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "a8ffd1e7e3deb5490b18cfef3938fdabbbaaf7264eedd83bb0a9767f4f240c33",
+      "size_bytes": 2012,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\gate29h_job_manifest.json",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "6f11031dfb4aaaf115d2e830de4d535633dd91cacd54700558c37b0f7dbc2b0f",
+      "size_bytes": 1871,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\manifest.json",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "manifest.json",
+      "sha256": "b68d6ad3d9c31c9ba6c782794788796f6429eca1d9acb9bcb6dc35eb595292a8",
+      "size_bytes": 4273,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\metadata.json",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "metadata.json",
+      "sha256": "f4d337c9812a83b84665e455cac6af232f9a08f80dd023d9fe367f4b51b44b33",
+      "size_bytes": 2646,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\metrics\\metrics.csv",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "40db791ff02202a17b30954d3eb8e714e3211448d188a9ed089bbd7e5af45bf5",
+      "size_bytes": 264,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\metrics\\metrics.json",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "0152a6c445532fc533b5e943a1d78e1e5fc914ab39e612107fd75b729f03d7ea",
+      "size_bytes": 1080,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\report\\summary.md",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "report/summary.md",
+      "sha256": "94e5b2e55a1ab911b12ca39db5a5417300e49854350fa5865fe19afaab06682c",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\rollout.npz",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "rollout.npz",
+      "sha256": "00e014c41b81ff3ebffd4412accd00f6e290562697d1e06e8fbe1ebc8143e46b",
+      "size_bytes": 28052747,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\rollout_index.json",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "rollout_index.json",
+      "sha256": "b3d421af109049f228279d70ed03137f952b20dead43e7f06844f07c823d4dc2",
+      "size_bytes": 3137,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\trace_arrays.npz",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "383ba3cca6801bf61d6798ebd31d3f5e8d5d49d7f1bb56bad259ea5ffa4ff2cc",
+      "size_bytes": 10232987,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_001\\trace_metadata.json",
+      "job_id": "healthy_control_seed_001",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\brain_body_summary.json",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "fbdfa9fcd0aa6f79eaf01868b8950decd1d21f95b7122d5bdd04cce5f89e6e98",
+      "size_bytes": 2013,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\gate29h_job_manifest.json",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "ca2afff2912937d28444f45d274917487bd3caeaaa3c7f478e5079e9d6952387",
+      "size_bytes": 1871,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\manifest.json",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "manifest.json",
+      "sha256": "12291f6b4508ea257a1b833e91b297948082d1b351d718c3cd5cbffb0616aab4",
+      "size_bytes": 4273,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\metadata.json",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "metadata.json",
+      "sha256": "78e3cfb24eba4019705b0a3ea75dda89dffdbb17db7fcf3e5fc4b40c61ef00eb",
+      "size_bytes": 2646,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\metrics\\metrics.csv",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "609410b6686131b8ab5587308e733b5f7cd3e30d68542a91b6d7b25e97ba84e9",
+      "size_bytes": 265,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\metrics\\metrics.json",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "841985beca4fa02b5aeef849e7a29baba5437781308f442e8f699fddbcc666a7",
+      "size_bytes": 1082,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\report\\summary.md",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "report/summary.md",
+      "sha256": "64b1ed1357866ff003524941294f69296ba24a8216cf48eff6296b3835afb7a3",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\rollout.npz",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "rollout.npz",
+      "sha256": "1aa6d1bacd85e9e8303ad68269804406d1793b014f17ff0c212b5d5a6028dfc7",
+      "size_bytes": 28086550,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\rollout_index.json",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "rollout_index.json",
+      "sha256": "f8660d1886946c29cb746228d4995c584689c5cd34c442de0d316958753db744",
+      "size_bytes": 3137,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\trace_arrays.npz",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "6a12de7b2290c8003700cfd106678f9be6267a84290fbb83a7fb6ce96766a425",
+      "size_bytes": 10236598,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_002\\trace_metadata.json",
+      "job_id": "healthy_control_seed_002",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\brain_body_summary.json",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "8e8b667bce98b7bdd642e5d7710eebf420afa01b4792de2e10a06510239656b1",
+      "size_bytes": 2013,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\gate29h_job_manifest.json",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "dc48774f8bf980f445536d524d9a1113c9f0851cc68112dcd5d725bbb6245d0d",
+      "size_bytes": 1871,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\manifest.json",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "manifest.json",
+      "sha256": "994c87d34edb6e70d12a1a34481443c231f383ec9e84dbf23e639377c551629e",
+      "size_bytes": 4273,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\metadata.json",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "metadata.json",
+      "sha256": "e467fb012d891f031382fd63438c003ae7ca0ae8fbcf91d19702d4d373f4e73d",
+      "size_bytes": 2646,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\metrics\\metrics.csv",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "4c012f6c61803c8969de067b36e55bbafb7cba70b0c1281d4e6e8c440c41fdb6",
+      "size_bytes": 265,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\metrics\\metrics.json",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "0130f265d13a3de9d6ce2f561ad6a667a9bc365b24f3f6dff86a6d4c032c1071",
+      "size_bytes": 1082,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\report\\summary.md",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "report/summary.md",
+      "sha256": "e23b139701c8a49b7f2039bda86a50d06bf3e22d734cf7e3c10c36ee8ac8e621",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\rollout.npz",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "rollout.npz",
+      "sha256": "3f18828cd65c9f5f9ff82f39345d06a2e1758b26f333c6b1a87a6b4f2da493f6",
+      "size_bytes": 28082971,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\rollout_index.json",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "rollout_index.json",
+      "sha256": "3b6f801e0d94c0cecd5dcc7bf01d5967e63982558f32ca7ad700fa93c3071fcd",
+      "size_bytes": 3137,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\trace_arrays.npz",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "3d46ea1112c064dc362e5f33aaadc50091e3d138bef2558b1acd13ab8c4a8af4",
+      "size_bytes": 10213229,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_003\\trace_metadata.json",
+      "job_id": "healthy_control_seed_003",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\brain_body_summary.json",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "brain_body_summary.json",
+      "sha256": "944ca03f503ec6d6bf3689dcceb4013b39e3d1228c12e3225b5d74ac147b071a",
+      "size_bytes": 2013,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\gate29h_job_manifest.json",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "gate29h_job_manifest.json",
+      "sha256": "6e5fc3f58bdad62ae4fa447c580f54ba109ac9a351ec5c1a894d9f36fc14e796",
+      "size_bytes": 1871,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\manifest.json",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "manifest.json",
+      "sha256": "8c1fcf0c4fba5a4b58c36af1f04eb03c47afdde786d83a97efd884711e6e919b",
+      "size_bytes": 4273,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\metadata.json",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "metadata.json",
+      "sha256": "f6817bba2dfdd7437626b4519aa32817f891668ca0cac224a6e1391ac3bd54ef",
+      "size_bytes": 2646,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\metrics\\metrics.csv",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "metrics/metrics.csv",
+      "sha256": "c58bb23038ab91ea3ce92766caffadf20a1ecf54bffea0458203f85fba4740f6",
+      "size_bytes": 263,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\metrics\\metrics.json",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "metrics/metrics.json",
+      "sha256": "3f239a83f541ae8ff4d37b0abc896dd3245ec3e53b53cf538926ceb3901f4911",
+      "size_bytes": 1080,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\report\\summary.md",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "report/summary.md",
+      "sha256": "e3246fbade3615d6a6dad864a8f66551a8e10e1d6206915ed2cb4f326b38df72",
+      "size_bytes": 306,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\rollout.npz",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "rollout.npz",
+      "sha256": "dc8bd1e0c7732000d50bc2dd49e2d7dcc85284bae40ca436c665caca3d601831",
+      "size_bytes": 28055865,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\rollout_index.json",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "rollout_index.json",
+      "sha256": "fc6d0d43c6b95c916f4d3609e77720462c6250327dae3bedec1a52f2040660cc",
+      "size_bytes": 3137,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\trace_arrays.npz",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "trace_arrays.npz",
+      "sha256": "c0b379d3175a00badb4ea3601f49b0a41731d046a18ba9653c33920b7a68d0df",
+      "size_bytes": 10193684,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "absolute_path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003\\healthy_control\\seed_004\\trace_metadata.json",
+      "job_id": "healthy_control_seed_004",
+      "relative_path": "trace_metadata.json",
+      "sha256": "599007632bc6bd8d25d922c2260d21a8f14035baa73b6e8376644bff840bca42",
+      "size_bytes": 1106,
+      "source_label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    }
+  ],
+  "schema_version": "gate29h-result-freeze-manifest-v1",
+  "scientific_boundary": {
+    "decision": {
+      "quantitative_match": "DESCRIPTIVE_ONLY_NO_ASSAY_SCALE_CLAIM",
+      "scope": "class-level computational contrast only; not biological Parkinson validation",
+      "status": "NOT_REPRODUCED_WITHIN_COMPUTATIONAL_SCOPE"
+    },
+    "no_additional_gpu_execution": true,
+    "no_holdout_opened": true,
+    "no_retuning": true,
+    "primary_endpoint": "median_planar_speed_mm_s",
+    "trace_endpoint": "brain_body_drive_mean_l2"
+  },
+  "source_roots": [
+    {
+      "label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003",
+      "path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003"
+    },
+    {
+      "label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002",
+      "path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_002"
+    },
+    {
+      "label": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003",
+      "path": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003"
+    }
+  ]
+}

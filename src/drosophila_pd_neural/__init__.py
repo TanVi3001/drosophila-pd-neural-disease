@@ -7,6 +7,13 @@ cung cap.
 
 from .calibration import compute_loss
 from .action_hook_adapter import apply_proxy_operator_to_locomotion_action
+from .alpha_syn_dopamine_runner import (
+    AlphaSynDopamineJob,
+    AlphaSynDopamineSpec,
+    build_job_matrix,
+    load_spec,
+    resolve_condition,
+)
 from .literature_experiment import input_manifest, validate_experiment_plan
 from .models import DiseaseCondition, DiseaseProfile, NeuralParameters
 from .perturbations import perturb_edges
@@ -17,6 +24,11 @@ __all__ = [
     "DiseaseCondition",
     "DiseaseProfile",
     "NeuralParameters",
+    "AlphaSynDopamineJob",
+    "AlphaSynDopamineSpec",
+    "build_job_matrix",
+    "load_spec",
+    "resolve_condition",
     "compute_loss",
     "input_manifest",
     "apply_proxy_operator_to_locomotion_action",

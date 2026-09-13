@@ -1,0 +1,34 @@
+{
+  "allocation_status": "LOCKED_FOR_PREREGISTRATION",
+  "gpu_execution_authorized": false,
+  "holdout_opened": false,
+  "metadata_refresh_status": "PENDING_DUAL_HUMAN_RECONFIRMATION",
+  "next_action": "Both reviewers re-confirm the updated registry and preregistration before fitting or GPU authorization.",
+  "parameter_fitting_authorized": false,
+  "reviewed_at": "2026-09-13",
+  "reviewed_materials": [
+    "literature_endpoint_registry_v2.csv",
+    "alpha_syn_dopamine_study_split_manifest_v1.json",
+    "alpha_syn_dopamine_direction_review_vi.md",
+    "alpha_syn_dopamine_gate_a_b_preparation_report.md",
+    "checksums.sha256"
+  ],
+  "reviewers": [
+    {
+      "attestation": "Tôi xác nhận đã đọc và đồng ý registry cùng study split alpha-synuclein/dopamine; xác nhận này không phải GPU execution authorization.",
+      "name": "Lê Tấn Vĩ",
+      "role": "reviewer_1",
+      "status": "CONFIRMED"
+    },
+    {
+      "attestation": "Tôi xác nhận đã đọc và đồng ý registry cùng study split alpha-synuclein/dopamine; xác nhận này không phải GPU execution authorization.",
+      "name": "Tô Đặng Minh Tuấn",
+      "role": "reviewer_2",
+      "status": "CONFIRMED"
+    }
+  ],
+  "schema_version": "alpha-syn-dopamine-direction-review-signoff-v1",
+  "scope": "Gate A/B preparation, endpoint registry, and study-level allocation",
+  "status": "DUAL_HUMAN_DIRECTION_REVIEW_PASS",
+  "updated_registry_sha256": "942b6ddf332035ef1553444790383abc63c58799f6ad89f21001e3abba04e0e1"
+}

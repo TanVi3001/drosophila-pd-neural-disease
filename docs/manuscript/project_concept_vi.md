@@ -256,3 +256,9 @@ computational reproduction/phenotype comparison**. Giá trị khoa học nằm �
 truy vết từ paper đến virtual protocol, kiểm định có kiểm soát và phân tích mismatch.
 Để nâng cấp thành biological Parkinson validation hoặc gene-specific disease model,
 cần thêm mapping, checkpoint/runtime, dữ liệu độc lập và validation ngoài mô phỏng.
+
+## 13. Kết quả Gate29-H và claim boundary
+
+Gate29-H sử dụng contrast class-level được đăng ký trước với ba conditions và năm seed ghép cặp theo cùng seed. Toàn bộ 15/15 simulation job đạt QC/integrity PASS. Full-burden không khác healthy control ở endpoint chính `median_planar_speed_mm_s`: năm paired difference đều bằng 0, exact one-sided sign-flip p = 1.00 và 95% bootstrap CI = [0, 0] mm/s. Endpoint trace `brain_body_drive_mean_l2` cũng không có paired difference.
+
+Đoạn kết quả này chỉ hỗ trợ kết luận null trong computational protocol Gate29-H. Không được diễn giải thành biological Parkinson validation, gene-specific validation, clinical/drug effect hoặc khẳng định dopamine depletion không có tác động sinh học. Không retune, không đổi burden và không mở holdout sau khi quan sát kết quả. Bản insert dùng cho manuscript nằm tại [`gate29h_results_insert_vi.md`](../../release/gate29h_continuation_003/manuscript/gate29h_results_insert_vi.md).

@@ -1,0 +1,1437 @@
+{
+  "analysis_authorized": false,
+  "biological_causality_established": false,
+  "calibration_run": false,
+  "completed_job_count": 15,
+  "duplicate_job_ids": [],
+  "final_output_root": "E:\\Drosophila_Parkinson\\gate29h_scientific_outputs\\GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1_ATTEMPT_003_CONTINUATION_003",
+  "fitting_run": false,
+  "holdout_opened": false,
+  "matrix_checks": {
+    "analysis_not_run_in_execution": true,
+    "combined_summary_complete": true,
+    "continuation_summary_complete": true,
+    "exactly_15_unique_manifests": true,
+    "no_runner_error_in_final_root": true
+  },
+  "planned_job_count": 15,
+  "preregistration_id": "GATE29H_RIEMENSPERGER_SCIENTIFIC_TRACE_V1",
+  "qc_runner_path": "scripts\\qc_gate29h_scientific_trace.py",
+  "qc_runner_sha256": "be2608e05ec36ac1c0ae5edab70524947dca0c8763a5323594786fcff3eb98d6",
+  "results": [
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "89c721ef8dd13e3f73f574d5015905feedc835bcd8bf3006de1e545f7613e78c",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "3a90f0a45a9e8be42665e4a1a5a62047c290328b71f1945356933562e217f7c8",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "95bed0c1d2b935904f3d2c25b7d2c3b1984cca007c0287ba950d9b9092fab041",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "3b3e444c600cc50cd2cfbd021979c712507270295685f35879ef23bde4adcdd4",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "960804c87e5aa157eb80064f556548eb04ae196c93e0ac1045db9bdbf910ebac",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "e5c0e794bef76a6064dbc347697434373bf4f2f6ecc68b62af4264d3c74c49c1",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "191cb81cfe10f59887248cd1a35f65af6e26cf01f57f6ebd936d312f328164fb",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "condition_id": "healthy_control",
+        "primary_metric_median_planar_speed_mm_s": 2.223834600619149,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "e5c0e794bef76a6064dbc347697434373bf4f2f6ecc68b62af4264d3c74c49c1",
+        "seed": 0,
+        "trace_arrays_sha256": "00ff0d94b1cc8496cf9f20f26781c5b55fc328c65e9d02c7e0e725cac6d03003",
+        "trace_step_count": 5000
+      },
+      "job_id": "healthy_control_seed_000",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "a8ffd1e7e3deb5490b18cfef3938fdabbbaaf7264eedd83bb0a9767f4f240c33",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "f4d337c9812a83b84665e455cac6af232f9a08f80dd023d9fe367f4b51b44b33",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "40db791ff02202a17b30954d3eb8e714e3211448d188a9ed089bbd7e5af45bf5",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "0152a6c445532fc533b5e943a1d78e1e5fc914ab39e612107fd75b729f03d7ea",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "94e5b2e55a1ab911b12ca39db5a5417300e49854350fa5865fe19afaab06682c",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "00e014c41b81ff3ebffd4412accd00f6e290562697d1e06e8fbe1ebc8143e46b",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "b3d421af109049f228279d70ed03137f952b20dead43e7f06844f07c823d4dc2",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "condition_id": "healthy_control",
+        "primary_metric_median_planar_speed_mm_s": 2.271621476378678,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "00e014c41b81ff3ebffd4412accd00f6e290562697d1e06e8fbe1ebc8143e46b",
+        "seed": 1,
+        "trace_arrays_sha256": "383ba3cca6801bf61d6798ebd31d3f5e8d5d49d7f1bb56bad259ea5ffa4ff2cc",
+        "trace_step_count": 5000
+      },
+      "job_id": "healthy_control_seed_001",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "fbdfa9fcd0aa6f79eaf01868b8950decd1d21f95b7122d5bdd04cce5f89e6e98",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "78e3cfb24eba4019705b0a3ea75dda89dffdbb17db7fcf3e5fc4b40c61ef00eb",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "609410b6686131b8ab5587308e733b5f7cd3e30d68542a91b6d7b25e97ba84e9",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "841985beca4fa02b5aeef849e7a29baba5437781308f442e8f699fddbcc666a7",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "64b1ed1357866ff003524941294f69296ba24a8216cf48eff6296b3835afb7a3",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "1aa6d1bacd85e9e8303ad68269804406d1793b014f17ff0c212b5d5a6028dfc7",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "f8660d1886946c29cb746228d4995c584689c5cd34c442de0d316958753db744",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "condition_id": "healthy_control",
+        "primary_metric_median_planar_speed_mm_s": 2.6389774969679616,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "1aa6d1bacd85e9e8303ad68269804406d1793b014f17ff0c212b5d5a6028dfc7",
+        "seed": 2,
+        "trace_arrays_sha256": "6a12de7b2290c8003700cfd106678f9be6267a84290fbb83a7fb6ce96766a425",
+        "trace_step_count": 5000
+      },
+      "job_id": "healthy_control_seed_002",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "8e8b667bce98b7bdd642e5d7710eebf420afa01b4792de2e10a06510239656b1",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "e467fb012d891f031382fd63438c003ae7ca0ae8fbcf91d19702d4d373f4e73d",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "4c012f6c61803c8969de067b36e55bbafb7cba70b0c1281d4e6e8c440c41fdb6",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "0130f265d13a3de9d6ce2f561ad6a667a9bc365b24f3f6dff86a6d4c032c1071",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "e23b139701c8a49b7f2039bda86a50d06bf3e22d734cf7e3c10c36ee8ac8e621",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "3f18828cd65c9f5f9ff82f39345d06a2e1758b26f333c6b1a87a6b4f2da493f6",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "3b6f801e0d94c0cecd5dcc7bf01d5967e63982558f32ca7ad700fa93c3071fcd",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "condition_id": "healthy_control",
+        "primary_metric_median_planar_speed_mm_s": 2.6109203935790717,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "3f18828cd65c9f5f9ff82f39345d06a2e1758b26f333c6b1a87a6b4f2da493f6",
+        "seed": 3,
+        "trace_arrays_sha256": "3d46ea1112c064dc362e5f33aaadc50091e3d138bef2558b1acd13ab8c4a8af4",
+        "trace_step_count": 5000
+      },
+      "job_id": "healthy_control_seed_003",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "944ca03f503ec6d6bf3689dcceb4013b39e3d1228c12e3225b5d74ac147b071a",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "f6817bba2dfdd7437626b4519aa32817f891668ca0cac224a6e1391ac3bd54ef",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "c58bb23038ab91ea3ce92766caffadf20a1ecf54bffea0458203f85fba4740f6",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "3f239a83f541ae8ff4d37b0abc896dd3245ec3e53b53cf538926ceb3901f4911",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "e3246fbade3615d6a6dad864a8f66551a8e10e1d6206915ed2cb4f326b38df72",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "dc8bd1e0c7732000d50bc2dd49e2d7dcc85284bae40ca436c665caca3d601831",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "fc6d0d43c6b95c916f4d3609e77720462c6250327dae3bedec1a52f2040660cc",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "condition_id": "healthy_control",
+        "primary_metric_median_planar_speed_mm_s": 2.5853208610209686,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "dc8bd1e0c7732000d50bc2dd49e2d7dcc85284bae40ca436c665caca3d601831",
+        "seed": 4,
+        "trace_arrays_sha256": "c0b379d3175a00badb4ea3601f49b0a41731d046a18ba9653c33920b7a68d0df",
+        "trace_step_count": 5000
+      },
+      "job_id": "healthy_control_seed_004",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "674b7ef6cd60db44c2b856c5498d24b5403c7878106c285715e6f3053f1e3d05",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "3a90f0a45a9e8be42665e4a1a5a62047c290328b71f1945356933562e217f7c8",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "95bed0c1d2b935904f3d2c25b7d2c3b1984cca007c0287ba950d9b9092fab041",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "3b3e444c600cc50cd2cfbd021979c712507270295685f35879ef23bde4adcdd4",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "960804c87e5aa157eb80064f556548eb04ae196c93e0ac1045db9bdbf910ebac",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "7d856249ac0da848903eabc278a24c83a6ac61518be41e3143c933cf435d0441",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "1931e7c7aa161077bf1a1a72c93f7c2bc9e9b8eb0ac27dc2d7f85c2481994b74",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "condition_id": "dopamine_class_level_burden_zero",
+        "primary_metric_median_planar_speed_mm_s": 2.223834600619149,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "7d856249ac0da848903eabc278a24c83a6ac61518be41e3143c933cf435d0441",
+        "seed": 0,
+        "trace_arrays_sha256": "00ff0d94b1cc8496cf9f20f26781c5b55fc328c65e9d02c7e0e725cac6d03003",
+        "trace_step_count": 5000
+      },
+      "job_id": "dopamine_class_level_burden_zero_seed_000",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "5ec264fed879a589d2bbd5b75d54bdc0a33c803fc4e00d4f6e64dccfb9e3c2cd",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "f4d337c9812a83b84665e455cac6af232f9a08f80dd023d9fe367f4b51b44b33",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "40db791ff02202a17b30954d3eb8e714e3211448d188a9ed089bbd7e5af45bf5",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "0152a6c445532fc533b5e943a1d78e1e5fc914ab39e612107fd75b729f03d7ea",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "94e5b2e55a1ab911b12ca39db5a5417300e49854350fa5865fe19afaab06682c",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "992ad7f5626e10ebe6898d75d2b77f7f2e6f630973c6b96306c921a7cc49479a",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "38ed8deb65a96c31e82ad258524bb9357cf7cd68a18ea301fd70d41de2a4489e",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "condition_id": "dopamine_class_level_burden_zero",
+        "primary_metric_median_planar_speed_mm_s": 2.271621476378678,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "992ad7f5626e10ebe6898d75d2b77f7f2e6f630973c6b96306c921a7cc49479a",
+        "seed": 1,
+        "trace_arrays_sha256": "383ba3cca6801bf61d6798ebd31d3f5e8d5d49d7f1bb56bad259ea5ffa4ff2cc",
+        "trace_step_count": 5000
+      },
+      "job_id": "dopamine_class_level_burden_zero_seed_001",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "7e98a8140d8b613080d2d3791ea3628b4743d3bfebe670a0a263375e68381009",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "78e3cfb24eba4019705b0a3ea75dda89dffdbb17db7fcf3e5fc4b40c61ef00eb",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "609410b6686131b8ab5587308e733b5f7cd3e30d68542a91b6d7b25e97ba84e9",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "841985beca4fa02b5aeef849e7a29baba5437781308f442e8f699fddbcc666a7",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "64b1ed1357866ff003524941294f69296ba24a8216cf48eff6296b3835afb7a3",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "190342eca5c1b6ea4785509b2898f3251937ad3e2ec460b8b3c3b383927006a8",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "179a7e56e888101adef5d28c867d3fc46fbc876df7e65b191e9731c50fed04cd",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "condition_id": "dopamine_class_level_burden_zero",
+        "primary_metric_median_planar_speed_mm_s": 2.6389774969679616,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "190342eca5c1b6ea4785509b2898f3251937ad3e2ec460b8b3c3b383927006a8",
+        "seed": 2,
+        "trace_arrays_sha256": "6a12de7b2290c8003700cfd106678f9be6267a84290fbb83a7fb6ce96766a425",
+        "trace_step_count": 5000
+      },
+      "job_id": "dopamine_class_level_burden_zero_seed_002",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "2f313068c0b3083040f135bf79c2c6e8615884e5b2ccbe08e1cfb56d50901eaf",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "e467fb012d891f031382fd63438c003ae7ca0ae8fbcf91d19702d4d373f4e73d",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "4c012f6c61803c8969de067b36e55bbafb7cba70b0c1281d4e6e8c440c41fdb6",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "0130f265d13a3de9d6ce2f561ad6a667a9bc365b24f3f6dff86a6d4c032c1071",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "e23b139701c8a49b7f2039bda86a50d06bf3e22d734cf7e3c10c36ee8ac8e621",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "21e8431c7fb6897d1d6a26e45eca05d0343baf033b16d0b34f13d0f6b2f837e4",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "a5231e21c8a99b6f433b2d5c916a1767afdc60498760b04ab6c2c1f1da45cb1e",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "condition_id": "dopamine_class_level_burden_zero",
+        "primary_metric_median_planar_speed_mm_s": 2.6109203935790717,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "21e8431c7fb6897d1d6a26e45eca05d0343baf033b16d0b34f13d0f6b2f837e4",
+        "seed": 3,
+        "trace_arrays_sha256": "3d46ea1112c064dc362e5f33aaadc50091e3d138bef2558b1acd13ab8c4a8af4",
+        "trace_step_count": 5000
+      },
+      "job_id": "dopamine_class_level_burden_zero_seed_003",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "9280de006600c2d7233a7ce147054b0e911ee4a08619be30d8d21f56506b1a44",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "f6817bba2dfdd7437626b4519aa32817f891668ca0cac224a6e1391ac3bd54ef",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "c58bb23038ab91ea3ce92766caffadf20a1ecf54bffea0458203f85fba4740f6",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "3f239a83f541ae8ff4d37b0abc896dd3245ec3e53b53cf538926ceb3901f4911",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "e3246fbade3615d6a6dad864a8f66551a8e10e1d6206915ed2cb4f326b38df72",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "3b35edff135d00fee104079e807f7f023548f3490608a2378a0ddcdf0d324eb6",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "b20ff5d75445377b52d080c23e0d48c577500b47a45da78a0fce6ed8728538ce",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "d51dcd9aa028dd7b54ca870bb795752833f76eac8a613cd28e7cbfd83154a691",
+        "condition_id": "dopamine_class_level_burden_zero",
+        "primary_metric_median_planar_speed_mm_s": 2.5853208610209686,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "3b35edff135d00fee104079e807f7f023548f3490608a2378a0ddcdf0d324eb6",
+        "seed": 4,
+        "trace_arrays_sha256": "c0b379d3175a00badb4ea3601f49b0a41731d046a18ba9653c33920b7a68d0df",
+        "trace_step_count": 5000
+      },
+      "job_id": "dopamine_class_level_burden_zero_seed_004",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "a43d8ca45f537251e1b925829f6466d48f1ca616a57681be8bfcf38f9cdc107c",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "0de2ddc97446c84caf5454133bbd7b6e520a914067a12098118204ca9e0e17d3",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "95bed0c1d2b935904f3d2c25b7d2c3b1984cca007c0287ba950d9b9092fab041",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "3b3e444c600cc50cd2cfbd021979c712507270295685f35879ef23bde4adcdd4",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "960804c87e5aa157eb80064f556548eb04ae196c93e0ac1045db9bdbf910ebac",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "e002903e4ffa6ee4064b24a72d95c5cfece54ca524c64d3eefdeb8a7690e70e8",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "6458c67afe4c8913a1d9e42bf19f9ada9a22a1d51268d096abf95e4a25865d9b",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "75492edf67a03f0afdb95e95ac9256f6d6db99d6496113696f417b5373151a3c",
+        "condition_id": "dopamine_class_level_full_burden",
+        "primary_metric_median_planar_speed_mm_s": 2.223834600619149,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "e002903e4ffa6ee4064b24a72d95c5cfece54ca524c64d3eefdeb8a7690e70e8",
+        "seed": 0,
+        "trace_arrays_sha256": "00ff0d94b1cc8496cf9f20f26781c5b55fc328c65e9d02c7e0e725cac6d03003",
+        "trace_step_count": 5000
+      },
+      "job_id": "dopamine_class_level_full_burden_seed_000",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "26f88ee18f544e70c86405237e5b60fc09d9985d9bc8a7db1f1fd543b4bdb571",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "cd11d6cb2a907937acbeb7fcec3900272faaedb254eb8254e3fb7183da41d50e",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "40db791ff02202a17b30954d3eb8e714e3211448d188a9ed089bbd7e5af45bf5",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "0152a6c445532fc533b5e943a1d78e1e5fc914ab39e612107fd75b729f03d7ea",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "94e5b2e55a1ab911b12ca39db5a5417300e49854350fa5865fe19afaab06682c",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "1b5bf43ed8716fa2543f37c4cd96da36f0e270e4c318385f97170a6b975f2b02",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "ee35ef938edcced8d7d41067fd30302d9db403316d449026a708b46ca8dc6136",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "75492edf67a03f0afdb95e95ac9256f6d6db99d6496113696f417b5373151a3c",
+        "condition_id": "dopamine_class_level_full_burden",
+        "primary_metric_median_planar_speed_mm_s": 2.271621476378678,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "1b5bf43ed8716fa2543f37c4cd96da36f0e270e4c318385f97170a6b975f2b02",
+        "seed": 1,
+        "trace_arrays_sha256": "383ba3cca6801bf61d6798ebd31d3f5e8d5d49d7f1bb56bad259ea5ffa4ff2cc",
+        "trace_step_count": 5000
+      },
+      "job_id": "dopamine_class_level_full_burden_seed_001",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "4dd963f38a6be97755e30dca56d8768acdd546c024ae724b3b4585152cfdf0c1",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "82034cd3cdd8d833e95078b9d54aad7179dd829dbdf0df04aa9ffb4200a6d986",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "609410b6686131b8ab5587308e733b5f7cd3e30d68542a91b6d7b25e97ba84e9",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "841985beca4fa02b5aeef849e7a29baba5437781308f442e8f699fddbcc666a7",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "64b1ed1357866ff003524941294f69296ba24a8216cf48eff6296b3835afb7a3",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "0e07e14827d5c0039d1b91430c1c38e4b78f6510fc58e046010d1725bb016058",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "bc8cd5bd095cadf2d7ba9e6e3af9b62f09540b0376691664654b15c8f51571ec",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "75492edf67a03f0afdb95e95ac9256f6d6db99d6496113696f417b5373151a3c",
+        "condition_id": "dopamine_class_level_full_burden",
+        "primary_metric_median_planar_speed_mm_s": 2.6389774969679616,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "0e07e14827d5c0039d1b91430c1c38e4b78f6510fc58e046010d1725bb016058",
+        "seed": 2,
+        "trace_arrays_sha256": "6a12de7b2290c8003700cfd106678f9be6267a84290fbb83a7fb6ce96766a425",
+        "trace_step_count": 5000
+      },
+      "job_id": "dopamine_class_level_full_burden_seed_002",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "0a14f845b0eb4c4b509413adec421ba2ba3ec33d50c4122ef9438e07f0bf4860",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "0613e3395e7e03be661b4945f424b92ad153abe2d9570a2c6de6b6cd6119d98a",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "4c012f6c61803c8969de067b36e55bbafb7cba70b0c1281d4e6e8c440c41fdb6",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "0130f265d13a3de9d6ce2f561ad6a667a9bc365b24f3f6dff86a6d4c032c1071",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "e23b139701c8a49b7f2039bda86a50d06bf3e22d734cf7e3c10c36ee8ac8e621",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "753af89dcec9eae58726be896e9c3bf001c76d9fe3f062edac0177c67c8bb6eb",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "5f1b942e7acfc28198d28d5cec896549512fc6bf299680111096b8187e8c5623",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "75492edf67a03f0afdb95e95ac9256f6d6db99d6496113696f417b5373151a3c",
+        "condition_id": "dopamine_class_level_full_burden",
+        "primary_metric_median_planar_speed_mm_s": 2.6109203935790717,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "753af89dcec9eae58726be896e9c3bf001c76d9fe3f062edac0177c67c8bb6eb",
+        "seed": 3,
+        "trace_arrays_sha256": "3d46ea1112c064dc362e5f33aaadc50091e3d138bef2558b1acd13ab8c4a8af4",
+        "trace_step_count": 5000
+      },
+      "job_id": "dopamine_class_level_full_burden_seed_003",
+      "status": "PASS"
+    },
+    {
+      "checks": {
+        "action_trajectory_qc": true,
+        "artifact_manifest_integrity": true,
+        "contact_qc": true,
+        "exact_step_count": true,
+        "exact_timestep": true,
+        "finite_arrays": true,
+        "gpu_and_simulation_executed": true,
+        "guard_return_code": true,
+        "guard_temperature": true,
+        "job_manifest_complete": true,
+        "job_manifest_steps": true,
+        "joint_trajectory_qc": true,
+        "metrics_file_present": true,
+        "metrics_finite": true,
+        "metrics_frame_count": true,
+        "monotonic_time": true,
+        "no_automatic_retry": true,
+        "pre_post_temporal_alignment": true,
+        "rollout_file_present": true,
+        "rollout_schema": true,
+        "trace_file_present": true,
+        "trace_metadata_present": true,
+        "trace_schema": true
+      },
+      "details": {
+        "artifact_checks": [
+          {
+            "exists": true,
+            "path": "brain_body_summary.json",
+            "sha256": "2b4272d8cc31e0a0af9b35c1d2a17f084581ad2509b60d631bf5c2f4961ac369",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metadata.json",
+            "sha256": "532581b21b080effcf5b067d9b446545784b8103900e0a44246e5f37196d0892",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.csv",
+            "sha256": "c58bb23038ab91ea3ce92766caffadf20a1ecf54bffea0458203f85fba4740f6",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "metrics/metrics.json",
+            "sha256": "3f239a83f541ae8ff4d37b0abc896dd3245ec3e53b53cf538926ceb3901f4911",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "report/summary.md",
+            "sha256": "e3246fbade3615d6a6dad864a8f66551a8e10e1d6206915ed2cb4f326b38df72",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout.npz",
+            "sha256": "ad4ed733775982d97185c780ed22a6ff17a4dd65c83a38106e9e3bd00b1fc16b",
+            "sha256_ok": true,
+            "size_ok": true
+          },
+          {
+            "exists": true,
+            "path": "rollout_index.json",
+            "sha256": "8b8590ac0d2daa04b47192b71ea0f5775c36db9c8c1954b832fa8f7b2e998183",
+            "sha256_ok": true,
+            "size_ok": true
+          }
+        ],
+        "brain_body_drive_shape": [
+          5000,
+          2
+        ],
+        "checkpoint_sha256": "75492edf67a03f0afdb95e95ac9256f6d6db99d6496113696f417b5373151a3c",
+        "condition_id": "dopamine_class_level_full_burden",
+        "primary_metric_median_planar_speed_mm_s": 2.5853208610209686,
+        "rollout_frame_count": 5001,
+        "rollout_sha256": "ad4ed733775982d97185c780ed22a6ff17a4dd65c83a38106e9e3bd00b1fc16b",
+        "seed": 4,
+        "trace_arrays_sha256": "c0b379d3175a00badb4ea3601f49b0a41731d046a18ba9653c33920b7a68d0df",
+        "trace_step_count": 5000
+      },
+      "job_id": "dopamine_class_level_full_burden_seed_004",
+      "status": "PASS"
+    }
+  ],
+  "retuning": false,
+  "schema_version": "gate29h-scientific-trace-qc-integrity-v1",
+  "statistical_analysis_run": false,
+  "status": "GATE29H_QC_INTEGRITY_PASS"
+}
