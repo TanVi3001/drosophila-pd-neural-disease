@@ -1,0 +1,23 @@
+{
+  "gpu_execution_authorized": false,
+  "holdout_opened": false,
+  "next_action": "Both reviewers directly confirm the direction, registry, and split before any fitting or GPU authorization.",
+  "parameter_fitting_authorized": false,
+  "reviewers": [
+    {
+      "attestation": null,
+      "name": "Lê Tấn Vĩ",
+      "role": "reviewer_1",
+      "status": "PENDING_HUMAN_CONFIRMATION"
+    },
+    {
+      "attestation": null,
+      "name": "Tô Đặng Minh Tuấn",
+      "role": "reviewer_2",
+      "status": "PENDING_HUMAN_CONFIRMATION"
+    }
+  ],
+  "schema_version": "alpha-syn-dopamine-direction-review-signoff-v1",
+  "scope": "Gate A/B preparation, endpoint registry, and study-level allocation",
+  "status": "WAITING_DUAL_HUMAN_DIRECTION_REVIEW"
+}

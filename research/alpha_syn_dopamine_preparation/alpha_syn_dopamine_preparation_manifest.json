@@ -1,0 +1,18 @@
+{
+  "checksums_file": "checksums.sha256",
+  "gpu_execution_authorized": false,
+  "holdout_opened": false,
+  "input_paper_analysis": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\research\\paper_review\\paper_analysis_vi.csv",
+  "input_paper_analysis_sha256": "4c42bdec1f6320934bf228e3fe0559faa3d62d1b394a07bf59e07bb76a7b9d71",
+  "input_selected_sources": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\research\\paper_review\\selected_sources.csv",
+  "input_selected_sources_sha256": "c05be08d598c47d39d30879a21de30a206d4e96125842e36d1bda6f9fc46a567",
+  "next_required_review": "dual human review of endpoint registry and study split",
+  "output_root": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\research\\alpha_syn_dopamine_preparation",
+  "parameter_fitting_authorized": false,
+  "registry_rows": 14,
+  "retuning_performed": false,
+  "review_status": "WAITING_DUAL_HUMAN_DIRECTION_REVIEW",
+  "schema_version": "alpha-syn-dopamine-preparation-manifest-v1",
+  "status": "PREPARATION_ONLY_PENDING_DUAL_HUMAN_REVIEW",
+  "study_allocations": 9
+}
