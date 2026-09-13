@@ -1,17 +1,92 @@
 {
   "allocation_manifest_sha256": "adc6d1afcb133a9a8ba3e583d0bc346f1505fb81681e5d379d5ea1ce1600d324",
   "authorization_id": "ALPHA_SYN_DOPAMINE_EXECUTION_AUTH_V1",
-  "authorized": false,
-  "authorized_jobs": 0,
-  "code_audit": "alpha_syn_dopamine_code_audit.json",
-  "code_audit_sha256": "1e591259685499310a705e992ce75177359df9c97cd4920963b535b62fbc31ec",
-  "gpu_execution_authorized": false,
+  "authorization_script": "scripts\\authorize_alpha_syn_dopamine_gpu.py",
+  "authorization_script_sha256": "f1bb8cd6c33d9ffc04d06e6cebd5e220adc78ff8fb37b0222820b51c82028428",
+  "authorized": true,
+  "authorized_at": "2026-09-13T02:00:56.390800+00:00",
+  "authorized_job_ids": [
+    "healthy_control_seed_000",
+    "healthy_control_seed_001",
+    "healthy_control_seed_002",
+    "healthy_control_seed_003",
+    "healthy_control_seed_004",
+    "alpha_synuclein_functional_dopamine_seed_000",
+    "alpha_synuclein_functional_dopamine_seed_001",
+    "alpha_synuclein_functional_dopamine_seed_002",
+    "alpha_synuclein_functional_dopamine_seed_003",
+    "alpha_synuclein_functional_dopamine_seed_004",
+    "alpha_synuclein_structural_loss_seed_000",
+    "alpha_synuclein_structural_loss_seed_001",
+    "alpha_synuclein_structural_loss_seed_002",
+    "alpha_synuclein_structural_loss_seed_003",
+    "alpha_synuclein_structural_loss_seed_004"
+  ],
+  "authorized_jobs": 15,
+  "code_audit": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_code_audit.json",
+  "code_audit_sha256": "34886265f9c763943b891ed4364903401e1a2eeced18137d323bd5b95ecd2f78",
+  "cpu_test_manifest": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_cpu_test_manifest.json",
+  "cpu_test_manifest_sha256": "3c5a0c98f0f131346592a1d49c19e90f334c5294ab3aeb9cc4897b76484f3f3d",
+  "dry_run_manifest": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_runner_dry_run_manifest.json",
+  "dry_run_manifest_sha256": "475c320f4baf263f7ba35f897dbb9891e8bba3e44323d85a58c45c91e93c5e4f",
+  "execution_not_started_by_authorization_step": true,
+  "execution_scope": {
+    "age_days": 5.0,
+    "conditions": [
+      "healthy_control",
+      "alpha_synuclein_functional_dopamine",
+      "alpha_synuclein_structural_loss"
+    ],
+    "device": "cuda",
+    "job_count": 15,
+    "no_calibration": true,
+    "no_fitting": true,
+    "no_holdout": true,
+    "no_overwrite": true,
+    "no_retry": true,
+    "no_retuning": true,
+    "runner_id": "ALPHA_SYN_DOPAMINE_RUNNER_V1",
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "steps": 5000,
+    "stimulus": "p9",
+    "timestep_s": 0.0001,
+    "cpg_frequency_hz": 12.0
+  },
+  "explicit_human_authorization": true,
+  "git_head_at_authorization": "d061e344dee3dcdb1e425ca7a2a11a5f4a6ef36e",
+  "gpu_execution_authorized": true,
+  "human_authorizations": [
+    {
+      "attestation": "Direct authorization recorded from Le Tan Vi in the project conversation on 2026-09-13.",
+      "name": "Le Tan Vi",
+      "scope": "exact locked 15-job alpha-synuclein/dopamine runner matrix on CUDA",
+      "status": "CONFIRMED"
+    },
+    {
+      "attestation": "Direct authorization recorded from To Dang Minh Tuan in the project conversation on 2026-09-13.",
+      "name": "To Dang Minh Tuan",
+      "scope": "exact locked 15-job alpha-synuclein/dopamine runner matrix on CUDA",
+      "status": "CONFIRMED"
+    }
+  ],
   "job_matrix_count": 15,
   "job_matrix_sha256": "37171ac1236f1a1f5812cc98d168d181b33752569cddaa63c08ef8f283c0cbd8",
+  "preregistration_hash_sidecar_sha256": "c0a2e5a7155af6478641d0cce1ff57e94e4cdc73cb43a631fb8e616bab79a8d0",
   "preregistration_id": "ALPHA_SYN_DOPAMINE_LOCOMOTION_V1",
+  "preregistration_json_sha256": "8197fcbd313460f1a5cf41f015f21038d8d8190ad461885a5a722e4ae9b8627d",
   "preregistration_sha256": "fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644",
   "prohibitions": [
     "no automatic retry",
+    "no rerun of completed jobs",
+    "no overwrite of existing output",
+    "no calibration",
+    "no fitting",
     "no retuning",
     "no burden search after observing results",
     "no holdout opening"
@@ -25,12 +100,12 @@
     "runner audit complete with exact 15-job matrix, config, checkpoint, and code hashes",
     "explicit authorization from both human reviewers"
   ],
-  "runner_audit": "alpha_syn_dopamine_runner_audit_v1.json",
+  "runner_audit": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_runner_audit_v1.json",
   "runner_audit_sha256": "34770fdb5095705f62c1615ee09fc6cf5668a9cf82f0ce40522dc7fb6899ad83",
-  "runner_config": "alpha_syn_dopamine_runner_v1.yaml",
+  "runner_config": "experiments\\alpha_syn_dopamine\\configs\\alpha_syn_dopamine_runner_v1.yaml",
   "runner_config_sha256": "135b69cb995d9d537926f11671391172281d0c1a0064dfe8f1badb2368b7f2f2",
-  "runner_protocol_packet": "alpha_syn_dopamine_runner_protocol_review_packet.md",
-  "runner_protocol_packet_sha256": "20c1a9c6ad14f60cb610cc574ec78d571258c9a89d7c2eef55ec182abc6ac910",
+  "runner_protocol_packet": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_runner_protocol_review_packet.md",
+  "runner_protocol_packet_sha256": "ce2a900fea6c46a901a34804d9ae64ec1708160c1706d0bb1b485bc032e2f426",
   "runner_protocol_status": "DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW_PASS",
   "runner_status": "READY_FOR_EXPLICIT_HUMAN_GPU_AUTHORIZATION",
   "runtime_input_hashes": {
@@ -68,6 +143,7 @@
     }
   },
   "schema_version": "alpha-syn-dopamine-execution-authorization-v1",
-  "simulation_execution_authorized": false,
-  "status": "WAITING_EXPLICIT_HUMAN_EXECUTION_AUTHORIZATION"
+  "simulation_execution_authorized": true,
+  "status": "AUTHORIZED_FOR_SCIENTIFIC_GPU_EXECUTION",
+  "study_split_sha256": "de93c8525c81cf67a092004069b995e0216f709f0c6c3b5350473d56f2175268"
 }

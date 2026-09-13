@@ -135,6 +135,7 @@ def main() -> int:
             "simulation_execution_authorized": True,
             "authorized_at": datetime.now(timezone.utc).isoformat(),
             "git_head_at_authorization": git_head(),
+            "authorized_jobs": len(jobs),
             "runner_status": runner_audit["status"],
             "runner_protocol_status": config["protocol_review_status"],
             "runner_config": str(CONFIG.relative_to(ROOT)),
@@ -184,6 +185,7 @@ def main() -> int:
                 "timestep_s": runtime["timestep_s"],
                 "age_days": runtime["age_days"],
                 "stimulus": runtime["stimulus"],
+                "cpg_frequency_hz": runtime["cpg_frequency_hz"],
                 "no_retry": config["controls"]["no_automatic_retry"],
                 "no_overwrite": config["controls"]["no_overwrite_existing_output"],
                 "no_calibration": config["controls"]["no_calibration"],
@@ -210,6 +212,7 @@ def main() -> int:
         {
             "status": "RUNNER_PROTOCOL_LOCKED_GPU_AUTHORIZED_EXECUTION_NOT_STARTED",
             "execution_authorization_status": "AUTHORIZED_FOR_SCIENTIFIC_GPU_EXECUTION",
+            "execution_authorization_sha256": sha256(AUTH),
             "gpu_execution_authorized": True,
             "execution_not_started": True,
             "authorized_jobs": len(jobs),

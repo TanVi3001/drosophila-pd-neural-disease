@@ -54,6 +54,9 @@ def main() -> int:
     code_audit = json.loads(CODE_AUDIT.read_text(encoding="utf-8"))
     tests = json.loads(TEST_MANIFEST.read_text(encoding="utf-8"))
     review = json.loads(REVIEW_SIGNOFF.read_text(encoding="utf-8"))
+    existing_auth = json.loads(AUTH.read_text(encoding="utf-8"))
+    if existing_auth.get("authorized") is True or existing_auth.get("gpu_execution_authorized") is True:
+        raise SystemExit("AUDIT_BLOCKED: explicit GPU authorization is already active; do not rerun the pre-authorization audit.")
     runner_config = yaml.safe_load(RUNNER_CONFIG.read_text(encoding="utf-8")) or {}
     prereg_sha = sha256(PREREG_SHA)  # hash of the signed hash sidecar, for artifact traceability
     prereg_document_hash = prereg.get("preregistration_sha256", "")

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import numpy as np
@@ -11,7 +12,7 @@ import yaml
 from drosophila_pd_neural.models import DiseaseProfile, NeuralParameters
 from drosophila_pd_neural.perturbations import perturb_edges
 from drosophila_pd_neural.alpha_syn_dopamine_runner import build_job_matrix, load_spec, resolve_condition
-from scripts.run_alpha_syn_dopamine import _require_execution_authorization
+import scripts.run_alpha_syn_dopamine as runner_cli
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -105,11 +106,18 @@ def test_alpha_syn_dopamine_runner_resolves_locked_shape_without_simulation() ->
     assert structural.parameters.neuron_survival < 1.0
 
 
-def test_alpha_syn_dopamine_execute_guard_rejects_without_explicit_gpu_authorization() -> None:
+def test_alpha_syn_dopamine_execute_guard_rejects_without_explicit_gpu_authorization(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     spec = load_spec(
         ROOT / "experiments/alpha_syn_dopamine/configs/alpha_syn_dopamine_runner_v1.yaml",
         project_root=ROOT,
     )
 
+    auth_path = tmp_path / "authorization.json"
+    auth = json.loads((ROOT / "research/alpha_syn_dopamine_preparation/alpha_syn_dopamine_execution_authorization_v1.json").read_text(encoding="utf-8"))
+    auth["authorized"] = False
+    auth["gpu_execution_authorized"] = False
+    auth_path.write_text(json.dumps(auth), encoding="utf-8")
+    monkeypatch.setattr(runner_cli, "AUTH", auth_path)
+
     with pytest.raises(RuntimeError, match="GPU execution authorization is not active"):
-        _require_execution_authorization(spec)
+        runner_cli._require_execution_authorization(spec)
