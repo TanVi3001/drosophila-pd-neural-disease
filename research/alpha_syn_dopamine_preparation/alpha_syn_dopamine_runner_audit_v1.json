@@ -22,7 +22,7 @@
     },
     "runner_dry_run": {
       "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_runner_dry_run_manifest.json",
-      "sha256": "28a7484675722e662ffa080bc0a6f6b868ff2974a7494a7a292b6a14b002434b"
+      "sha256": "d7e41566a16aaf33426042303cbc0cc73c0938220d2c9fc8af545fbf72c8f5f2"
     },
     "runner_module": {
       "path": "src\\drosophila_pd_neural\\alpha_syn_dopamine_runner.py",
@@ -56,8 +56,8 @@
     "runner_protocol_review_still_pending": true,
     "study_split_not_opened_for_holdout": true
   },
-  "audited_at": "2026-09-13T01:43:51.826480+00:00",
-  "git_head_at_audit": "276ee685c684f2744d2a72cefbb0c9e0fbf3b25f",
+  "audited_at": "2026-09-13T01:44:51.300186+00:00",
+  "git_head_at_audit": "66d61021e2d984e13bad5714a469bcc245e27918",
   "model_implementation_status": "MODEL_SPECIFIC_CLASS_LEVEL_DOPAMINE_PROXY_RUNNER_IMPLEMENTED_WITH_NON_SPECIFIC_BOUNDARY",
   "preregistration_hash_sidecar_sha256": "c0a2e5a7155af6478641d0cce1ff57e94e4cdc73cb43a631fb8e616bab79a8d0",
   "preregistration_sha256": "fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644",

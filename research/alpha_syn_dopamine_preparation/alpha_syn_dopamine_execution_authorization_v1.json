@@ -24,7 +24,7 @@
     "explicit authorization from both human reviewers"
   ],
   "runner_audit": "alpha_syn_dopamine_runner_audit_v1.json",
-  "runner_audit_sha256": "38677aaa777479aa701a5b768a481467a0fcff4da4a48c4254c7570e607bf776",
+  "runner_audit_sha256": "034d5f56a066a807b44c6df84d9226bd42f860d1d668fd6b6df215c6381a49af",
   "runner_config": "alpha_syn_dopamine_runner_v1.yaml",
   "runner_config_sha256": "8d19c47413e787b9be568164d6635d444b70769f5a995fe0a1ffd6d7e2ecef38",
   "runner_protocol_packet": "alpha_syn_dopamine_runner_protocol_review_packet.md",

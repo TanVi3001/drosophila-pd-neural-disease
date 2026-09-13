@@ -1,7 +1,7 @@
 {
   "config": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\experiments\\alpha_syn_dopamine\\configs\\alpha_syn_dopamine_runner_v1.yaml",
   "config_sha256": "8d19c47413e787b9be568164d6635d444b70769f5a995fe0a1ffd6d7e2ecef38",
-  "created_at_utc": "2026-09-13T01:43:51.773234+00:00",
+  "created_at_utc": "2026-09-13T01:44:51.224001+00:00",
   "gene_specific_mapping": false,
   "gpu_execution_performed": false,
   "holdout_opened": false,
