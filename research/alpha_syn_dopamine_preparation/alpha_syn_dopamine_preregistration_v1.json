@@ -1,0 +1,39 @@
+{
+  "allocation_manifest": "alpha_syn_dopamine_study_split_manifest_v1.json",
+  "allocation_manifest_sha256": "adc6d1afcb133a9a8ba3e583d0bc346f1505fb81681e5d379d5ea1ce1600d324",
+  "controls": {
+    "no_biological_causality_claim": true,
+    "no_gpu_execution_authorized": true,
+    "no_holdout_calibration": true,
+    "no_parameter_fitting_authorized": true,
+    "no_posthoc_selection": true,
+    "study_split_locked_before_fitting": true
+  },
+  "created_at": "2026-09-13",
+  "endpoint_registry": "literature_endpoint_registry_v2.csv",
+  "endpoint_registry_sha256": "5ef1324c8c7338fd44f93dee60af39102582a840bd3931e394961b1007ee7f27",
+  "execution_authorization_required": true,
+  "final_source_metadata_review_required": true,
+  "model_comparison": [
+    "no_effect_baseline",
+    "global_action_attenuation_baseline",
+    "connectome_only_without_disease_neuromodulation",
+    "functional_dopamine_deficiency_with_alpha_synuclein_age_state",
+    "structural_loss_comparator"
+  ],
+  "paper_scope": "alpha-synuclein -> dopamine circuit -> locomotion",
+  "preregistration_id": "ALPHA_SYN_DOPAMINE_LOCOMOTION_V1",
+  "primary_estimand": "held_out_study_level_prediction_of_control_relative_locomotor_phenotype",
+  "primary_evaluation": "leave_one_study_out_absolute_error_on_predeclared_standardized_effect",
+  "question": "Can an uncertainty-aware connectome-constrained latent alpha-synuclein/dopamine model explain age trajectory and generalize across study, assay, driver, and laboratory?",
+  "schema_version": "alpha-syn-dopamine-preregistration-v1",
+  "secondary_evaluation": [
+    "predictive_interval_coverage_when_supported",
+    "held_out_log_predictive_density_when_supported",
+    "age_trajectory_error",
+    "intervention_rank_agreement",
+    "phenotype_profile_similarity",
+    "failure_cases"
+  ],
+  "status": "PREREGISTRATION_DRAFT_LOCKED_ALLOCATION_PENDING_FINAL_SOURCE_METADATA_REVIEW"
+}

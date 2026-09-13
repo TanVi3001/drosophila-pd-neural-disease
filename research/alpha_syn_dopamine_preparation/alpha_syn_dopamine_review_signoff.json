@@ -1,23 +1,32 @@
 {
+  "allocation_status": "LOCKED_FOR_PREREGISTRATION",
   "gpu_execution_authorized": false,
   "holdout_opened": false,
-  "next_action": "Both reviewers directly confirm the direction, registry, and split before any fitting or GPU authorization.",
+  "next_action": "Allocation locked; complete source metadata, finalize preregistration, then request separate explicit execution authorization.",
   "parameter_fitting_authorized": false,
+  "reviewed_at": "2026-09-13",
+  "reviewed_materials": [
+    "literature_endpoint_registry_v2.csv",
+    "alpha_syn_dopamine_study_split_manifest_v1.json",
+    "alpha_syn_dopamine_direction_review_vi.md",
+    "alpha_syn_dopamine_gate_a_b_preparation_report.md",
+    "checksums.sha256"
+  ],
   "reviewers": [
     {
-      "attestation": null,
+      "attestation": "Tôi xác nhận đã đọc và đồng ý registry cùng study split alpha-synuclein/dopamine; xác nhận này không phải GPU execution authorization.",
       "name": "Lê Tấn Vĩ",
       "role": "reviewer_1",
-      "status": "PENDING_HUMAN_CONFIRMATION"
+      "status": "CONFIRMED"
     },
     {
-      "attestation": null,
+      "attestation": "Tôi xác nhận đã đọc và đồng ý registry cùng study split alpha-synuclein/dopamine; xác nhận này không phải GPU execution authorization.",
       "name": "Tô Đặng Minh Tuấn",
       "role": "reviewer_2",
-      "status": "PENDING_HUMAN_CONFIRMATION"
+      "status": "CONFIRMED"
     }
   ],
   "schema_version": "alpha-syn-dopamine-direction-review-signoff-v1",
   "scope": "Gate A/B preparation, endpoint registry, and study-level allocation",
-  "status": "WAITING_DUAL_HUMAN_DIRECTION_REVIEW"
+  "status": "DUAL_HUMAN_DIRECTION_REVIEW_PASS"
 }

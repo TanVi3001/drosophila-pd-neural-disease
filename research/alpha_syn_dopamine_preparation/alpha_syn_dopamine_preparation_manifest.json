@@ -1,5 +1,7 @@
 {
+  "allocation_status": "ALLOCATION_LOCKED_FOR_PREREGISTRATION",
   "checksums_file": "checksums.sha256",
+  "execution_authorization_status": "WAITING_EXPLICIT_HUMAN_EXECUTION_AUTHORIZATION",
   "gpu_execution_authorized": false,
   "holdout_opened": false,
   "input_paper_analysis": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\research\\paper_review\\paper_analysis_vi.csv",
@@ -9,10 +11,12 @@
   "next_required_review": "dual human review of endpoint registry and study split",
   "output_root": "E:\\Drosophila_Parkinson\\drosophila-pd-neural-disease\\research\\alpha_syn_dopamine_preparation",
   "parameter_fitting_authorized": false,
+  "preregistration_id": "ALPHA_SYN_DOPAMINE_LOCOMOTION_V1",
+  "preregistration_status": "PREREGISTRATION_DRAFT_LOCKED_ALLOCATION_PENDING_FINAL_SOURCE_METADATA_REVIEW",
   "registry_rows": 14,
   "retuning_performed": false,
-  "review_status": "WAITING_DUAL_HUMAN_DIRECTION_REVIEW",
+  "review_status": "DUAL_HUMAN_DIRECTION_REVIEW_PASS",
   "schema_version": "alpha-syn-dopamine-preparation-manifest-v1",
-  "status": "PREPARATION_ONLY_PENDING_DUAL_HUMAN_REVIEW",
+  "status": "ALLOCATION_LOCKED_FOR_PREREGISTRATION_PENDING_FINAL_SOURCE_METADATA_REVIEW",
   "study_allocations": 9
 }

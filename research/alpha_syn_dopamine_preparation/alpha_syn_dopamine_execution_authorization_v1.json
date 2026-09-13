@@ -1,0 +1,25 @@
+{
+  "allocation_manifest_sha256": "adc6d1afcb133a9a8ba3e583d0bc346f1505fb81681e5d379d5ea1ce1600d324",
+  "authorization_id": "ALPHA_SYN_DOPAMINE_EXECUTION_AUTH_V1",
+  "authorized": false,
+  "authorized_jobs": 0,
+  "gpu_execution_authorized": false,
+  "preregistration_id": "ALPHA_SYN_DOPAMINE_LOCOMOTION_V1",
+  "preregistration_sha256": "a09d696cd61061c992af9e42f73c35a26674b5ec83dee9002284b8ae06682313",
+  "prohibitions": [
+    "no automatic retry",
+    "no retuning",
+    "no burden search after observing results",
+    "no holdout opening"
+  ],
+  "required_before_authorization": [
+    "final source metadata review complete",
+    "preregistration status changed to final and hash recorded",
+    "runner audit and code commit recorded",
+    "exact job matrix, config, and checkpoint hashes recorded",
+    "explicit authorization from both human reviewers"
+  ],
+  "schema_version": "alpha-syn-dopamine-execution-authorization-v1",
+  "simulation_execution_authorized": false,
+  "status": "WAITING_EXPLICIT_HUMAN_EXECUTION_AUTHORIZATION"
+}

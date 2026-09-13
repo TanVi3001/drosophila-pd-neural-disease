@@ -1,6 +1,6 @@
 # Alpha-synuclein/dopamine direction review packet
 
-Status: `WAITING_DUAL_HUMAN_DIRECTION_REVIEW`
+Status: `DUAL_HUMAN_DIRECTION_REVIEW_PASS_ALLOCATION_LOCKED`
 
 ## Materials
 
@@ -33,3 +33,6 @@ Status: `WAITING_DUAL_HUMAN_DIRECTION_REVIEW`
 - Date: __________________
 
 After both direct confirmations, update the signoff manifest. Until then, this is a preparation draft and no scientific run may start from it.
+
+
+Direction review is complete. The next required gate is final source-metadata completion and preregistration review; this packet still does not authorize fitting or GPU execution.
