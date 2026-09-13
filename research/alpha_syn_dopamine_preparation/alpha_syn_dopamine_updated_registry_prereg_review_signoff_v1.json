@@ -1,0 +1,34 @@
+{
+  "gpu_execution_authorized": false,
+  "holdout_opened": false,
+  "next_action": "Record two direct reviewer attestations; this signoff is not execution authorization.",
+  "parameter_fitting_authorized": false,
+  "preregistration": "alpha_syn_dopamine_preregistration_v1.md",
+  "preregistration_sha256": "fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644",
+  "registry": "literature_endpoint_registry_v2.csv",
+  "registry_sha256": "942b6ddf332035ef1553444790383abc63c58799f6ad89f21001e3abba04e0e1",
+  "required_materials": [
+    "literature_endpoint_registry_v2.csv",
+    "alpha_syn_dopamine_study_split_manifest_v1.json",
+    "alpha_syn_dopamine_preregistration_v1.md",
+    "alpha_syn_dopamine_preregistration_v1.json",
+    "alpha_syn_dopamine_updated_metadata_review_packet.md"
+  ],
+  "reviewers": [
+    {
+      "attestation": null,
+      "name": "Lê Tấn Vĩ",
+      "role": "reviewer_1",
+      "status": "PENDING_HUMAN_CONFIRMATION"
+    },
+    {
+      "attestation": null,
+      "name": "Tô Đặng Minh Tuấn",
+      "role": "reviewer_2",
+      "status": "PENDING_HUMAN_CONFIRMATION"
+    }
+  ],
+  "schema_version": "alpha-syn-dopamine-updated-registry-prereg-review-v1",
+  "scope": "updated endpoint registry, final preregistration v1, and claim boundary",
+  "status": "PENDING_DUAL_HUMAN_UPDATED_REGISTRY_AND_PREREG_REVIEW"
+}

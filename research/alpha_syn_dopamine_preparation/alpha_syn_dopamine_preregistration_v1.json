@@ -1,39 +1,262 @@
 {
-  "allocation_manifest": "alpha_syn_dopamine_study_split_manifest_v1.json",
-  "allocation_manifest_sha256": "adc6d1afcb133a9a8ba3e583d0bc346f1505fb81681e5d379d5ea1ce1600d324",
-  "controls": {
-    "no_biological_causality_claim": true,
-    "no_gpu_execution_authorized": true,
-    "no_holdout_calibration": true,
-    "no_parameter_fitting_authorized": true,
-    "no_posthoc_selection": true,
-    "study_split_locked_before_fitting": true
+  "analysis_controls": {
+    "no_automatic_retry": true,
+    "no_calibration_fitting_retuning_before_authorization": true,
+    "no_calibration_on_holdout": true,
+    "no_posthoc_endpoint_selection": true,
+    "seeds": "Declared per runner authorization; no unregistered seed addition.",
+    "sensitivity_and_failure_analysis_required": true,
+    "study_level_split_locked_before_fitting": true
+  },
+  "claim_boundary": {
+    "allowed": [
+      "uncertainty-aware computational phenotype comparison",
+      "connectome-constrained sensitivity and prediction under the declared protocol",
+      "explicit comparison of functional dopamine deficiency and structural-loss comparator"
+    ],
+    "not_allowed": [
+      "biological causality from simulation output alone",
+      "gene-specific molecular mapping without a reviewed source-backed mapping",
+      "clinical validation, drug efficacy, or replacement of live-fly experiments",
+      "post-hoc retuning, burden search, or holdout selection"
+    ]
   },
   "created_at": "2026-09-13",
-  "endpoint_registry": "literature_endpoint_registry_v2.csv",
-  "endpoint_registry_sha256": "5ef1324c8c7338fd44f93dee60af39102582a840bd3931e394961b1007ee7f27",
+  "endpoint_policy": {
+    "assay_transfer": "Each transfer is endpoint-specific; pending or not_comparable rows cannot enter fitting or holdout evaluation.",
+    "center_and_spread": "Preserve reported statistic and spread type; median is not mean and SEM/SE/IQR/range are not interchangeable.",
+    "experimental_unit": "Use the study's analysis unit; do not multiply flies by vials or repeated observations.",
+    "missing_metadata": "NOT_REPORTED remains missing; no imputation from bar height, ranges, or sample-size bounds.",
+    "primary_metric_family": "walking_speed_mm_s when assay transfer is approved",
+    "separate_metric_families": [
+      "walking_speed_mm_s",
+      "distance_traveled_mm",
+      "activity_time_s",
+      "DAM_activity_relative",
+      "climbing_score"
+    ]
+  },
+  "estimand_and_evaluation": {
+    "primary_estimand": "held-out study-level prediction of control-relative locomotor phenotype",
+    "primary_evaluation": "leave-one-study-out absolute error on a predeclared standardized effect when source metadata and assay transfer support it",
+    "secondary_evaluations": [
+      "predictive interval coverage when the source spread supports it",
+      "held-out log predictive density when supported",
+      "age-trajectory error",
+      "intervention-rank agreement",
+      "phenotype-profile similarity",
+      "failure cases and identifiability limits"
+    ],
+    "uncertainty": "Use reported uncertainty only; retain approximate digitization labels and do not convert spread types."
+  },
   "execution_authorization_required": true,
-  "final_source_metadata_review_required": true,
+  "execution_gate": {
+    "authorization_file": "alpha_syn_dopamine_execution_authorization_v1.json",
+    "gpu_execution_authorized": false,
+    "required_before_gpu": [
+      "dual-human review signoff complete",
+      "code/model audit PASS or explicit documented implementation boundary",
+      "runner audit PASS with exact job matrix and hashes",
+      "separate explicit authorization from both reviewers"
+    ],
+    "status": "WAITING_EXPLICIT_HUMAN_EXECUTION_AUTHORIZATION"
+  },
+  "frozen_artifacts": {
+    "endpoint_registry": "literature_endpoint_registry_v2.csv",
+    "endpoint_registry_sha256": "942b6ddf332035ef1553444790383abc63c58799f6ad89f21001e3abba04e0e1",
+    "preregistration_hash_sidecar": "alpha_syn_dopamine_preregistration_v1.sha256",
+    "study_split_manifest": "alpha_syn_dopamine_study_split_manifest_v1.json",
+    "study_split_manifest_sha256_at_freeze": "de93c8525c81cf67a092004069b995e0216f709f0c6c3b5350473d56f2175268"
+  },
+  "gpu_execution_authorized": false,
+  "holdout_opened": false,
   "model_comparison": [
-    "no_effect_baseline",
-    "global_action_attenuation_baseline",
-    "connectome_only_without_disease_neuromodulation",
-    "functional_dopamine_deficiency_with_alpha_synuclein_age_state",
-    "structural_loss_comparator"
+    "no-effect baseline",
+    "global action-attenuation baseline",
+    "connectome-only model without disease neuromodulation",
+    "functional dopamine-deficiency model with alpha-synuclein age state",
+    "structural-loss comparator kept distinct from functional deficiency"
   ],
+  "model_contract": {
+    "age_state": "predeclared burden curve with interpolation only between declared anchor points",
+    "current_implementation_boundary": "generic disease-layer contract is audited; alpha-synuclein gene-specific mapping is not claimed",
+    "functional_state": "presynaptic/postsynaptic dopamine-related gain or circuit-level functional perturbation",
+    "mapping": "explicit neuron/edge IDs only; no positional tensor fallback",
+    "structural_state": "neuron_survival; never treated as a synonym for dopamine deficiency"
+  },
   "paper_scope": "alpha-synuclein -> dopamine circuit -> locomotion",
+  "parameter_fitting_authorized": false,
   "preregistration_id": "ALPHA_SYN_DOPAMINE_LOCOMOTION_V1",
-  "primary_estimand": "held_out_study_level_prediction_of_control_relative_locomotor_phenotype",
-  "primary_evaluation": "leave_one_study_out_absolute_error_on_predeclared_standardized_effect",
-  "question": "Can an uncertainty-aware connectome-constrained latent alpha-synuclein/dopamine model explain age trajectory and generalize across study, assay, driver, and laboratory?",
-  "schema_version": "alpha-syn-dopamine-preregistration-v1",
-  "secondary_evaluation": [
-    "predictive_interval_coverage_when_supported",
-    "held_out_log_predictive_density_when_supported",
-    "age_trajectory_error",
-    "intervention_rank_agreement",
-    "phenotype_profile_similarity",
-    "failure_cases"
-  ],
-  "status": "PREREGISTRATION_DRAFT_LOCKED_ALLOCATION_PENDING_FINAL_SOURCE_METADATA_REVIEW"
+  "preregistration_sha256": "fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644",
+  "registry_completeness_at_freeze": {
+    "assay_transfer_pending": [
+      "riemensperger_speed_day5",
+      "pokrzywa_alpha_speed_day1",
+      "pokrzywa_alpha_speed_day21",
+      "pokrzywa_control_speed_day1",
+      "pokrzywa_control_speed_day21",
+      "dumitrescu_parkin_activity_day1",
+      "dumitrescu_parkin_activity_day45",
+      "pozo_pink1_distance_day28",
+      "pozo_control_distance_day28",
+      "pozo_pink1_activity_time_day28",
+      "pozo_control_activity_time_day28",
+      "hwang_dj1_climbing_day5",
+      "godena_lrrk2_r1441c_climbing",
+      "godena_lrrk2_y1699c_climbing"
+    ],
+    "center_filled": 9,
+    "duration_filled": 12,
+    "experimental_unit_filled": 14,
+    "missing_center": [
+      "dumitrescu_parkin_activity_day1",
+      "dumitrescu_parkin_activity_day45",
+      "hwang_dj1_climbing_day5",
+      "godena_lrrk2_r1441c_climbing",
+      "godena_lrrk2_y1699c_climbing"
+    ],
+    "missing_duration": [
+      "godena_lrrk2_r1441c_climbing",
+      "godena_lrrk2_y1699c_climbing"
+    ],
+    "missing_spread": [
+      "riemensperger_speed_day5",
+      "pokrzywa_alpha_speed_day1",
+      "pokrzywa_control_speed_day1",
+      "dumitrescu_parkin_activity_day1",
+      "dumitrescu_parkin_activity_day45",
+      "hwang_dj1_climbing_day5",
+      "godena_lrrk2_r1441c_climbing",
+      "godena_lrrk2_y1699c_climbing"
+    ],
+    "rows": 14,
+    "source_review_pending": [
+      "riemensperger_speed_day5",
+      "pokrzywa_alpha_speed_day1",
+      "pokrzywa_alpha_speed_day21",
+      "pokrzywa_control_speed_day1",
+      "pokrzywa_control_speed_day21",
+      "dumitrescu_parkin_activity_day1",
+      "dumitrescu_parkin_activity_day45",
+      "pozo_pink1_distance_day28",
+      "pozo_control_distance_day28",
+      "pozo_pink1_activity_time_day28",
+      "pozo_control_activity_time_day28",
+      "hwang_dj1_climbing_day5",
+      "godena_lrrk2_r1441c_climbing",
+      "godena_lrrk2_y1699c_climbing"
+    ],
+    "spread_filled": 6
+  },
+  "research_question": "Can an uncertainty-aware, connectome-constrained latent alpha-synuclein/dopamine model explain age-related locomotor progression and generalize across study, assay, driver, and laboratory domains better than simpler baselines?",
+  "review_gate": {
+    "required": [
+      "Reviewer 1 direct attestation of updated registry and preregistration v1",
+      "Reviewer 2 direct attestation of updated registry and preregistration v1",
+      "Explicit confirmation of claim boundary and unresolved metadata policy"
+    ],
+    "signoff_file": "alpha_syn_dopamine_updated_registry_prereg_review_signoff_v1.json",
+    "status": "PENDING_DUAL_HUMAN_UPDATED_REGISTRY_AND_PREREG_REVIEW"
+  },
+  "schema_version": "alpha-syn-dopamine-preregistration-v1-final",
+  "status": "FINAL_PREREGISTRATION_PENDING_DUAL_HUMAN_REVIEW",
+  "study_split": {
+    "allocation_rule": "one study has one role; no endpoint/cohort may be used for both fitting and held-out evaluation",
+    "holdout_policy": "A holdout is not opened until its registry rows, assay-transfer rule, and reviewer decision are present.",
+    "manifest": "alpha_syn_dopamine_study_split_manifest_v1.json",
+    "planned_allocations": [
+      {
+        "allocation": "unit_test",
+        "allocation_status": "LOCKED_PENDING_UPDATED_METADATA_REVIEW",
+        "fit_allowed_now": false,
+        "present_in_registry": true,
+        "registry_status": "PRESENT_IN_REVIEW_TABLE",
+        "review_status": "PENDING_UPDATED_METADATA_REVIEW",
+        "source_id": "riemensperger_2011_dopamine_deficiency",
+        "source_role": "unit_test"
+      },
+      {
+        "allocation": "calibration_candidate",
+        "allocation_status": "LOCKED_PENDING_UPDATED_METADATA_REVIEW",
+        "fit_allowed_now": false,
+        "present_in_registry": true,
+        "registry_status": "PRESENT_IN_REVIEW_TABLE",
+        "review_status": "PENDING_UPDATED_METADATA_REVIEW",
+        "source_id": "pokrzywa_2017_alpha_syn_flytracker",
+        "source_role": "calibration_candidate"
+      },
+      {
+        "allocation": "holdout_candidate",
+        "allocation_status": "LOCKED_PENDING_UPDATED_METADATA_REVIEW",
+        "fit_allowed_now": false,
+        "present_in_registry": false,
+        "registry_status": "PENDING_REGISTRY_ROWS",
+        "review_status": "PENDING_UPDATED_METADATA_REVIEW",
+        "source_id": "riemensperger_2013_alpha_synuclein_progression",
+        "source_role": "generalization_candidate"
+      },
+      {
+        "allocation": "holdout_candidate",
+        "allocation_status": "LOCKED_PENDING_UPDATED_METADATA_REVIEW",
+        "fit_allowed_now": false,
+        "present_in_registry": false,
+        "registry_status": "PENDING_REGISTRY_ROWS",
+        "review_status": "PENDING_UPDATED_METADATA_REVIEW",
+        "source_id": "haywood_2004_parkin_alpha_synuclein_climbing",
+        "source_role": "intervention_specificity"
+      },
+      {
+        "allocation": "validation_only",
+        "allocation_status": "LOCKED_PENDING_UPDATED_METADATA_REVIEW",
+        "fit_allowed_now": false,
+        "present_in_registry": false,
+        "registry_status": "PENDING_REGISTRY_ROWS",
+        "review_status": "PENDING_UPDATED_METADATA_REVIEW",
+        "source_id": "aggarwal_2019_pd_locomotor_assay",
+        "source_role": "assay_validation"
+      },
+      {
+        "allocation": "context_only",
+        "allocation_status": "LOCKED_PENDING_UPDATED_METADATA_REVIEW",
+        "fit_allowed_now": false,
+        "present_in_registry": true,
+        "registry_status": "PRESENT_IN_REVIEW_TABLE",
+        "review_status": "PENDING_UPDATED_METADATA_REVIEW",
+        "source_id": "dumitrescu_2023_parkin_rnai",
+        "source_role": "regional_dopamine_constraint"
+      },
+      {
+        "allocation": "prior_only",
+        "allocation_status": "LOCKED_PENDING_UPDATED_METADATA_REVIEW",
+        "fit_allowed_now": false,
+        "present_in_registry": false,
+        "registry_status": "PENDING_REGISTRY_ROWS",
+        "review_status": "PENDING_UPDATED_METADATA_REVIEW",
+        "source_id": "liessem_2026_walking_direction_dopamine",
+        "source_role": "direction_prior"
+      },
+      {
+        "allocation": "implementation_only",
+        "allocation_status": "LOCKED_PENDING_UPDATED_METADATA_REVIEW",
+        "fit_allowed_now": false,
+        "present_in_registry": false,
+        "registry_status": "PENDING_REGISTRY_ROWS",
+        "review_status": "PENDING_UPDATED_METADATA_REVIEW",
+        "source_id": "pugliese_2025_fly_cpg_preprint",
+        "source_role": "motor_body_implementation"
+      },
+      {
+        "allocation": "implementation_only",
+        "allocation_status": "LOCKED_PENDING_UPDATED_METADATA_REVIEW",
+        "fit_allowed_now": false,
+        "present_in_registry": false,
+        "registry_status": "PENDING_REGISTRY_ROWS",
+        "review_status": "PENDING_UPDATED_METADATA_REVIEW",
+        "source_id": "neuromechfly_v2_2024",
+        "source_role": "motor_body_implementation"
+      }
+    ],
+    "status_at_freeze": "ALLOCATION_LOCKED_PENDING_UPDATED_METADATA_REVIEW"
+  },
+  "version": "v1"
 }

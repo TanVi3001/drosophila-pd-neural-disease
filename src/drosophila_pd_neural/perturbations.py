@@ -40,14 +40,15 @@ def perturb_edges(
     factor[post_target] *= params.postsynaptic_gain
     factor[pre_target | post_target] *= params.neuron_survival
     if condition.target_edges:
-        edge_keys = np.char.add(
-            np.char.add(pre.astype(str), "\x00"), post.astype(str)
+        # Match the declared pair as a tuple.  A string sentinel is unsafe
+        # here because NumPy string operations may discard NUL separators.
+        target_keys = {(str(pre_id), str(post_id)) for pre_id, post_id in condition.target_edges}
+        edge_mask = np.fromiter(
+            ((str(pre_id), str(post_id)) in target_keys for pre_id, post_id in zip(pre, post)),
+            dtype=bool,
+            count=result.size,
         )
-        target_keys = np.asarray(
-            [f"{pre_id}\x00{post_id}" for pre_id, post_id in condition.target_edges],
-            dtype=str,
-        )
-        factor[np.isin(edge_keys, target_keys)] *= params.presynaptic_gain
+        factor[edge_mask] *= params.presynaptic_gain
     result *= factor
     if not np.isfinite(result).all():
         raise ValueError("Perturbation tao ra weight khong huu han.")

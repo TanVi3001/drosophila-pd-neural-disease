@@ -2,7 +2,8 @@
   "allocation_status": "LOCKED_FOR_PREREGISTRATION",
   "gpu_execution_authorized": false,
   "holdout_opened": false,
-  "next_action": "Allocation locked; complete source metadata, finalize preregistration, then request separate explicit execution authorization.",
+  "metadata_refresh_status": "PENDING_DUAL_HUMAN_RECONFIRMATION",
+  "next_action": "Both reviewers re-confirm the updated registry and preregistration before fitting or GPU authorization.",
   "parameter_fitting_authorized": false,
   "reviewed_at": "2026-09-13",
   "reviewed_materials": [
@@ -28,5 +29,6 @@
   ],
   "schema_version": "alpha-syn-dopamine-direction-review-signoff-v1",
   "scope": "Gate A/B preparation, endpoint registry, and study-level allocation",
-  "status": "DUAL_HUMAN_DIRECTION_REVIEW_PASS"
+  "status": "DUAL_HUMAN_DIRECTION_REVIEW_PASS",
+  "updated_registry_sha256": "942b6ddf332035ef1553444790383abc63c58799f6ad89f21001e3abba04e0e1"
 }

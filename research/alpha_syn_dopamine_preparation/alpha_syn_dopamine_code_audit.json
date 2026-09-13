@@ -1,0 +1,45 @@
+{
+  "artifacts": {
+    "cpu_test_manifest": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_cpu_test_manifest.json",
+      "sha256": "7ea6247c6a092d80654a93cec166e271ba991ce059d20293cca27f2ab8d1d52a"
+    },
+    "models_py": {
+      "path": "src\\drosophila_pd_neural\\models.py",
+      "sha256": "46d13dfb97ad5ca0d6b993f96b8d949554f72da2c11dbb8df1e7d1484b8dd634"
+    },
+    "perturbations_py": {
+      "path": "src\\drosophila_pd_neural\\perturbations.py",
+      "sha256": "d811f7d80139419f4023d972a80d813f90f82535730ec38b59ce309cbdc830f6"
+    },
+    "proxy_config": {
+      "path": "experiments\\gate_12c_computational_proxy_configs\\configs\\alpha_synuclein_proxy_condition.yaml",
+      "sha256": "69223c2c8d946d99b00ffd5e939ba6db1d9d4b42eae385c7d954906e31c497fb"
+    }
+  },
+  "audited_at": "2026-09-13T01:30:55.989203+00:00",
+  "boundary": [
+    "No gene-specific root neuron or edge mapping is asserted.",
+    "No alpha-synuclein molecular dynamics or biological causality is asserted.",
+    "A scientific GPU runner is not authorized by this audit."
+  ],
+  "checks": {
+    "age_profile_interpolation_present": true,
+    "explicit_neuron_and_edge_ids": true,
+    "functional_gain_field_present": true,
+    "no_positional_fallback_documented": true,
+    "proxy_does_not_claim_biological_mapping": true,
+    "proxy_has_no_gene_specific_mapping": true,
+    "proxy_has_no_target_ids": true,
+    "proxy_is_not_calibrated": true,
+    "structural_survival_field_present": true
+  },
+  "gpu_execution_performed": false,
+  "holdout_opened": false,
+  "implementation_status": "GENERIC_DISEASE_LAYER_CONTRACT_ONLY_NO_GENE_SPECIFIC_ALPHA_SYNUCLEIN_MAPPING",
+  "model_scope": "alpha-synuclein -> dopamine circuit -> locomotion",
+  "parameter_fitting_performed": false,
+  "schema_version": "alpha-syn-dopamine-code-audit-v1",
+  "status": "AUDIT_PASS_WITH_IMPLEMENTATION_BOUNDARY",
+  "test_status": "PASS"
+}

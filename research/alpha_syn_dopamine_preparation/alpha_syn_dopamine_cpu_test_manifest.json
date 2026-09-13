@@ -1,0 +1,15 @@
+{
+  "commands": [
+    "python -m pytest -q tests/test_alpha_syn_dopamine_audit.py -p no:cacheprovider",
+    "python -m compileall -q scripts src tests"
+  ],
+  "compileall_returncode": 0,
+  "cuda_visible_devices": "-1",
+  "executed_at": "2026-09-13T01:30:55.930012+00:00",
+  "gpu_execution_performed": false,
+  "pytest_returncode": 0,
+  "pytest_stderr_tail": "",
+  "pytest_stdout_tail": "...                                                                      [100%]\n3 passed in 0.32s\n",
+  "schema_version": "alpha-syn-dopamine-cpu-test-v1",
+  "status": "PASS"
+}

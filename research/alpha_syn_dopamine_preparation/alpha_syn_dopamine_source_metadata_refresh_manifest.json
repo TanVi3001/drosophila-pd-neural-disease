@@ -1,0 +1,16 @@
+{
+  "center_filled": 9,
+  "created_at": "2026-09-13",
+  "duration_filled": 12,
+  "experimental_unit_filled": 14,
+  "no_fitting": true,
+  "no_gpu_execution": true,
+  "no_holdout_opened": true,
+  "no_imputation": true,
+  "registry": "literature_endpoint_registry_v2.csv",
+  "registry_sha256": "942b6ddf332035ef1553444790383abc63c58799f6ad89f21001e3abba04e0e1",
+  "rows": 14,
+  "schema_version": "alpha-syn-dopamine-source-metadata-refresh-v1",
+  "spread_filled": 6,
+  "status": "SOURCE_AUDITED_PENDING_DUAL_HUMAN_RECONFIRMATION"
+}
