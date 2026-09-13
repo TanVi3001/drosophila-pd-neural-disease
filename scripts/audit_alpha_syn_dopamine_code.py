@@ -21,6 +21,9 @@ TEST_MANIFEST = PREP / "alpha_syn_dopamine_cpu_test_manifest.json"
 MODEL = ROOT / "src/drosophila_pd_neural/models.py"
 PERTURBATIONS = ROOT / "src/drosophila_pd_neural/perturbations.py"
 CONFIG = ROOT / "experiments/gate_12c_computational_proxy_configs/configs/alpha_synuclein_proxy_condition.yaml"
+RUNNER_MODULE = ROOT / "src/drosophila_pd_neural/alpha_syn_dopamine_runner.py"
+RUNNER_SCRIPT = ROOT / "scripts/run_alpha_syn_dopamine.py"
+RUNNER_CONFIG = ROOT / "experiments/alpha_syn_dopamine/configs/alpha_syn_dopamine_runner_v1.yaml"
 
 
 def sha256(path: Path) -> str:
@@ -42,6 +45,9 @@ def main() -> int:
     model_text = MODEL.read_text(encoding="utf-8")
     perturbation_text = PERTURBATIONS.read_text(encoding="utf-8")
     config = yaml.safe_load(CONFIG.read_text(encoding="utf-8"))
+    runner_text = RUNNER_SCRIPT.read_text(encoding="utf-8")
+    runner_module_text = RUNNER_MODULE.read_text(encoding="utf-8")
+    runner_config = yaml.safe_load(RUNNER_CONFIG.read_text(encoding="utf-8"))
 
     checks = {
         "functional_gain_field_present": "presynaptic_gain" in model_text and "postsynaptic_gain" in model_text,
@@ -53,6 +59,10 @@ def main() -> int:
         "proxy_has_no_target_ids": not config["target_definition"]["target_neurons"] and not config["target_definition"]["target_edges"],
         "proxy_is_not_calibrated": config["burden"]["calibrated"] is False,
         "proxy_does_not_claim_biological_mapping": config["proxy_operator"]["biological_mapping_claim"] is False,
+        "model_specific_runner_module_present": "def resolve_condition" in runner_module_text and "def build_job_matrix" in runner_module_text,
+        "runner_has_explicit_execute_guard": "_require_execution_authorization" in runner_text and "gpu_execution_authorized" in runner_text,
+        "runner_protocol_not_yet_authorized": runner_config["parameter_lock_status"] == "PROVISIONAL_NO_GPU" and runner_config["protocol_review_status"] == "PENDING_DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW",
+        "runner_config_keeps_gene_mapping_non_specific": runner_config["model"]["gene_specific_mapping"] is False and runner_config["model"]["biological_mapping_claim"] is False,
     }
 
     test_env = os.environ.copy()
@@ -96,6 +106,9 @@ def main() -> int:
             "models_py": {"path": str(MODEL.relative_to(ROOT)), "sha256": sha256(MODEL)},
             "perturbations_py": {"path": str(PERTURBATIONS.relative_to(ROOT)), "sha256": sha256(PERTURBATIONS)},
             "proxy_config": {"path": str(CONFIG.relative_to(ROOT)), "sha256": sha256(CONFIG)},
+            "model_specific_runner_module": {"path": str(RUNNER_MODULE.relative_to(ROOT)), "sha256": sha256(RUNNER_MODULE)},
+            "model_specific_runner_script": {"path": str(RUNNER_SCRIPT.relative_to(ROOT)), "sha256": sha256(RUNNER_SCRIPT)},
+            "model_specific_runner_config": {"path": str(RUNNER_CONFIG.relative_to(ROOT)), "sha256": sha256(RUNNER_CONFIG)},
             "cpu_test_manifest": {"path": str(TEST_MANIFEST.relative_to(ROOT)), "sha256": sha256(TEST_MANIFEST)},
         },
         "test_status": test_manifest["status"],

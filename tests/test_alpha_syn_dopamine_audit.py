@@ -5,10 +5,13 @@ from __future__ import annotations
 from pathlib import Path
 
 import numpy as np
+import pytest
 import yaml
 
 from drosophila_pd_neural.models import DiseaseProfile, NeuralParameters
 from drosophila_pd_neural.perturbations import perturb_edges
+from drosophila_pd_neural.alpha_syn_dopamine_runner import build_job_matrix, load_spec, resolve_condition
+from scripts.run_alpha_syn_dopamine import _require_execution_authorization
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -78,3 +81,35 @@ def test_alpha_syn_config_is_exploratory_and_has_no_gene_specific_mapping() -> N
     assert config["target_definition"]["target_edges"] == []
     assert config["burden"]["calibrated"] is False
     assert config["proxy_operator"]["biological_mapping_claim"] is False
+
+
+def test_alpha_syn_dopamine_runner_resolves_locked_shape_without_simulation() -> None:
+    spec = load_spec(
+        ROOT / "experiments/alpha_syn_dopamine/configs/alpha_syn_dopamine_runner_v1.yaml",
+        project_root=ROOT,
+    )
+    jobs = build_job_matrix(spec)
+
+    assert len(jobs) == 15
+    assert len({job.job_id for job in jobs}) == 15
+    assert spec.condition_id == "alpha_synuclein"
+    assert spec.gene_specific_mapping is False
+    assert spec.protocol_review_status == "PENDING_DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW"
+    assert spec.parameter_lock_status == "PROVISIONAL_NO_GPU"
+
+    functional = resolve_condition(spec, "functional_state", seed=0)
+    structural = resolve_condition(spec, "structural_comparator", seed=0)
+    assert len(functional.target_neurons) > 0
+    assert functional.parameters.presynaptic_gain < 1.0
+    assert structural.parameters.presynaptic_gain == 1.0
+    assert structural.parameters.neuron_survival < 1.0
+
+
+def test_alpha_syn_dopamine_execute_guard_rejects_unreviewed_runner_protocol() -> None:
+    spec = load_spec(
+        ROOT / "experiments/alpha_syn_dopamine/configs/alpha_syn_dopamine_runner_v1.yaml",
+        project_root=ROOT,
+    )
+
+    with pytest.raises(RuntimeError, match="Runner protocol review is not PASS"):
+        _require_execution_authorization(spec)

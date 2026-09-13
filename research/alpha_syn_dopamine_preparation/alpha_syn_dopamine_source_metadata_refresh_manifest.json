@@ -12,5 +12,7 @@
   "rows": 14,
   "schema_version": "alpha-syn-dopamine-source-metadata-refresh-v1",
   "spread_filled": 6,
-  "status": "SOURCE_AUDITED_PENDING_DUAL_HUMAN_RECONFIRMATION"
+  "status": "SOURCE_AUDITED_DUAL_HUMAN_RECONFIRMED",
+  "reviewed_at": "2026-09-13",
+  "review_signoff": "alpha_syn_dopamine_updated_registry_prereg_review_signoff_v1.json"
 }

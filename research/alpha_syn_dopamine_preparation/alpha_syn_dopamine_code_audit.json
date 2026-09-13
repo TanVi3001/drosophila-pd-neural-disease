@@ -2,7 +2,19 @@
   "artifacts": {
     "cpu_test_manifest": {
       "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_cpu_test_manifest.json",
-      "sha256": "7ea6247c6a092d80654a93cec166e271ba991ce059d20293cca27f2ab8d1d52a"
+      "sha256": "9a57f74d2dce0f07c158ffbf063f229e434f363702726b6aa4eda9e80a2ec2ff"
+    },
+    "model_specific_runner_config": {
+      "path": "experiments\\alpha_syn_dopamine\\configs\\alpha_syn_dopamine_runner_v1.yaml",
+      "sha256": "8d19c47413e787b9be568164d6635d444b70769f5a995fe0a1ffd6d7e2ecef38"
+    },
+    "model_specific_runner_module": {
+      "path": "src\\drosophila_pd_neural\\alpha_syn_dopamine_runner.py",
+      "sha256": "60b6e1f936b47ac0c292c84be71bc023b7a6ac0484f51f4cfc7e48a36b1f3774"
+    },
+    "model_specific_runner_script": {
+      "path": "scripts\\run_alpha_syn_dopamine.py",
+      "sha256": "0339770b60664da7a7caf4eced4edae8d4c858a2b1dda3700142bc3525cb8bbe"
     },
     "models_py": {
       "path": "src\\drosophila_pd_neural\\models.py",
@@ -17,7 +29,7 @@
       "sha256": "69223c2c8d946d99b00ffd5e939ba6db1d9d4b42eae385c7d954906e31c497fb"
     }
   },
-  "audited_at": "2026-09-13T01:30:55.989203+00:00",
+  "audited_at": "2026-09-13T01:43:51.239779+00:00",
   "boundary": [
     "No gene-specific root neuron or edge mapping is asserted.",
     "No alpha-synuclein molecular dynamics or biological causality is asserted.",
@@ -27,11 +39,15 @@
     "age_profile_interpolation_present": true,
     "explicit_neuron_and_edge_ids": true,
     "functional_gain_field_present": true,
+    "model_specific_runner_module_present": true,
     "no_positional_fallback_documented": true,
     "proxy_does_not_claim_biological_mapping": true,
     "proxy_has_no_gene_specific_mapping": true,
     "proxy_has_no_target_ids": true,
     "proxy_is_not_calibrated": true,
+    "runner_config_keeps_gene_mapping_non_specific": true,
+    "runner_has_explicit_execute_guard": true,
+    "runner_protocol_not_yet_authorized": true,
     "structural_survival_field_present": true
   },
   "gpu_execution_performed": false,

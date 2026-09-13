@@ -1,7 +1,7 @@
 {
   "gpu_execution_authorized": false,
   "holdout_opened": false,
-  "next_action": "Record two direct reviewer attestations; this signoff is not execution authorization.",
+  "next_action": "Review the new model-specific runner protocol separately; this signoff is not execution authorization.",
   "parameter_fitting_authorized": false,
   "preregistration": "alpha_syn_dopamine_preregistration_v1.md",
   "preregistration_sha256": "fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644",
@@ -16,19 +16,21 @@
   ],
   "reviewers": [
     {
-      "attestation": null,
+      "attestation": "Direct confirmation recorded from Le Tan Vi in the project conversation on 2026-09-13: updated registry, preregistration v1, unresolved metadata policy, and claim boundary reviewed and accepted; this is not GPU execution authorization.",
       "name": "Lê Tấn Vĩ",
       "role": "reviewer_1",
-      "status": "PENDING_HUMAN_CONFIRMATION"
+      "status": "CONFIRMED"
     },
     {
-      "attestation": null,
+      "attestation": "Direct confirmation recorded from To Dang Minh Tuan in the project conversation on 2026-09-13: updated registry, preregistration v1, unresolved metadata policy, and claim boundary reviewed and accepted; this is not GPU execution authorization.",
       "name": "Tô Đặng Minh Tuấn",
       "role": "reviewer_2",
-      "status": "PENDING_HUMAN_CONFIRMATION"
+      "status": "CONFIRMED"
     }
   ],
   "schema_version": "alpha-syn-dopamine-updated-registry-prereg-review-v1",
   "scope": "updated endpoint registry, final preregistration v1, and claim boundary",
-  "status": "PENDING_DUAL_HUMAN_UPDATED_REGISTRY_AND_PREREG_REVIEW"
+  "status": "DUAL_HUMAN_UPDATED_REGISTRY_AND_PREREG_REVIEW_PASS",
+  "reviewed_at": "2026-09-13",
+  "runner_protocol_status": "PENDING_DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW"
 }
