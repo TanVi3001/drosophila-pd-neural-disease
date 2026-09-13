@@ -1,0 +1,52 @@
+{
+  "artifacts": {
+    "code_audit": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_code_audit.json",
+      "sha256": "8012343f37ad958d711a70b09049acb47ca2cfc2e5a0c57cb5d6d44655ddcbfa"
+    },
+    "cpu_tests": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_cpu_test_manifest.json",
+      "sha256": "7ea6247c6a092d80654a93cec166e271ba991ce059d20293cca27f2ab8d1d52a"
+    },
+    "preregistration_hash_sidecar": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_preregistration_v1.sha256",
+      "sha256": "c0a2e5a7155af6478641d0cce1ff57e94e4cdc73cb43a631fb8e616bab79a8d0"
+    },
+    "preregistration_json": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_preregistration_v1.json",
+      "sha256": "8197fcbd313460f1a5cf41f015f21038d8d8190ad461885a5a722e4ae9b8627d"
+    },
+    "study_split": {
+      "path": "research\\alpha_syn_dopamine_preparation\\alpha_syn_dopamine_study_split_manifest_v1.json",
+      "sha256": "de93c8525c81cf67a092004069b995e0216f709f0c6c3b5350473d56f2175268"
+    }
+  },
+  "audit_checks": {
+    "code_audit_passed": true,
+    "cpu_tests_passed": true,
+    "no_execution_authorization": true,
+    "no_gene_specific_runner_claimed": true,
+    "preregistration_hash_present": true,
+    "preregistration_hash_sidecar_present": true,
+    "preregistration_is_final_candidate": true,
+    "study_split_not_opened_for_holdout": true
+  },
+  "audited_at": "2026-09-13T01:35:23.391361+00:00",
+  "git_head_at_audit": "f40d794e1e969aebe754fdda6a815a8b39f3f9da",
+  "model_implementation_status": "GENERIC_DISEASE_LAYER_CONTRACT_ONLY_NO_GENE_SPECIFIC_ALPHA_SYNUCLEIN_MAPPING",
+  "preregistration_hash_sidecar_sha256": "c0a2e5a7155af6478641d0cce1ff57e94e4cdc73cb43a631fb8e616bab79a8d0",
+  "preregistration_sha256": "fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644",
+  "runner_candidates": [],
+  "schema_version": "alpha-syn-dopamine-runner-audit-v1",
+  "scientific_gpu_execution": {
+    "allowed_now": false,
+    "reason": "No model-specific alpha-synuclein runner and no dual-human review/execution authorization.",
+    "required": [
+      "implement and audit the declared alpha-synuclein/dopamine runner",
+      "freeze exact condition/mapping/transform/seed/QC/analysis/claim configuration",
+      "record exact job matrix and checkpoint/config hashes",
+      "obtain dual-human review signoff and separate explicit execution authorization"
+    ]
+  },
+  "status": "NOT_READY_MODEL_SPECIFIC_RUNNER_MISSING"
+}

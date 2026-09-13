@@ -3,22 +3,28 @@
   "authorization_id": "ALPHA_SYN_DOPAMINE_EXECUTION_AUTH_V1",
   "authorized": false,
   "authorized_jobs": 0,
+  "code_audit": "alpha_syn_dopamine_code_audit.json",
+  "code_audit_sha256": "8012343f37ad958d711a70b09049acb47ca2cfc2e5a0c57cb5d6d44655ddcbfa",
   "gpu_execution_authorized": false,
   "preregistration_id": "ALPHA_SYN_DOPAMINE_LOCOMOTION_V1",
-  "preregistration_sha256": "a09d696cd61061c992af9e42f73c35a26674b5ec83dee9002284b8ae06682313",
+  "preregistration_sha256": "fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644",
   "prohibitions": [
     "no automatic retry",
     "no retuning",
     "no burden search after observing results",
     "no holdout opening"
   ],
+  "registry_sha256": "942b6ddf332035ef1553444790383abc63c58799f6ad89f21001e3abba04e0e1",
   "required_before_authorization": [
-    "final source metadata review complete",
-    "preregistration status changed to final and hash recorded",
-    "runner audit and code commit recorded",
-    "exact job matrix, config, and checkpoint hashes recorded",
+    "dual human review signoff complete for updated registry and final preregistration",
+    "alpha-synuclein/dopamine code and model audit complete",
+    "CPU synthetic/unit tests pass",
+    "runner audit complete with exact job matrix, config, checkpoint, and code hashes",
     "explicit authorization from both human reviewers"
   ],
+  "runner_audit": "alpha_syn_dopamine_runner_audit_v1.json",
+  "runner_audit_sha256": "b0a87d9d70c34c675088e55a6884c78201918e5c8bf65a365e207479d5d39752",
+  "runner_status": "NOT_READY_MODEL_SPECIFIC_RUNNER_MISSING",
   "schema_version": "alpha-syn-dopamine-execution-authorization-v1",
   "simulation_execution_authorized": false,
   "status": "WAITING_EXPLICIT_HUMAN_EXECUTION_AUTHORIZATION"
