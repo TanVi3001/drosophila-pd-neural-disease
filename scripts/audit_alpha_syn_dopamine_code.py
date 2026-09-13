@@ -61,7 +61,7 @@ def main() -> int:
         "proxy_does_not_claim_biological_mapping": config["proxy_operator"]["biological_mapping_claim"] is False,
         "model_specific_runner_module_present": "def resolve_condition" in runner_module_text and "def build_job_matrix" in runner_module_text,
         "runner_has_explicit_execute_guard": "_require_execution_authorization" in runner_text and "gpu_execution_authorized" in runner_text,
-        "runner_protocol_not_yet_authorized": runner_config["parameter_lock_status"] == "PROVISIONAL_NO_GPU" and runner_config["protocol_review_status"] == "PENDING_DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW",
+        "runner_protocol_locked_before_execution": runner_config["parameter_lock_status"] == "LOCKED_FOR_EXECUTION" and runner_config["protocol_review_status"] == "DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW_PASS",
         "runner_config_keeps_gene_mapping_non_specific": runner_config["model"]["gene_specific_mapping"] is False and runner_config["model"]["biological_mapping_claim"] is False,
     }
 

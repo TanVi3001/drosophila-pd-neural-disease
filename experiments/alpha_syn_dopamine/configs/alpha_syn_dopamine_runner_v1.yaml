@@ -1,8 +1,8 @@
 schema_version: alpha-syn-dopamine-runner-v1
 runner_id: ALPHA_SYN_DOPAMINE_RUNNER_V1
-status: RUNNER_PROTOCOL_DRAFT_PENDING_DUAL_HUMAN_REVIEW
-protocol_review_status: PENDING_DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW
-parameter_lock_status: PROVISIONAL_NO_GPU
+status: RUNNER_PROTOCOL_LOCKED_FOR_EXECUTION
+protocol_review_status: DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW_PASS
+parameter_lock_status: LOCKED_FOR_EXECUTION
 preregistration_id: ALPHA_SYN_DOPAMINE_LOCOMOTION_V1
 preregistration_sha256: fd1dab0d794f87121b22c79e05a42aac8d8b51a6c19a0589ebf76cc0afd93644
 
@@ -84,4 +84,4 @@ scientific_boundary:
   - This runner is a class-level dopamine computational proxy linked to an alpha-synuclein study direction.
   - It is not a gene-specific alpha-synuclein root-ID/edge-ID mapping.
   - Functional dopamine deficiency and structural loss remain separate comparator states.
-  - The configuration must receive separate runner-protocol review before scientific execution.
+  - The configuration received separate runner-protocol review before scientific execution authorization.

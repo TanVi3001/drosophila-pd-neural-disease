@@ -94,8 +94,8 @@ def test_alpha_syn_dopamine_runner_resolves_locked_shape_without_simulation() ->
     assert len({job.job_id for job in jobs}) == 15
     assert spec.condition_id == "alpha_synuclein"
     assert spec.gene_specific_mapping is False
-    assert spec.protocol_review_status == "PENDING_DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW"
-    assert spec.parameter_lock_status == "PROVISIONAL_NO_GPU"
+    assert spec.protocol_review_status == "DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW_PASS"
+    assert spec.parameter_lock_status == "LOCKED_FOR_EXECUTION"
 
     functional = resolve_condition(spec, "functional_state", seed=0)
     structural = resolve_condition(spec, "structural_comparator", seed=0)
@@ -105,11 +105,11 @@ def test_alpha_syn_dopamine_runner_resolves_locked_shape_without_simulation() ->
     assert structural.parameters.neuron_survival < 1.0
 
 
-def test_alpha_syn_dopamine_execute_guard_rejects_unreviewed_runner_protocol() -> None:
+def test_alpha_syn_dopamine_execute_guard_rejects_without_explicit_gpu_authorization() -> None:
     spec = load_spec(
         ROOT / "experiments/alpha_syn_dopamine/configs/alpha_syn_dopamine_runner_v1.yaml",
         project_root=ROOT,
     )
 
-    with pytest.raises(RuntimeError, match="Runner protocol review is not PASS"):
+    with pytest.raises(RuntimeError, match="GPU execution authorization is not active"):
         _require_execution_authorization(spec)

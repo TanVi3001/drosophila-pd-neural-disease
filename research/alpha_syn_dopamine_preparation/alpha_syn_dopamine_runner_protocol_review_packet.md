@@ -1,6 +1,6 @@
 # Alpha-synuclein/dopamine runner protocol review packet v1
 
-Status: `READY_FOR_DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW`  
+Status: `DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW_PASS`
 This packet reviews the new runner implementation only. It is not scientific GPU execution authorization.
 
 ## Scope
@@ -24,28 +24,28 @@ The matrix is three declared states × five seeds:
 
 ## Required checks
 
-- [ ] The functional dopamine state and structural-loss comparator are separate.
-- [ ] The dopamine target set is explicitly sourced and remains `gene_specific_mapping=false`.
-- [ ] The provisional gains, survival parameter, age point, 5,000-step runtime, stimulus, and CPG frequency are accepted or revised before lock.
-- [ ] The 15 job IDs and seeds are complete and unique; no automatic retry is permitted.
-- [ ] Existing output is never overwritten; no holdout is opened; no calibration/fitting/retuning is performed by the runner.
-- [ ] `--execute` must remain blocked until this packet is PASS and a separate explicit GPU authorization is recorded.
-- [ ] The claim boundary remains computational and uncertainty-aware, not biological causality or clinical validation.
+- [x] The functional dopamine state and structural-loss comparator are separate.
+- [x] The dopamine target set is explicitly sourced and remains `gene_specific_mapping=false`.
+- [x] The provisional gains, survival parameter, age point, 5,000-step runtime, stimulus, and CPG frequency are accepted and locked for this execution authorization.
+- [x] The 15 job IDs and seeds are complete and unique; no automatic retry is permitted.
+- [x] Existing output is never overwritten; no holdout is opened; no calibration/fitting/retuning is performed by the runner.
+- [x] `--execute` remains blocked unless this packet is PASS and a separate explicit GPU authorization is recorded.
+- [x] The claim boundary remains computational and uncertainty-aware, not biological causality or clinical validation.
 
 ## Attestations
 
 ### Reviewer 1 — Lê Tấn Vĩ
 
-- Runner protocol reviewed: ______________________________
-- Decision: _____________________________________________
-- Confirmation: _________________________________________
-- Date: __________________
+- Runner protocol reviewed: Yes
+- Decision: PASS
+- Confirmation: Direct confirmation recorded from Le Tan Vi in the project conversation on 2026-09-13; runner protocol and parameters accepted for separate GPU authorization.
+- Date: 2026-09-13
 
 ### Reviewer 2 — Tô Đặng Minh Tuấn
 
-- Runner protocol reviewed: ______________________________
-- Decision: _____________________________________________
-- Confirmation: _________________________________________
-- Date: __________________
+- Runner protocol reviewed: Yes
+- Decision: PASS
+- Confirmation: Direct confirmation recorded from To Dang Minh Tuan in the project conversation on 2026-09-13; runner protocol and parameters accepted for separate GPU authorization.
+- Date: 2026-09-13
 
-Until both attestations are recorded as PASS, `parameter_lock_status` must remain `PROVISIONAL_NO_GPU`, and `alpha_syn_dopamine_execution_authorization_v1.json` must remain `authorized=false` and `gpu_execution_authorized=false`.
+Both attestations are recorded as PASS. The separate execution authorization must still name the frozen config/checkpoint/job-matrix hashes; no runner process is started by this review step.

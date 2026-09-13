@@ -35,6 +35,10 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def digest_bytes(value: bytes) -> str:
+    return hashlib.sha256(value).hexdigest()
+
+
 def git_output(*args: str) -> str:
     result = subprocess.run(["git", *args], cwd=ROOT, text=True, capture_output=True, check=False)
     return result.stdout.strip()
@@ -64,6 +68,20 @@ def main() -> int:
         check=False,
     )
     dry_run_document = json.loads(DRY_RUN.read_text(encoding="utf-8")) if DRY_RUN.is_file() else {}
+    runtime = runner_config.get("runtime") or {}
+    runtime_paths = {
+        "brain_root": (ROOT / str(runtime.get("brain_root", ""))).resolve(),
+        "checkpoint": (ROOT / str(runtime.get("brain_root", "")) / "data/plastic_weights.pt").resolve(),
+        "connectivity": (ROOT / str(runtime.get("brain_root", "")) / "data/2025_Connectivity_783.parquet").resolve(),
+        "completeness": (ROOT / str(runtime.get("brain_root", "")) / "data/2025_Completeness_783.csv").resolve(),
+        "annotations": (ROOT / str(runtime.get("annotations", ""))).resolve(),
+        "mapping_source": (ROOT / "configs/conditions/dopamine_deficiency.exploratory.yaml").resolve(),
+        "backend": (ROOT / str(runtime.get("backend", ""))).resolve(),
+        "platform_runner": (ROOT / str(runtime.get("platform_root", "")) / "scripts/run_brain_body_rollout.py").resolve(),
+    }
+    runtime_inputs_available = all(path.exists() for path in runtime_paths.values())
+    matrix_payload = json.dumps(dry_run_document.get("jobs", []), sort_keys=True, separators=(",", ":")).encode("utf-8")
+    job_matrix_sha256 = digest_bytes(matrix_payload)
     runner_candidates = [
         str(RUNNER_SCRIPT.relative_to(ROOT)),
         str(RUNNER_MODULE.relative_to(ROOT)),
@@ -83,11 +101,12 @@ def main() -> int:
         "model_specific_runner_present": all(path.is_file() for path in (RUNNER_SCRIPT, RUNNER_MODULE, RUNNER_CONFIG)),
         "runner_protocol_packet_present": RUNNER_PACKET.is_file(),
         "runner_dry_run_passed": dry_result.returncode == 0 and dry_run_document.get("status") == "DRY_RUN_PASS" and dry_run_document.get("job_count") == 15 and dry_run_document.get("gpu_execution_performed") is False,
+        "runtime_inputs_available": runtime_inputs_available,
         "no_gene_specific_runner_claimed": model_boundary_ok,
-        "runner_protocol_review_still_pending": runner_config.get("protocol_review_status") == "PENDING_DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW" and runner_config.get("parameter_lock_status") == "PROVISIONAL_NO_GPU",
+        "runner_protocol_review_passed_and_locked": runner_config.get("protocol_review_status") == "DUAL_HUMAN_RUNNER_PROTOCOL_REVIEW_PASS" and runner_config.get("parameter_lock_status") == "LOCKED_FOR_EXECUTION",
         "no_execution_authorization": prereg.get("gpu_execution_authorized") is False,
     }
-    status = "READY_FOR_RUNNER_PROTOCOL_REVIEW" if all(audit_checks.values()) else "RUNNER_AUDIT_FAIL"
+    status = "READY_FOR_EXPLICIT_HUMAN_GPU_AUTHORIZATION" if all(audit_checks.values()) else "RUNNER_AUDIT_FAIL"
 
     audit = {
         "schema_version": "alpha-syn-dopamine-runner-audit-v1",
@@ -98,6 +117,12 @@ def main() -> int:
         "audit_checks": audit_checks,
         "model_implementation_status": "MODEL_SPECIFIC_CLASS_LEVEL_DOPAMINE_PROXY_RUNNER_IMPLEMENTED_WITH_NON_SPECIFIC_BOUNDARY",
         "runner_protocol_status": runner_config.get("protocol_review_status"),
+        "job_matrix_count": dry_run_document.get("job_count", 0),
+        "job_matrix_sha256": job_matrix_sha256,
+        "runtime_inputs": {
+            key: {"path": str(path), "sha256": sha256(path) if path.is_file() else None}
+            for key, path in runtime_paths.items()
+        },
         "preregistration_sha256": prereg_document_hash,
         "preregistration_hash_sidecar_sha256": prereg_sha,
         "artifacts": {
@@ -114,12 +139,12 @@ def main() -> int:
         },
         "scientific_gpu_execution": {
             "allowed_now": False,
-            "reason": "Runner exists and dry-run passes, but its protocol parameters still need dual-human review and explicit GPU authorization.",
+            "reason": "Runner, protocol review, dry-run, runtime inputs, and hashes pass; only separate explicit human GPU authorization remains.",
             "required": [
-                "dual-human review of the new runner protocol and provisional parameters",
+                "separate explicit authorization from both human reviewers",
                 "freeze exact condition/mapping/transform/seed/QC/analysis/claim configuration",
                 "record exact job matrix and checkpoint/config hashes",
-                "obtain dual-human review signoff and separate explicit execution authorization",
+                "start execution only through the guarded runner",
             ],
         },
     }
@@ -141,6 +166,12 @@ def main() -> int:
     auth["runner_config_sha256"] = sha256(RUNNER_CONFIG)
     auth["runner_protocol_packet"] = RUNNER_PACKET.name
     auth["runner_protocol_packet_sha256"] = sha256(RUNNER_PACKET)
+    auth["job_matrix_count"] = dry_run_document.get("job_count", 0)
+    auth["job_matrix_sha256"] = job_matrix_sha256
+    auth["runtime_input_hashes"] = {
+        key: {"path": str(path), "sha256": sha256(path) if path.is_file() else None}
+        for key, path in runtime_paths.items()
+    }
     auth["required_before_authorization"] = [
         "dual human review signoff complete for updated registry and final preregistration",
         "dual human review signoff complete for the runner protocol and provisional parameters",
