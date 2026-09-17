@@ -1,0 +1,190 @@
+{
+  "schema_version": "research-plan-execution-1",
+  "reviewed_at": "2026-09-15",
+  "baseline_repository": {
+    "name": "Drosophila_brain_model",
+    "url": "https://github.com/philshiu/Drosophila_brain_model",
+    "path": "../external/Drosophila_brain_model",
+    "commit": "91bdd1e7dcf193f3e7ca5a8933497fcef63b7960",
+    "license": "MIT",
+    "dataset_used": "FlyWire materialization 630"
+  },
+  "environments": {
+    "baseline_2024": {
+      "path": "../.venvs/baseline-2024-312",
+      "python": "3.12.10",
+      "packages": {
+        "brian2": "2.10.1",
+        "numpy": "2.5.3",
+        "pandas": "3.0.5",
+        "pyarrow": "25.0.1",
+        "joblib": "1.6.0",
+        "jupyter": "1.1.1",
+        "nbconvert": "7.17.1"
+      },
+      "pip_check": "pass",
+      "deviation_from_upstream_environment": "Upstream environment_full.yml specifies Python 3.10.11, Brian2 2.5.1, NumPy 1.22.3, pandas 1.4.3 and PyArrow 11.0.0; exact environment was unavailable on host.",
+      "codegen": "NumPy target fallback because MSVC/Cython was unavailable"
+    },
+    "connectome_analysis": {
+      "path": "../.venvs/connectome-analysis-312",
+      "python": "3.12.10",
+      "packages": {
+        "neuprint-python": "0.6.3",
+        "navis": "1.12.0",
+        "fafbseg": "3.2.2",
+        "caveclient": "8.2.1",
+        "cloud-volume": "12.14.4"
+      },
+      "pip_check": "pass",
+      "live_credentials": false
+    },
+    "flygym_runtime": {
+      "path": "../.venvs/flygym-runtime-312",
+      "python": "3.12.10",
+      "packages": {
+        "flygym": "2.1.0",
+        "mujoco": "3.9.0"
+      },
+      "pip_check": "pass"
+    }
+  },
+  "executions": [
+    {
+      "id": "example_notebook_local",
+      "status": "PASS",
+      "source": "../external/Drosophila_brain_model/example.ipynb",
+      "executed_cells": 19,
+      "note": "Colab clone cell was omitted; local notebook cells executed and existing sample outputs were safely reused when upstream run_exp detected them."
+    },
+    {
+      "id": "sugar_activation_630_full",
+      "status": "PASS",
+      "dataset": "FlyWire 630",
+      "input_count": 21,
+      "activation_hz": 150,
+      "trials": 30,
+      "duration_s": 1.0,
+      "n_proc": 1,
+      "elapsed_s": 1238,
+      "output": "../external/Drosophila_brain_model/results/reproduce_20260915/full_630/sugarR_original_630.parquet",
+      "output_sha256": "4eda9ce545c2ebb2f83ab85654747dca7542b73ad50484f78911b36ec97f16f0",
+      "metrics": {
+        "spike_count_total": 407460,
+        "active_neuron_union": 432,
+        "active_neurons_per_trial_mean": 375.8666666666667,
+        "active_neurons_per_trial_sd": 6.213074830595131,
+        "spikes_per_trial_mean": 13582.0,
+        "spikes_per_trial_sd": 293.219936284153,
+        "mn9_rate_hz": 82.46666666666667,
+        "top_responder_rate_hz": 153.63333333333333
+      }
+    },
+    {
+      "id": "sugar_activation_783_intersection",
+      "status": "PASS_LIMITED_COMPARABILITY",
+      "dataset": "FlyWire 783",
+      "input_count": 20,
+      "input_excluded": "720575940620900446 absent from Completeness_783.csv",
+      "trials": 1,
+      "duration_s": 1.0,
+      "output": "../external/Drosophila_brain_model/results/reproduce_20260915/one_trial_783/sugarR_783_150Hz_one_trial.parquet",
+      "output_sha256": "3e5ff855252d5a458ffae4aa9ad78ee5101889e2d63a3cc2274093dbf7539c59",
+      "metrics": {
+        "spike_count_total": 13213,
+        "active_neuron_union": 374,
+        "mn9_rate_hz": 87.0
+      }
+    },
+    {
+      "id": "paired_silencing_630",
+      "status": "PASS_EXPLORATORY",
+      "dataset": "FlyWire 630",
+      "seed": 123,
+      "trials_per_condition": 1,
+      "activation_hz": 150,
+      "silenced_id": "720575940617000768",
+      "control_output": "../external/Drosophila_brain_model/results/reproduce_20260915/paired_silencing_630/control_seed123.parquet",
+      "control_sha256": "032cab308ad03dcd16a31af1f5645b0c027cbaf4440c69c72100a22dce25bec9",
+      "silenced_output": "../external/Drosophila_brain_model/results/reproduce_20260915/paired_silencing_630/silenced_top_seed123.parquet",
+      "silenced_sha256": "7641549223053ca891759daa6dd02f449e7f671ba948b2a3c0ffd90a62d380ae",
+      "control": {
+        "spikes": 13736,
+        "active_neurons": 377,
+        "mn9_rate_hz": 89.0
+      },
+      "silenced": {
+        "spikes": 13268,
+        "active_neurons": 384,
+        "mn9_rate_hz": 83.0
+      },
+      "delta": {
+        "mn9_hz": -6.0,
+        "mn9_relative_change": -0.0674157303370787,
+        "spikes": -468,
+        "active_neurons": 7
+      },
+      "interpretation": "Engineering/sensitivity pilot only; not causal or disease validation."
+    },
+    {
+      "id": "flygym_healthy_baseline_rerun",
+      "status": "PASS",
+      "output": "../../drosophila-pd-flygym/results/analysis/research_plan_20260915/healthy_baseline_rerun.json",
+      "output_sha256": "f05cbbb4b413ddb4aa0ffb731f4555049bf6c4b7e3df800aea43279972a761ba",
+      "metrics": {
+        "steps": 5000,
+        "duration_s": 0.5,
+        "timestep_s": 0.0001,
+        "planar_displacement_mm": 6.284186050303333,
+        "mean_planar_speed_mm_s": 12.568372100606666,
+        "heading_yaw_change_rad": 0.23427309460379758,
+        "position_actuators": 42,
+        "adhesion_actuators": 6
+      },
+      "scientific_scope": "Canonical locomotion software baseline only"
+    }
+  ],
+  "data_sources": {
+    "completeness_630": {
+      "path": "../external/Drosophila_brain_model/2023_03_23_completeness_630_final.csv",
+      "rows": 127400,
+      "sha256": "479ed718404e7b1d898ee9a353410f481e6ed7694c30f579a7c2699f1c708a5d"
+    },
+    "connectivity_630": {
+      "path": "../external/Drosophila_brain_model/2023_03_23_connectivity_630_final.parquet",
+      "rows": 14687178,
+      "sha256": "94db8c650533bc36ffa3223f2e62325d5648b8d6bd31c3a4e1c804628c7557b3"
+    },
+    "completeness_783": {
+      "path": "../external/Drosophila_brain_model/Completeness_783.csv",
+      "rows": 138639,
+      "sha256": "52b0ac6094cd32c546f8d4c341e094376f48f4e791f8db9b166de5dff8199ea4"
+    },
+    "connectivity_783": {
+      "path": "../external/Drosophila_brain_model/Connectivity_783.parquet",
+      "rows": 15091983,
+      "sha256": "efeb23fb99098e9c390f6869969b2a121a2ee92c833cfc45ecb2c1d8e1af0347"
+    }
+  },
+  "current_project_regression": {
+    "neural_extension": "170 passed",
+    "neural_disease": "747 passed, 8 skipped, 2 failed pre-existing",
+    "flygym_platform": "515 passed, 2 skipped, 2 failed pre-existing",
+    "core_runtime_modified": false
+  },
+  "limitations": [
+    "The exact upstream Python 3.10/Conda environment was not available.",
+    "No MSVC/Cython acceleration was available; baseline used NumPy target.",
+    "Upstream run_exp does not set a reproducible seed by itself.",
+    "Figure sweep was not run in full because it contains hundreds of expensive network simulations.",
+    "NeuPrint, CAVE/FlyWire live queries and R/natverse were not run because credentials/tools were unavailable.",
+    "No 2024 spike output is consumed by the FlyGym runtime."
+  ],
+  "artifacts": {
+    "metrics_v1": "results/research_plan_20260915/healthy_baseline_metrics_v1.json",
+    "metrics_783": "results/research_plan_20260915/healthy_baseline_metrics_783_one_trial.json",
+    "metrics_silencing": "results/research_plan_20260915/healthy_baseline_metrics_silencing_630.json",
+    "evaluator": "scripts/evaluate_2024_baseline.py",
+    "report": "docs/integration/research_plan_execution_2026-09-15.md"
+  }
+}

@@ -1,0 +1,12 @@
+# Frozen on 2026-09-16 from the verified Brian2/LIF Python 3.12 runtime.
+# Install dependencies first, then install this repository with --no-deps.
+Brian2==2.10.1
+joblib==1.6.0
+jsonschema==4.26.0
+numpy==2.5.3
+pandas==3.0.5
+pyarrow==25.0.1
+PyYAML==6.0.3
+pytest==9.1.1
+scipy==1.18.1
+setuptools==84.0.0

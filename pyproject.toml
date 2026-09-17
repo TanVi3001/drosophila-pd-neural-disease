@@ -4,31 +4,42 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "drosophila-pd-neural-disease"
-version = "0.1.0"
-description = "Mô hình perturbation neural có ràng buộc bằng bằng chứng cho locomotion Drosophila."
+version = "1.0.0"
+description = "Evidence-constrained neural and locomotion perturbation extension for the Drosophila PD FlyGym platform."
 readme = "README.md"
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
 dependencies = [
   "numpy>=1.26",
   "PyYAML>=6.0",
 ]
 
 [project.optional-dependencies]
-test = ["pytest>=8.0", "pypdf>=5.0"]
+test = ["pytest>=8.0", "jsonschema>=4.0", "pypdf>=5.0,<6"]
 brain = [
   "torch>=2.0",
   "pandas>=2.0",
   "pyarrow>=14.0",
 ]
+docs = [
+  "python-docx>=1.2,<2",
+  "reportlab>=4.0,<5",
+]
 
 [project.urls]
+Homepage = "https://github.com/TanVi3001/drosophila-pd-neural-disease"
+Repository = "https://github.com/TanVi3001/drosophila-pd-neural-disease"
+Issues = "https://github.com/TanVi3001/drosophila-pd-neural-disease/issues"
 Platform = "https://github.com/TanVi3001/drosophila-pd-flygym"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
+include = ["drosophila_pd_neural*"]
+namespaces = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
