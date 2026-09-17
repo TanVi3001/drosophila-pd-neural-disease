@@ -1,0 +1,110 @@
+{
+  "schema_version": "healthy-baseline-metrics-2024-v1",
+  "created_at_utc": "2026-09-16T08:27:47.369183+00:00",
+  "status": "PASS",
+  "metrics": {
+    "spike_count_total": 2,
+    "trial_count": 1,
+    "neuron_count_in_output": 1,
+    "experiment_names": [
+      "lif_smoke_new"
+    ],
+    "duration_s": 0.01,
+    "time_min_s": 0.0048000000000000004,
+    "time_max_s": 0.009300000000000001,
+    "spike_count_per_trial": {
+      "n": 1,
+      "min": 2,
+      "max": 2,
+      "mean": 2,
+      "sd": 0
+    },
+    "active_neurons_per_trial": {
+      "n": 1,
+      "min": 1,
+      "max": 1,
+      "mean": 1,
+      "sd": 0
+    },
+    "firing_rate_hz_per_active_neuron": {
+      "n": 1,
+      "min": 200,
+      "max": 200,
+      "mean": 200,
+      "sd": 0
+    },
+    "neurons_with_at_least_one_spike": 1,
+    "neurons_with_rate_at_least_1_hz": 1,
+    "neurons_with_rate_at_least_10_hz": 1,
+    "top_responders": [
+      {
+        "flywire_id": "720575940624963786",
+        "spike_count": 2,
+        "mean_rate_hz": 200
+      }
+    ]
+  },
+  "data_audit": {
+    "output_flywire_id_min": "720575940624963786",
+    "output_flywire_id_max": "720575940624963786",
+    "output_ids_are_unique_after_string_cast": true,
+    "declared_input_ids": [
+      "720575940624963786"
+    ],
+    "declared_input_ids_in_output": [
+      "720575940624963786"
+    ],
+    "declared_input_ids_missing_from_output": [],
+    "completeness": {
+      "path": "D:\\research\\New folder\\external\\Drosophila_brain_model\\2023_03_23_completeness_630_final.csv",
+      "sha256": "479ed718404e7b1d898ee9a353410f481e6ed7694c30f579a7c2699f1c708a5d",
+      "rows": 127400,
+      "columns": [
+        "Completed"
+      ],
+      "output_ids_present_in_completeness": 1,
+      "output_ids_missing_from_completeness": 0
+    },
+    "connectivity": {
+      "path": "D:\\research\\New folder\\external\\Drosophila_brain_model\\2023_03_23_connectivity_630_final.parquet",
+      "sha256": "94db8c650533bc36ffa3223f2e62325d5648b8d6bd31c3a4e1c804628c7557b3",
+      "rows": 14687178,
+      "columns": [
+        "Presynaptic_ID",
+        "Postsynaptic_ID",
+        "Presynaptic_Index",
+        "Postsynaptic_Index",
+        "Connectivity",
+        "Excitatory",
+        "Excitatory x Connectivity"
+      ],
+      "unique_presynaptic_ids": 127015,
+      "unique_postsynaptic_ids": 126793,
+      "positive_weight_rows": 8800532,
+      "negative_weight_rows": 5886646
+    }
+  },
+  "provenance": {
+    "spike_output": {
+      "path": "D:\\research\\New folder\\drosophila-pd-neural\\output\\workbench_lif_smoke\\lif_smoke_new.parquet",
+      "sha256": "8e97f3c2621ec3cc550efd8cfa655ad11878bf92b8a76d7e65843dd5f549faeb",
+      "size_bytes": 3290,
+      "columns": [
+        "t",
+        "trial",
+        "flywire_id",
+        "exp_name"
+      ],
+      "row_count": 2
+    },
+    "model": {
+      "family": "leaky_integrate_and_fire",
+      "upstream_repository": "https://github.com/philshiu/Drosophila_brain_model",
+      "dataset_release_used_by_run": "FlyWire release 630",
+      "interpretation_boundary": "computational neural activity only",
+      "completeness_release": "2023_03_23_completeness_630_final.csv"
+    }
+  },
+  "trial_count_source": "D:\\research\\New folder\\drosophila-pd-neural\\output\\workbench_lif_smoke\\run_manifest.json",
+  "scientific_scope": "This is a computational LIF baseline for spike activity. It is not a locomotion metric, Parkinson validation, or clinical result."
+}

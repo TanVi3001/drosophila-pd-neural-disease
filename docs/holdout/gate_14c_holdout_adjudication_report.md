@@ -1,5 +1,8 @@
 # Gate 14C - Holdout Interpretation Adjudication
 
+> Historical adjudication of retained artifacts. It does not certify a
+> current-platform rerun.
+
 ## Mục tiêu
 
 Gate 14C khóa diễn giải khoa học sau Pozo holdout. Gate này chỉ đọc các

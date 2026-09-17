@@ -1,5 +1,8 @@
 # Gate 13C — Calibrated confirmation rerun
 
+> Historical evidence record. The current platform contract is the authority;
+> this result requires re-execution before it is treated as current.
+
 **Trạng thái:** `CHEN_CALIBRATED_CONFIRMATION_PASS`
 
 ## Phạm vi

@@ -1,0 +1,821 @@
+% !TeX program = xelatex
+% Báo cáo đề xuất nghiên cứu. Biên dịch bằng Tectonic hoặc XeLaTeX.
+% Theme, màu, cấu trúc và cách viết kế thừa từ bao_cao_drosophila_parkinson.
+\documentclass[10pt,aspectratio=169]{beamer}
+\usepackage{fontspec}
+\IfFontExistsTF{Arial}{\setsansfont{Arial}}{\setsansfont{TeX Gyre Heros}}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
+\usepackage{amsmath,amssymb,booktabs,array,graphicx,tikz}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usetikzlibrary{arrows.meta,positioning,calc}
+
+\newcommand{\nhomthuchien}{Lê Tấn Vĩ và Tuấn}
+\newcommand{\ngaybaocao}{06/09/2026}
+\newcommand{\repocommit}{c4505e7}
+\newcommand{\assetpath}{D:/research/New folder/bao_cao_drosophila_parkinson/assets/}
+
+\definecolor{uitblue}{RGB}{108,79,59}
+\definecolor{uitdark}{RGB}{74,53,37}
+\definecolor{accent}{RGB}{197,140,50}
+\definecolor{accentlt}{RGB}{222,178,110}
+\definecolor{greenteal}{RGB}{40,121,106}
+\definecolor{plotblue}{RGB}{37,99,148}
+\definecolor{lightgray}{RGB}{248,245,240}
+\definecolor{textgray}{RGB}{52,52,52}
+\definecolor{dangerlt}{RGB}{250,238,238}
+
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=0.55cm,text margin right=0.55cm}
+\setbeamercolor{normal text}{fg=textgray,bg=white}
+\setbeamercolor{structure}{fg=uitblue}
+\setbeamercolor{frametitle}{fg=white,bg=uitblue}
+\setbeamercolor{footline}{fg=white,bg=uitdark}
+\setbeamercolor{block title}{fg=uitdark,bg=accent!15}
+\setbeamercolor{block body}{fg=textgray,bg=accent!5}
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamertemplate{itemize item}{\color{accent}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{uitblue}$\circ$}
+\setbeamertemplate{headline}{\color{accent}\rule{\paperwidth}{1.5pt}}
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.62cm,dp=0.20cm,leftskip=0.55cm]{frametitle}
+    \usebeamerfont{frametitle}\insertframetitle
+  \end{beamercolorbox}
+  \nointerlineskip\hbox{\color{accent}\rule{\paperwidth}{0.8pt}}\vskip2pt
+}
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=0.30cm,dp=0.12cm]{footline}
+    \hspace{0.35cm}\fontsize{6.7}{8}\selectfont UIT -- Khoa Hệ thống Thông tin\hfill
+    Báo cáo nghiên cứu | \ngaybaocao\hfill\insertframenumber/\inserttotalframenumber\hspace{0.35cm}
+  \end{beamercolorbox}
+}
+\newcommand{\kw}[1]{\textcolor{uitblue}{\textbf{#1}}}
+\newcommand{\hi}[1]{\textcolor{greenteal}{\textbf{#1}}}
+\newcommand{\warn}[1]{\textcolor{uitdark}{\textbf{#1}}}
+\newcommand{\source}[1]{\par\vfill{\fontsize{6.0}{7}\selectfont\color{gray}Nguồn: #1\par}}
+\newcommand{\smallgap}{\vspace{0.18cm}}
+\newcommand{\divider}[3]{%
+  {\usebackgroundtemplate{\begin{tikzpicture}[remember picture,overlay]
+      \fill[uitblue] (current page.south west) rectangle (current page.north east);
+      \foreach \y in {0.7,1.7,...,8.7} {\draw[accentlt,opacity=.16] (current page.west|-0,\y) -- ++(3.2cm,.35cm); \draw[accentlt,opacity=.16] (current page.east|-0,\y+.25cm) -- ++(-3.2cm,-.35cm);}
+    \end{tikzpicture}}
+    \begin{frame}[plain]
+      \centering{\color{white}\fontsize{30}{35}\selectfont\bfseries #1\par}
+      \vspace{0.25cm}{\color{accent}\rule{7cm}{2pt}}\par\vspace{0.3cm}
+      {\color{white}\LARGE\bfseries #2\par}\vspace{0.25cm}
+      {\color{accentlt}\normalsize #3\par}
+    \end{frame}}
+}
+\hypersetup{pdftitle={Mô phỏng vận động Parkinson-like trên Drosophila},pdfauthor={Lê Tấn Vĩ và Tuấn},colorlinks=true,urlcolor=plotblue,linkcolor=uitblue,citecolor=uitblue}
+
+\begin{document}
+
+% 1. Trang bìa
+{\usebackgroundtemplate{}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[uitblue] (current page.north west) rectangle ([yshift=-5.05cm]current page.north east);
+  \fill[uitdark] ([yshift=-5.05cm]current page.north west) rectangle ([yshift=-5.3cm]current page.north east);
+  \fill[lightgray] ([yshift=-5.3cm]current page.north west) rectangle (current page.south east);
+  \node[anchor=north west,text=white,align=left,text width=14.7cm] at ([xshift=.6cm,yshift=-.55cm]current page.north west)
+    {{\fontsize{13}{16}\selectfont\bfseries TRƯỜNG ĐẠI HỌC CÔNG NGHỆ THÔNG TIN -- UIT}\\[3pt]
+    {\small Khoa Hệ thống Thông tin | Báo cáo đề xuất nghiên cứu}};
+  \node[anchor=north west,text=white,align=left,text width=14.5cm] at ([xshift=.6cm,yshift=-1.9cm]current page.north west)
+    {{\fontsize{23}{29}\selectfont\bfseries Mô phỏng vận động Parkinson-like\\trên ruồi giấm Drosophila}};
+  \node[anchor=north west,text=accentlt,align=left,text width=14.5cm] at ([xshift=.6cm,yshift=-4.18cm]current page.north west)
+    {{\normalsize\itshape Từ bằng chứng bài báo đến mô phỏng neuron, connectome và locomotion}};
+  \draw[accent,line width=3pt] ([xshift=.55cm,yshift=-5.8cm]current page.north west) -- ([xshift=.55cm,yshift=-7.7cm]current page.north west);
+  \node[anchor=north west,text=uitdark,align=left,text width=13.5cm] at ([xshift=.8cm,yshift=-5.8cm]current page.north west)
+    {\textbf{Nhóm thực hiện:} \nhomthuchien\\[5pt]
+    \textbf{Ngày báo cáo:} \ngaybaocao\\[5pt]
+    \small Hiện trạng: 5 case bệnh lý | 2 organism proxy | 0 neural case hoàn tất | source of truth \texttt{\repocommit}};
+\end{tikzpicture}
+\end{frame}}
+
+% Proposal overview
+\begin{frame}{Tóm tắt điều hành của đề xuất nghiên cứu}
+\begin{columns}[T,onlytextwidth]
+\column{.31\textwidth}
+\begin{block}{Vấn đề}
+Các phenotype Parkinson-like trên ruồi thật có genotype, assay và endpoint khác nhau; chưa thể chuyển thẳng sang neuron/edge của simulator.
+\end{block}
+\column{.31\textwidth}
+\begin{block}{Giải pháp}
+Xây dựng chuỗi truy nguyên: paper $\rightarrow$ condition $\rightarrow$ mapping/proxy $\rightarrow$ runtime $\rightarrow$ metrics $\rightarrow$ report.
+\end{block}
+\column{.31\textwidth}
+\begin{block}{Kết quả xin tài trợ}
+Một hoặc nhiều neural case có mapping được review, checkpoint tái lập, paired rollout và đánh giá đúng giới hạn khoa học.
+\end{block}
+\end{columns}
+\smallgap
+\begin{tabular}{@{}L{4.4cm}L{9.4cm}@{}}
+\toprule
+\textbf{Hiện có} & \textbf{Cần hoàn tất trong phase đề xuất}\\\midrule
+Platform contract READY; 6 paper primary; 5 condition; proxy operator; historical artifacts; 170 tests PASS. & Current runtime; thống nhất target registry; reviewed root-ID/edge; disease checkpoint; compatible neural runner; paired evaluation; reproducibility bundle.\\\bottomrule
+\end{tabular}
+\source{Current repository audit, paper registry, mapping status và platform alignment report.}
+\end{frame}
+
+\begin{frame}{Bài toán nghiên cứu và khoảng trống cần giải quyết}
+\begin{enumerate}\setlength\itemsep{8pt}
+\item \kw{Khoảng trống evidence-to-model:} paper mô tả phenotype nhưng thường không chỉ định target neuron, root-ID, edge, checkpoint transform hoặc runner tương thích.
+\item \kw{Khoảng trống assay-to-metric:} walking velocity, distance, DAM activity, climbing và flight không được phép quy đổi tùy ý sang cùng một metric simulator.
+\item \kw{Khoảng trống platform-to-claim:} platform contract READY chỉ xác nhận giao diện kỹ thuật; không xác nhận disease mechanism, mapping gene-specific hay biological validation.
+\item \kw{Khoảng trống tái lập:} legacy artifact cần được tách với kết quả chạy lại trên environment, commit và dependency hiện hành.
+\end{enumerate}
+\begin{block}{Bài toán proposal phải giải}
+Tạo một quy trình có gate để chỉ cho phép nâng claim từ literature/proxy lên neural runtime khi evidence, mapping, artifact và evaluation đồng thời đủ điều kiện.
+\end{block}
+\source{Paper registry; target policy; platform contract; Gate 19/20 progress report.}
+\end{frame}
+
+\begin{frame}{Mục tiêu tổng quát và các mục tiêu cụ thể}
+\begin{block}{Mục tiêu tổng quát}
+Xây dựng và kiểm chứng một framework mô phỏng Parkinson-like ở Drosophila có thể truy nguyên từ bằng chứng paper đến perturbation neural hoặc proxy, locomotion metrics và báo cáo tái lập được.
+\end{block}
+\renewcommand{\arraystretch}{1.05}\scriptsize
+\begin{tabular}{@{}L{1.5cm}L{8.3cm}L{4.0cm}@{}}
+\toprule
+\textbf{Mục tiêu} & \textbf{Nội dung} & \textbf{Minh chứng đạt}\\\midrule
+M1 & Chuẩn hóa evidence, target, assay và condition status. & Registry thống nhất, reviewer signoff.\\
+M2 & Hoàn tất current runtime và healthy baseline có manifest. & Runtime PASS hoặc blocker có log.\\
+M3 & Mapping neuron/edge có provenance cho case được chọn. & Root-ID/edge ledger, scope, version, reviewer.\\
+M4 & Disease checkpoint và neural runner tương thích. & Checkpoint hash, invariant, paired rollout.\\
+M5 & Computational concordance không leakage. & Metrics, QC, sensitivity, evaluation policy.\\\bottomrule
+\end{tabular}
+\source{Mục tiêu đề xuất dựa trên current readiness và các blocker đã audit.}
+\end{frame}
+
+\begin{frame}{Phạm vi, đối tượng và giới hạn của đề tài}
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}
+\begin{block}{Trong phạm vi}
+\begin{itemize}\small\setlength\itemsep{4pt}
+\item Dữ liệu paper công bố, FlyWire/connectome, checkpoint và source code có provenance.
+\item Mô phỏng Drosophila brain-body/connectome và locomotion trên FlyGym/MuJoCo.
+\item 5 condition Parkinson-like; ưu tiên case đạt gate evidence + mapping + runtime.
+\item Computational proxy và neural perturbation có QC, manifest, seed và checksum.
+\end{itemize}
+\end{block}
+\column{.48\textwidth}
+\begin{block}{Ngoài phạm vi / không cam kết}
+\begin{itemize}\small\setlength\itemsep{4pt}
+\item Không chẩn đoán bệnh, dự báo lâm sàng, kết luận hiệu quả thuốc hoặc thay thế wet-lab.
+\item Không suy diễn root-ID/edge chỉ từ tên gene hoặc phenotype.
+\item Không xem action attenuation là mô hình mất neuron hoặc dopamine concentration.
+\item Không công bố biological validation khi chỉ mới có structural/runtime evidence.
+\end{itemize}
+\end{block}
+\end{columns}
+\source{Scope governance và claim boundary của đề xuất.}
+\end{frame}
+
+\begin{frame}{Tiêu chí thành công, câu hỏi quyết định và nguyên tắc dừng}
+\renewcommand{\arraystretch}{1.25}\small
+\begin{tabular}{@{}L{4.2cm}L{9.6cm}@{}}
+\toprule
+\textbf{Câu hỏi quyết định} & \textbf{Tiêu chí proposal}\\\midrule
+Có chạy được current runtime không? & Environment, launcher, dependency, healthy baseline và manifest có PASS hoặc blocker minh bạch.\\
+Có được mở neural case không? & Paper scope, reviewed mapping, root-ID/edge provenance, checkpoint compatibility và QC cùng đạt GO.\\
+Kết quả có đáng tin không? & Paired seed, numerical/behavior QC, sensitivity, endpoint policy, không leakage.\\
+Có thể tái lập không? & Commit, config, seed, data version, checkpoint SHA, raw/derived artifact và report được lưu.\\
+Khi nào dừng hoặc hạ claim? & Mapping/runner/assay chưa đạt thì giữ BLOCKED hoặc organism proxy; không mở rộng diễn giải sinh học.\\\bottomrule
+\end{tabular}
+\smallgap
+\hi{Nguyên tắc:} BLOCKED là kết quả kiểm soát chất lượng hợp lệ, không phải thất bại của đề tài.
+\source{Proposed decision gates and scientific boundary.}
+\end{frame}
+
+% 2
+\begin{frame}{Dự án đang làm gì và đang ở đâu?}
+\begin{columns}[T,onlytextwidth]
+\column{.46\textwidth}
+\IfFileExists{\assetpath healthy_t05.png}{\includegraphics[width=\linewidth,height=3.15cm,keepaspectratio]{\assetpath healthy_t05.png}}{\fbox{Frame Healthy lịch sử}}
+\par\smallgap
+{\scriptsize Frame Healthy lịch sử, seed 0, giây phát thứ 5; minh họa locomotion.}
+\column{.50\textwidth}
+\begin{itemize}\scriptsize\setlength\itemsep{3pt}
+  \item \kw{Mục tiêu:} paper $\rightarrow$ condition có provenance $\rightarrow$ perturbation $\rightarrow$ locomotion.
+  \item \kw{Đã có:} scaffold, literature intake, platform contract và audit artifacts.
+  \item \kw{5 case:} alpha-synuclein, PINK1, Parkin, DJ-1, LRRK2; chỉ hai case đầu mở ở organism proxy.
+  \item \kw{Phase mới:} mapping có review, checkpoint, runner và neural-level rollout tái lập.
+\end{itemize}
+\end{columns}
+\begin{block}{Thông điệp chính}
+\scriptsize Đã có nền tảng kỹ thuật và governance. Chưa được tuyên bố đã tái tạo Parkinson ở mức neuron; kết quả current phải chạy lại trên contract \texttt{c4505e7}.
+\end{block}
+\source{Platform contract, literature registry, mapping status và current audit trong repository.}
+\end{frame}
+
+% 3
+\begin{frame}{Vì sao nhóm chọn hướng mô phỏng này?}
+\begin{enumerate}\setlength\itemsep{10pt}
+  \item \kw{Paper cung cấp kiểu hình có thể đo.} Genotype, tuổi, assay, endpoint và uncertainty được giữ như evidence, không bị thay bằng giả định của simulator.
+  \item \kw{Nguồn mở cung cấp nền tảng thực thi.} FlyWire/connectome cho cấu trúc và annotation; FlyGym/MuJoCo cho cơ thể, tiếp xúc, controller và physics.
+  \item \kw{Cần một phép thử giả thuyết có kiểm soát.} Thay đổi một perturbation, giữ protocol/seed/physics, rồi đo độ lệch hành vi và quality gate.
+\end{enumerate}
+\smallgap
+\begin{block}{Ranh giới bắt buộc}
+Kết quả simulator không tự động là phenotype sinh học. Paper không tự động cung cấp FlyWire root-ID hoặc edge cho disease; action proxy không được diễn giải thành gene-specific neural mechanism.
+\end{block}
+\source{Chen 2014; Zárate và cộng sự 2022; Riemensperger 2011; Shiu 2024; NeuroMechFly v2.}
+\end{frame}
+
+% 4
+\begin{frame}{Câu hỏi nghiên cứu phải trả lời bằng số đo}
+\begin{block}{Câu hỏi trung tâm}
+Một perturbation được định nghĩa từ bằng chứng paper, khi đưa vào brain-body/connectome runtime với physics cố định, có tái tạo được hướng và độ lớn suy giảm locomotion so với đối chứng hay không?
+\end{block}
+\smallgap\scriptsize\renewcommand{\arraystretch}{1.02}
+\begin{tabular}{@{}L{1.7cm}L{8.0cm}L{4.3cm}@{}}
+\toprule
+\textbf{Giả thuyết} & \textbf{Nội dung kiểm tra} & \textbf{Bằng chứng}\\\midrule
+H1 & Burden tạo thay đổi có hướng, cùng physics. & Dose-response, seed robustness, QC.\\
+H2 & Tham số calibration giữ hiệu ứng khi đổi seed. & Confirmation; không retune.\\
+H3 & Cấu hình khóa chuyển được sang holdout độc lập. & Endpoint và assay-transfer policy.\\
+H4 & Neural mapping giải thích tốt hơn action proxy. & Ablation, neural-vs-action comparison.\\\bottomrule
+\end{tabular}
+\smallgap\normalsize
+\textbf{Đơn vị lặp:} một rollout theo seed; nhiều frame không phải nhiều mẫu độc lập.
+\source{Protocol, seed policy, QC manifests và target registry của dự án.}
+\end{frame}
+
+\divider{01}{Ý tưởng triển khai}{Kết nối evidence, mapping, perturbation và phép đo}
+
+% 6
+\begin{frame}{Pipeline nối paper, neuron, lệnh chân và chuyển động}
+\centering
+\begin{tikzpicture}[>=Stealth,box/.style={draw=uitblue,fill=uitblue!5,minimum height=1.05cm,text width=2.55cm,align=center,font=\scriptsize},every path/.style={line width=.8pt}]
+\node[box,draw=accent,fill=accent!10] (paper) at (0,0) {\textbf{Paper evidence}\\genotype + assay};
+\node[box] (condition) at (3.1,0) {\textbf{Reviewed condition}\\scope + uncertainty};
+\node[box,draw=greenteal,fill=greenteal!8] (neural) at (6.2,0) {\textbf{Neuron/edge hoặc proxy}\\root-ID/edge/action};
+\node[box] (platform) at (9.3,0) {\textbf{Platform runtime}\\controller + physics};
+\node[box,draw=accent,fill=accent!10] (report) at (12.4,0) {\textbf{QC + report}\\metrics + manifest};
+\draw[->] (paper) -- (condition); \draw[->] (condition) -- (neural); \draw[->] (neural) -- (platform); \draw[->] (platform) -- (report);
+\node[align=left,text width=14cm,font=\small,anchor=north west] at (-1.35,-1.65)
+ {\kw{Contract canonical:} \texttt{controller.step()} $\rightarrow$ \texttt{Perturbation.apply\_to\_action(...)} $\rightarrow$ \texttt{apply\_locomotion\_action(...)} $\rightarrow$ \texttt{sim.step()}.\\[4pt]
+  \kw{Đầu ra:} paired rollout, metrics, QC flags, config, seed, commit, manifest và checksum.};
+\end{tikzpicture}
+\source{docs/architecture/platform\_contract.md; source catalog; mapping audit.}
+\end{frame}
+
+% 7
+\begin{frame}{Source of truth và phân công trách nhiệm}
+\renewcommand{\arraystretch}{1.32}
+\begin{tabular}{@{}L{2.5cm}L{8.0cm}L{4.0cm}@{}}
+\toprule
+\textbf{Lớp} & \textbf{Nguồn / sở hữu} & \textbf{Không tự suy ra}\\\midrule
+Simulation & \texttt{drosophila-pd-flygym}: FlyGym, MuJoCo, controller, action protocol, sim step, metrics. & Mapping gene-specific.\\
+Neural disease & \texttt{drosophila-pd-neural-disease}: literature, condition, mapping audit, neural preparation, proxy, gates. & Copy/patch platform source.\\
+External brain & FlyWire v783 / fly-brain audit: connectome, annotation, completeness, checkpoint provenance. & Biological disease proof.\\\bottomrule
+\end{tabular}
+\smallgap
+\begin{block}{Quy tắc phiên bản}
+PDF mẫu cũ dùng snapshot \texttt{af6455d}. Bản proposal này giữ số liệu lịch sử nhưng gắn nhãn historical; mọi kết quả current phải re-execute trên platform contract \texttt{c4505e7}.
+\end{block}
+\source{Platform alignment report; source catalog; mapping status.}
+\end{frame}
+
+% 8
+\begin{frame}{Thang trưởng thành: từ paper đến neuron}
+\renewcommand{\arraystretch}{1.22}\scriptsize
+\begin{tabular}{@{}L{2.3cm}L{6.2cm}L{6.0cm}@{}}
+\toprule
+\textbf{Mức} & \textbf{Có thể nói} & \textbf{Điều kiện để lên mức tiếp}\\\midrule
+L0 -- Literature & Paper báo cáo phenotype, genotype, assay, age, statistic. & Provenance, uncertainty, sample unit.\\
+L1 -- Organism proxy & Burden thay đổi action/controller signal. & Structural validation; không gene-specific.\\
+L2 -- Cell-class exploratory & Target class PAM/PPL/PPM với scope được review. & Root-ID source, version, reviewer, giới hạn class.\\
+L3 -- Neural edge & Edge/weight perturbation theo condition trên checkpoint. & Mechanism, target edges, untouched-edge invariant.\\
+L4 -- Neural runtime & Checkpoint được current platform tiêu thụ và paired rollout chạy được. & Runner tương thích, dependencies, metrics, QC.\\
+L5 -- Validation & Calibration/holdout concordance theo transfer đã duyệt. & Target độc lập, không leakage, scientific review.\\\bottomrule
+\end{tabular}
+\normalsize\smallgap
+\hi{Vị trí hiện tại:} dự án có L0, L1 và một phần L2 exploratory. L3--L5 cho disease case chưa hoàn tất.
+\source{root\_id\_mapping\_audit.csv; mapping\_status.csv; source catalog.}
+\end{frame}
+
+% 9
+\begin{frame}{Proxy hiện tác động lên lệnh góc khớp}
+\[
+\mathbf{q}'_t = \operatorname{clip}\!\left[(1-\lambda b)\,\mathbf{q}_t\right],
+\qquad \lambda=0.5,\quad b\in[0,1]
+\]
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}
+\begin{itemize}\setlength\itemsep{7pt}
+\item $\mathbf{q}_t$: vector 42 góc khớp.
+\item $b$: mức tác động quy ước, không đơn vị.
+\item $b=0$: identity transform.
+\end{itemize}
+\column{.48\textwidth}
+\begin{itemize}\setlength\itemsep{7pt}
+\item Sáu giá trị \texttt{adhesion\_onoff} giữ nguyên.
+\item Noise = 0; input immutable và deterministic theo seed.
+\item Validation: shape, finite values, adhesion và identity checks.
+\end{itemize}
+\end{columns}
+\begin{block}{Ý nghĩa và giới hạn}
+Đây là tác động ở mức action/control. Tăng burden không bảo đảm tốc độ giảm đơn điệu vì cơ thể vẫn chịu động lực học và tiếp xúc; operator không tự động đại diện cho gene, neuron, synapse hay dopamine concentration.
+\end{block}
+\source{proxy\_burden\_operator.py; Gate 12E/12C configurations.}
+\end{frame}
+
+% 10
+\begin{frame}{Năm case bệnh lý và mức sẵn sàng}
+\renewcommand{\arraystretch}{1.25}\scriptsize
+\begin{tabular}{@{}L{2.2cm}L{3.6cm}L{3.7cm}L{4.8cm}@{}}
+\toprule
+\textbf{Case} & \textbf{Model / phạm vi} & \textbf{Readiness} & \textbf{Blocker chính}\\\midrule
+alpha-synuclein & Pan-neuronal expression; organism proxy. & Proxy exploratory; neural chưa READY. & Chưa có reviewed root-ID hoặc edge map; chưa có neural runner.\\
+PINK1 & Pink1-B9 whole-animal mutant. & Proxy exploratory; không cell-specific. & Cần quyết định scope và neural mapping.\\
+Parkin & TH-GAL4 / Parkin RNAi. & BLOCKED. & Chưa có TH-GAL4 root-ID set reviewed; DAM không phải speed.\\
+DJ-1 & DJ-1beta loss-of-function. & BLOCKED. & Climbing không chỉ ra neural intervention.\\
+LRRK2 & D42-GAL4 motor-neuron expression. & BLOCKED. & Catalog brain-only; cần scope brain/VNC.\\\bottomrule
+\end{tabular}
+\normalsize\smallgap
+\begin{block}{Dopamine deficiency}
+342 root ID PAM/PPL/PPM trên FlyWire v783, \texttt{top\_nt=dopamine}, chỉ là cell-class exploratory. Paper Riemensperger 2011 không cung cấp các ID này; không gọi đây là mapping gene-specific từ paper.
+\end{block}
+\source{research/disease\_mapping/mapping\_status.csv; root\_id\_mapping\_audit.csv.}
+\end{frame}
+
+% 11
+\begin{frame}{Bộ bài báo primary đang được quản lý}
+\renewcommand{\arraystretch}{1.15}\scriptsize
+\begin{tabular}{@{}L{4.5cm}L{2.1cm}L{3.3cm}L{4.4cm}@{}}
+\toprule
+\textbf{Paper} & \textbf{Case} & \textbf{Assay / endpoint} & \textbf{Trạng thái}\\\midrule
+Riemensperger 2011, PNAS; DOI 10.1073/pnas.1010930108 & Dopamine deficiency & Spontaneous walking & Candidate; median speed pending transfer.\\
+Pokrzywa 2017, PLOS ONE; DOI 10.1371/journal.pone.0184117 & alpha-synuclein & FlyTracker velocity & Calibration candidate; numeric SE pending.\\
+Dumitrescu 2023; DOI 10.1021/acschemneuro.2c00277 & Parkin RNAi & DAM activity & Không comparable với planar speed.\\
+Pozo 2022, Cells; DOI 10.3390/cells11091544 & PINK1 / Pink1-B9 & Open-field distance/activity & Holdout candidate; preserve distance.\\
+Hwang 2013; DOI 10.1371/journal.pgen.1003412 & DJ-1 & Climbing & Validation-only; figure review pending.\\
+Godena 2014; DOI 10.1038/ncomms6245 & LRRK2 & Climbing / flight & Validation-only; brain/VNC scope pending.\\\bottomrule
+\end{tabular}
+\normalsize\smallgap
+Registry có 6 bài primary và 14 phenotype record. Paper là evidence input; không phải mọi record đều là target calibration.
+\source{datasets/literature\_phenotypes/paper\_registry.csv; phenotype\_records.csv.}
+\end{frame}
+
+% 12
+\begin{frame}{Target, assay và metric không được trộn lẫn}
+\renewcommand{\arraystretch}{1.22}\scriptsize
+\begin{tabular}{@{}L{3.2cm}L{2.4cm}L{4.4cm}L{4.3cm}@{}}
+\toprule
+\textbf{Nguồn} & \textbf{Allocation} & \textbf{Endpoint / giá trị} & \textbf{Quy tắc}\\\midrule
+Chen et al. 2014 & Calibration & A30P walking 4,875 mm/s; CI95 0,525 mm/s. & Giữ CI95; provenance digitization; không đổi thành SE.\\
+Pozo et al. 2022 & Holdout & Pink1-B9 distance 62,091 mm; spread 61,288. & Giữ distance và IQR/min--max; không đổi thành speed.\\
+Riemensperger 2011 & Pending candidate & Median walking speed 7,8 mm/s. & Không đổi median thành mean; cần review transfer.\\
+Pokrzywa 2017 & Candidate & alpha-syn velocity 2,5 mm/s day 21. & Numeric SE và unit-of-analysis pending.\\\bottomrule
+\end{tabular}
+\smallgap
+\begin{block}{Hai metric speed}
+\texttt{walking\_speed\_mm\_s} gần với quãng đường đi theo quỹ đạo trên thời gian; \texttt{mean\_planar\_speed\_mm\_s} là độ dời phẳng chia thời gian. Không dùng hai tên như hai bản sao của cùng một metric.
+\end{block}
+\source{calibration\_targets/targets.csv; paper registry; metric contract documentation.}
+\end{frame}
+
+% 13
+\begin{frame}{Một video đẹp chưa đủ để chấp nhận rollout}
+\renewcommand{\arraystretch}{1.28}\scriptsize
+\begin{tabular}{@{}L{2.2cm}L{8.1cm}L{4.0cm}@{}}
+\toprule
+\textbf{Tầng QC} & \textbf{Kiểm tra} & \textbf{Artifact cần lưu}\\\midrule
+Numerical & No NaN/Inf, shape, finite action, quaternion, timestep. & metrics.json, logs, QC flags.\\
+Behavior & Path, displacement, contact và action trajectory. & Summary metrics, video/viewer nếu có.\\
+Protocol & Commit, config, runner, seed, physics, timestep, CPG, stimulus. & Manifest + runtime status.\\
+Neural & FlyWire version, root-ID/edge source, checkpoint SHA, untouched-edge invariant. & Mapping audit + checkpoint manifest.\\
+Scientific & Assay, statistic, uncertainty, allocation, no leakage. & Target registry + reviewer signoff.\\\bottomrule
+\end{tabular}
+\smallgap
+\begin{itemize}\setlength\itemsep{4pt}\small
+\item Checksum không thay raw data; raw artifact phải archive hoặc accessible khi công bố.
+\item Historical artifact ghi original commit; current result ghi current platform commit.
+\item Pending/blocked được giữ nguyên đến khi có evidence mới.
+\end{itemize}
+\source{QC policy; runtime manifests; platform contract.}
+\end{frame}
+
+\begin{frame}{Yêu cầu dữ liệu, evidence và provenance của proposal}
+\renewcommand{\arraystretch}{1.18}\scriptsize
+\begin{tabular}{@{}L{3.0cm}L{5.8cm}L{5.0cm}@{}}
+\toprule
+\textbf{Lớp dữ liệu} & \textbf{Yêu cầu tối thiểu} & \textbf{Không được thay thế bằng}\\\midrule
+Paper / phenotype & DOI/PMID, genotype/driver, age/sex, assay, endpoint, statistic, uncertainty, sample unit. & Tóm tắt narrative không có nguồn gốc số liệu.\\
+Target registry & Allocation calibration/holdout, endpoint transfer decision, reviewer và trạng thái. & Tự đổi median thành mean, CI95 thành SE, distance thành speed.\\
+FlyWire / connectome & Version, completeness, annotation, root-ID/edge source, scope brain/VNC. & Tên gene hoặc cell class không có review.\\
+Checkpoint / source code & License, commit, SHA-256, dependency, launcher, compatibility probe. & File checkpoint không hash hoặc legacy path mơ hồ.\\
+Rollout / metrics & Seed, config, physics, timestep, CPG, stimulus, logs, raw/derived artifact. & Ảnh/video đơn lẻ không có manifest.\\\bottomrule
+\end{tabular}
+\source{Data/source catalog, literature registry, mapping audit và QC policy.}
+\end{frame}
+
+\begin{frame}{Yêu cầu kỹ thuật để đưa một disease case vào runtime}
+\begin{enumerate}\setlength\itemsep{7pt}
+\item \kw{Interface:} dùng đúng canonical action hook của platform; extension không patch hoặc fork ngầm platform source.
+\item \kw{Determinism:} seed rõ ràng, input immutable, identity transform ở burden 0, action finite và adhesion preserved.
+\item \kw{Neural artifact:} checkpoint có target set, transform khai báo được, untouched-edge invariant và checksum sau build.
+\item \kw{Runtime:} dependency lock, launcher, import probe, current platform compatibility, paired baseline-disease execution.
+\item \kw{Output:} metrics, logs, QC flags, manifest, summary, raw artifact/video khi phù hợp và report có provenance.
+\end{enumerate}
+\begin{block}{Điểm kiểm soát}
+Nếu chỉ có operator nhưng không có mapping, case chỉ là proxy. Nếu có mapping nhưng không có compatible runner, case vẫn là WAITING\_PLATFORM\_NEURAL\_RUNTIME.
+\end{block}
+\source{Platform contract; perturbation tests; checkpoint and runner readiness policy.}
+\end{frame}
+
+\begin{frame}{Tính mới, đóng góp dự kiến và giá trị khoa học}
+\renewcommand{\arraystretch}{1.25}\small
+\begin{tabular}{@{}L{4.0cm}L{9.8cm}@{}}
+\toprule
+\textbf{Đóng góp} & \textbf{Giá trị}\\\midrule
+Evidence-to-runtime governance & Biến paper thành condition có scope, uncertainty, target policy và trạng thái audit được.\\
+Maturity ladder L0--L5 & Ngăn nhầm lẫn giữa literature, proxy, cell-class exploratory, neural edge, runtime và validation.\\
+Disease checkpoint workflow & Liên kết mapping root-ID/edge, invariant, checksum và platform runtime thay vì chỉ giảm action.\\
+Assay-preserving evaluation & Giữ endpoint/statistic của paper và tách calibration khỏi holdout để giảm leakage.\\
+Reproducibility bundle & Tạo artifact cho phép kiểm tra độc lập: code/config/commit/seed/data version/checkpoint/metrics/report.\\\bottomrule
+\end{tabular}
+\source{Đóng góp đề xuất, suy ra từ kiến trúc và governance của dự án.}
+\end{frame}
+
+\divider{02}{Kết quả đã có}{Tách evidence lịch sử, current audit và khoảng trống cần hoàn tất}
+
+% 15
+\begin{frame}{Evidence lịch sử được giữ, nhưng không thay cho current result}
+\renewcommand{\arraystretch}{1.25}\scriptsize
+\begin{tabular}{@{}L{3.0cm}L{6.0cm}L{5.5cm}@{}}
+\toprule
+\textbf{Nhóm bằng chứng} & \textbf{Snapshot / protocol} & \textbf{Diễn giải được phép}\\\midrule
+Healthy Gate 19 & \texttt{af6455d}; 100.000 steps, 10 s, 5 seeds. & Technical baseline lịch sử; không phải biological norm.\\
+Gate 20 & \texttt{af6455d}; 50 rollout dự kiến; mới có 3 PASS, tất cả $b=0$. & Identity/operator và artifact pipeline; không có disease effect.\\
+Chen calibration & Protocol 0,5 s; burden 0,5; $r_{Chen}=0{,}6701$, $r_{Sim}=0{,}6142$. & Historical computational calibration; cần re-execute current.\\
+Pozo holdout & Protocol 0,5 s; $r_{Paper}=0{,}1920$, $r_{Sim}=0{,}9470$. & Cùng chiều nhưng sai lệch 0,7550; không biological validation.\\\bottomrule
+\end{tabular}
+\smallgap
+\begin{block}{Quy tắc báo cáo}
+Không gộp protocol 0,5 s với baseline 10 s. Không mở rộng claim từ legacy runner sang current platform. Không dùng Gate 20 burden 0 để kết luận disease effect.
+\end{block}
+\source{docs/report/gate20\_progress\_report\_vi.pdf; platform alignment report.}
+\end{frame}
+
+% 16
+\begin{frame}{Healthy 10 giây có chuyển động ở cả 5 seed}
+\begin{columns}[T,onlytextwidth]
+\column{.66\textwidth}
+\IfFileExists{\assetpath healthy_speed.png}{\includegraphics[width=\linewidth]{\assetpath healthy_speed.png}}{\fbox{Biểu đồ healthy speed lịch sử}}
+\column{.30\textwidth}
+\kw{Walking speed}\\[-2pt]
+\hi{2,710 $\pm$ 0,101 mm/s}\\[7pt]
+\kw{Tốc độ theo độ dời}\\[-2pt]
+\hi{2,003 $\pm$ 0,090 mm/s}\\[7pt]
+Trung bình $\pm$ SD giữa 5 seed mô phỏng.\\[7pt]
+100.000 bước/run; $\Delta t=0{,}0001$ s; CPG 12 Hz.
+\end{columns}
+\begin{block}{Cách đọc}
+Đường nối giúp đọc từng seed, không biểu diễn thời gian. Đây là computational baseline lịch sử; cần healthy re-execution trên environment hiện tại.
+\end{block}
+\source{healthy\_baseline\_gate19 summary; hình lịch sử từ bộ mẫu, snapshot af6455d.}
+\end{frame}
+
+% 17
+\begin{frame}{Gate 20 hiện mới hoàn tất 3 trong 50 lượt}
+\begin{columns}[T,onlytextwidth]
+\column{.52\textwidth}
+\IfFileExists{\assetpath gate20_progress.png}{\includegraphics[width=\linewidth]{\assetpath gate20_progress.png}}{\fbox{Biểu đồ Gate 20 lịch sử}}
+\column{.44\textwidth}
+\begin{block}{Trạng thái}
+\hi{3/50} PASS; \warn{47} pending; \warn{0} positive burden; condition là alpha-syn proxy.
+\end{block}
+\begin{block}{Kết luận hợp lệ}
+Cả ba lượt là $b=0$, seed 0--2. Chúng xác nhận identity transform và artifact pipeline trong snapshot cũ; không đo hiệu ứng disease và không thay neural result.
+\end{block}
+\end{columns}
+\source{disease\_exploratory\_gate20; PDF Gate 20 historical snapshot af6455d.}
+\end{frame}
+
+% 18
+\begin{frame}{Calibration đúng quy trình chưa đồng nghĩa khớp định lượng}
+\begin{columns}[T,onlytextwidth]
+\column{.50\textwidth}
+\IfFileExists{\assetpath chen_calibration.png}{\includegraphics[width=\linewidth]{\assetpath chen_calibration.png}}{\fbox{Biểu đồ Chen calibration lịch sử}}
+\column{.46\textwidth}
+\begin{block}{Chen calibration}
+Protocol ngắn 5.000 steps $=0,5$ s, burden 0,5. $r_{Chen}=0{,}6701$; $r_{Sim}=0{,}6142$. Đây là historical calibration evidence và cần chạy lại trên current contract.
+\end{block}
+\begin{block}{Pozo holdout}
+$r_{Paper}=0{,}1920$ nhưng $r_{Sim}=0{,}9470$. Kết quả cùng chiều nhưng sai lệch tuyệt đối 0,7550; không gọi là biological validation.
+\end{block}
+\end{columns}
+\source{Gate 13B/13C/14B/14C historical records; Chen 2014; Pozo 2022.}
+\end{frame}
+
+% 19
+\begin{frame}{Current audit: điều gì đã READY, điều gì vẫn WAITING?}
+\renewcommand{\arraystretch}{1.25}\scriptsize
+\begin{tabular}{@{}L{3.2cm}L{4.7cm}L{6.6cm}@{}}
+\toprule
+\textbf{Kiểm tra} & \textbf{Trạng thái} & \textbf{Ý nghĩa}\\\midrule
+Platform contract & \hi{READY -- \texttt{c4505e7}} & Public protocol, files, pins và canonical hook đã inspect.\\
+Current proxy wrapper & \warn{WAITING\_RUNTIME} & Current venv thiếu matplotlib trong smoke environment; không tạo result giả.\\
+Neural runner & \warn{WAITING\_PLATFORM\_NEURAL\_RUNTIME} & Chưa có compatible runner tiêu thụ disease checkpoint.\\
+Neural cases & \warn{0 completed}; 1 class mapping exploratory & Chưa có gene-specific neural disease rollout.\\
+Software QA & \hi{170 tests; compileall; diff/SHA/link audit PASS} & Code/config/docs đã được kiểm tra alignment.\\
+Historical evidence & Preserved + labeled historical & Không trình bày như current evidence.\\\bottomrule
+\end{tabular}
+\source{Current repository QA and platform alignment verification, 06/09/2026.}
+\end{frame}
+
+% 20
+\begin{frame}{Tiến độ mức neuron: có chuẩn bị, chưa có claim hoàn tất}
+\renewcommand{\arraystretch}{1.22}\scriptsize
+\begin{tabular}{@{}L{2.4cm}L{6.7cm}L{5.4cm}@{}}
+\toprule
+\textbf{Thành phần} & \textbf{Đã làm} & \textbf{Còn thiếu}\\\midrule
+Mapping & Schema, audit CSV, provenance fields; 342 dopamine ID exploratory. & Reviewed condition-specific root-ID/edge cho 5 case.\\
+Perturbation & Edge/action operator scaffold; deterministic seed; structural tests. & Paper-grounded target và mechanism từng case.\\
+Checkpoint & Script build, source catalog, untouched-edge regression policy. & Disease checkpoint với target edges và current checksum.\\
+Runtime & Platform action hook đã xác minh. & Runner current tiêu thụ disease neural checkpoint.\\
+Results & Historical brain-body/proxy results giữ provenance. & 0 current gene-specific neural disease rollout hoàn tất.\\\bottomrule
+\end{tabular}
+\smallgap
+\begin{columns}[T,onlytextwidth]
+\column{.31\textwidth}\centering \textcolor{accent}{\fontsize{22}{24}\selectfont\bfseries 1}\\\small class mapping exploratory
+\column{.31\textwidth}\centering \textcolor{uitblue}{\fontsize{22}{24}\selectfont\bfseries 0}\\\small gene-specific mapping
+\column{.31\textwidth}\centering \textcolor{uitblue}{\fontsize{22}{24}\selectfont\bfseries 0}\\\small neural end-to-end result
+\end{columns}
+\source{root\_id\_mapping\_audit.csv; source catalog; mapping and runner status.}
+\end{frame}
+
+\begin{frame}{Phân tích khoảng trống: hiện trạng so với trạng thái proposal cần đạt}
+\renewcommand{\arraystretch}{1.18}\scriptsize
+\begin{tabular}{@{}L{3.0cm}L{5.1cm}L{5.7cm}@{}}
+\toprule
+\textbf{Trục} & \textbf{Hiện trạng đã audit} & \textbf{Trạng thái cần đạt}\\\midrule
+Evidence & 6 primary paper, 14 phenotype record; một số target status chưa hòa giải. & Một registry thống nhất, uncertainty/unit/statistic và allocation được review.\\
+Runtime & Contract c4505e7 READY; proxy smoke environment WAITING\_RUNTIME. & Environment tái lập, healthy current PASS hoặc blocker rõ ràng.\\
+Mapping & 342 dopamine ID exploratory; 0 gene-specific mapping case. & Ít nhất selected case có root-ID/edge set, version, scope, reviewer.\\
+Checkpoint & Có source catalog và build policy. & Disease checkpoint có target transform, invariant và checksum.\\
+Evaluation & Historical Chen/Pozo/Gate 20 có boundary rõ. & Paired current rollout, sensitivity, endpoint policy, holdout không leakage.\\
+Claim & Computational exploratory/proxy. & Computational neural concordance trong phạm vi evidence, không biological validation.\\\bottomrule
+\end{tabular}
+\source{Current audit, historical report và proposed maturity gates.}
+\end{frame}
+
+\divider{03}{Bước tiếp theo}{Mở khóa evidence, mapping, checkpoint, runtime và đánh giá}
+
+% 22
+\begin{frame}{Từ current runtime đến neural case có thể viết báo}
+\renewcommand{\arraystretch}{1.18}\scriptsize
+\begin{tabular}{@{}L{2.4cm}L{7.5cm}L{4.6cm}@{}}
+\toprule
+\textbf{WP} & \textbf{Việc cần hoàn thành} & \textbf{Đầu ra / gate}\\\midrule
+WP1 Evidence governance & Hợp nhất paper registry, DOI/PMID, uncertainty, sample unit, assay-transfer và target status. & Single literature status source; G1 READY.\\
+WP2 Platform/runtime & Current environment, launcher, import probe, healthy re-execution, performance benchmark. & Runtime PASS hoặc blocker có log; G2.\\
+WP3 Neural mapping & Review cell class, root-ID, driver/genotype, brain/VNC scope, connectome version. & Mapping ledger, reviewed condition set; G3 RUN\_READY.\\
+WP4 Neural perturbation & Build edge transform, preserve untouched edges, seed/checksum. & Disease checkpoint reproducible; G4.\\
+WP5 Simulation/evaluation & Paired baseline-disease, multiseed, sensitivity, calibration/holdout khi đủ điều kiện. & Metrics, QC, effect size, uncertainty; G5--G6.\\
+WP6 Dissemination & Audit, report, dataset card, code docs, manuscript/proposal. & Review-ready reproducibility bundle; G7.\\\bottomrule
+\end{tabular}
+\source{Proposed work packages and scientific gate policy.}
+\end{frame}
+
+\begin{frame}{Thiết kế thí nghiệm đề xuất: từ baseline đến disease case}
+\centering
+\begin{tikzpicture}[>=Stealth,stepbox/.style={draw=uitblue,fill=uitblue!5,minimum height=1.0cm,text width=3.0cm,align=center,font=\scriptsize}]
+\node[stepbox] (a) at (0,0) {\textbf{1. Khóa protocol}\\commit, config, endpoint, seeds};
+\node[stepbox] (b) at (3.65,0) {\textbf{2. Baseline paired}\\healthy/control và QC};
+\node[stepbox,draw=greenteal,fill=greenteal!8] (c) at (7.3,0) {\textbf{3. Disease perturbation}\\proxy hoặc neural checkpoint};
+\node[stepbox] (d) at (10.95,0) {\textbf{4. Phân tích}\\effect, uncertainty, sensitivity};
+\draw[->] (a)--(b); \draw[->] (b)--(c); \draw[->] (c)--(d);
+\end{tikzpicture}
+\smallgap
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}
+\begin{block}{Thiết kế tối thiểu}
+Paired baseline-disease theo cùng seed; cùng physics/timestep/CPG/stimulus; burden grid chỉ dùng khi condition được phép; QC trước phân tích.
+\end{block}
+\column{.48\textwidth}
+\begin{block}{Phân tích tối thiểu}
+Effect size và direction; distribution theo seed; no NaN/Inf; contact/path/displacement; protocol/metric compatibility; artifact manifest.
+\end{block}
+\end{columns}
+\source{Experimental design proposed for current runtime and future neural cases.}
+\end{frame}
+
+\begin{frame}{Kế hoạch calibration, holdout và validation}
+\renewcommand{\arraystretch}{1.10}\scriptsize
+\begin{tabular}{@{}L{2.6cm}L{5.3cm}L{5.8cm}@{}}
+\toprule
+\textbf{Giai đoạn} & \textbf{Mục đích} & \textbf{Quy tắc bắt buộc}\\\midrule
+Structural validation & Kiểm tra operator/checkpoint/runtime có thực thi đúng. & Không gọi là concordance; burden 0 chỉ là identity check.\\
+Calibration & Chọn hoặc khóa cấu hình từ target được duyệt. & Dùng đúng endpoint/unit/statistic; lưu rationale và không dùng holdout.\\
+Confirmation & Kiểm tra cấu hình đã khóa trên seed/rollout mới. & Không retune sau khi thấy kết quả; report uncertainty.\\
+Holdout & Đánh giá target độc lập. & Không dùng để chọn burden/parameter; giữ assay transfer policy.\\
+Neural-vs-proxy comparison & Kiểm tra mapping neural có thêm giá trị giải thích hay không. & So sánh protocol khóa; không gán causal biology quá evidence.\\\bottomrule
+\end{tabular}
+\source{Calibration/holdout policy; Chen and Pozo targets; proposed evaluation plan.}
+\end{frame}
+
+\begin{frame}{Quản trị dữ liệu, phần mềm và khả năng tái lập}
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}
+\begin{block}{Nguyên tắc quản trị}
+\begin{itemize}\small\setlength\itemsep{4pt}
+\item Pin commit platform/extension, FlyWire version, dependency và config.
+\item Ghi checksum cho checkpoint, source artifact và release bundle.
+\item Tách raw artifact, derived metric, figure và narrative report.
+\item Theo dõi license/source attribution cho code, connectome và paper data.
+\end{itemize}
+\end{block}
+\column{.48\textwidth}
+\begin{block}{Gói tái lập một run}
+\begin{itemize}\small\setlength\itemsep{4pt}
+\item Condition + perturbation specification và mapping decision.
+\item Commit, environment, launcher, config, seed, hardware/runtime status.
+\item Metrics, QC flags, raw/derived artifact, checksum và report link.
+\item Decision: PASS, WAITING, BLOCKED hoặc validation-only; lý do và reviewer.
+\end{itemize}
+\end{block}
+\end{columns}
+\source{Source catalog, manifests, QA checks and proposed dataset-card workflow.}
+\end{frame}
+
+% 23
+\begin{frame}{Checklist mở khóa một neural case}
+\renewcommand{\arraystretch}{1.19}\scriptsize
+\begin{tabular}{@{}L{2.2cm}L{7.3cm}L{5.0cm}@{}}
+\toprule
+\textbf{Checklist} & \textbf{GO} & \textbf{NO-GO}\\\midrule
+Paper & DOI/PMID, condition, genotype/driver, age/sex, assay, statistic/uncertainty. & Target data missing hoặc ambiguous.\\
+Mapping & Reviewed cell/root-ID/edge set, FlyWire version, scope và reviewer. & Gene name bị dùng như neuron map.\\
+Perturbation & Formula, target field, burden, seed, invariant, audit metadata. & Mechanism phát minh từ phenotype alone.\\
+Runtime & Compatible checkpoint, dependency, launcher, current platform probe. & Legacy runner hoặc missing capability.\\
+Analysis & Baseline, paired seeds, endpoint transfer, QC, allocation. & Holdout dùng để tuning hoặc endpoint conversion.\\
+Claim & Computational exploratory/concordance only. & Biological validation, diagnosis, drug efficacy.\\\bottomrule
+\end{tabular}
+\source{Scientific gate policy proposed for the project.}
+\end{frame}
+
+% 24
+\begin{frame}{Lộ trình 12 tháng để xin tài trợ}
+\renewcommand{\arraystretch}{1.12}\scriptsize
+\begin{tabular}{@{}L{2.1cm}L{1.1cm}L{7.0cm}L{4.1cm}@{}}
+\toprule
+\textbf{Giai đoạn} & \textbf{Tháng} & \textbf{Đầu ra} & \textbf{Decision gate}\\\midrule
+Foundation & 1--2 & Literature registry, status reconciliation, contract manifest. & G1 evidence/contract READY.\\
+Runtime & 2--4 & Current environment, healthy re-execution, benchmark. & G2 runtime PASS/blocker.\\
+Mapping & 3--6 & Reviewed root-ID/edge mapping cho selected cases. & G3 condition RUN\_READY.\\
+Perturbation & 5--8 & Neural checkpoint build, invariant, manifest. & G4 artifact reproducible.\\
+Simulation & 8--10 & Paired neural exploratory runs, seeds, QC, sensitivity. & G5 neural result.\\
+Validation & 10--11 & Calibration/holdout nếu target được approve. & G6 evaluation audit.\\
+Dissemination & 11--12 & Report, manuscript/proposal, archival bundle. & G7 review-ready.\\\bottomrule
+\end{tabular}
+\smallgap
+\hi{Nguyên tắc:} hoàn tất một case neural có provenance đầy đủ trước khi mở rộng ra nhiều gene.
+\source{Proposed timeline; milestones contingent on preceding gates.}
+\end{frame}
+
+% 25
+\begin{frame}{Nguồn lực, rủi ro và phương án giảm thiểu}
+\renewcommand{\arraystretch}{1.18}\scriptsize
+\begin{tabular}{@{}L{3.4cm}L{4.4cm}L{6.5cm}@{}}
+\toprule
+\textbf{Rủi ro / nguồn lực} & \textbf{Ý nghĩa} & \textbf{Giảm thiểu hoặc nhu cầu}\\\midrule
+Neural runner & Checkpoint chưa được current platform tiêu thụ. & Runtime adapter chính thức; giữ WAITING nếu chưa hợp lệ.\\
+Paper không map root-ID & Không có gene-specific claim. & Expert review; boundary class-level/organism proxy.\\
+Assay mismatch & Concordance sai vì endpoint không tương thích. & Giữ endpoint; cấm conversion tự động.\\
+Compute / storage & Rollout dài, checkpoint, raw artifact. & CUDA GPU, $\geq$500 GB scratch/backup, batch/resume.\\
+Version drift & Không re-execute được. & Pin commit, FlyWire version, config, checksum, environment.\\
+Overclaim & Kết luận vượt evidence. & Boundary trong config, report, review và release.\\\bottomrule
+\end{tabular}
+\source{Implementation capacity and risk register proposed for the research phase.}
+\end{frame}
+
+\begin{frame}{Tổ chức thực hiện, vai trò và cơ chế review}
+\renewcommand{\arraystretch}{1.22}\small
+\begin{tabular}{@{}L{3.3cm}L{6.0cm}L{4.4cm}@{}}
+\toprule
+\textbf{Vai trò} & \textbf{Trách nhiệm} & \textbf{Điểm review}\\\midrule
+Nhóm thực hiện & Điều phối proposal, code/config, experiment manifests, QC, báo cáo và archive. & Review nội bộ trước mỗi gate.\\
+Reviewer neuroscience & Xem xét gene/driver/cell-class/root-ID/edge scope, brain/VNC boundary và claim. & Signoff mapping và mechanism.\\
+Reviewer data/methods & Kiểm tra paper target, statistic, uncertainty, digitization, assay transfer và allocation. & Signoff calibration/holdout policy.\\
+Platform maintainer / technical review & Xác nhận adapter, current contract, dependency/runner compatibility và non-regression. & Runtime/checkpoint integration review.\\
+Giảng viên / hội đồng & Đánh giá scope, milestone, rủi ro, nguồn lực và quyết định tiếp tục/mở rộng. & Gate review định kỳ.\\\bottomrule
+\end{tabular}
+\source{Proposed governance model; không gán sẵn tên cá nhân chưa được xác nhận.}
+\end{frame}
+
+\begin{frame}{Khung kinh phí và nguồn lực cần xin}
+\renewcommand{\arraystretch}{1.22}\small
+\begin{tabular}{@{}L{3.1cm}L{6.6cm}L{4.0cm}@{}}
+\toprule
+\textbf{Nhóm kinh phí} & \textbf{Nhu cầu / cơ sở} & \textbf{Đầu ra được hỗ trợ}\\\midrule
+Compute & CUDA GPU đủ VRAM cho checkpoint, batch rollout, benchmark và sensitivity runs. & Neural runtime, paired experiments.\\
+Storage/backup & SSD scratch và archive raw artifact; tối thiểu 500 GB ở phase thực thi. & Reproducibility, video/log/metrics retention.\\
+Data/software compliance & Environment reproduction, source access, license review, version/checksum tracking. & Hợp pháp và audit được.\\
+Expert review & Neuroscience mapping review và paper/assay data review. & Signoff evidence, mapping, evaluation.\\
+Dissemination & Figure/report, workshop/conference, manuscript/proposal editing, archive. & Review-ready reproducibility bundle.\\\bottomrule
+\end{tabular}
+\smallgap
+\begin{block}{Nguyên tắc dự toán}
+\scriptsize Chưa đưa số tiền tuyệt đối khi chưa có call hoặc định mức của đơn vị tài trợ. Ngân sách được lập theo work package, milestone và artifact bắt buộc, không theo claim sinh học chưa đủ evidence.
+\end{block}
+\source{Proposed resource plan; quantities must be finalized against the sponsor's budget template.}
+\end{frame}
+
+\begin{frame}{Kế hoạch công bố, chuyển giao và tác động}
+\renewcommand{\arraystretch}{1.22}\small
+\begin{tabular}{@{}L{3.0cm}L{6.3cm}L{4.4cm}@{}}
+\toprule
+\textbf{Kênh} & \textbf{Sản phẩm} & \textbf{Điều kiện công bố}\\\midrule
+Repository / release & Code, config templates, tests, manifests, dataset card, docs alignment. & License/source attribution, checksum, no secret/raw restriction.\\
+Báo cáo tiến độ & Current status, historical/current separation, blockers, gate decisions. & Evidence và status audited; không overclaim.\\
+Workshop / conference & Methods, architecture, mapping governance, computational results. & Reproducibility bundle và review phù hợp.\\
+Manuscript / proposal final & Methods, selected neural case, evaluation, limitations và negative results. & Mapping/runtime/evaluation gates đạt; claim theo evidence.\\
+Đào tạo nội bộ & Hướng dẫn re-run, QC, source attribution và report policy. & Template/README được cập nhật.\\\bottomrule
+\end{tabular}
+\source{Dissemination plan proposed for the research phase.}
+\end{frame}
+
+% 26
+\begin{frame}{Deliverables và tác động kỳ vọng}
+\renewcommand{\arraystretch}{1.24}\scriptsize
+\begin{tabular}{@{}L{2.1cm}L{7.4cm}L{4.8cm}@{}}
+\toprule
+\textbf{Nhóm} & \textbf{Deliverable} & \textbf{Giá trị}\\\midrule
+Software & Current platform adapter, neural checkpoint builder, operators, tests. & Chạy được, audit được, không phụ thuộc legacy path.\\
+Data & Paper registry, phenotype records, mapping ledger, source/checksum manifests. & Truy nguyên paper $\rightarrow$ target $\rightarrow$ neuron.\\
+Experiments & Healthy baseline, proxy matrix, selected neural cases, calibration/holdout. & Paired, multiseed, sensitivity, không leakage.\\
+Reports & Progress report, methods, limitations, reproducibility bundle. & Review khoa học và tái lập độc lập.\\
+Impact & Framework computational neuroscience disease modeling ở Drosophila. & Mở rộng có kiểm soát, không overclaim.\\\bottomrule
+\end{tabular}
+\smallgap
+\begin{block}{Tiêu chí thành công}
+Có current runtime PASS; tối thiểu một neural checkpoint có target edge và invariant; selected case được review mapping; paired results đi kèm report tách computational evidence khỏi biological interpretation.
+\end{block}
+\source{Expected outputs of the proposed 12-month research phase.}
+\end{frame}
+
+% 27
+\begin{frame}{Ranh giới khoa học và đề nghị phê duyệt}
+\renewcommand{\arraystretch}{1.23}\small
+\begin{tabular}{@{}L{7.1cm}L{7.1cm}@{}}
+\toprule
+\textbf{Được kết luận} & \textbf{Không được kết luận}\\\midrule
+Perturbation thay đổi locomotion ra sao trên runtime cố định. & Đây là biological Parkinson validation.\\
+Mapping/checkpoint có technical compatibility hay không. & Chẩn đoán, clinical prediction hoặc drug efficacy.\\
+Seed robustness, sensitivity và quantitative mismatch. & Gene name tự động xác định neuron/edge.\\
+Assay transfer có hợp lệ với metric simulator hay không. & Action attenuation tự động là neural mechanism.\\\bottomrule
+\end{tabular}
+\smallgap
+\begin{block}{Đề nghị}
+Phê duyệt phase 12 tháng để hoàn tất current runtime, literature governance, neural mapping, checkpoint/runner, paired simulation và evaluation. Chỉ mở rộng biological interpretation sau independent review và neural-level execution đạt yêu cầu.
+\end{block}
+\source{Dự án dùng dữ liệu công bố và mô phỏng máy tính; thí nghiệm động vật, nếu có sau này, cần hồ sơ ethics/animal-use riêng.}
+\end{frame}
+
+% 28
+\begin{frame}{Tài liệu tham khảo chính}
+\small
+\begin{columns}[T,onlytextwidth]
+\column{.48\textwidth}
+\begin{enumerate}\setlength\itemsep{5pt}
+\item Chen et al. 2014. \textit{Walking deficits and centrophobism in an alpha-synuclein fly model}. DOI 10.1111/gbb.12172.
+\item Zárate et al. 2022. \textit{An Early Disturbance in Serotonergic Neurotransmission}. DOI 10.3390/cells11091544.
+\item Riemensperger et al. 2011. \textit{Behavioral consequences of dopamine deficiency}. DOI 10.1073/pnas.1010930108.
+\item Pokrzywa et al. 2017. \textit{Effects of small-molecule amyloid modulators}. DOI 10.1371/journal.pone.0184117.
+\item Dumitrescu et al. 2023. \textit{Parkin Knockdown Modulates Dopamine Release}. DOI 10.1021/acschemneuro.2c00277.
+\end{enumerate}
+\column{.48\textwidth}
+\begin{enumerate}\setcounter{enumi}{5}\setlength\itemsep{5pt}
+\item Hwang et al. 2013. \textit{Drosophila DJ-1 Decreases Neural Sensitivity to Stress}. DOI 10.1371/journal.pgen.1003412.
+\item Godena et al. 2014. \textit{Increasing microtubule acetylation rescues deficits caused by LRRK2}. DOI 10.1038/ncomms6245.
+\item Shiu et al. 2024. \textit{A Drosophila computational brain model reveals sensorimotor processing}. DOI 10.1038/s41586-024-07763-9.
+\item Wang-Chen et al. 2024. \textit{NeuroMechFly v2}. DOI 10.1038/s41592-024-02497-y.
+\end{enumerate}
+\end{columns}
+\source{DOI/PMID/PMCID được quản lý trong paper\_registry.csv và references của báo cáo mẫu.}
+\end{frame}
+
+% 29
+\begin{frame}{Nguồn nội bộ và cách kiểm tra lại}
+\renewcommand{\arraystretch}{1.18}\scriptsize
+\begin{tabular}{@{}L{3.2cm}L{10.5cm}@{}}
+\toprule
+\textbf{Nội dung} & \textbf{Nguồn trong repository}\\\midrule
+Platform contract & \texttt{drosophila-pd-flygym} @ \texttt{c4505e756f92932d40d51ea2b6964df3674da01c}; \texttt{docs/architecture/platform\_contract.md}.\\
+Literature / phenotype & \texttt{datasets/literature\_phenotypes/paper\_registry.csv}; \texttt{phenotype\_records.csv}; \texttt{calibration\_targets/targets.csv}.\\
+Neural mapping & \texttt{root\_id\_mapping\_audit.csv}; \texttt{research/disease\_mapping/mapping\_status.csv}; \texttt{data/source\_catalog.json}.\\
+Historical evidence & \texttt{docs/report/gate20\_progress\_report\_vi.pdf}; Gate 19/20 artifacts và assets của bộ mẫu.\\
+Implementation records & \texttt{experiments/gate\_12b\_disease\_mapping}; \texttt{gate\_12c\_computational\_proxy\_configs}; \texttt{gate\_20\_disease\_exploratory\_proxy}.\\
+Alignment / QA & \texttt{docs/migration/platform\_alignment\_2026-09.md}; 170 tests; compileall; SHA/link audit.\\\bottomrule
+\end{tabular}
+\par\smallgap
+\hi{Cách đọc proposal:} dùng source of truth hiện hành cho trạng thái kỹ thuật; giữ artifact lịch sử để minh họa evidence; mọi current result công bố sau này phải có run manifest và review tương ứng.
+\source{Repository source of truth và target repository records.}
+\end{frame}
+
+\end{document}

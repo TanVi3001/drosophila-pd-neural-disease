@@ -1,0 +1,26 @@
+{
+  "completeness": "D:\\research\\New folder\\external\\Drosophila_brain_model\\2023_03_23_completeness_630_final.csv",
+  "condition_label": "lif_smoke_new",
+  "connectivity": "D:\\research\\New folder\\external\\Drosophila_brain_model\\2023_03_23_connectivity_630_final.parquet",
+  "dataset_id": "flywire-630-2023-03-23",
+  "duration_s": 0.01,
+  "exp_name": "lif_smoke_new",
+  "id_namespace": "flywire_root_id",
+  "input_ids": [
+    "720575940624963786"
+  ],
+  "intervention": {
+    "input_ids": [
+      "720575940624963786"
+    ],
+    "outgoing_synapse_block_ids": [],
+    "semantic_boundary": "outgoing_synapse_block zeros outgoing synaptic weights in the upstream model; it is not neuron death or biological absence.",
+    "type": "activation"
+  },
+  "model_root": "D:\\research\\New folder\\external\\Drosophila_brain_model",
+  "outgoing_synapse_block_ids": [],
+  "schema_version": "lif-condition-config-1",
+  "seed": 123,
+  "stimulus_rate_hz": 150.0,
+  "trial_count": 1
+}

@@ -1,36 +1,35 @@
-# Hợp đồng tích hợp với platform
+# Platform integration contract
 
-Repository `drosophila-pd-flygym` là platform được pin theo tag hoặc commit.
-Repository này không sửa source của platform.
+The `drosophila-pd-flygym` checkout is the source of truth for simulation and
+platform documentation. This repository must not patch or duplicate its
+runtime.
 
-## Đầu vào bắt buộc
+## Canonical integration
 
-- brain source có license rõ ràng;
-- connectome đúng phiên bản;
-- checkpoint healthy;
-- neuron/edge annotation có provenance;
-- FlyGym/MuJoCo runtime tương thích;
-- calibration targets đã được review.
-
-## Luồng đầu ra
-
-Neural condition tạo edge artifact có manifest. Adapter brain-body sau này đọc
-artifact đó, chạy mạng neural và gửi motor readout vào platform. Sau khi
-rollout hoàn tất, platform tiếp tục tạo:
+The platform defines `Perturbation` in
+`src/drosophila_pd/perturbations/base.py` and invokes it in the locomotion
+pipeline in `src/drosophila_pd/experiments/healthy_baseline.py`:
 
 ```text
-rollout.json
-rollout.npz
-viewer_pose.json
-metrics.json
-biomarkers.json
+controller.step()
+  -> perturbation.apply_to_action(...)
+  -> apply_locomotion_action(...)
+  -> simulation.step()
 ```
 
-Không được coi `perturbed_edges.npz` là rollout hoặc kết quả locomotion.
+`ProxyBurdenPerturbation` in this repository implements that protocol without
+importing platform internals. The thin launcher
+`scripts/run_platform_proxy_experiment.py` checks the platform contract,
+constructs the perturbation, and delegates simulation and metrics to the
+platform.
 
-## Trạng thái hiện tại
+## Separate neural boundary
 
-Phần perturbation và calibration primitives đã có test độc lập. Adapter chạy
-brain-body thật vẫn `WAITING_BRAIN_DATA` cho tới khi nguồn ngoài, annotation và
-checkpoint được xác minh. Đây là blocker dữ liệu/pháp lý, không được giải quyết
-bằng mock hoặc rollout giả.
+`prepare_neural_checkpoint.py` creates a provenance-aware edge/checkpoint
+artifact when the external inputs are available. That artifact is not a
+rollout and cannot be passed to the current platform as if it were a neural
+runtime. `run_neural_experiment.py` therefore returns
+`WAITING_PLATFORM_NEURAL_RUNTIME` for this case.
+
+Platform runtime failures remain explicit `WAITING_RUNTIME` or failure reports;
+mock data is never promoted to a simulation result.

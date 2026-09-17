@@ -1,5 +1,9 @@
 # Gate 18: Kiểm chứng rollout có chuyển động
 
+> Historical artifact: this record predates the current platform source-of-truth
+> contract (`c4505e7`). It remains provenance only and requires a current
+> platform rerun before being used as a present runtime result.
+
 **Ngày chạy:** 2026-09-03
 **Trạng thái:** `MOVEMENT_VERIFIED_ARTIFACT_PARTIAL`
 **Phạm vi:** kiểm tra runtime vận động tính toán bằng FlyGym/MuJoCo và brain-body source thật.

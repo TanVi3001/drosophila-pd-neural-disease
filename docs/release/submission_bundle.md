@@ -1,39 +1,33 @@
-# Submission Bundle
+# Submission bundle
 
 ## Project
 
-Drosophila Parkinson-like Locomotion Proxy
+Drosophila Parkinson-like locomotion proxy — computational research extension.
 
-## Current evidence level
+## Evidence status
 
-Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch.
+The bundle contains historical Chen calibration and Pozo holdout evidence with
+claim locks. Those records are not current-platform reruns: Gate 12G is marked
+`REQUIRES_REEXECUTION_ON_CURRENT_PLATFORM`, and downstream confirmation/holdout
+records must be rechecked after the platform-native protocol is executed.
+
+The historical records include the phrases `CHEN_RATIO_CALIBRATION_PASS`,
+`CHEN_CALIBRATED_CONFIRMATION_PASS`, and `POZO_HOLDOUT_RUNTIME_PASS` as their
+recorded statuses. They do not establish biological, clinical, gene-specific,
+drug, or therapeutic validation.
 
 ## Included components
 
 - `README.md`
 - `docs/project_summary.md`
-- `docs/limitations.md`
-- `docs/results_timeline.md`
+- `docs/architecture/`
 - `docs/claims/current_claim_lock.md`
-- `docs/claims/public_abstract.md`
-- `docs/claims/claim_safe_wording_guide.md`
-- `docs/holdout/gate_14c_holdout_adjudication_report.md`
-- `experiments/gate_14c_holdout_adjudication/`
-- `experiments/gate_14b_pozo_holdout_validation/`
-- `experiments/gate_13c_calibrated_confirmation/`
-- `experiments/gate_13b_chen_ratio_calibration/`
-
-## Main result
-
-- Chen-only ratio calibration selected `proxy_burden_level = 0.5`.
-- Gate 13C confirmed locked parameter behavior.
-- Gate 14B Pozo holdout runtime passed with `12/12` rollouts.
-- Pozo directionality passed.
-- Quantitative ratio mismatch remains large.
+- `docs/results_timeline.md`
+- gate protocols, manifests, and historical result summaries
 
 ## Boundary
 
-This is not biological validation, not gene-specific validation, not clinical validation, not drug validation, or therapeutic validation.
-
-Gate 15B does not run new simulation, calibration, or tuning and does not
-modify raw metrics or previous gate manifests.
+The bundle is suitable for review of code, provenance, computational proxy
+logic, and claim discipline. It is not a claim that the current platform has
+reproduced the historical runs. No new simulation, calibration, or tuning is
+performed by this document.

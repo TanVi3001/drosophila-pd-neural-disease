@@ -1,5 +1,8 @@
 # Gate 14B - Pozo Ratio Holdout Validation Run
 
+> Historical evidence record downstream of the superseded Gate 12G runtime;
+> current-platform re-execution is required.
+
 ## Mục tiêu
 
 Gate 14B chạy holdout evaluation cho Pozo 2022 bằng PINK1 organism-level

@@ -1,78 +1,73 @@
-# Drosophila Parkinson-like Locomotion Proxy
+# drosophila-pd-neural-disease
 
-Đây là repository nghiên cứu xây dựng một computational locomotion proxy ở
-mức organism-level cho các kiểu hình vận động Parkinson-like trên Drosophila.
-Pipeline sử dụng FlyGym/MuJoCo và brain-body runtime để chạy rollout vận động;
-không phải mô hình Parkinson sinh học hoàn chỉnh.
+[![Python](https://img.shields.io/badge/python-3.12-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Tests](https://img.shields.io/badge/tests-pytest-blue)](https://pytest.org/)
 
-## Tóm tắt claim-safe
+An evidence-constrained neural and locomotion perturbation extension for the
+canonical [`drosophila-pd-flygym`](https://github.com/TanVi3001/drosophila-pd-flygym)
+platform.
 
-This project builds a computational locomotion proxy for Drosophila
-Parkinson-like phenotypes using FlyGym/MuJoCo rollouts. A Chen-only ratio
-calibration selected a locked proxy burden level of 0.5, which was confirmed in
-independent reruns. A Pozo PINK1 holdout check showed directional concordance
-but substantial quantitative ratio mismatch. The current evidence supports
-organism-level computational phenotype concordance, not biological or
-gene-specific Parkinson validation.
+## Ownership boundary
 
-Nói ngắn gọn, burden `0.5` được chọn bằng Chen-only ratio calibration và được
-kiểm tra lại bằng seed độc lập. Pozo chỉ được dùng làm holdout. Holdout cho
-thấy distance giảm theo đúng chiều khi burden tăng, nhưng ratio mô phỏng vẫn
-lệch lớn so với ratio Pozo.
+`drosophila-pd-flygym` is the source of truth for FlyGym/MuJoCo versions,
+simulation construction, controller/action contracts, locomotion metrics,
+artifacts, and platform documentation. This repository is additive: it owns
+neural-condition records, annotation/provenance checks, calibration readiness,
+edge-level checkpoint preparation, and a platform-compatible action-level
+proxy adapter.
 
-## Trạng thái hiện tại
+```text
+canonical platform
+  FlyGym/MuJoCo -> controller -> action hook -> simulation -> artifacts/metrics
+                                      ^
+                                      |
+neural extension ---------------- Perturbation protocol adapter
+  annotations -> condition -> provenance/checkpoint preparation
+```
 
-| Hạng mục | Trạng thái |
-| --- | --- |
-| Chen ratio calibration | `CHEN_RATIO_CALIBRATION_PASS` |
-| Chen calibrated confirmation | `CHEN_CALIBRATED_CONFIRMATION_PASS` |
-| Pozo holdout runtime | `POZO_HOLDOUT_RUNTIME_PASS` |
-| Pozo directionality | `PASS` |
-| Pozo quantitative ratio match | `NOT SUPPORTED` |
-| Claim lock | `ACTIVE` |
+The extension does not copy or patch platform source. The current platform no
+longer exposes the superseded brain-body runner. The
+supported platform interfaces are:
 
-## Kết quả chính
+- `src/drosophila_pd/perturbations/base.py` — `Perturbation` protocol;
+- `src/drosophila_pd/experiments/healthy_baseline.py` — canonical action hook;
+- `scripts/run_healthy_baseline.py` — healthy baseline entry point;
+- `scripts/run_brain_driven_experiment.py` — bridge-scale entry point.
 
-| Gate | Mục đích | Status | Kết quả chính | Diễn giải |
-| --- | --- | --- | --- | --- |
-| Gate 13B | Chen-only ratio calibration | `CHEN_RATIO_CALIBRATION_PASS` | Selected `proxy_burden_level = 0.5` | Candidate gần nhất trên discrete grid, không phải perfect fit |
-| Gate 13C | Calibrated confirmation rerun | `CHEN_CALIBRATED_CONFIRMATION_PASS` | Confirmation ratio = `0.6142` | Hành vi của burden đã khóa được tái hiện ở seed độc lập |
-| Gate 14B | Pozo holdout run | `POZO_HOLDOUT_RUNTIME_PASS` | `12/12` rollouts pass | Holdout pipeline chạy thành công |
-| Gate 14C | Holdout adjudication | `DIRECTIONAL_CONCORDANCE_WITH_QUANTITATIVE_MISMATCH` | Simulated ratio `0.9470` vs Pozo target `0.1920` | Chỉ directional concordance; quantitative mismatch vẫn lớn |
+Inspect this contract before running integration work:
 
-Trong Gate 14B, distance trung bình là `1.66679 mm` ở control burden `0.0` và
-`1.57846 mm` ở holdout burden `0.5`. Đây là kết quả của computational runtime
-ở thời lượng `0.5 s`, không phải phép quy đổi trực tiếp sang thời gian hay
-assay sinh học của paper.
+```powershell
+python scripts/check_platform_contract.py --json
+```
 
-## Phạm vi khoa học
+## Scientific scope
 
-Repository hiện chỉ hỗ trợ các phát biểu sau:
+The project provides computational locomotion proxies and provenance-aware
+research tooling. It does not establish biological Parkinson validation,
+gene-specific neural mechanisms, clinical prediction, diagnosis, drug
+efficacy, or equivalence between a proxy burden and dopamine or disease
+severity. Missing data and unsupported platform capabilities remain explicit
+waiting states; they are never filled with synthetic values.
 
-- organism-level computational locomotion proxy;
-- Chen-only ratio calibration với burden đã khóa `0.5`;
-- calibrated confirmation bằng các seed độc lập;
-- Pozo holdout có directional concordance;
-- quantitative ratio mismatch được báo cáo rõ ràng.
+The current literature/gate artifacts remain claim-locked. Read
+[`docs/claims/current_claim_lock.md`](docs/claims/current_claim_lock.md) and
+[`docs/architecture/scientific_boundaries.md`](docs/architecture/scientific_boundaries.md)
+before interpreting any result.
 
-Không được diễn giải kết quả là:
+## Locked historical results
 
-- biological Parkinson validation;
-- gene-specific alpha-synuclein hoặc PINK1 validation;
-- clinical validation hoặc diagnostic prediction;
-- đánh giá hiệu lực thuốc hoặc can thiệp điều trị;
-- quantitative Pozo validation;
-- bằng chứng đã xác nhận cơ chế Parkinson.
+The repository retains historical literature/gate records for provenance, but
+they are not silently promoted to current platform results. The recorded
+labels include `CHEN_RATIO_CALIBRATION_PASS`,
+`CHEN_CALIBRATED_CONFIRMATION_PASS`, and `POZO_HOLDOUT_RUNTIME_PASS`; the
+Pozo record reports `DIRECTIONAL_CONCORDANCE_WITH_QUANTITATIVE_MISMATCH`.
+Reference ratios `0.9470` and `0.1920` remain source-reported values, not
+claims of biological or clinical validation. Gate 12G is marked for
+re-execution on the current platform contract. The locked Gate 12 runtime
+protocol uses a `0.5 s` physical simulation duration.
 
-English boundary: `not biological Parkinson validation`, `not gene-specific
-validation`, `not clinical validation`, and `not drug validation`.
-
-Pozo là holdout độc lập, không được dùng để calibration hoặc tune lại
-`proxy_burden_level`.
-
-## Cài đặt
-
-Yêu cầu Python 3.12:
+## Installation
 
 ```powershell
 py -3.12 -m venv .venv
@@ -81,30 +76,24 @@ python -m pip install --upgrade pip
 python -m pip install -e ".[test]"
 ```
 
-## Kiểm tra artifact và tái lập
+The optional `brain` extra is for caller-supplied PyTorch/connectome tooling.
+The FlyGym and MuJoCo runtime remains owned and pinned by the platform
+repository; install its documented `.[simulation]` extra in the platform
+environment when a real simulation is authorized.
 
-Các lệnh dưới đây dùng để xác minh trạng thái và artifact đã có. Không mặc
-định chạy lại GPU rollout lớn; các rollout GPU đã có manifest/checksum.
+## Checks
 
 ```powershell
-py -3.12 scripts/adjudicate_pozo_holdout_claims.py
-py -3.12 scripts/prepare_pozo_holdout_protocol.py
-py -3.12 scripts/run_chen_ratio_calibration.py
-py -3.12 scripts/prepare_chen_only_calibration_objective.py
-py -3.12 scripts/audit_calibration_targets.py
-py -3.12 -m compileall -q src scripts tests
-py -3.12 -m pytest -q -rs -p no:cacheprovider
+python scripts/check_platform_contract.py
+python -m compileall -q src scripts tests
+python -m pytest -q -rs -p no:cacheprovider
 git diff --check
 ```
 
-Đọc claim lock tại [docs/claims/current_claim_lock.md](docs/claims/current_claim_lock.md)
-và báo cáo adjudication tại
-[docs/holdout/gate_14c_holdout_adjudication_report.md](docs/holdout/gate_14c_holdout_adjudication_report.md).
+## Supported workflows
 
-## Chuẩn bị condition
-
-Các YAML trong `configs/conditions/` là template. Sau khi có annotation và
-target đã được review, có thể kiểm tra edge-list:
+Prepare an edge-level neural artifact only after annotation and provenance are
+available:
 
 ```powershell
 python scripts/apply_neural_condition.py `
@@ -115,93 +104,61 @@ python scripts/apply_neural_condition.py `
   --output results/alpha_synuclein/day_020
 ```
 
-Edge CSV phải có đúng các cột `pre_id,post_id,weight`. Lệnh trên chỉ tạo
-perturbed edge artifact; nó không chạy FlyGym và không tạo rollout giả.
+This creates an edge artifact, not a rollout. A condition with missing review
+inputs must stop at `WAITING_TARGET_DATA`.
 
-Kiểm tra brain source ngoài repository:
-
-```powershell
-python scripts/check_neural_inputs.py `
-  --brain-root E:\Drosophila_Parkinson\phase-A-clean `
-  --output results/neural_input_status.json
-```
-
-`READY` ở bước này chưa thay thế kiểm tra license, annotation và calibration
-target.
-
-## Healthy baseline đa seed
-
-Protocol Healthy nằm tại `configs/healthy_baseline_reproducible.yaml`. Sau khi
-có năm rollout seed `0-4`, có thể tổng hợp bằng:
+Build a bridge artifact only when each spike output has a run manifest. The
+manifest must use `lif-run-manifest-1` and declare a positive integer
+`trial_count`; the bridge never infers the denominator from observed spike
+rows, because silent trials have no rows.
 
 ```powershell
-python scripts/analyze_healthy_baseline.py `
-  --runs-root results/healthy_baseline_reproducible/runs `
-  --output results/healthy_baseline_reproducible/summary
+python scripts/build_bridge_scales.py `
+  --reference-spikes path\reference.parquet `
+  --condition-spikes path\condition.parquet `
+  --reference-manifest path\reference.run.json `
+  --condition-manifest path\condition.run.json `
+  --model reviewed_readout `
+  --output results\bridge_scales.json
 ```
 
-Script kiểm tra timestamp, NaN/Inf, contact, chuyển động khớp,
-quaternion, manifest/SHA256 và rollout trùng; sau đó sinh bảng mean, SD, SE,
-bootstrap CI 95% và biểu đồ. Xem [Healthy baseline methods](docs/healthy_baseline_methods_and_evidence.md).
-
-## Brain-body rollout và MP4
-
-Nguồn brain public, checkpoint và checksum được ghi trong
-`data/SOURCE_PROVENANCE.md`. Khi đủ license/provenance:
+Run the action-level proxy through the platform's public perturbation contract:
 
 ```powershell
-python scripts/fetch_brain_source.py --output external/fly-brain
-python scripts/check_neural_inputs.py --brain-root external/fly-brain --output results/neural_input_status.json
+python scripts/run_platform_proxy_experiment.py `
+  --platform-root ..\drosophila-pd-flygym `
+  --burden 0.5 `
+  --seed 0 `
+  --output results/platform_proxy/seed_000
 ```
 
-Healthy rollout gọi FlyGym/MuJoCo runner của platform và có thể xuất MP4 thật:
+Run a platform bridge-scale experiment when a real `bridge_scales.json` is
+available:
 
 ```powershell
 python scripts/run_neural_experiment.py `
-  --brain-root external/fly-brain `
+  --scales-json ..\drosophila-pd-flygym\data\bridge_scales\pink1_bridge_scales.json `
   --platform-root ..\drosophila-pd-flygym `
-  --brain-python C:\path\to\brain-env\python.exe `
-  --seed 0 --steps 1000 --device cuda `
-  --output results/healthy/seed_000 --video
+  --output results/brain_driven/pink1
 ```
 
-Disease config chỉ được chạy khi có neuron/edge annotation, burden curve và
-target literature đã review. Nếu chưa có, runner phải trả trạng thái chờ và
-không tạo simulation giả.
-
-## Quy trình nghiên cứu
-
-1. Xác minh license và version của brain source.
-2. Điền neuron annotation và provenance.
-3. Nhập literature targets đã được review.
-4. Chốt healthy checkpoint.
-5. Chạy một computational proxy với cùng seed/body/terrain/timestep.
-6. Calibration trên target đã chọn.
-7. Holdout trên paper/target độc lập.
-8. Adjudicate claim trước khi viết báo cáo hoặc bản thảo.
-9. Đưa rollout thật sang platform `drosophila-pd-flygym` để phân tích.
+Passing a neural edge/checkpoint condition to `run_neural_experiment.py`
+prepares the checkpoint and returns `WAITING_PLATFORM_NEURAL_RUNTIME` because
+the current canonical platform has no runner that consumes that checkpoint.
+This is an intentional capability gate, not a reason to fabricate a rollout.
 
 ## Repository map
 
-- `docs/claims/`: claim lock và hướng dẫn wording.
-- `docs/calibration/`: objective, calibration và confirmation reports.
-- `docs/holdout/`: Pozo protocol, runtime và adjudication reports.
-- `experiments/gate_13b_chen_ratio_calibration/`: Chen calibration artifacts.
-- `experiments/gate_13c_calibrated_confirmation/`: confirmation artifacts.
-- `experiments/gate_14b_pozo_holdout_validation/`: holdout runtime artifacts.
-- `experiments/gate_14c_holdout_adjudication/`: adjudication summary/claim table.
-- `scripts/`: kiểm tra, chuẩn bị và chạy workflow hiện có.
-- `tests/`: regression tests.
+- `src/drosophila_pd_neural/` — models, annotation, edge perturbation,
+  provenance, platform contract, and platform adapter;
+- `annotations/`, `data/`, `datasets/` — small provenance-aware inputs and
+  review records; large external artifacts stay ignored;
+- `configs/` — condition and operator configuration templates;
+- `experiments/` — frozen gate protocols, manifests, and review boundaries;
+- `scripts/` — thin operational entry points;
+- `tests/` — regression and contract tests;
+- `docs/` — canonical architecture, scientific boundaries, reproducibility,
+  gate reports, and legacy-to-platform alignment notes.
 
-## Tài liệu nền tảng
-
-- [Kiến trúc](docs/01_kien_truc.md)
-- [Mô hình neural](docs/02_mo_hinh_neural.md)
-- [Disease profiles](docs/03_disease_profiles.md)
-- [Calibration](docs/04_calibration.md)
-- [GPU](docs/05_gpu.md)
-- [Tích hợp nguồn dataset](docs/12_tich_hop_nguon_dataset.md)
-- [Dataset candidate và provenance](datasets/README.md)
-- [Phenotype literature chờ review](datasets/literature_phenotypes/README.md)
-- [Tái lập](docs/06_tai_lap.md)
-- [Ranh giới khoa học](docs/07_ranh_gio_khoa_hoc.md)
+Start at the [`documentation hub`](docs/README.md), then read the
+[`platform contract`](docs/architecture/platform_contract.md).

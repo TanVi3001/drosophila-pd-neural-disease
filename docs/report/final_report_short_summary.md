@@ -1,5 +1,9 @@
 # Tóm tắt báo cáo
 
+> Các số liệu dưới đây là historical evidence. Platform hiện tại ở commit
+> `c4505e7` là source of truth và cần re-execution trước khi dùng làm runtime
+> result hiện hành.
+
 Dự án xây dựng một computational locomotion proxy ở mức organism-level để mô phỏng và đánh giá các thay đổi vận động Parkinson-like trên Drosophila. Pipeline dùng FlyGym/MuJoCo, có target audit, proxy operator, calibration, confirmation rerun, holdout adjudication và manifest/checksum để truy vết artifact. Dự án không thực hiện wet-lab và không xem mô phỏng là thay thế cho thí nghiệm trên ruồi thật.
 
 Chen 2014 được dùng làm nguồn calibration duy nhất. Disease walking speed là 4.875 mm/s, control speed là 7.275 mm/s, tạo target ratio 0.6701030927835051 với uncertainty 0.525 CI95 và n = 20 fly. Lựa chọn trên lưới rời rạc khóa `proxy_burden_level = 0.5`; Gate 13B ghi nhận simulated ratio 0.585621186102. Gate 13C rerun độc lập cho confirmation ratio 0.6142225784, ratio error 0.0558805144 và 12/12 rollout PASS.

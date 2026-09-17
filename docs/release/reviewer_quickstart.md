@@ -22,5 +22,11 @@ py -3.12 -m pytest -q -rs -p no:cacheprovider
 
 ## Important note
 
-GPU rollouts are already recorded in artifact files with checksum. Reviewers do
-not need to rerun GPU by default.
+The retained GPU rollouts are historical evidence with checksums. They are not
+current-platform reruns by default. Reviewers should first verify the current
+platform contract, then treat Gate 12G and downstream calibration/holdout
+records as requiring re-execution on that contract.
+
+```powershell
+py -3.12 scripts/check_platform_contract.py --json
+```

@@ -234,7 +234,7 @@ Tổng dung lượng: **~3.80 MB**
 
 ## 8. NHÓM 7: CẤU TRÚC ĐĂNG KÝ DATASET CHUẨN TRONG REPO (DATASET ADAPTER)
 
-Hệ thống cung cấp module phần mềm [`src/drosophila_pd/dataset_adapter/`](file:///D:/research/drosophila-pd-flygym/src/drosophila_pd/dataset_adapter/) và [`src/drosophila_pd/dataset_registry/`](file:///D:/research/drosophila-pd-flygym/src/drosophila_pd/dataset_registry/) để tự động phát hiện, kiểm tra tính toàn vẹn (checksum MD5/SHA256) và nạp các tập dataset vào pipeline nghiên cứu:
+Hệ thống cung cấp module phần mềm [`src/drosophila_pd/dataset_adapter/`](../../../drosophila-pd-flygym/src/drosophila_pd/dataset_adapter/) và [`src/drosophila_pd/dataset_registry/`](../../../drosophila-pd-flygym/src/drosophila_pd/dataset_registry/) để tự động phát hiện, kiểm tra tính toàn vẹn (checksum MD5/SHA256) và nạp các tập dataset vào pipeline nghiên cứu:
 
 - `datasets/healthy/README.md`: Thư mục tiếp nhận các rollout của ruồi khỏe mạnh Wild-type.
 - `datasets/pd_mild/README.md`: Tiếp nhận các rollout của giai đoạn bệnh nhẹ (Day 1–5).

@@ -1,16 +1,22 @@
-# Final Project Claim
+# Final project claim
 
-## Allowed final claim
+## Current claim
 
-Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch.
+This repository provides an organism-level computational locomotion proxy and a
+platform-compatible action perturbation. The current platform contract is
+source-level ready, while neural edge-checkpoint execution remains waiting for
+a platform-owned neural runtime.
 
-## Expanded version
+## Historical evidence wording
 
-This project implements a computational locomotion proxy for Drosophila
-Parkinson-like phenotypes. The proxy perturbation was calibrated using a Chen
-2014 disease/control walking-speed ratio and confirmed in independent
-FlyGym/MuJoCo reruns. A Pozo 2022 PINK1 holdout check showed directional
-concordance, but the simulated disease/control distance ratio remained far from
-the Pozo target ratio. Therefore, the current evidence supports directional
-computational phenotype concordance only, not biological, gene-specific,
-clinical, drug, or therapeutic validation.
+The historical records describe a Chen-calibrated organism-level computational
+locomotion proxy with directional Pozo holdout concordance and substantial
+quantitative ratio mismatch. This wording is limited to the recorded evidence
+and must not be presented as a current-platform rerun until Gate 12G and its
+downstream records are re-executed under the current contract.
+
+## Forbidden interpretation
+
+The project does not claim biological Parkinson validation, gene-specific
+mechanism validation, clinical prediction, diagnosis, medication-response
+claims, or replacement for wet-lab experiments.

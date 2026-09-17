@@ -2,15 +2,16 @@
 
 ## English
 
-This project implements a Chen-calibrated organism-level computational
-locomotion proxy for Drosophila Parkinson-like phenotypes. The proxy
-perturbation was calibrated using a Chen 2014 disease/control walking-speed
-ratio and confirmed in independent FlyGym/MuJoCo reruns. A Pozo 2022 PINK1
-holdout check showed directional concordance, with reduced locomotor distance
-under the locked perturbation, but the simulated disease/control ratio remained
-far from the Pozo target ratio. The current evidence supports directional
-computational phenotype concordance, not biological, not gene-specific,
-clinical, or therapeutic validation.
+Historical evidence records describe a Chen-calibrated organism-level
+computational locomotion proxy for Drosophila Parkinson-like phenotypes. The
+recorded proxy perturbation used a Chen 2014 disease/control walking-speed
+ratio and historical FlyGym/MuJoCo reruns. A Pozo 2022 PINK1 holdout record
+showed directional concordance, with reduced locomotor distance under the
+locked perturbation, but the simulated disease/control ratio remained far from
+the Pozo target ratio. The current repository status requires re-execution on
+the canonical platform contract before those runtime labels are treated as
+current results. The evidence supports computational phenotype concordance
+only, not biological, gene-specific, clinical, or therapeutic validation.
 
 ## Tiếng Việt
 

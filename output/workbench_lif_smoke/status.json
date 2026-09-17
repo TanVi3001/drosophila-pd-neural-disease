@@ -1,0 +1,8 @@
+{
+  "manifest": "D:\\research\\New folder\\drosophila-pd-neural\\output\\workbench_lif_smoke\\run_manifest.json",
+  "metrics": "D:\\research\\New folder\\drosophila-pd-neural\\output\\workbench_lif_smoke\\metrics.json",
+  "run_id": "b3ad8975-14ed-4aef-9715-0929cfd847f6",
+  "scientific_scope": "New computational Brian2 LIF run using the pinned upstream model and FlyWire 630 inputs; not biological validation, disease validation, or a firing-to-behavior calibration.",
+  "spike_output": "D:\\research\\New folder\\drosophila-pd-neural\\output\\workbench_lif_smoke\\lif_smoke_new.parquet",
+  "status": "PASS"
+}

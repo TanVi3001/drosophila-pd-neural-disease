@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "Drosophila PD Neural Disease"
+message: "If you use this software, please cite the repository and the canonical FlyGym platform."
+type: software
+authors:
+  - family-names: Le
+    given-names: "Tuan"
+    name-suffix: ""
+repository-code: "https://github.com/TanVi3001/drosophila-pd-neural-disease"
+url: "https://github.com/TanVi3001/drosophila-pd-neural-disease"
+license: MIT
+version: 1.0.0
+date-released: 2026-09-06

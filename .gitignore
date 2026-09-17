@@ -27,6 +27,8 @@ cache/
 tmp/
 temporary/
 paper_outputs/
+.pytest-tmp*
+*.log
 
 # Du lieu lon va checkpoint can quan ly bang artifact storage hoac Git LFS.
 data/raw/

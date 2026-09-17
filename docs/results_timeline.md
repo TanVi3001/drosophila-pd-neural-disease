@@ -1,17 +1,15 @@
-# Results Timeline
+# Results timeline
 
-| Gate | Commit/Status | Mục đích | Kết quả chính | Hệ quả đối với claim |
-| --- | --- | --- | --- | --- |
-| Gate 12G | Integrated proxy rollout; `60/60 PASS` | Chạy proxy burden ở scope organism-level | Rollout computational đạt QC | Tạo nền tảng cho calibration, chưa là biological validation |
-| Gate 13A | `READY_FOR_GATE_13B_CHEN_RATIO_CALIBRATION` | Chuẩn bị Chen-only objective | Objective ratio khả thi | Chưa chạy calibration |
-| Gate 13B | `CHEN_RATIO_CALIBRATION_PASS` | Chọn burden theo Chen ratio | Chọn burden `0.5` | Candidate gần nhất trên discrete grid, không phải perfect fit |
-| Gate 13C | `CHEN_CALIBRATED_CONFIRMATION_PASS` | Rerun bằng seed độc lập | Confirmation ratio `0.6142` | Xác nhận computational của parameter đã khóa |
-| Gate 14A | `POZO_HOLDOUT_PROTOCOL_LOCKED` | Khóa protocol holdout | Pozo giữ vai trò holdout độc lập | Không dùng Pozo để calibration |
-| Gate 14B | `POZO_HOLDOUT_RUNTIME_PASS` | Chạy Pozo holdout | `12/12 PASS`; directionality PASS; quantitative mismatch | Chỉ báo cáo directional concordance |
-| Gate 14C | `HOLDOUT_ADJUDICATION_COMPLETE` | Adjudicate diễn giải và khóa claim | Simulated ratio `0.9470` vs target `0.1920` | Claim lock: quantitative mismatch vẫn lớn |
+| Gate | Current interpretation | Scientific boundary |
+| --- | --- | --- |
+| Gate 12G | Historical 60-row proxy artifact; `REQUIRES_REEXECUTION_ON_CURRENT_PLATFORM` | Organism-level computational proxy only |
+| Gate 13A | Historical calibration-readiness protocol | No new calibration is authorized by this alignment |
+| Gate 13B | Historical `CHEN_RATIO_CALIBRATION_PASS`; burden `0.5` | Candidate selection, not biological validation |
+| Gate 13C | Historical `CHEN_CALIBRATED_CONFIRMATION_PASS`; ratio `0.6142` | Must be rechecked after current-platform rerun |
+| Gate 14A | Holdout protocol record | Pozo remains evaluation-only, not calibration input |
+| Gate 14B | Historical `POZO_HOLDOUT_RUNTIME_PASS`; directional result with quantitative mismatch | Not gene-specific or biological validation |
+| Gate 14C | Claim-adjudication record | `0.9470` versus `0.1920` remains a mismatch, not validation |
 
-## Tổng kết
-
-Timeline cho thấy pipeline đã đi qua calibration computational, confirmation,
-holdout runtime và adjudication. Nó chưa chuyển thành biological Parkinson
-validation, gene-specific validation, clinical validation hoặc drug validation.
+The historical records remain useful for provenance, but the current platform
+contract takes precedence. No old runtime status is silently promoted to a
+current simulation result.

@@ -1,12 +1,16 @@
 # Gate 13A - Chen-only Calibration Objective & Feasibility
 
+> Historical downstream record. Gate 12G is now marked
+> `REQUIRES_REEXECUTION_ON_CURRENT_PLATFORM`; this document does not authorize
+> a current-platform calibration run.
+
 ## Mục tiêu
 
 Gate 13A chuẩn bị objective cho calibration bằng Chen 2014 only. Gate này không tối ưu tham số, không chạy calibration và không chạy holdout validation.
 
 ## Trạng thái input
 
-- Gate 12G integrated proxy rollouts: `INTEGRATED_PROXY_ROLLOUTS_PASS`.
+- Gate 12G integrated proxy rollouts: historical `INTEGRATED_PROXY_ROLLOUTS_PASS`.
 - Healthy baseline manifest: `PASS`.
 - Audit target: `READY_FOR_CALIBRATION` (đã kiểm tra trước khi tạo gate).
 - Condition được dùng: `alpha_synuclein`, phạm vi `organism_level_proxy`.

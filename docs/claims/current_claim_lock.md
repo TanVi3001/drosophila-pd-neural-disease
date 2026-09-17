@@ -7,10 +7,13 @@ phải tuân theo cách diễn giải này.
 
 ## Allowed project claim
 
-This project implements a Chen-calibrated organism-level computational
-locomotion proxy for Drosophila Parkinson-like locomotor phenotypes. The locked
-proxy perturbation produced directional concordance in a Pozo PINK1 holdout
-check, but did not quantitatively match the Pozo disease/control distance ratio.
+Historical evidence records describe a Chen-calibrated organism-level
+computational locomotion proxy for Drosophila Parkinson-like locomotor
+phenotypes. The recorded proxy perturbation produced directional concordance
+in a Pozo PINK1 holdout check, but did not quantitatively match the Pozo
+disease/control distance ratio. The current platform-aligned repository
+requires re-execution before those historical runtime labels are treated as
+current results.
 
 ## Cách viết tiếng Việt được phép
 

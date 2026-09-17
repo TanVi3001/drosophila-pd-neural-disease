@@ -1,12 +1,15 @@
 # Gate 13B - Chen-only Ratio Calibration
 
+> Historical calibration record derived from the superseded Gate 12G runtime;
+> it requires current-platform re-execution before reuse.
+
 ## Mục tiêu
 
 Gate 13B khóa một lựa chọn calibration rời rạc bằng target Chen 2014, sử dụng tỷ lệ tốc độ đi bộ disease/control.
 
 ## Trạng thái input
 
-- Gate 12G integrated proxy rollouts: đã có summary alpha-synuclein với 6 seed cho mỗi mức burden.
+- Gate 12G integrated proxy rollouts: historical summary, not a current-platform rerun.
 - Gate 13A objective: Chen-only ratio objective đã sẵn sàng.
 - Audit: `READY_FOR_CALIBRATION`.
 - Không dùng Pozo và không dùng PINK1 cho calibration.

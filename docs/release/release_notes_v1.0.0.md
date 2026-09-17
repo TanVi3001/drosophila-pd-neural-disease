@@ -1,30 +1,32 @@
-# Release Notes - v1.0.0
+# Release notes — v1.0.0 evidence bundle
 
 ## Release status
 
-REVIEWER_READY / SUBMISSION_READY
+`HISTORICAL_EVIDENCE_REQUIRES_CURRENT_PLATFORM_RECHECK`
 
-## Main evidence
+## Recorded evidence
 
-- Chen-only ratio calibration selected `proxy_burden_level = 0.5`.
-- Gate 13C confirmed the locked parameter in independent FlyGym/MuJoCo reruns.
-- Gate 14B Pozo holdout runtime passed with 12/12 rollouts.
-- Pozo directionality passed.
-- Quantitative ratio mismatch remains substantial.
+- Chen-only ratio calibration recorded `proxy_burden_level = 0.5`.
+- Gate 13C recorded `CHEN_CALIBRATED_CONFIRMATION_PASS`.
+- Gate 14B recorded `POZO_HOLDOUT_RUNTIME_PASS` with 12/12 historical
+  rollouts and directional concordance.
+- The recorded Pozo ratio mismatch remains substantial.
 
-## Key numbers
+These are historical evidence labels. Gate 12G used a superseded integration
+path, so any new scientific or runtime conclusion must be generated only from
+a current run through the platform `Perturbation` protocol.
+
+## Key numbers retained for provenance
 
 - Chen target ratio: `0.6701030927835051`
-- Gate 13C confirmation ratio: `0.6142225784`
-- Pozo simulated ratio: `0.9470`
+- Gate 13C historical confirmation ratio: `0.6142225784`
+- Historical Pozo simulated ratio: `0.9470`
 - Pozo target ratio: `0.1920`
 
 ## Claim lock
 
-Allowed final claim:
-
-Chen-calibrated organism-level computational locomotion proxy with directional Pozo holdout concordance and substantial quantitative ratio mismatch.
-
-## Boundary
-
-This release does not claim biological Parkinson validation, gene-specific validation, clinical validation, drug validation, therapeutic validation, or quantitative Pozo validation.
+Allowed wording describes a computational locomotion proxy and, for the
+historical artifact, directional concordance with substantial quantitative
+mismatch. No biological Parkinson validation, gene-specific validation,
+clinical validation, drug validation, therapeutic validation, or quantitative
+Pozo validation is claimed.

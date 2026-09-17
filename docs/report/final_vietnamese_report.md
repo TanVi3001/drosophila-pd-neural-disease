@@ -1,5 +1,10 @@
 # Báo cáo tổng kết dự án
 
+> Lưu ý provenance: các kết quả runtime, calibration và holdout trong báo cáo
+> này là artifact lịch sử. Platform hiện tại (`drosophila-pd-flygym`, commit
+> `c4505e7`) là source of truth; Gate 12G và các gate downstream phải được
+> re-execute trên contract hiện tại trước khi gọi là kết quả hiện hành.
+
 ## 1. Tên đề tài
 
 **Mô phỏng và đánh giá computational locomotion proxy cho kiểu hình vận động Parkinson-like trên Drosophila**

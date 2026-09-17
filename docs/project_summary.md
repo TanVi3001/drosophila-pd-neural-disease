@@ -1,40 +1,36 @@
-# Project Summary
+# Project summary
 
-## Mục tiêu
+## Objective
 
-Xây dựng một computational locomotion proxy ở mức organism-level cho các kiểu
-hình vận động Parkinson-like trên Drosophila bằng pipeline FlyGym/MuJoCo.
-Đây là mô hình tính toán để đánh giá vận động, không phải mô hình Parkinson
-sinh học hoàn chỉnh.
+This repository is an evidence-constrained extension around the canonical
+`drosophila-pd-flygym` platform. It owns condition metadata, annotation and
+provenance checks, edge-level checkpoint preparation, and a platform-compatible
+action-level proxy. The platform owns FlyGym/MuJoCo, controller construction,
+action application, simulation stepping, locomotion metrics, and runtime
+artifacts.
 
 ## Pipeline
 
-1. Literature target audit.
-2. Healthy baseline.
-3. Disease proxy configuration.
-4. Integrated proxy rollout.
-5. Chen-only ratio calibration.
-6. Calibrated confirmation rerun.
-7. Pozo holdout evaluation.
-8. Holdout adjudication và claim lock.
+1. Review literature and provenance.
+2. Prepare a healthy computational baseline in the canonical platform.
+3. Prepare neural edge artifacts when reviewed inputs exist.
+4. Apply an organism-level proxy through the platform `Perturbation` protocol.
+5. Keep calibration and holdout workflows claim-locked and provenance-aware.
 
-## Kết quả chính
+## Current state
 
-- Chen calibration chọn `proxy_burden_level = 0.5` trên discrete grid.
-- Gate 13C confirmation ratio là `0.6142`.
-- Pozo holdout runtime đạt `12/12` rollout PASS.
-- Pozo directionality PASS: distance giảm ở burden `0.5` so với burden `0.0`.
-- Pozo quantitative ratio mismatch: simulated `0.9470` so với target `0.1920`.
+- Platform source contract: `READY` at the local checkout's observed commit.
+- Action-level proxy adapter: tested and protocol-compatible.
+- Neural edge-checkpoint execution in the platform: `WAITING_PLATFORM_NEURAL_RUNTIME`.
+- Historical Gate 12G/13C/14B outputs: retained, but downstream of a superseded
+  integration path and therefore requiring current-platform re-execution.
+- Literature data: candidate/review status only; no approved calibration target
+  is promoted automatically.
 
-## Kết luận hiện tại
+## Interpretation boundary
 
-Dự án đạt mức computational organism-level proxy với directional phenotype
-concordance. Kết quả chưa đạt biological validation hoặc gene-specific
-validation. Pozo được giữ độc lập làm holdout và không được dùng để chọn lại
-hoặc tune parameter.
-
-## Ranh giới diễn giải
-
-Kết quả hiện tại không phải clinical validation, drug validation, therapeutic
-validation hay bằng chứng xác nhận cơ chế Parkinson. Mọi diễn giải phải tuân
-theo [current claim lock](claims/current_claim_lock.md).
+The project provides computational locomotion tooling and proxy experiments. It
+does not establish a biological Parkinson mechanism, gene-specific neural
+validation, clinical prediction, diagnosis, medication-response claims, or
+replacement for wet-lab experiments. See the [current claim lock](claims/current_claim_lock.md)
+and [scientific boundaries](architecture/scientific_boundaries.md).
