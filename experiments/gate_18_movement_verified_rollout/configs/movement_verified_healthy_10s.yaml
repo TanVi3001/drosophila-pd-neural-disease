@@ -1,5 +1,8 @@
 schema_version: gate-18-movement-verified-rollout-v1
 experiment_id: gate_18_movement_verified_healthy_10s
+historical_artifacts: true
+current_platform_commit: c4505e7
+requires_current_platform_reexecution: true
 condition: healthy
 seed: 0
 

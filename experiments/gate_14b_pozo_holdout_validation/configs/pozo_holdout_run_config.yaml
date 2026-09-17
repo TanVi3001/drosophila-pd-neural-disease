@@ -12,10 +12,9 @@ source:
 
 external_runtime:
   path: ../drosophila-pd-flygym
-  brain_root: external/fly-brain
-  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
-  runner_file: scripts/run_brain_body_rollout.py
-  patch_required: true
+  platform_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  proxy_launcher: scripts/run_platform_proxy_experiment.py
+  source_patch_required: false
   require_cuda: true
 
 holdout_scope:

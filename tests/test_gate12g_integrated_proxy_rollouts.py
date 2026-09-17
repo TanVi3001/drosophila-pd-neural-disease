@@ -26,7 +26,7 @@ def _sha256(path: Path) -> str:
 
 def test_gate12g_config_declares_the_real_60_run_matrix() -> None:
     document = yaml.safe_load(CONFIG.read_text(encoding="utf-8"))
-    assert document["schema_version"] == "gate-12g-integrated-proxy-rollout-config-v1"
+    assert document["schema_version"] == "gate-12g-integrated-proxy-rollout-config-v2"
     assert document["runtime"]["step_count"] == 5000
     assert document["runtime"]["timestep_s"] == 0.0001
     assert document["seeds"]["values"] == [0, 1, 2, 3, 4, 5]
@@ -93,6 +93,9 @@ def test_gate12g_manifest_has_provenance_and_forbids_downstream_fitting() -> Non
     assert manifest["no_gene_specific_mapping"] is True
     assert manifest["no_biological_validation_claim"] is True
     assert manifest["large_artifacts_committed"] is False
+    assert manifest["platform_source_patch_required"] is False
+    assert manifest["historical_artifacts"] is True
+    assert manifest["status"] == "REQUIRES_REEXECUTION_ON_CURRENT_PLATFORM"
     assert manifest["metrics_csv_sha256"] == _sha256(METRICS)
     assert manifest["metrics_json_sha256"] == _sha256(METRICS_JSON)
     assert manifest["summary_csv_sha256"] == _sha256(SUMMARY)
@@ -101,6 +104,7 @@ def test_gate12g_manifest_has_provenance_and_forbids_downstream_fitting() -> Non
     assert payload["simulation_data_fabricated"] is False
     assert payload["no_calibration_run"] is True
     assert payload["no_holdout_validation_run"] is True
+    assert payload["reexecution_required"] is True
     report = REPORT.read_text(encoding="utf-8")
     assert "organism-level computational proxy" in report
     assert "không phải biological parkinson validation" in report.lower()

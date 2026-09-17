@@ -1,4 +1,4 @@
-schema_version: gate-12g-integrated-proxy-rollout-config-v1
+schema_version: gate-12g-integrated-proxy-rollout-config-v2
 status: RUN_INTEGRATED_PROXY_ROLLOUTS
 
 source:
@@ -10,10 +10,9 @@ source:
 
 external_runtime:
   path: ../drosophila-pd-flygym
-  brain_root: ../external/fly-brain-audit
-  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
-  runner_file: scripts/run_brain_body_rollout.py
-  patch_required: true
+  platform_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  proxy_launcher: scripts/run_platform_proxy_experiment.py
+  source_patch_required: false
 
 runtime:
   step_count: 5000

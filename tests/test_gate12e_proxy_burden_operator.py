@@ -103,7 +103,7 @@ def test_gate12d_runner_preserves_blocked_status_without_action_hook() -> None:
     source = (ROOT / "scripts/run_disease_conditions_multiseed.py").read_text(encoding="utf-8")
     manifest = json_load(ROOT / "experiments/gate_12d_proxy_rollouts/manifests/proxy_disease_rollout_manifest.json")
 
-    assert "proxy_burden_to_action_operator_not_connected_to_current_brain_body_runner" in source
+    assert "proxy_burden_to_action_operator_not_connected_to_platform_protocol" in source
     assert '"operator_applied": False' in source
     assert manifest["status"].endswith("ROLLOUTS_BLOCKED")
 

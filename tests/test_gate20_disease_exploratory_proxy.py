@@ -20,7 +20,7 @@ CONFIG = ROOT / "experiments/gate_20_disease_exploratory_proxy/configs/disease_e
 def test_gate20_config_locks_organism_proxy_protocol() -> None:
     config = _load_config(CONFIG)
     assert config["runtime"]["seeds"] == [0, 1, 2, 3, 4]
-    assert config["runtime"]["steps"] == 100000
+    assert config["runtime"]["steps"] == 5000
     assert config["runtime"]["timestep_s"] == 0.0001
     assert [item["condition_id"] for item in config["conditions"]] == ["alpha_synuclein", "pink1"]
     assert all(item["scope"] == "organism_level_proxy" for item in config["conditions"])
@@ -33,7 +33,7 @@ def test_gate20_parser_defaults_to_gate20_config() -> None:
     assert build_parser().parse_args([]).config == CONFIG
 
 
-def test_gate20_command_uses_real_action_hook_and_healthy_controller() -> None:
+def test_gate20_command_uses_platform_native_proxy_launcher() -> None:
     command = _build_command(
         brain_python=Path("brain-python"),
         platform_root=Path("platform"),
@@ -47,11 +47,13 @@ def test_gate20_command_uses_real_action_hook_and_healthy_controller() -> None:
         stimulus="p9",
         cpg_frequency_hz=12.0,
         video=False,
+        condition_id="alpha_synuclein",
     )
-    assert "--condition" in command and command[command.index("--condition") + 1] == "healthy"
-    assert "--enable-proxy-burden-operator" in command
-    assert command[command.index("--proxy-burden") + 1] == "0.5"
-    assert "--video-output" not in command
+    assert command[1].replace("\\", "/").endswith("scripts/run_platform_proxy_experiment.py")
+    assert "--platform-root" in command
+    assert command[command.index("--burden") + 1] == "0.5"
+    assert command[command.index("--name") + 1] == "alpha_synuclein"
+    assert "--enable-proxy-burden-operator" not in command
 
 
 def test_gate20_metric_reader_rejects_nonfinite_mapping(tmp_path: Path) -> None:

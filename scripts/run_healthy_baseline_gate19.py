@@ -1,7 +1,7 @@
 """Run and audit the Gate 19 healthy multi-seed baseline.
 
 This is an execution wrapper, not a new simulation framework. It delegates
-the actual brain-body rollout to the existing FlyGym runner and reuses the
+the rollout to the canonical platform healthy-baseline runner and reuses the
 Gate 11 artifact checks. Large raw artifacts stay outside Git; only compact
 metrics, manifests, logs and the representative video are retained in the
 local output area.
@@ -85,11 +85,11 @@ def _load_config(path: Path) -> dict[str, Any]:
 
 
 def _runner_supports_tracking(platform_root: Path) -> bool:
-    runner = platform_root / "scripts/run_brain_body_rollout.py"
+    runner = platform_root / "scripts/run_brain_driven_with_video.py"
     if not runner.is_file():
         return False
     source = runner.read_text(encoding="utf-8")
-    return "--video-camera-mode" in source and "mjCAMERA_TRACKING" in source
+    return "add_tracking_camera" in source and "save_video" in source
 
 
 def _mapping_mean(value: Any) -> float | None:
@@ -157,24 +157,10 @@ def _run_seed(
     output = raw_root / f"healthy_seed_{seed:03d}"
     output.mkdir(parents=True, exist_ok=True)
     command = [
-        str(brain_python),
-        str(platform_root / "scripts/run_brain_body_rollout.py"),
-        "--brain-root",
-        str(brain_root),
-        "--condition",
-        "healthy",
-        "--seed",
-        str(seed),
-        "--steps",
-        str(int(execution["steps"])),
-        "--device",
-        str(execution.get("device", "cuda")),
+        str(brain_python if brain_python.is_file() else sys.executable),
+        str(platform_root / "scripts/run_healthy_baseline.py"),
         "--output",
-        str(output),
-        "--stimulus",
-        str(execution.get("stimulus", "p9")),
-        "--cpg-frequency-hz",
-        str(execution.get("cpg_frequency_hz", 12.0)),
+        str(output / "platform_report.json"),
     ]
     requested_video = bool(video_config.get("enabled") and seed == int(video_config.get("representative_seed", 0)))
     video_path = output / "flygym_rollout.mp4"
@@ -432,7 +418,9 @@ def run(
     paths = config["paths"]
     brain_root = _resolve(brain_root or paths["brain_root"])
     platform_root = _resolve(platform_root or paths["platform_root"])
-    brain_python = _resolve(brain_python or paths["brain_python"])
+    brain_python = _resolve(
+        brain_python or paths.get("platform_python", paths.get("brain_python", ""))
+    )
     summary_root = _resolve(output_root or paths["summary_output_root"])
     raw_root = _resolve(paths["raw_output_root"])
     summary_root.mkdir(parents=True, exist_ok=True)

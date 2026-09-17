@@ -29,12 +29,12 @@ if str(ROOT) not in sys.path:
 
 from scripts.run_disease_conditions_multiseed import (
     INTEGRATED_PROXY_CSV_FIELDS,
-    _external_patch_verified,
+    _platform_protocol_verified,
     _integrated_proxy_blank_row,
     _read_finite_metrics,
     _resolve,
     _run_integrated_proxy_seed,
-    _runtime_probe,
+    _platform_runtime_probe,
     _sample_mean_std,
     _sha256,
 )
@@ -254,7 +254,7 @@ def _verify_protocol(
         blockers.append("operator_type_mismatch")
     if operator.get("scope", {}).get("gene_specific_mapping") is not False:
         blockers.append("operator_gene_specific_claim_not_disabled")
-    if hook.get("status") != "CONNECTED_TO_EXTERNAL_RUNTIME":
+    if hook.get("status") != "CONNECTED_TO_PLATFORM_PERTURBATION_PROTOCOL":
         blockers.append("action_hook_integration_not_connected")
     if hook.get("operator_applies_to") != "joint_angles":
         blockers.append("operator_must_apply_to_joint_angles")
@@ -289,20 +289,18 @@ def _verify_protocol(
         if forbidden.get(forbidden_key) is not True:
             blockers.append(f"forbidden_policy_missing:{forbidden_key}")
 
-    runner_value = str(_nested_mapping(plan, "external_runtime").get("runner_file", "scripts/run_brain_body_rollout.py"))
-    runner = (platform_root / runner_value).resolve()
+    runner = (ROOT / "scripts/run_platform_proxy_experiment.py").resolve()
     if not runner.is_file():
-        blockers.append(f"external_runner_missing:{runner}")
-    elif not _external_patch_verified(runner):
-        blockers.append("external_action_hook_patch_not_verified")
-    compile_status = _compile_external_runner(runner, brain_python)
+        blockers.append(f"platform_proxy_launcher_missing:{runner}")
+    elif not _platform_protocol_verified(runner):
+        blockers.append("platform_perturbation_protocol_not_verified")
+    compile_status = _compile_platform_launcher(runner, brain_python)
     if compile_status != "PASS":
-        blockers.append(f"external_runner_compile={compile_status}")
+        blockers.append(f"platform_proxy_launcher_compile={compile_status}")
 
-    runtime_ok, runtime_reasons, cuda_available = _runtime_probe(
-        brain_root=brain_root,
+    runtime_ok, runtime_reasons, cuda_available = _platform_runtime_probe(
         platform_root=platform_root,
-        brain_python=brain_python,
+        platform_python=brain_python,
         device="cuda",
     )
     if not runtime_ok:
@@ -318,7 +316,7 @@ def _verify_protocol(
     }
 
 
-def _compile_external_runner(runner: Path, brain_python: Path) -> str:
+def _compile_platform_launcher(runner: Path, brain_python: Path) -> str:
     if not runner.is_file() or not brain_python.is_file():
         return "NOT_AVAILABLE"
     import subprocess
@@ -516,8 +514,8 @@ def run_validation(
     if root != ROOT:
         root = ROOT
     selected_platform = platform_root.resolve() if platform_root else _resolve(str(external.get("path", "../drosophila-pd-flygym")))
-    selected_brain = brain_root.resolve() if brain_root else _resolve(str(external.get("brain_root", "external/fly-brain")))
-    selected_python = brain_python.resolve() if brain_python else _resolve(str(external.get("brain_python", "")))
+    selected_brain = brain_root.resolve() if brain_root else selected_platform
+    selected_python = brain_python.resolve() if brain_python else _resolve(str(external.get("platform_python", external.get("brain_python", ""))))
     steps = int(runtime.get("step_count", 5000))
     timestep_s = float(runtime.get("timestep_s", 0.0001))
     output_root = output_root.resolve()
@@ -684,8 +682,8 @@ def run_validation(
         "python_version": platform.python_version(),
         "cuda_available": runtime_context.get("cuda_available", False),
         "external_runtime_path": _relative(selected_platform),
-        "external_runtime_runner_sha256": _sha256(runtime_context["runner"]) if runtime_context["runner"].is_file() else "",
-        "external_patch_verified": _external_patch_verified(runtime_context["runner"]),
+        "platform_proxy_launcher_sha256": _sha256(runtime_context["runner"]) if runtime_context["runner"].is_file() else "",
+        "platform_perturbation_protocol_verified": _platform_protocol_verified(runtime_context["runner"]),
         "source_files": [record["path"] for record in source_records],
         "source_file_records": source_records,
         "config_sha256": _sha256(config_path),

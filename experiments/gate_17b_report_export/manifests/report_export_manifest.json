@@ -16,7 +16,7 @@
   "schema_version": "gate-17b-report-export-manifest-v1",
   "sha256": {
     "docs/report/export_readme.md": "7b7d4781cf54bcaa46b920a60aa877225b3019fed33f32dbd263fe3de0a5022b",
-    "docs/report/final_vietnamese_report.md": "61e1a47fb420d216006ba1ce244dd4c3bcd56c34b6cb33e946871222b1dd578b",
+    "docs/report/final_vietnamese_report.md": "18e8b380985a8f7e2ed370bee18d1b2702afa27777f3ac64a9895e20d17e12c6",
     "experiments/gate_17b_report_export/results/final_vietnamese_report.docx": "4657925ffa29f0b21f2f61d002868d7b0cbe4a8c1f9d5ac56e2b2c3475169773",
     "experiments/gate_17b_report_export/results/final_vietnamese_report.pdf": "62e7f601ee1811211eaa631669a0d773fbcc3d80dd597365c071a885d028a1ee",
     "experiments/gate_17b_report_export/results/report_export_summary.json": "ed665346e92adaba58906bbaa853286bc575e1df6e9a26ddfb3b21a3ce4dba75"

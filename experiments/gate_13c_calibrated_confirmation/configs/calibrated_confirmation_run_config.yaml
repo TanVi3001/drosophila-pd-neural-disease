@@ -10,13 +10,10 @@ source:
   gate_13b_manifest: experiments/gate_13b_chen_ratio_calibration/manifests/chen_ratio_calibration_manifest.json
 
 external_runtime:
-  path: E:\Drosophila_Parkinson\drosophila-pd-flygym
-  brain_root: E:\Drosophila_Parkinson\external\fly-brain-audit
-  brain_python: E:\Drosophila_Parkinson\drosophila-pd-flygym\.venv\Scripts\python.exe
-  brain_root: ../external/fly-brain-audit
-  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
-  runner_file: scripts/run_brain_body_rollout.py
-  patch_required: true
+  path: ../drosophila-pd-flygym
+  platform_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  proxy_launcher: scripts/run_platform_proxy_experiment.py
+  source_patch_required: false
 
 condition:
   condition_id: alpha_synuclein

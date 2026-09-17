@@ -76,5 +76,5 @@ def test_gate12d_report_records_boundary_and_blocked_conditions() -> None:
     assert "PROXY_DISEASE_ROLLOUTS_" in report
     assert "organism_level_proxy" in report
     assert "parkin" in report and "dj1" in report and "lrrk2" in report
-    assert "Không calibration" in report
-    assert "không biological validation" in report
+    assert "Calibration and holdout validation remain disabled" in report
+    assert "not biological" in report.lower()

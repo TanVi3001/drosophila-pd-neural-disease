@@ -30,7 +30,7 @@ quality_checks:
 paths:
   brain_root: external/fly-brain
   platform_root: ../drosophila-pd-flygym
-  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  platform_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
 
 artifact_paths:
   checkpoint: external/fly-brain/data/plastic_weights.pt

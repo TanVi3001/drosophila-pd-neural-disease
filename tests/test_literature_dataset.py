@@ -115,7 +115,7 @@ def test_second_review_audit_covers_every_candidate_without_auto_approval() -> N
         for row in audit
     )
     assert all(row["reviewer_2"] == "Tuan Le" for row in audit)
-    assert all(row["review_date"] == "2026-08-30" for row in audit)
+    assert all(row["review_date"] == "2026-09-06" for row in audit)
     assert all(row["uncertainty_status"] for row in audit)
     assert all(row["assay_transfer_status"] for row in audit)
     assert all(row["root_id_mapping_status"] for row in audit)
@@ -127,7 +127,7 @@ def test_root_id_mapping_audit_does_not_infer_gene_specific_ids() -> None:
     assert len(mappings) == 6
     assert mappings[0]["root_id_status"] == "CLASS_LEVEL_EXPLORATORY_ONLY"
     assert all(row["reviewer_2"] == "Tuan Le" for row in mappings)
-    assert all(row["review_date"] == "2026-08-30" for row in mappings)
+    assert all(row["review_date"] == "2026-09-06" for row in mappings)
     assert all(
         row["mapping_decision"] != "APPROVED_GENE_SPECIFIC"
         for row in mappings
@@ -160,7 +160,7 @@ def test_automated_paper_analysis_covers_all_records_without_approval() -> None:
         row["decision"] in {"APPROVED_FOR_CALIBRATION", "APPROVED_FOR_HOLDOUT"}
         for row in analysis
     )
-    assert all(row["review_date"] == "2026-08-30" for row in analysis)
+    assert all(row["review_date"] == "2026-09-06" for row in analysis)
     assert all(row["analysis_vi"] and row["notes_vi"] for row in analysis)
 
 

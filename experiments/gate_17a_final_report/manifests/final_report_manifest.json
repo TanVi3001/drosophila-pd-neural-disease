@@ -16,11 +16,11 @@
   "python_version": "3.12.10",
   "schema_version": "gate-17a-final-report-manifest-v1",
   "sha256": {
-    "docs/claims/current_claim_lock.md": "09cf89ae339ff7a1e497ef6c319f8fe10e4c64a9080abe10b938f5d92be39b64",
-    "docs/release/final_project_claim.md": "6da7918ffbeedf3d055a218f90386cd000e5e668df2d9ddf569814de32835cb7",
+    "docs/claims/current_claim_lock.md": "cfdefe20af82430054d2ba16eabaa42b67bd5d2ca01678a809270c9a1c0e70ad",
+    "docs/release/final_project_claim.md": "5757416bc8ef0c31056153509ddbaeb5f5dc41fa75e5cd479894dc5846ead9e1",
     "docs/report/final_report_outline.md": "7bbe498241b6603b7dd9d8c428cc1115cb2dbd6139199475936b9afda302de8d",
-    "docs/report/final_report_short_summary.md": "b97764975d1a7c9a64135ce15c2509813ba6c018cb833e79ebd64cb1668c561c",
-    "docs/report/final_vietnamese_report.md": "61e1a47fb420d216006ba1ce244dd4c3bcd56c34b6cb33e946871222b1dd578b"
+    "docs/report/final_report_short_summary.md": "86e31eaa16434948023b4c165ec4c9a10f0797b3ecf58b0105209a5f9c20a5b7",
+    "docs/report/final_vietnamese_report.md": "18e8b380985a8f7e2ed370bee18d1b2702afa27777f3ac64a9895e20d17e12c6"
   },
   "source_files": [
     "docs/claims/current_claim_lock.md",

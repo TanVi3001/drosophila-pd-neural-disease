@@ -9,8 +9,8 @@ holdout_enabled: false
 paths:
   brain_root: ../external/fly-brain-audit
   platform_root: ../drosophila-pd-flygym
-  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
-  raw_output_root: D:/Bookdata/drosophila_pd_gate19_run2
+  platform_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  raw_output_root: temporary/healthy_baseline_gate19_raw
   summary_output_root: results/healthy_baseline_gate19
 
 execution:

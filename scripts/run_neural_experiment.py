@@ -1,4 +1,8 @@
-"""Chay mot rollout brain-body that qua FlyGym, co the xuat MP4 that."""
+"""Launch a platform-owned healthy or bridge-scale computational run.
+
+Neural checkpoint preparation is kept as a separate, explicit waiting path
+until the platform exposes a compatible checkpoint-consuming runtime.
+"""
 
 from __future__ import annotations
 
@@ -19,7 +23,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PLATFORM_ROOT = ROOT.parent / "drosophila-pd-flygym"
 DEFAULT_BRAIN_ROOT = ROOT / "external" / "fly-brain"
 PREPARE_SCRIPT = ROOT / "scripts" / "prepare_neural_checkpoint.py"
-PLATFORM_RUNNER = "scripts/run_brain_body_rollout.py"
+PLATFORM_HEALTHY_RUNNER = "scripts/run_healthy_baseline.py"
+PLATFORM_BRAIN_RUNNER = "scripts/run_brain_driven_experiment.py"
 
 STAGED_FILES = (
     "brain_body_bridge.py",
@@ -47,7 +52,7 @@ def _write_status(output: Path, status: str, message: str, **extra: object) -> N
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     (output / "status.md").write_text(
-        f"# Neural brain-body experiment\n\n**Trang thai:** `{status}`\n\n{message}\n",
+        f"# Neural extension run\n\n**Status:** `{status}`\n\n{message}\n",
         encoding="utf-8",
     )
 
@@ -60,6 +65,17 @@ def _brain_python(brain_root: Path, configured: str | Path | None) -> Path:
         brain_root / ".venv" / "bin" / "python",
     )
     return next((candidate for candidate in candidates if candidate.is_file()), Path(sys.executable))
+
+
+def _platform_python(configured: str | Path | None) -> Path:
+    """Return the interpreter that owns the FlyGym runtime.
+
+    The brain and platform environments are allowed to differ.  Reusing the
+    brain interpreter for the platform runner made the bridge path fail on
+    machines where Brian2 was installed but FlyGym was not.
+    """
+
+    return _resolve(configured) if configured else Path(sys.executable)
 
 
 def _link_or_copy(source: Path, destination: Path) -> None:
@@ -179,140 +195,100 @@ def _run_prepare(
 
 
 def run_experiment(args: argparse.Namespace) -> int:
-    brain_root = _resolve(args.brain_root)
     platform_root = _resolve(args.platform_root)
     output = _resolve(args.output)
-    annotations = _resolve(args.annotations)
-    config = _resolve(args.config) if args.config else None
     output.mkdir(parents=True, exist_ok=True)
-    if not brain_root.is_dir():
-        _write_status(output, "WAITING_BRAIN_DATA", f"Khong tim thay brain source: {brain_root}")
+    if not platform_root.is_dir():
+        _write_status(output, "WAITING_PLATFORM", f"Platform root was not found: {platform_root}")
         return 0
-    if not (platform_root / PLATFORM_RUNNER).is_file():
-        _write_status(output, "WAITING_PLATFORM", f"Khong tim thay runner FlyGym: {platform_root / PLATFORM_RUNNER}")
-        return 0
-    if config is not None and not annotations.is_file():
-        _write_status(output, "WAITING_ANNOTATION_DATA", f"Khong tim thay annotation: {annotations}")
-        return 0
-    brain_python = _brain_python(brain_root, args.brain_python)
-    if not brain_python.is_file() and args.brain_python:
-        _write_status(output, "WAITING_BRAIN_RUNTIME", f"Khong tim thay Python brain: {brain_python}")
-        return 0
-    try:
-        # The sparse cache can be several hundred MB. Keep the staging area
-        # beside the output so a nearly-full system drive cannot interrupt a
-        # valid run while the connectome cache is being built.
-        with tempfile.TemporaryDirectory(prefix="dpd-brain-stage-", dir=output.parent) as temporary:
-            temporary_root = Path(temporary)
-            checkpoint = brain_root / "data" / "plastic_weights.pt"
-            preparation_status = None
-            run_brain_root = brain_root
-            if config is not None:
-                prepared = temporary_root / "prepared"
-                _, preparation_status = _run_prepare(
-                    brain_python=brain_python,
-                    brain_root=brain_root,
-                    config=config,
-                    age_days=args.age_days,
-                    annotations=annotations,
-                    output=prepared,
-                )
-                if preparation_status != "CHECKPOINT_READY":
-                    _write_status(
-                        output,
-                        preparation_status,
-                        "Disease condition chua du dieu kien de chay simulation.",
-                        config=str(config),
-                        age_days=args.age_days,
-                    )
-                    return 0
-                checkpoint = prepared / "plastic_weights.pt"
-                stage = temporary_root / "brain"
-                _stage_source(brain_root, stage, checkpoint)
-                run_brain_root = stage
-            command = [
-                str(brain_python),
-                str(platform_root / PLATFORM_RUNNER),
-                "--brain-root",
-                str(run_brain_root),
-                "--condition",
-                "healthy",
-                "--seed",
-                str(args.seed),
-                "--steps",
-                str(args.steps),
-                "--device",
-                args.device,
-                "--output",
-                str(output),
-                "--stimulus",
-                args.stimulus,
-                "--cpg-frequency-hz",
-                str(args.cpg_frequency_hz),
-            ]
-            if args.video or args.video_output:
-                command.extend(
-                    [
-                        "--video-output",
-                        str(_resolve(args.video_output or output / "flygym_rollout.mp4")),
-                        "--video-fps",
-                        str(args.video_fps),
-                        "--video-width",
-                        str(args.video_width),
-                        "--video-height",
-                        str(args.video_height),
-                        "--video-playback-speed",
-                        str(args.video_playback_speed),
-                        "--video-camera-mode",
-                        args.video_camera_mode,
-                    ]
-                )
-            if args.compare_to:
-                command.extend(["--compare-to", str(_resolve(args.compare_to))])
-            environment = os.environ.copy()
-            environment.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
-            result = subprocess.run(
-                command,
-                cwd=platform_root,
-                text=True,
-                check=False,
-                env=environment,
-            )
-            if result.returncode:
-                recovered = _recoverable_postprocess(
-                    output, video_requested=args.video or args.video_output is not None
-                )
-                if recovered:
-                    _write_status(
-                        output,
-                        "PASS",
-                        "Simulation va cac artifact da hoan tat; bundle duoc dong goi lai bang bo nho an toan.",
-                        return_code=result.returncode,
-                        command=command,
-                        preparation_status=preparation_status,
-                        bundle_recovered=True,
-                    )
-                    return 0
-                _write_status(
-                    output,
-                    "FAILED_SIMULATION",
-                    "Runner FlyGym tra ve loi; xem stdout/stderr cua lenh.",
-                    return_code=result.returncode,
-                    command=command,
-                    preparation_status=preparation_status,
-                )
-                return result.returncode
-            _write_status(
-                output,
-                "PASS",
-                "Rollout brain-body va artifact FlyGym da tao thanh cong.",
-                command=command,
-                preparation_status=preparation_status,
-            )
+
+    if args.scales_json:
+        scales_json = _resolve(args.scales_json)
+        runner = platform_root / PLATFORM_BRAIN_RUNNER
+        if not runner.is_file():
+            _write_status(output, "WAITING_PLATFORM_CAPABILITY", f"Canonical brain-driven runner was not found: {runner}")
             return 0
-    except (OSError, RuntimeError, ValueError, json.JSONDecodeError) as exc:
-        _write_status(output, "FAILED_PREPARATION", str(exc), config=str(config) if config else None)
-        return 1
+        if not scales_json.is_file():
+            _write_status(output, "WAITING_BRAIN_DATA", f"Bridge scales JSON was not found: {scales_json}")
+            return 0
+        platform_python = _platform_python(args.platform_python)
+        if not platform_python.is_file():
+            _write_status(output, "WAITING_PLATFORM_RUNTIME", f"Platform Python was not found: {platform_python}")
+            return 0
+        baseline_config = _resolve(args.baseline_config) if args.baseline_config else platform_root / "configs/experiments/healthy_baseline.yaml"
+        command = [
+            str(platform_python),
+            str(runner),
+            "--scales-json", str(scales_json),
+            "--baseline-config", str(baseline_config),
+            "--output", str(output / "platform_report.json"),
+        ]
+        if args.model_name:
+            command.extend(["--model-name", args.model_name])
+        if args.seed is not None:
+            command.extend(["--seed", str(args.seed)])
+        result = subprocess.run(command, cwd=platform_root, text=True, check=False)
+        if result.returncode:
+            _write_status(output, "FAILED_PLATFORM_RUN", "Canonical platform brain-driven runner failed.", command=command, return_code=result.returncode)
+            return result.returncode
+        _write_status(output, "PASS", "Canonical platform brain-driven runner completed.", command=command)
+        return 0
+
+    if args.config:
+        brain_root = _resolve(args.brain_root)
+        annotations = _resolve(args.annotations)
+        config = _resolve(args.config)
+        if not brain_root.is_dir():
+            _write_status(output, "WAITING_BRAIN_DATA", f"Brain source was not found: {brain_root}")
+            return 0
+        if not annotations.is_file():
+            _write_status(output, "WAITING_ANNOTATION_DATA", f"Neuron annotation was not found: {annotations}")
+            return 0
+        brain_python = _brain_python(brain_root, args.brain_python)
+        if not brain_python.is_file():
+            _write_status(output, "WAITING_BRAIN_RUNTIME", f"Brain Python was not found: {brain_python}")
+            return 0
+        try:
+            _, preparation_status = _run_prepare(
+                brain_python=brain_python,
+                brain_root=brain_root,
+                config=config,
+                age_days=args.age_days,
+                annotations=annotations,
+                output=output / "prepared_checkpoint",
+            )
+        except (OSError, RuntimeError, ValueError, json.JSONDecodeError) as exc:
+            _write_status(output, "FAILED_PREPARATION", str(exc), config=str(config))
+            return 1
+        _write_status(
+            output,
+            "WAITING_PLATFORM_NEURAL_RUNTIME",
+            "The canonical platform exposes action-level Perturbation and bridge-scale runners, "
+            "but no runner that consumes a neural edge checkpoint. The checkpoint was prepared "
+            "only; no simulation was run.",
+            preparation_status=preparation_status,
+            platform_runner=PLATFORM_HEALTHY_RUNNER,
+        )
+        return 0
+
+    if args.video:
+        _write_status(
+            output,
+            "WAITING_PLATFORM_CAPABILITY",
+            "Video is available through the platform video runner; this wrapper requires "
+            "--scales-json for a brain-driven video run.",
+        )
+        return 0
+
+    runner = platform_root / PLATFORM_HEALTHY_RUNNER
+    if not runner.is_file():
+        _write_status(output, "WAITING_PLATFORM_CAPABILITY", f"Canonical healthy runner was not found: {runner}")
+        return 0
+    command = [str(sys.executable), str(runner), "--output", str(output / "healthy_baseline.json")]
+    result = subprocess.run(command, cwd=platform_root, text=True, check=False)
+    status = "PASS" if result.returncode == 0 else "WAITING_RUNTIME"
+    _write_status(output, status, "Canonical platform healthy-baseline runner completed." if result.returncode == 0 else "Canonical platform healthy-baseline runner is unavailable in this environment.", command=command, return_code=result.returncode)
+    return 0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -320,7 +296,16 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--brain-root", type=Path, default=DEFAULT_BRAIN_ROOT)
     parser.add_argument("--platform-root", type=Path, default=DEFAULT_PLATFORM_ROOT)
     parser.add_argument("--brain-python", type=Path, default=None)
+    parser.add_argument(
+        "--platform-python",
+        type=Path,
+        default=None,
+        help="Python interpreter containing FlyGym/MuJoCo for --scales-json runs.",
+    )
     parser.add_argument("--config", type=Path, default=None, help="YAML disease da review; bo trong de chay healthy.")
+    parser.add_argument("--scales-json", type=Path, default=None, help="Platform bridge_scales.json for the canonical brain-driven runner.")
+    parser.add_argument("--baseline-config", type=Path, default=None, help="Platform healthy-baseline YAML.")
+    parser.add_argument("--model-name", type=str, default=None)
     parser.add_argument("--annotations", type=Path, default=ROOT / "annotations" / "neuron_annotations.csv")
     parser.add_argument("--age-days", type=float, default=20.0)
     parser.add_argument("--seed", type=int, default=0)

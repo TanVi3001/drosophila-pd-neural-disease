@@ -1,7 +1,7 @@
 {
   "schema_version": "gate-12g-integrated-proxy-disease-metrics-v1",
   "created_at_utc": "2026-09-02T09:32:52.766671+00:00",
-  "status": "INTEGRATED_PROXY_ROLLOUTS_PASS",
+  "status": "REQUIRES_REEXECUTION_ON_CURRENT_PLATFORM",
   "simulation_data_fabricated": false,
   "rows": [
     {
@@ -1939,5 +1939,7 @@
   ],
   "operator_config_sha256": "ed1f4674419f14a90987fdf397e93d1a67de5a2c6606edc79acdbf7d358c4de5",
   "operator_applied": true,
-  "action_hook_connected": true
+  "action_hook_connected": true,
+  "historical_artifacts": true,
+  "reexecution_required": true
 }

@@ -27,12 +27,12 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.run_disease_conditions_multiseed import (  # noqa: E402
-    _external_patch_verified,
+    _platform_protocol_verified,
     _proxy_operator_config_blockers,
     _relative,
     _resolve,
     _run_integrated_proxy_seed,
-    _runtime_probe,
+    _platform_runtime_probe,
     _sample_mean_std,
 )
 
@@ -196,7 +196,7 @@ def _validate_source_files(
         blockers.append("gate_13b_scope_not_organism_level_proxy")
     if calibrated.get("gene_specific_mapping") is not False:
         blockers.append("gate_13b_gene_specific_mapping_not_false")
-    if hook.get("status") != "CONNECTED_TO_EXTERNAL_RUNTIME" or hook.get("patch_applied_to_external_runtime") is not True:
+    if hook.get("status") != "CONNECTED_TO_PLATFORM_PERTURBATION_PROTOCOL" or hook.get("platform_source_patch_required") is not False:
         blockers.append("action_hook_integration_not_connected")
     if hook.get("operator_applies_to") != "joint_angles":
         blockers.append("action_hook_operator_target_not_joint_angles")
@@ -401,19 +401,18 @@ def run_campaign(config_path: Path, output_root: Path, *, brain_root_override: P
     external = plan.get("external_runtime", {}) if isinstance(plan.get("external_runtime"), Mapping) else {}
     runtime = plan.get("runtime", {}) if isinstance(plan.get("runtime"), Mapping) else {}
     default_platform = (ROOT.parent / "drosophila-pd-flygym").resolve()
-    default_brain = (ROOT.parent / "external/fly-brain-audit").resolve()
     platform_root = platform_root_override.resolve() if platform_root_override else _resolve(str(external.get("path", default_platform)))
-    brain_root = brain_root_override.resolve() if brain_root_override else _resolve(str(external.get("brain_root", default_brain)))
-    brain_python = brain_python_override.resolve() if brain_python_override else _resolve(str(external.get("brain_python", platform_root / ".venv/Scripts/python.exe")))
-    runner = (platform_root / str(external.get("runner_file", "scripts/run_brain_body_rollout.py"))).resolve()
+    brain_root = brain_root_override.resolve() if brain_root_override else platform_root
+    brain_python = brain_python_override.resolve() if brain_python_override else _resolve(str(external.get("platform_python", external.get("brain_python", platform_root / ".venv/Scripts/python.exe"))))
+    runner = (ROOT / "scripts/run_platform_proxy_experiment.py").resolve()
     device = device_override or str(runtime.get("device", "cuda"))
     operator_hash = _sha256(operator_path) if operator_path.is_file() else ""
     if not runner.is_file():
-        blockers.append(f"external_runner_missing:{runner}")
-    if not _external_patch_verified(runner):
-        blockers.append("external_action_hook_patch_not_verified")
-    runtime_ok, runtime_reasons, cuda_available = _runtime_probe(
-        brain_root=brain_root, platform_root=platform_root, brain_python=brain_python, device=device
+        blockers.append(f"platform_proxy_launcher_missing:{runner}")
+    if not _platform_protocol_verified(runner):
+        blockers.append("platform_perturbation_protocol_not_verified")
+    runtime_ok, runtime_reasons, cuda_available = _platform_runtime_probe(
+        platform_root=platform_root, platform_python=brain_python, device=device
     )
     if not runtime_ok:
         blockers.extend(runtime_reasons)
@@ -525,7 +524,7 @@ def run_campaign(config_path: Path, output_root: Path, *, brain_root_override: P
         "gate_13b_selected_ratio": gate13b_ratio,
         "absolute_ratio_drift_vs_gate_13b": abs(confirmation_ratio - gate13b_ratio) if confirmation_ratio is not None and gate13b_ratio is not None else None,
         "operator_config_sha256": operator_hash,
-        "action_hook_connected": not any(item == "external_action_hook_patch_not_verified" for item in blockers),
+        "action_hook_connected": not any(item == "platform_perturbation_protocol_not_verified" for item in blockers),
         "no_reselection": True,
         "no_parameter_reselection": True,
         "no_continuous_optimization": True,
@@ -558,9 +557,8 @@ def run_campaign(config_path: Path, output_root: Path, *, brain_root_override: P
         "summary_csv_sha256": _sha256(summary_csv),
         "operator_config_sha256": operator_hash,
         "external_runtime_path": str(platform_root),
-        "external_runner_sha256": _sha256(runner) if runner.is_file() else "",
-        "external_patch_verified": _external_patch_verified(runner),
-        "external_action_hook_patch_verified": _external_patch_verified(runner),
+        "platform_proxy_launcher_sha256": _sha256(runner) if runner.is_file() else "",
+        "platform_perturbation_protocol_verified": _platform_protocol_verified(runner),
         "action_hook_integration_manifest_sha256": _sha256(hook_path) if hook_path.is_file() else "",
         "gate_13b_summary_sha256": _sha256(gate13b_summary_path) if gate13b_summary_path.is_file() else "",
         "gate_13b_manifest_sha256": _sha256(gate13b_manifest_path) if gate13b_manifest_path.is_file() else "",

@@ -31,8 +31,10 @@ DEFAULT_REPORT = ROOT / "docs" / "baseline" / "gate_11_healthy_baseline_report.m
 
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+if str(ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(ROOT / "src"))
 
-from scripts.check_neural_inputs import inspect_brain_root
+from drosophila_pd_neural.platform_contract import inspect_platform
 
 
 def _write_text(path: Path, content: str) -> None:
@@ -121,12 +123,15 @@ def _artifact_audit(
     brain_python: Path,
     artifact_paths: Mapping[str, str],
 ) -> dict[str, Any]:
-    brain_report = inspect_brain_root(brain_root)
+    platform_contract = inspect_platform(platform_root)
     files: dict[str, dict[str, Any]] = {}
     for name, declared in artifact_paths.items():
         path = _resolve(declared)
         if not path.is_file():
-            files[name] = {"path": str(path), "status": "MISSING_EXTERNAL_ARTIFACT"}
+            files[name] = {
+                "path": str(path),
+                "status": "OPTIONAL_NOT_USED_BY_HEALTHY_BASELINE",
+            }
             continue
         files[name] = {
             "path": str(path),
@@ -135,20 +140,22 @@ def _artifact_audit(
             "size": path.stat().st_size,
             "sha256": _sha256(path),
         }
-    runner = platform_root / "scripts" / "run_brain_body_rollout.py"
+    runner = platform_root / "scripts" / "run_healthy_baseline.py"
     platform_status = "PASS" if runner.is_file() else "MISSING_PLATFORM_RUNNER"
     runtime = _runtime_probe(brain_python)
-    status = "READY"
-    if brain_report.get("status") != "READY" or platform_status != "PASS" or runtime.get("status") != "PASS":
-        status = "MISSING_EXTERNAL_ARTIFACT" if brain_report.get("status") != "READY" else "WAITING_RUNTIME"
-    if any(record["status"] != "PRESENT" for record in files.values()):
-        status = "MISSING_EXTERNAL_ARTIFACT"
+    status = "READY" if platform_contract.ready and platform_status == "PASS" and runtime.get("status") == "PASS" else "WAITING_RUNTIME"
     return {
         "status": status,
-        "brain_source": brain_report,
+        "brain_source": {
+            "status": "NOT_REQUIRED",
+            "path": str(brain_root),
+            "reason": "The canonical healthy baseline does not consume a neural checkpoint.",
+        },
         "platform_runner": {"path": str(runner), "status": platform_status},
+        "platform_contract": platform_contract.as_dict(),
         "runtime": runtime,
         "artifacts": files,
+        "optional_external_artifacts": True,
         "simulation_run": False,
     }
 
@@ -638,7 +645,10 @@ def run(config_path: Path, *, overrides: argparse.Namespace) -> int:
     paths = config.get("paths") or {}
     brain_root = _resolve(overrides.brain_root or paths["brain_root"])
     platform_root = _resolve(overrides.platform_root or paths["platform_root"])
-    brain_python = _resolve(overrides.brain_python or paths["brain_python"])
+    brain_python = _resolve(
+        overrides.brain_python
+        or paths.get("platform_python", paths.get("brain_python", ""))
+    )
     output_root = _resolve(config.get("output", {}).get("root", str(DEFAULT_OUTPUT_ROOT)))
     manifests = output_root / "manifests"
     logs = output_root / "logs"

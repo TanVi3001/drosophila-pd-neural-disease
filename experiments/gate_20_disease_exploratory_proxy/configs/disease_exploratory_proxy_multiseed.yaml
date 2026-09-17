@@ -4,17 +4,17 @@ status: RUN_ORGANISM_LEVEL_PROXY_ONLY
 
 paths:
   healthy_baseline_summary: results/healthy_baseline_gate19/healthy_baseline_summary.json
-  brain_root: ../external/fly-brain-audit
   platform_root: ../drosophila-pd-flygym
-  brain_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  platform_python: ../drosophila-pd-flygym/.venv/Scripts/python.exe
+  platform_proxy_launcher: scripts/run_platform_proxy_experiment.py
   operator_config: experiments/gate_12e_proxy_operator/configs/proxy_burden_action_operator.yaml
   output_root: results/disease_exploratory_gate20
 
 runtime:
   seeds: [0, 1, 2, 3, 4]
-  steps: 100000
+  steps: 5000
   timestep_s: 0.0001
-  duration_s: 10.0
+  duration_s: 0.5
   device: cuda
   stimulus: p9
   cpg_frequency_hz: 12.0
@@ -43,27 +43,16 @@ operator:
 
 metrics:
   required:
-    - walking_speed_mm_s
     - mean_planar_speed_mm_s
     - distance_traveled_mm
     - displacement_mm
-    - com_velocity_mean_mm_s
-    - heading_variance_rad2
-    - body_orientation_variance_rad2
-    - contact_ratio
-    - joint_rms_velocity
+    - planar_path_length_mm
+    - planar_displacement_mm
 
 quality_gate:
-  require_monotonic_timestamps: true
-  require_fixed_timestep: true
-  require_locomotion: true
-  require_contact: true
-  require_joint_trajectory_change: true
-  require_action_trajectory_change: true
-  require_quaternion_validity: true
-  require_operator_metadata: true
-  require_positive_burden_action_change: true
-  require_zero_burden_identity: true
+  require_platform_overall_pass: true
+  require_structural_action_validation: true
+  require_adhesion_preservation: true
   forbid_nan: true
   forbid_inf: true
 

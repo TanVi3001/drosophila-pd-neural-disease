@@ -22,12 +22,15 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+if str(ROOT / "src") not in sys.path:
+    sys.path.insert(0, str(ROOT / "src"))
 
 from scripts.run_healthy_baseline_multiseed import (
     _finite_rollout,
     _read_scalar_metrics,
     _rollout_quality,
 )
+from drosophila_pd_neural.platform_contract import inspect_platform
 
 
 PLAN_DEFAULT = ROOT / "experiments/gate_12_disease_rollouts/configs/disease_rollout_plan.yaml"
@@ -260,8 +263,11 @@ def _runtime_probe(
     missing: list[str] = []
     if not brain_root.is_dir():
         missing.append(f"brain_root_missing:{brain_root}")
-    if not (platform_root / "scripts/run_brain_body_rollout.py").is_file():
-        missing.append(f"platform_runner_missing:{platform_root / 'scripts/run_brain_body_rollout.py'}")
+    platform_contract = inspect_platform(platform_root)
+    if not platform_contract.ready:
+        missing.extend(f"platform_contract:{reason}" for reason in platform_contract.blockers)
+    if not (platform_root / "scripts/run_healthy_baseline.py").is_file():
+        missing.append(f"platform_runner_missing:{platform_root / 'scripts/run_healthy_baseline.py'}")
     for relative in (
         "brain_body_bridge.py",
         "code/run_pytorch.py",
@@ -282,6 +288,41 @@ def _runtime_probe(
         check=False,
     )
     cuda_available = probe.returncode == 0 and probe.stdout.strip().splitlines()[-1:] == ["1"]
+    if device == "cuda" and not cuda_available:
+        missing.append("cuda_unavailable_for_requested_device=cuda")
+    return not missing, missing, cuda_available
+
+
+def _platform_runtime_probe(
+    *, platform_root: Path, platform_python: Path, device: str
+) -> tuple[bool, list[str], bool]:
+    """Probe only dependencies owned by the canonical platform.
+
+    Gate 12G is an action-level platform experiment. It must not require a
+    neural checkpoint, brain source tree, or brain-specific runtime.
+    """
+
+    missing: list[str] = []
+    contract = inspect_platform(platform_root)
+    if not contract.ready:
+        missing.extend(f"platform_contract:{reason}" for reason in contract.blockers)
+    if not platform_python.is_file():
+        return False, [f"platform_python_missing:{platform_python}"], False
+    probe = subprocess.run(
+        [
+            str(platform_python),
+            "-c",
+            "import torch, flygym, mujoco; print('1' if torch.cuda.is_available() else '0')",
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    cuda_available = (
+        probe.returncode == 0 and probe.stdout.strip().splitlines()[-1:] == ["1"]
+    )
+    if probe.returncode != 0:
+        missing.append("platform_simulation_dependencies_unavailable")
     if device == "cuda" and not cuda_available:
         missing.append("cuda_unavailable_for_requested_device=cuda")
     return not missing, missing, cuda_available
@@ -861,7 +902,7 @@ def _write_proxy_report(
             "",
             "- Alpha-synuclein và PINK1 chỉ là organism-level computational proxy, không phải gene-specific mapping.",
             "- Burden level dimensionless chưa phải calibration value và chưa được dùng để tune theo Chen/Pozo.",
-            "- Runtime hiện chưa chứng minh action-level operator kết nối burden proxy vào brain-body runner.",
+            "- Runtime hiện chưa chứng minh action-level operator kết nối burden proxy vào platform-derived rollout metrics.",
             "- Đây không phải biological Parkinson validation, clinical prediction, chẩn đoán hoặc drug validation.",
             "",
             "## Final status",
@@ -904,20 +945,10 @@ def _integrated_proxy_blank_row(
     return row
 
 
-def _external_patch_verified(runner: Path) -> bool:
-    """Check the committed integration markers in the external runner."""
+def _platform_protocol_verified(runner: Path) -> bool:
+    """Check the current platform protocol and launcher."""
 
-    try:
-        source = runner.read_text(encoding="utf-8")
-    except (OSError, UnicodeError):
-        return False
-    required = (
-        "--enable-proxy-burden-operator",
-        "proxy_operator=proxy_operator",
-        "proxy_operator_config=proxy_operator_config",
-        "apply_locomotion_action(simulation, fly.name, action)",
-    )
-    return all(marker in source for marker in required)
+    return runner.is_file() and inspect_platform(ROOT.parent / "drosophila-pd-flygym").ready
 
 
 def _git_ref(ref: str) -> str:
@@ -968,25 +999,22 @@ def _run_integrated_proxy_seed(
     command = [
         str(brain_python if brain_python.is_file() else sys.executable),
         str(runner),
-        "--brain-root",
-        str(brain_root),
-        "--condition",
-        "healthy",
+        "--platform-root",
+        str(platform_root),
+        "--operator-config",
+        str(operator_config),
+        "--burden",
+        str(burden_level),
         "--seed",
         str(seed),
         "--steps",
         str(steps),
-        "--device",
-        device,
+        "--timestep-s",
+        str(timestep_s),
+        "--name",
+        condition_id,
         "--output",
         str(run_output),
-        "--enable-proxy-burden-operator",
-        "--proxy-operator-config",
-        str(operator_config),
-        "--proxy-operator-source",
-        str(adapter_source),
-        "--proxy-burden",
-        str(burden_level),
     ]
     environment = os.environ.copy()
     environment.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
@@ -1010,68 +1038,77 @@ def _run_integrated_proxy_seed(
             if log and not log.endswith("\n"):
                 handle.write("\n")
         if completed.returncode != 0:
-            row["skip_reason"] = f"external_runner_return_code={completed.returncode}"
+            row["skip_reason"] = f"platform_proxy_launcher_return_code={completed.returncode}"
             return row
 
+        status_path = run_output / "status.json"
+        report_path = run_output / "proxy_report.json"
         metrics_path = run_output / "metrics" / "metrics.json"
-        rollout_path = run_output / "rollout.npz"
-        summary_path = run_output / "brain_body_summary.json"
-        required_files = (metrics_path, rollout_path, summary_path)
+        required_files = (status_path, report_path, metrics_path)
         missing = [str(path.relative_to(run_output)) for path in required_files if not path.is_file()]
         if missing:
             row["skip_reason"] = "missing_artifact=" + ";".join(missing)
             return row
 
         metrics, metrics_finite = _read_finite_metrics(metrics_path)
-        finite, invalid_arrays = _finite_rollout(rollout_path)
-        quality = _rollout_quality(
-            rollout_path,
-            expected_frames=steps + 1,
-            expected_timestep_s=timestep_s,
-            metrics=metrics,
-        )
         try:
-            summary = json.loads(summary_path.read_text(encoding="utf-8"))
+            status_document = json.loads(status_path.read_text(encoding="utf-8"))
+            platform_report = json.loads(report_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError, TypeError):
-            summary = {}
+            status_document = {}
+            platform_report = {}
 
-        operator_enabled = summary.get("proxy_burden_operator_enabled") is True
-        operator_applied = summary.get("operator_applied") is True
-        before_hash = summary.get("joint_angles_first_before_sha256") or summary.get("joint_angles_before_sha256")
-        after_hash = summary.get("joint_angles_first_after_sha256") or summary.get("joint_angles_after_sha256")
-        hashes_present = isinstance(before_hash, str) and isinstance(after_hash, str) and bool(before_hash) and bool(after_hash)
-        action_changed = bool(hashes_present and before_hash != after_hash)
-        adhesion_before_hash = summary.get("adhesion_onoff_first_before_sha256")
-        adhesion_after_hash = summary.get("adhesion_onoff_first_after_sha256")
-        adhesion_hashes_present = (
-            isinstance(adhesion_before_hash, str)
-            and isinstance(adhesion_after_hash, str)
-            and bool(adhesion_before_hash)
-            and bool(adhesion_after_hash)
-        )
-        adhesion_unchanged = adhesion_hashes_present and adhesion_before_hash == adhesion_after_hash
-        if burden_level == 0.0:
-            identity_check: Any = "PASS" if hashes_present and before_hash == after_hash else "FAIL"
-            positive_action_check: Any = False
-        else:
-            identity_check = "NOT_APPLICABLE"
-            positive_action_check = action_changed
-
-        numeric_qc = finite and metrics_finite
-        required_present = all(quality.get(metric) is not None for metric in CANONICAL_METRICS)
-        physical_qc = all(
-            quality.get(key) == "PASS"
-            for key in (
-                "timestamp_monotonic",
-                "timestep_consistent",
-                "locomotion_detected",
-                "contact_detected",
-                "quaternion_valid",
-                "joint_trajectory_changes",
-                "action_trajectory_valid",
-                "observation_state_valid",
+        if status_document.get("status") != "PASS":
+            row["skip_reason"] = (
+                "platform_proxy_status="
+                + str(status_document.get("status", "MISSING"))
             )
+            return row
+
+        perturbed = platform_report.get("perturbed", {})
+        if not isinstance(perturbed, Mapping):
+            perturbed = {}
+        transformation = perturbed.get("action_transformation_summary", {})
+        if not isinstance(transformation, Mapping):
+            transformation = {}
+        structural = transformation.get("structural_checks", {})
+        if not isinstance(structural, Mapping):
+            structural = {}
+        platform_checks = platform_report.get("checks", {})
+        if not isinstance(platform_checks, Mapping):
+            platform_checks = {}
+        platform_checks_pass = all(
+            isinstance(check, Mapping) and check.get("pass") is True
+            for check in platform_checks.values()
         )
+        action_dimensions_valid = (
+            isinstance(structural.get("action_dimensions_valid"), Mapping)
+            and structural["action_dimensions_valid"].get("observed") is True
+        )
+        adhesion_unchanged = (
+            isinstance(structural.get("adhesion_commands_preserved"), Mapping)
+            and structural["adhesion_commands_preserved"].get("observed") is True
+        )
+        action_transform_valid = (
+            isinstance(structural.get("joint_angle_transform_matches_expected"), Mapping)
+            and structural["joint_angle_transform_matches_expected"].get("observed") is True
+        )
+        perturbation_metadata = platform_report.get("perturbation", {})
+        operator_enabled = (
+            isinstance(perturbation_metadata, Mapping)
+            and perturbation_metadata.get("type") == "proxy_burden"
+        )
+        operator_applied = action_transform_valid and action_dimensions_valid
+        identity_check: Any = "PASS" if burden_level == 0.0 and operator_applied else "NOT_APPLICABLE"
+        positive_action_check: Any = operator_applied if burden_level > 0.0 else False
+
+        numeric_qc = metrics_finite
+        required_present = all(
+            isinstance(metrics.get(metric), (int, float))
+            and math.isfinite(float(metrics[metric]))
+            for metric in CANONICAL_METRICS
+        )
+        physical_qc = bool(platform_report.get("overall_pass")) and platform_checks_pass
         operator_qc = (
             operator_enabled
             and operator_applied
@@ -1086,27 +1123,25 @@ def _run_integrated_proxy_seed(
                     "action_changed_for_positive_burden": positive_action_check,
                     "burden_zero_identity_pass": identity_check,
                     "adhesion_onoff_unchanged": "PASS" if adhesion_unchanged else "FAIL",
-                    "mean_planar_speed_mm_s": quality["mean_planar_speed_mm_s"],
-                    "distance_traveled_mm": quality["distance_traveled_mm"],
-                    "displacement_mm": quality["displacement_mm"],
-                    "walking_speed_mm_s_raw": metrics.get("walking_speed_mm_s", ""),
-                    "total_distance_mm_raw": metrics.get("total_distance_mm", ""),
-                    "thorax_displacement_mm_raw": quality["thorax_displacement_xy_mm"],
+                    "mean_planar_speed_mm_s": metrics["mean_planar_speed_mm_s"],
+                    "distance_traveled_mm": metrics["distance_traveled_mm"],
+                    "displacement_mm": metrics["displacement_mm"],
+                    "walking_speed_mm_s_raw": metrics.get("walking_speed_mm_s", metrics["mean_planar_speed_mm_s"]),
+                    "total_distance_mm_raw": metrics.get("planar_path_length_mm", metrics["distance_traveled_mm"]),
+                    "thorax_displacement_mm_raw": metrics.get("planar_displacement_mm", metrics["displacement_mm"]),
                     "no_nan": "PASS",
                     "no_inf": "PASS",
-                    "locomotion_detected": quality["locomotion_detected"],
-                    "contact_detected": quality["contact_detected"],
-                    "timestamp_valid": quality["timestamp_monotonic"],
-                    "quaternion_valid": quality["quaternion_valid"],
-                    "joint_action_trajectory_valid": quality["action_trajectory_valid"],
+                    "locomotion_detected": "PLATFORM_REPORTED",
+                    "contact_detected": "PLATFORM_REPORTED",
+                    "timestamp_valid": "PLATFORM_REPORTED",
+                    "quaternion_valid": "PLATFORM_REPORTED",
+                    "joint_action_trajectory_valid": "PLATFORM_REPORTED",
                     "metric_contract_status": "PASS",
                 }
             )
             return row
 
         reasons: list[str] = []
-        if invalid_arrays:
-            reasons.append("invalid_arrays=" + ";".join(invalid_arrays))
         if not numeric_qc:
             reasons.append("numeric_qc_failed")
         if not required_present:
@@ -1118,11 +1153,11 @@ def _run_integrated_proxy_seed(
         if not operator_applied:
             reasons.append("operator_applied_flag_missing")
         if not adhesion_unchanged:
-            reasons.append("adhesion_onoff_changed_or_hash_missing")
+            reasons.append("adhesion_onoff_not_preserved_by_platform_report")
         if burden_level == 0.0 and identity_check != "PASS":
             reasons.append("burden_zero_identity_failed")
         if burden_level > 0.0 and not positive_action_check:
-            reasons.append("positive_burden_action_unchanged")
+            reasons.append("positive_burden_action_transform_not_validated")
         row["skip_reason"] = ";".join(reasons) or "integrated_rollout_quality_gate_failed"
         return row
     except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
@@ -1167,8 +1202,8 @@ def _write_integrated_proxy_report(
         "",
         f"**Trạng thái:** `{status}`",
         "",
-        "Báo cáo này ghi nhận rollout computational của proxy organism-level qua action hook FlyGym thật.",
-        "Không phải biological Parkinson validation, không phải chẩn đoán, dự đoán lâm sàng hoặc đánh giá thuốc.",
+        "This report records an organism-level computational proxy through the current platform Perturbation protocol.",
+        "It is not biological Parkinson validation, clinical diagnosis, clinical prediction, or treatment-response evidence.",
         "",
         "## Phạm vi và đầu vào",
         "",
@@ -1181,10 +1216,10 @@ def _write_integrated_proxy_report(
         "## Runtime và operator",
         "",
         f"- CUDA available: `{manifest.get('cuda_available')}`.",
-        f"- External patch verified: `{manifest.get('external_patch_verified')}`.",
+        f"- Platform perturbation protocol verified: `{manifest.get('platform_perturbation_protocol_verified')}`.",
         f"- Operator config SHA256: `{manifest.get('operator_config_sha256')}`.",
         "- Operator chỉ thay đổi `joint_angles`; `adhesion_onoff` không bị thay đổi.",
-        "- burden=0 kiểm tra identity; burden>0 yêu cầu action hash thay đổi.",
+        "- The platform exports structural action validation; it does not export raw action hashes.",
         "",
         "## Kết quả theo burden",
         "",
@@ -1221,7 +1256,7 @@ def _write_integrated_proxy_report(
         failed = [str(row.get("skip_reason", "")) for row in rows if row.get("run_status") != "PASS" and row.get("skip_reason")]
         lines.extend(f"- `{reason}`." for reason in failed[:20])
         if not failed:
-            lines.append("- Không có blocker runtime nào được ghi nhận.")
+            lines.append("- No runtime blocker was recorded.")
     lines.extend(
         [
             "",
@@ -1229,7 +1264,7 @@ def _write_integrated_proxy_report(
             "",
             "- Đây là organism-level computational proxy rollout, không phải mapping gene-specific.",
             "- Proxy burden là dimensionless và chưa được dùng để fit Chen hoặc đánh giá Pozo.",
-            "- Thời lượng mô phỏng theo Gate 11 khoảng 0.5 giây; không phải diễn tiến bệnh theo thời gian sinh học.",
+            "- The platform report owns derived locomotion metrics; this repository does not infer missing raw trajectories.",
             "- Không có calibration, holdout validation hoặc biological Parkinson validation trong Gate 12G.",
             "",
             "## Final status",
@@ -1273,7 +1308,9 @@ def _run_integrated_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, 
     configured_platform = str(external.get("path", "")).strip()
     brain_root = _resolve(configured_brain) if configured_brain and _resolve(args.brain_root) == default_brain else _resolve(args.brain_root)
     platform_root = _resolve(configured_platform) if configured_platform and _resolve(args.platform_root) == default_platform else _resolve(args.platform_root)
-    configured_python = str(external.get("brain_python", "")).strip()
+    configured_python = str(
+        external.get("platform_python", external.get("brain_python", ""))
+    ).strip()
     if args.brain_python:
         brain_python = _resolve(args.brain_python)
     elif configured_python:
@@ -1281,8 +1318,7 @@ def _run_integrated_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, 
     else:
         brain_python = platform_root / ".venv/Scripts/python.exe"
 
-    runner_value = str(external.get("runner_file", "scripts/run_brain_body_rollout.py")).strip()
-    runner = (platform_root / runner_value).resolve()
+    runner = (ROOT / "scripts/run_platform_proxy_experiment.py").resolve()
     operator_value = str(source.get("operator_config", "")).strip()
     operator_config = _resolve(operator_value) if operator_value else ROOT / "missing-operator-config.yaml"
     operator_config_sha256 = _sha256(operator_config) if operator_config.is_file() else ""
@@ -1290,9 +1326,9 @@ def _run_integrated_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, 
 
     blockers: list[str] = []
     if not runner.is_file():
-        blockers.append(f"external_runner_missing:{runner}")
-    if not _external_patch_verified(runner):
-        blockers.append("external_action_hook_patch_not_verified")
+        blockers.append(f"platform_proxy_launcher_missing:{runner}")
+    if not _platform_protocol_verified(runner):
+        blockers.append("platform_perturbation_protocol_not_verified")
     if not operator_config.is_file():
         blockers.append(f"operator_config_missing:{_relative(operator_config)}")
     else:
@@ -1314,10 +1350,9 @@ def _run_integrated_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, 
                 blockers.append("healthy_baseline_manifest_not_pass")
         except (OSError, json.JSONDecodeError):
             blockers.append("healthy_baseline_manifest_invalid")
-    runtime_ok, runtime_reasons, cuda_available = _runtime_probe(
-        brain_root=brain_root,
+    runtime_ok, runtime_reasons, cuda_available = _platform_runtime_probe(
         platform_root=platform_root,
-        brain_python=brain_python,
+        platform_python=brain_python,
         device=device,
     )
     if not runtime_ok:
@@ -1456,7 +1491,7 @@ def _run_integrated_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, 
         "metric_contract": list(CANONICAL_METRICS),
         "operator_config_sha256": operator_config_sha256,
         "operator_applied": successful > 0,
-        "action_hook_connected": _external_patch_verified(runner),
+        "action_hook_connected": _platform_protocol_verified(runner),
     }
     metrics_json = results_dir / "integrated_proxy_disease_metrics.json"
     _write_text(metrics_json, json.dumps(metrics_payload, indent=2, ensure_ascii=False) + "\n")
@@ -1477,8 +1512,8 @@ def _run_integrated_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, 
         "cuda_available": cuda_available,
         "current_repo_main_commit": _git_ref("main"),
         "external_runtime_path": str(platform_root),
-        "external_runtime_runner_sha256": _sha256(runner) if runner.is_file() else "",
-        "external_patch_verified": _external_patch_verified(runner),
+        "platform_proxy_launcher_sha256": _sha256(runner) if runner.is_file() else "",
+        "platform_perturbation_protocol_verified": _platform_protocol_verified(runner),
         "operator_config_sha256": operator_config_sha256,
         "config_sha256": _sha256(_resolve(args.config)),
         "metrics_csv_sha256": _sha256(metrics_csv),
@@ -1605,7 +1640,7 @@ def _run_proxy_campaign(args: argparse.Namespace, plan: Mapping[str, Any]) -> in
     operator_reason = (
         "; ".join(operator_config_blockers)
         if operator_config_blockers
-        else "proxy_burden_to_action_operator_not_connected_to_current_brain_body_runner"
+        else "proxy_burden_to_action_operator_not_connected_to_platform_protocol"
     )
     for condition in conditions:
         condition_id = str(condition.get("condition_id", "")).strip()

@@ -16,15 +16,15 @@
   "release_version": "v1.0.0",
   "schema_version": "gate-16a-final-release-manifest-v1",
   "sha256": {
-    "README.md": "fa080ad7f3aa52a5b454812965b75fe1346416f883ca13647bccf5b1ee71c68e",
-    "docs/claims/current_claim_lock.md": "09cf89ae339ff7a1e497ef6c319f8fe10e4c64a9080abe10b938f5d92be39b64",
-    "docs/release/final_project_claim.md": "6da7918ffbeedf3d055a218f90386cd000e5e668df2d9ddf569814de32835cb7",
+    "README.md": "ee6e5ac407cd57927abcd0c6f19219baa2fa1d2a01d016e41db129004dd9dc6e",
+    "docs/claims/current_claim_lock.md": "cfdefe20af82430054d2ba16eabaa42b67bd5d2ca01678a809270c9a1c0e70ad",
+    "docs/release/final_project_claim.md": "5757416bc8ef0c31056153509ddbaeb5f5dc41fa75e5cd479894dc5846ead9e1",
     "docs/release/final_release_checklist.md": "9803be484ec6ae42b8dd4963d492f160c7043901e3019f8e139d0ff90fd00e66",
-    "docs/release/key_artifacts_index.md": "2abbb292108a592f43e753aef7c7ae7862781e90f84b01bcac14c1e9e9faea32",
-    "docs/release/release_notes_v1.0.0.md": "48712bf39d0cf56b9a8849fd14cf148025fe1150bee5a2722318adda645552b6",
+    "docs/release/key_artifacts_index.md": "5e7eacd993a27fc98f90e99327a7d1ab300afddfbf8248108d48696497aafdf2",
+    "docs/release/release_notes_v1.0.0.md": "56de8d7006813f232aab2d8939e298194bf37cd2ceb1e90c46ad98c68a17ede9",
     "docs/release/reproducibility_checklist.md": "f2e5d51516db4ca55e20fe043d938eed465762a4d04a345229047e118007930b",
-    "docs/release/reviewer_quickstart.md": "527f7fd9e0fc6c418b946cac8415feb1c271c48b3e9e8c68af145278dfd5a350",
-    "docs/release/submission_bundle.md": "82087ac7cde761c1e120c9886e390c67343eba1e87857d029a903f235dddbf05"
+    "docs/release/reviewer_quickstart.md": "6329d28cf34382e3645500eda484ae498ddd0c278932c4bee9b1a6be486488cd",
+    "docs/release/submission_bundle.md": "68ec3bb0bcf9469d38ea31a951b5ce9a9fe47b214f25a596d14647b2368152e4"
   },
   "source_files": [
     "README.md",
