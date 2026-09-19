@@ -16,6 +16,10 @@ OPERATOR_CONFIG = ROOT / "experiments/gate_12e_proxy_operator/configs/proxy_burd
 
 
 def test_current_platform_matches_required_source_contract() -> None:
+    if not PLATFORM.is_dir():
+        import pytest
+
+        pytest.skip("external FlyGym platform worktree is not distributed in Git")
     contract = inspect_platform(PLATFORM)
 
     assert contract.ready

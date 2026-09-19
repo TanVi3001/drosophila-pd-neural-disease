@@ -1,10 +1,15 @@
 {
+  "claim": "Paper-guided computational replication only; no biological Parkinson validation claim.",
+  "data_fabricated": false,
+  "interpretation": "NOT_REPRODUCED",
+  "simulation_executed": true,
   "statuses": {
     "21A": "RIEMENSPERGER_2011_EVIDENCE_LOCKED",
-    "21D": "WAITING_DOPAMINE_MAPPING_REVIEW"
-  },
-  "interpretation": "WAITING_EVIDENCE",
-  "claim": "The Riemensperger 2011-guided computational replication remains a gated study; no biological validation claim is made.",
-  "simulation_executed": false,
-  "data_fabricated": false
+    "21B": "HEALTHY_VIRTUAL_REPLICATION_PASS",
+    "21C": "HEALTHY_COMPARABILITY_ACCEPTABLE_FOR_RATIO_ANALYSIS",
+    "21D": "READY_FOR_RIEMENSPERGER_DISEASE_REPLICATION",
+    "21E": "DOPAMINE_DEFICIENCY_VIRTUAL_REPLICATION_PASS",
+    "21F": "FOUR_GROUP_ANALYSIS_COMPLETE",
+    "21G": "ROBUSTNESS_EXECUTION_REQUIRED"
+  }
 }

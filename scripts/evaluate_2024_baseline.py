@@ -17,7 +17,11 @@ from pathlib import Path
 from typing import Any, Sequence
 
 import numpy as np
-import pandas as pd
+
+try:
+    import pandas as pd
+except ModuleNotFoundError:  # pragma: no cover - optional brain-runtime dependency
+    pd = None  # type: ignore[assignment]
 
 
 REQUIRED_COLUMNS = {"t", "trial", "flywire_id", "exp_name"}
@@ -85,6 +89,10 @@ def _relative(path: Path, base: Path) -> str:
 
 
 def _read_spikes(path: Path) -> pd.DataFrame:
+    if pd is None:
+        raise RuntimeError(
+            "pandas is required to evaluate parquet spike output; install the 'brain' extra"
+        )
     frame = pd.read_parquet(path)
     missing = REQUIRED_COLUMNS.difference(frame.columns)
     if missing:

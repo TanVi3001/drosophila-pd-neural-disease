@@ -37,7 +37,7 @@ def _operator_options(operator_config: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def _joint_angles(action: Any) -> np.ndarray:
+def _joint_angles(action: Any, *, expected_joint_angle_count: int | None = None) -> np.ndarray:
     if isinstance(action, Mapping):
         if "joint_angles" not in action:
             raise TypeError("Action mapping must contain 'joint_angles'.")
@@ -46,9 +46,13 @@ def _joint_angles(action: Any) -> np.ndarray:
         values = np.asarray(action.joint_angles, dtype=float)
     else:
         raise TypeError("Action must expose joint_angles or be a mapping.")
-    if values.shape != JOINT_ANGLES_SHAPE:
+    expected_count = JOINT_ANGLES_SHAPE[0] if expected_joint_angle_count is None else int(expected_joint_angle_count)
+    if expected_count <= 0:
+        raise ValueError("expected_joint_angle_count must be positive.")
+    expected_shape = (expected_count,)
+    if values.shape != expected_shape:
         raise ValueError(
-            "LocomotionAction joint_angles must have shape (42,), "
+            f"LocomotionAction joint_angles must have shape {expected_shape}, "
             f"received {values.shape}."
         )
     if not np.isfinite(values).all():
@@ -101,8 +105,9 @@ def apply_proxy_operator_to_locomotion_action(
     locomotion_action: Any,
     burden_level: float,
     *,
-    operator_config: dict[str, Any],
+    operator_config: Mapping[str, Any],
     seed: int | None = None,
+    expected_joint_angle_count: int | None = None,
 ) -> Any:
     """Apply the configured proxy operator at the FlyGym action boundary.
 
@@ -112,7 +117,10 @@ def apply_proxy_operator_to_locomotion_action(
     discovered in Gate 12F-A.
     """
 
-    source = _joint_angles(locomotion_action)
+    source = _joint_angles(
+        locomotion_action,
+        expected_joint_angle_count=expected_joint_angle_count,
+    )
     transformed = apply_proxy_burden_to_action(
         source,
         burden_level,

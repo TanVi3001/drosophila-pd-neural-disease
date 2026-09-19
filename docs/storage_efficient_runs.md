@@ -45,7 +45,7 @@ checkpoint/finalize thay vì chạy lại các seed đã đạt.
 
 ## Gate 19
 
-Khi táº¡o baseline má»›i, dÃ¹ng `--discard-raw` Ä‘á»ƒ giá»›i háº¡n dung lÆ°á»£ng Ä‘á»‰nh:
+Khi tạo baseline mới, dùng `--discard-raw` để giới hạn dung lượng đỉnh:
 
 ```powershell
 py -3.12 scripts/run_healthy_baseline_multiseed.py `
@@ -55,10 +55,10 @@ py -3.12 scripts/run_healthy_baseline_multiseed.py `
   --discard-raw
 ```
 
-Cá» nÃ y khÃ´ng thay Ä‘á»•i simulation. Sau khi seed Ä‘áº¡t numeric QC, metric contract vÃ 
+Cờ này không thay đổi simulation. Sau khi seed đạt numeric QC, metric contract và
 physical QC, runner hash táº¥t cáº£ file raw, ghi `manifests/seed_NNN_raw_artifacts.json`,
-rÃ²i má»›i xÃ³a thÆ° má»¥c seed. Metrics CSV/JSON, manifest tá»•ng, log vÃ  report váº«n Ä‘Æ°á»£c
-giá»¯. Seed fail hoáº·c chÆ°a Ä‘áº¡t QC váº«n Ä‘Æ°á»£c giá»¯ raw Ä‘á»ƒ debug.
+ròi mới xóa thư mục seed. Metrics CSV/JSON, manifest tổng, log và report vẫn được
+giữ. Seed fail hoặc chưa đạt QC vẫn được giữ raw để debug.
 
 Healthy baseline có thể tổng hợp từ raw artifact hiện có bằng
 `--aggregate-existing`, sau đó mới compact raw files. Không dùng playback video
