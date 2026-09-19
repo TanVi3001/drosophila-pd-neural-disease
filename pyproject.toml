@@ -24,7 +24,9 @@ brain = [
 ]
 
 [project.urls]
-Platform = "https://github.com/TanVi3001/drosophila-pd-flygym"
+Repository = "https://github.com/TanVi3001/drosophila-pd-neural-disease.git"
+Issues = "https://github.com/TanVi3001/drosophila-pd-neural-disease/issues"
+Platform = "https://github.com/tuanwannafly/drosophila-pd-flygym.git"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
