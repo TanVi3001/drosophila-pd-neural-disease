@@ -169,7 +169,7 @@ Kiểm tra brain source ngoài repository:
 
 ```powershell
 python scripts/check_neural_inputs.py `
-  --brain-root E:\Drosophila_Parkinson\phase-A-clean `
+  --brain-root external/fly-brain `
   --output results/neural_input_status.json
 ```
 
@@ -200,6 +200,14 @@ Nguồn brain public, checkpoint và checksum được ghi trong
 python scripts/fetch_brain_source.py --output external/fly-brain
 python scripts/check_neural_inputs.py --brain-root external/fly-brain --output results/neural_input_status.json
 ```
+
+Lưu ý về public pin hiện tại: FlyGym canonical chỉ cung cấp healthy runner và
+`scripts/run_brain_driven_experiment.py`; nó không còn cung cấp runner lịch sử
+`scripts/run_brain_body_rollout.py` nhận checkpoint trực tiếp. Vì vậy lệnh
+checkpoint-to-body bên dưới chỉ là tài liệu lịch sử và phải giữ trạng thái
+`WAITING_PLATFORM_NEURAL_RUNTIME` nếu platform contract chưa có runner tương
+thích. Dùng [hướng dẫn cài đặt workspace](https://github.com/tuanwannafly/research-/blob/main/RESEARCH_SETUP.md) cho đường
+`run_platform_proxy_experiment.py` hoặc `run_lif_to_flygym.py` được hỗ trợ.
 
 Healthy rollout gọi FlyGym/MuJoCo runner của platform và có thể xuất MP4 thật:
 
