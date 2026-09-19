@@ -23,7 +23,7 @@
     {
       "path": "experiments/gate_27_internal_scientific_review/manifests/internal_scientific_review_manifest.json",
       "role": "handoff_input",
-      "sha256": "0cb967a9ea1b26de81ff4ba9fb6d8aa56ec6c003aed426f2836531a1b75aebe7",
+      "sha256": "e355a7a8eb0c3b7da3563c8c84cf8babf032d7203a753d26d14c738a5d55b9aa",
       "size_bytes": 1551
     },
     {
@@ -119,7 +119,7 @@
     {
       "path": "experiments/gate_26_submission_package/manifests/submission_package_manifest.json",
       "role": "handoff_input",
-      "sha256": "1c4e017a0525f88b6bdbe336eb6186b7056873e09b3cbdaa71c1b73f8b6344be",
+      "sha256": "70a471a1a76ee4dd4c4df4016710bc2a655242c3268eb0b2015f72ed5a92b23f",
       "size_bytes": 6658
     },
     {

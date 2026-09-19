@@ -17,7 +17,7 @@
     {
       "path": "experiments/gate_25_reproducibility_freeze/manifests/reproducibility_freeze_manifest.json",
       "role": "source",
-      "sha256": "61c38311152bb467620ba2e6a3b56305aa0e248a80bd1c42035ca904d289f39c",
+      "sha256": "f1213f0fb49f8a411fab1646e01ea3668e8e554b298ba59f871860c7fbc2598e",
       "size_bytes": 2466
     },
     {
@@ -65,13 +65,13 @@
     {
       "path": "docs/claims/current_claim_lock.md",
       "role": "source",
-      "sha256": "09cf89ae339ff7a1e497ef6c319f8fe10e4c64a9080abe10b938f5d92be39b64",
-      "size_bytes": 1988
+      "sha256": "5d48f18acd14896f669d40682fe78ff9b5e23e0257516484ef92f23454b5953a",
+      "size_bytes": 3074
     },
     {
       "path": "experiments/gate_25_reproducibility_freeze/manifests/checksums.sha256",
       "role": "source",
-      "sha256": "5aa84d4e999694f4fb56c60097ec384db691a77b423f7f5ea7db5658804d1116",
+      "sha256": "10f4938e76dfc948937e55c38a91f0a210e663e7fa7e71de93ebcfec919ded34",
       "size_bytes": 4171
     },
     {
