@@ -1,4 +1,8 @@
-# Nguon connectome va checkpoint
+# Connectome and checkpoint provenance
+
+This file records provenance only. Binary connectome/checkpoint artifacts are
+external inputs and are not part of the GitHub release. Restore them from the
+upstream links and verify their checksum before use.
 
 Tai lieu nay ghi nhan nguon du lieu duoc kiem tra tai ngay 28-08-2026. Du
 lieu nhi phan khong duoc dua vao repository Git; nhom nghien cuu phai tai lai

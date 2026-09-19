@@ -33,6 +33,9 @@ tmp/
 temporary/
 paper_outputs/
 
+# Literature PDFs are external review copies; keep only the source manifest.
+research/literature_papers/open_access/*.pdf
+
 # Du lieu lon va checkpoint can quan ly bang artifact storage hoac Git LFS.
 data/raw/
 data/generated/

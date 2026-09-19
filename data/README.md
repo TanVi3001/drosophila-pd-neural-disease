@@ -1,4 +1,22 @@
-# Dữ liệu ngoài Git
+# External data policy
+
+Large connectome exports and checkpoints are intentionally kept outside Git.
+Use `data/source_catalog.json` and `data/SOURCE_PROVENANCE.md` for source,
+license, version, checksum, retrieval date, and reviewer metadata. The public
+release should contain the metadata, not private or unverified binary files.
+
+The four literature PDFs formerly stored under this repository are handled
+separately in
+[`../research/literature_papers/README.md`](../research/literature_papers/README.md).
+
+## Local restore rule
+
+Download external inputs into ignored directories, verify SHA-256 before every
+campaign, and keep the exact upstream commit or release in the manifest. Do
+not use a missing or unverified artifact for calibration or a scientific claim.
+
+<!-- Historical metadata retained below for compatibility with the existing
+     project source catalog. -->
 
 Các file connectome, checkpoint và dataset thật không được commit trực tiếp
 trong repository này. Hãy đặt chúng ở các thư mục bị ignore và ghi vào manifest:

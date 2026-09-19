@@ -1,48 +1,64 @@
 {
   "schema_version": 1,
-  "generated_on": "2026-09-07",
-  "purpose": "Tracked open-access literature sources and citation-only provenance for the Drosophila PD neural disease project.",
-  "redistribution_policy": "Only PDFs with an explicit redistributable license are committed. Citation-only entries must not be replaced with a PDF until redistribution rights are verified.",
+  "generated_on": "2026-09-19",
+  "purpose": "External literature-source provenance for the Drosophila PD neural disease project.",
+  "redistribution_policy": "Only citation metadata is committed. Local PDF copies remain outside Git and must be downloaded from the official article pages for review.",
   "papers": [
     {
       "paper_id": "godena_2014_lrrk2_microtubule",
       "title": "Increasing microtubule acetylation rescues axonal transport and locomotor deficits caused by LRRK2 Roc-COR domain mutations",
       "doi": "10.1038/ncomms6245",
       "source_url": "https://www.nature.com/articles/ncomms6245",
-      "license": "CC BY 4.0",
-      "distribution": "tracked_pdf",
-      "path": "open_access/godena_2014_lrrk2_microtubule.pdf",
-      "sha256": "307887377ec688fe6178ed32369f73b4dd377d3b40ee17cd5c2ad015132717f4"
+      "license": "CC BY 4.0 (verify on the article page before redistribution)",
+      "distribution": "external_download",
+      "path": null,
+      "expected_filename": "godena_2014_lrrk2_microtubule.pdf",
+      "historical_local_size_bytes": 5952287,
+      "historical_local_sha256": "307887377ec688fe6178ed32369f73b4dd377d3b40ee17cd5c2ad015132717f4",
+      "download_notes": "Download the PDF from the Nature article page for local review; do not git-add the copy.",
+      "verified_at": "2026-09-19"
     },
     {
       "paper_id": "hwang_2013_dj1_dlp",
       "title": "Drosophila DJ-1 Decreases Neural Sensitivity to Stress by Negatively Regulating Daxx-Like Protein through dFOXO",
       "doi": "10.1371/journal.pgen.1003412",
       "source_url": "https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1003412",
-      "license": "Creative Commons Attribution License",
-      "distribution": "tracked_pdf",
-      "path": "open_access/hwang_2013_dj1_dlp.pdf",
-      "sha256": "bc2ff6abe060ed101184ea5ac4677579e15be3df6ff2ba5d62e504478c9acf84"
+      "license": "Creative Commons Attribution License (verify on the article page before redistribution)",
+      "distribution": "external_download",
+      "path": null,
+      "expected_filename": "hwang_2013_dj1_dlp.pdf",
+      "historical_local_size_bytes": 7803013,
+      "historical_local_sha256": "bc2ff6abe060ed101184ea5ac4677579e15be3df6ff2ba5d62e504478c9acf84",
+      "download_notes": "Use the PLOS article PDF control for local review; do not git-add the copy.",
+      "verified_at": "2026-09-19"
     },
     {
       "paper_id": "pokrzywa_2017_alpha_syn_flytracker",
       "title": "Effects of small-molecule amyloid modulators on a Drosophila model of Parkinson's disease",
       "doi": "10.1371/journal.pone.0184117",
       "source_url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0184117",
-      "license": "Creative Commons Attribution License",
-      "distribution": "tracked_pdf",
-      "path": "open_access/pokrzywa_2017_alpha_syn_flytracker.pdf",
-      "sha256": "722e4551cf039f4dcb3623e71c8e3e55ee0f3cef2b42174e08fcb294e2f014e4"
+      "license": "Creative Commons Attribution License (verify on the article page before redistribution)",
+      "distribution": "external_download",
+      "path": null,
+      "expected_filename": "pokrzywa_2017_alpha_syn_flytracker.pdf",
+      "historical_local_size_bytes": 4858786,
+      "historical_local_sha256": "722e4551cf039f4dcb3623e71c8e3e55ee0f3cef2b42174e08fcb294e2f014e4",
+      "download_notes": "Use the PLOS article PDF control for local review; do not git-add the copy.",
+      "verified_at": "2026-09-19"
     },
     {
       "paper_id": "pozo_2022_pink1_serotonin",
       "title": "An Early Disturbance in Serotonergic Neurotransmission Contributes to the Onset of Parkinsonian Phenotypes in Drosophila melanogaster",
       "doi": "10.3390/cells11091544",
       "source_url": "https://www.mdpi.com/2073-4409/11/9/1544",
-      "license": "CC BY 4.0",
-      "distribution": "tracked_pdf",
-      "path": "open_access/pozo_2022_pink1_serotonin.pdf",
-      "sha256": "b181d10535d860de97bc1008b38c191c66d70c58bbafe3c7283dc518b1158155"
+      "license": "CC BY 4.0 (verify on the article page before redistribution)",
+      "distribution": "external_download",
+      "path": null,
+      "expected_filename": "pozo_2022_pink1_serotonin.pdf",
+      "historical_local_size_bytes": 1903806,
+      "historical_local_sha256": "b181d10535d860de97bc1008b38c191c66d70c58bbafe3c7283dc518b1158155",
+      "download_notes": "Use the MDPI article PDF control for local review; do not git-add the copy.",
+      "verified_at": "2026-09-19"
     },
     {
       "paper_id": "riemensperger_2011_dopamine_deficiency",
@@ -53,6 +69,7 @@
       "license": "No explicit redistributable license verified in the reviewed local PDF",
       "distribution": "citation_only",
       "path": null,
+      "download_notes": "Read from PMC or the DOI landing page; no local PDF is required by the repository.",
       "reviewed_local_pdf_sha256": "c7d38229a999caac81ffb1ff6fce2e14d767e9993d30a5dc4497e0f49a377330"
     }
   ],
