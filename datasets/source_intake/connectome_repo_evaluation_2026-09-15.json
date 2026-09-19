@@ -1,0 +1,383 @@
+{
+  "schema_version": "connectome-repo-evaluation-1",
+  "reviewed_at": "2026-09-15",
+  "scope": [
+    "drosophila-pd-neural",
+    "drosophila-pd-neural-disease",
+    "drosophila-pd-flygym",
+    "external connectome repositories and data products"
+  ],
+  "policy": {
+    "core_runtime_modified": false,
+    "connectome_artifacts_auto_connected_to_rollout": false,
+    "neural_claims_from_smoke_tests": false,
+    "credentials_saved": false
+  },
+  "paths": {
+    "workspace": "D:/research/New folder",
+    "external_root": "../external",
+    "analysis_venv": "../.venvs/connectome-analysis-312",
+    "runtime_venv": "../.venvs/flygym-runtime-312",
+    "flybrain_sandbox_venv": "../.venvs/flybrain-sandbox-312"
+  },
+  "baseline": {
+    "neural_extension": {
+      "repo": "drosophila-pd-neural",
+      "test_command": "existing .venv: python -m pytest -q",
+      "result": "170 passed",
+      "status": "pass",
+      "platform_contract": "READY",
+      "platform_commit": "c4505e756f92932d40d51ea2b6964df3674da01c",
+      "worktree_dirty": true
+    },
+    "neural_disease": {
+      "repo": "drosophila-pd-neural-disease",
+      "test_command": "neural .venv Python with PYTHONPATH set to disease repo: python -m pytest -q",
+      "result": "747 passed, 8 skipped, 2 failed",
+      "status": "pre_existing_failures",
+      "failures": [
+        "test_gate19_healthy_baseline.py::test_gate19_local_platform_has_tracking_hook_when_available",
+        "test_gate28b_virtual_assay_adapter.py::test_human_signoff_cannot_auto_approve"
+      ],
+      "skips": "external Gate24 checkpoint/raw archive/frozen runtime unavailable"
+    },
+    "flygym_platform": {
+      "repo": "drosophila-pd-flygym",
+      "test_command": "runtime venv: python -m pytest -q",
+      "result": "515 passed, 2 skipped, 2 failed, 1 warning",
+      "status": "pre_existing_failures",
+      "failures": [
+        "tests/test_healthy_baseline.py::test_healthy_baseline_integration_with_real_flygym_if_available",
+        "tests/test_perturbation_experiment.py::test_paired_perturbation_integration_with_real_flygym_if_available"
+      ],
+      "failure_summary": "heading_rad is non-finite in very short real-FlyGym rollout",
+      "commit": "c4505e756f92932d40d51ea2b6964df3674da01c",
+      "worktree_dirty": true
+    },
+    "proxy_smoke": {
+      "command": "scripts/run_platform_proxy_experiment.py --burden 0.5 --seed 0 --steps 10",
+      "result": "PASS",
+      "status": "engineering_smoke_only",
+      "simulation_run": true,
+      "steps": 10,
+      "timestep": 0.0001,
+      "action_dimensions": 42,
+      "adhesion_actuators": 6,
+      "baseline_mean_planar_speed": 0.2892285951956081,
+      "perturbed_mean_planar_speed": 15.433727931875048,
+      "interpretation": "finite action-level contract and paired execution; not biological validation"
+    }
+  },
+  "environments": {
+    "connectome-analysis-312": {
+      "python": "3.12.10",
+      "pip_check": "No broken requirements found",
+      "packages": {
+        "neuprint-python": "0.6.3",
+        "navis": "1.12.0",
+        "fafbseg": "3.2.2",
+        "caveclient": "8.2.1",
+        "cloud-volume": "12.14.4",
+        "numpy": "2.5.3",
+        "pandas": "2.3.3",
+        "pyarrow": "25.0.1",
+        "openpyxl": "3.1.5"
+      }
+    },
+    "flygym-runtime-312": {
+      "python": "3.12.10",
+      "pip_check": "No broken requirements found",
+      "packages": {
+        "flygym": "2.1.0",
+        "mujoco": "3.9.0",
+        "matplotlib": "installed"
+      }
+    },
+    "flybrain-sandbox-312": {
+      "python": "3.12.10",
+      "package": "flybrain 0.1.0 editable install",
+      "cli_smoke": "flybrain --version; flybrain info passed",
+      "data_status": "brain.npz and weights.npz absent; no model run"
+    }
+  },
+  "repositories": [
+    {
+      "name": "2025malecns",
+      "url": "https://github.com/flyconnectome/2025malecns.git",
+      "path": "../external/2025malecns",
+      "commit": "67767d2233657983993ff6c2be48e836a935863c",
+      "role": "MaleCNS-derived flow, cross-connectome, mapping and community artifacts",
+      "status": "verified_data_audit",
+      "license_note": "No root LICENSE found; verify artifact-specific terms against MaleCNS/source release",
+      "checks": [
+        "schema and row counts",
+        "duplicate and unique ID checks",
+        "parquet/feather/xlsx reads",
+        "selected SHA-256 checksums"
+      ]
+    },
+    {
+      "name": "flywire_annotations",
+      "url": "https://github.com/flyconnectome/flywire_annotations.git",
+      "path": "../external/flywire_annotations_3.1.0",
+      "tag": "v3.1.0",
+      "commit": "8587524c1748ce5ef2080822a2fc890fc03bf597",
+      "role": "Female FlyWire FAFB release 783 annotations and cross-connectome metadata",
+      "status": "verified_data_audit",
+      "license_note": "No root LICENSE found in checkout; preserve upstream provenance",
+      "checks": [
+        "TSV/CSV schema and row counts",
+        "root_id uniqueness",
+        "annotation distributions",
+        "exact join against current neural annotation catalog"
+      ]
+    },
+    {
+      "name": "neuprint-python",
+      "url": "https://github.com/connectome-neuprint/neuprint-python.git",
+      "path": "../external/neuprint-python",
+      "commit": "d89e624b445340f3deb0ace7998b219af57a75ad",
+      "tag": "0.6.3",
+      "installed": "0.6.3",
+      "role": "Python client for NeuPrint MaleCNS queries",
+      "status": "installed_offline_smoke",
+      "checks": [
+        "import passed",
+        "Client dataset male-cns:v1.0 construction reached credential guard",
+        "live query not run because no token was available"
+      ]
+    },
+    {
+      "name": "navis",
+      "url": "https://github.com/navis-org/navis.git",
+      "path": "../external/navis",
+      "commit": "cb9a5915b6b3587cb81154f4f77ffc62fe12b03a",
+      "source_version": "2.0.0-rc.1",
+      "installed": "1.12.0 from PyPI",
+      "role": "Neuron skeleton/mesh analysis and visualization",
+      "status": "stable_smoke_pass_source_tests_partial",
+      "checks": [
+        "stable import and 4-node TreeNeuron smoke passed",
+        "cable length 3.414213562373095",
+        "selected source tests: 105 passed, 4 failed, 3 skipped",
+        "source failures are Windows precomputed skeleton/mesh writer path handling"
+      ]
+    },
+    {
+      "name": "fafbseg-py",
+      "url": "https://github.com/navis-org/fafbseg-py.git",
+      "path": "../external/fafbseg-py",
+      "commit": "d0da95123ee606e204ae2c702e7bc78538646fbd",
+      "installed": "3.2.2",
+      "role": "FlyWire/FAFB skeleton, mesh and connectivity access",
+      "status": "offline_smoke_pass",
+      "checks": [
+        "import passed",
+        "offline NeuronCriteria construction passed",
+        "live CAVE/FlyWire query not run"
+      ]
+    },
+    {
+      "name": "visualpathways",
+      "url": "https://github.com/reiserlab/visualpathways.git",
+      "path": "../external/visualpathways",
+      "commit": "23f6ac131529b5f56894c6eeb9b88b17894fc00d",
+      "role": "Visual pathway analysis and artifact/notebook reference",
+      "status": "source_compile_only",
+      "checks": [
+        "Python source compileall passed",
+        "full install/pipeline not run; checkout is approximately 1.915 GB and has external/unpinned data dependencies"
+      ]
+    },
+    {
+      "name": "malecns",
+      "url": "https://github.com/natverse/malecns.git",
+      "path": "../external/malecns",
+      "commit": "daf8e2a9849cc77695b14bb6b9d4c02456cd3b3c",
+      "declared_version": "0.4.2.9000",
+      "role": "R/natverse MaleCNS v1.0 access and transforms",
+      "status": "not_run",
+      "reason": "Rscript unavailable on host; requires R/natverse and NeuPrint credential"
+    },
+    {
+      "name": "coconatfly",
+      "url": "https://github.com/natverse/coconatfly.git",
+      "path": "../external/coconatfly",
+      "commit": "c33ae3d7c2f1a9b253384ddd11cf76beb02a81e7",
+      "declared_version": "0.2.4.9000",
+      "role": "Comparative connectomics across Drosophila datasets",
+      "status": "not_run",
+      "reason": "Rscript unavailable on host; project is marked experimental upstream"
+    },
+    {
+      "name": "synister_malecns",
+      "url": "https://github.com/funkelab/synister_malecns.git",
+      "path": "../external/synister_malecns",
+      "commit": "538150285128687ea454827dbdc6666d592fdb2e",
+      "declared_version": "0.1.0",
+      "role": "Neurotransmitter prediction from MaleCNS EM volumes",
+      "status": "source_compile_only",
+      "checks": [
+        "Python scripts compileall passed",
+        "pixi unavailable",
+        "no local model/checkpoint/volume and no normal WSL Linux distribution"
+      ]
+    },
+    {
+      "name": "fly.ai",
+      "url": "https://github.com/alextitonis/fly.ai.git",
+      "path": "../external/fly.ai",
+      "commit": "0aa078055f7a975075ba5baf1156430f9e606356",
+      "declared_version": "0.1.0",
+      "installed": "flybrain 0.1.0 editable in sandbox",
+      "role": "Community MaleCNS LIF/reservoir sandbox",
+      "status": "cli_smoke_only",
+      "checks": [
+        "flybrain --version and flybrain info passed",
+        "brain.npz and weights.npz absent",
+        "no LIF or locomotion run",
+        "CUDA unavailable"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "../external/2025malecns/supplemental_data/dnan_cluster_function_20260509.csv",
+      "sha256": "d0d3db8f9d02af61296f9e6f28dc983c364b1937196b94645d8cecf16f5862df",
+      "rows": 3201,
+      "columns": ["bodyId", "type", "type_lab", "cluster", "function", "reference"]
+    },
+    {
+      "path": "../external/2025malecns/supplemental_data/sensory_network_traversal_model_layers.feather",
+      "sha256": "a6d0f1ad66bcd7ce576f852f4245c4d7f3e86cdb7ab9da6b5309e6183d22cf35",
+      "rows": 166335,
+      "columns": ["node", "layer_min", "layer_max", "layer_mean", "layer_median"]
+    },
+    {
+      "path": "../external/2025malecns/supplemental_data/mcns_fw_edge_comp.feather",
+      "sha256": "1cac309c7760d16f5f041a7b924efbf5cdfa3a46570090fb234c2323ed9e313c",
+      "rows": 3761792,
+      "columns": ["pre", "post", "weight_m", "weight_f", "t", "p_corr", "verdict_corr"],
+      "verdict_counts": {"noise": 3034980, "isomorphic": 679283, "dimorphic": 47529},
+      "weight_sum": {"male": 51859473, "female": 38040196}
+    },
+    {
+      "path": "../external/2025malecns/supplemental_data/mcns_fw_edge_comp_mappings.json",
+      "sha256": "94aaadbefedcc314c69fb8ad62a07361c1f78ee39424bad38ac1a6d7ca4d0a12",
+      "mapping_keys": 281656,
+      "unique_labels": 8586,
+      "key_min": 10001,
+      "key_max": 720575940661339777
+    },
+    {
+      "path": "../external/2025malecns/supplemental_data/mcns_lvl_6_hsbm_communities.feather",
+      "sha256": "eb583a8520bfb1f4b4fb30e3a8590cdb7e72caa599b888adce583d6de24d04a1",
+      "rows": 311
+    },
+    {
+      "path": "../external/2025malecns/supplemental_data/optic-column-type-assignments-v1.0.xlsx",
+      "sha256": "d4af1cacb751036f7e84bfecc9bec79ca010066ac066559c29b566003ec080d3",
+      "rows": 892,
+      "columns": 10
+    },
+    {
+      "path": "../external/2025malecns/supplemental_data/male-cns-v1.0-synapse-connection-precision-recall-by-roi.csv",
+      "rows": 81,
+      "median_precision": 0.917,
+      "median_recall": 0.95
+    },
+    {
+      "path": "../external/2025malecns/supplemental_data/male-cns-v1.0-synapse-tbar-precision-recall-by-roi.csv",
+      "sha256": "f71ee4ad0c8f91eb973a5bfbe70a81ba6e4a3513e100c33c43ba3b5a557a6ae4",
+      "rows": 81,
+      "median_precision": 0.814,
+      "median_recall": 0.864
+    },
+    {
+      "path": "../external/2025malecns/supplemental_data/male-cns-v1.0-traced-synapse-capture-by-roi.csv",
+      "rows": 108,
+      "median_presyn_traced_fraction": 0.9598,
+      "median_postsyn_traced_fraction": 0.389,
+      "median_connection_traced_fraction": 0.3533,
+      "median_synapse_weight_traced_fraction": 0.6647
+    },
+    {
+      "path": "../external/2025malecns/supplemental_data/maxflow_sensorimotor_edges.20260509T1103.parquet.tar.gz",
+      "archive_members": 208,
+      "uncompressed_bytes": 72519358
+    },
+    {
+      "path": "../external/2025malecns/supplemental_data/maxflow_sensorimotor_ad_expand_edges.20260508T1512.parquet.tar.gz",
+      "archive_members": 406,
+      "uncompressed_bytes": 82319188
+    },
+    {
+      "path": "../external/flywire_annotations_3.1.0/supplemental_files/Supplemental_file1_neuron_annotations.tsv",
+      "sha256": "c4bfe2722f45df80747105bea2fb4374f75cd922794dc73aef2364e5467bd34d",
+      "rows": 139248,
+      "columns": 31,
+      "unique_root_id": 139248,
+      "dataset": "female FlyWire FAFB release 783"
+    },
+    {
+      "path": "../external/flywire_annotations_3.1.0/supplemental_files/Supplemental_file3_summary_with_ngl_links.csv",
+      "sha256": "f0e740602f519d5b0b833471438d70d9ca1e074f5e7007dd42d552e4c886b313",
+      "rows": 205,
+      "columns": 25
+    },
+    {
+      "path": "../external/flywire_annotations_3.1.0/supplemental_files/Supplemental_file4_hemilineages_clustering.csv",
+      "sha256": "daa1ebbede4ff3299d36d3224c3463f4b5a36116c057261d4f6e9a55ac4cbdc2",
+      "rows": 24406,
+      "columns": 8
+    }
+  ],
+  "mapping_audit": {
+    "current_annotation_rows": 360,
+    "current_unique_neuron_ids": 360,
+    "current_unique_cell_types": 39,
+    "current_ids_present_in_flywire_file1": 360,
+    "current_cell_type_exact_match": 360,
+    "current_neurotransmitter_exact_match": 360,
+    "current_cell_types_present_in_crossmatch_labels": 39,
+    "current_ids_in_crossmatch_mapping": 360,
+    "cross_edge_subset_touching_current_labels": 54894,
+    "cross_edge_subset_pre_unique": 26532,
+    "cross_edge_subset_post_unique": 28858,
+    "cross_edge_subset_verdict_counts": {
+      "noise": 44249,
+      "isomorphic": 10247,
+      "dimorphic": 398
+    },
+    "cross_edge_subset_weight_sum": {
+      "male": 1106456,
+      "female": 814499
+    },
+    "interpretation": "provenance and cross-connectome audit only; current IDs are in a mixed mapping namespace and are not direct evidence of a runtime synaptic model"
+  },
+  "limitations": [
+    "No NeuPrint live query because no credential was available.",
+    "No R/natverse run because Rscript is unavailable.",
+    "No FlyWire/CAVE live query because no service session was available.",
+    "No synister_malecns inference because pixi/Linux/model inputs are unavailable.",
+    "No visualpathways full pipeline because it is a large artifact/notebook repository with external data dependencies.",
+    "The current project still has pre-existing platform and gate failures listed in baseline.",
+    "No connectome artifact has been consumed by the neural runtime, so no locomotion or Parkinson claim is made."
+  ],
+  "recommended_next_gates": [
+    "Create a schema-validated manifest entry for each selected artifact and source dataset.",
+    "Use a credentialed NeuPrint query to resolve a small, explicitly chosen MaleCNS target set.",
+    "Add a mapping table with source_dataset, source_id, target_dataset, target_id, mapping_method and confidence.",
+    "Define a consumer contract before any neural artifact can enter rollout.",
+    "Fix or quarantine heading_rad short-rollout failure and the two neural-disease gate failures separately from connectome intake.",
+    "Run a long-horizon paired FlyGym baseline/perturbation evaluation only after the consumer contract exists."
+  ],
+  "official_sources": [
+    "https://male-cns.janelia.org/",
+    "https://male-cns.janelia.org/download/",
+    "https://neuprint.janelia.org/",
+    "https://pypi.org/project/neuprint-python/",
+    "https://navis-org.github.io/navis/installation/",
+    "https://fafbseg-py.readthedocs.io/en/latest/source/install.html"
+  ]
+}

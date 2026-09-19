@@ -1,0 +1,234 @@
+{
+  "schema_version": "connectome-source-registry-1",
+  "reviewed_at": "2026-09-15",
+  "primary_datasets": [
+    {
+      "dataset_id": "male-cns:v1.0",
+      "species": "Drosophila melanogaster",
+      "sex": "male",
+      "coverage": "brain+optic_lobes+ventral_nerve_cord",
+      "id_namespace": "male_cns_body_id",
+      "authority": "https://male-cns.janelia.org/download/",
+      "license": "CC BY"
+    },
+    {
+      "dataset_id": "flywire:783",
+      "species": "Drosophila melanogaster",
+      "sex": "female",
+      "coverage": "adult_brain_without_ventral_nerve_cord",
+      "id_namespace": "flywire_root_id",
+      "authority": "https://github.com/flyconnectome/flywire_annotations",
+      "license": "Preserve upstream terms; verify before redistribution"
+    }
+  ],
+  "repositories": [
+    {
+      "name": "2025malecns",
+      "url": "https://github.com/flyconnectome/2025malecns.git",
+      "path": "../external/2025malecns",
+      "commit": "67767d2233657983993ff6c2be48e836a935863c",
+      "role": "MaleCNS-derived flow, cross-connectome, mapping and community artifacts",
+      "tier": "P0",
+      "status": "verified_data_audit",
+      "license_note": "Derived-data terms must be checked against the MaleCNS source release"
+    },
+    {
+      "name": "flywire_annotations_3.1.0",
+      "url": "https://github.com/flyconnectome/flywire_annotations.git",
+      "path": "../external/flywire_annotations_3.1.0",
+      "commit": "8587524c1748ce5ef2080822a2fc890fc03bf597",
+      "role": "FlyWire female FAFB v783 annotations and cross-connectome metadata",
+      "tier": "P0",
+      "status": "verified_data_audit",
+      "license_note": "Preserve upstream provenance and verify redistribution terms"
+    },
+    {
+      "name": "neuprint-python",
+      "url": "https://github.com/connectome-neuprint/neuprint-python.git",
+      "path": "../external/neuprint-python",
+      "commit": "d89e624b445340f3deb0ace7998b219af57a75ad",
+      "role": "Read-only Python query client for NeuPrint",
+      "tier": "P0",
+      "status": "installed_offline_smoke",
+      "license_note": "Use upstream package license"
+    },
+    {
+      "name": "navis",
+      "url": "https://github.com/navis-org/navis.git",
+      "path": "../external/navis",
+      "commit": "cb9a5915b6b3587cb81154f4f77ffc62fe12b03a",
+      "role": "Neuron skeleton, mesh and morphology analysis",
+      "tier": "P1",
+      "status": "stable_smoke_pass_source_tests_partial",
+      "license_note": "GPL-3.0; keep outside the FlyGym runtime"
+    },
+    {
+      "name": "fafbseg-py",
+      "url": "https://github.com/navis-org/fafbseg-py.git",
+      "path": "../external/fafbseg-py",
+      "commit": "d0da95123ee606e204ae2c702e7bc78538646fbd",
+      "role": "FlyWire/FAFB skeleton, mesh and connectivity access",
+      "tier": "P1",
+      "status": "offline_smoke_pass",
+      "license_note": "Use upstream package license and service terms"
+    },
+    {
+      "name": "malecns",
+      "url": "https://github.com/natverse/malecns.git",
+      "path": "../external/malecns",
+      "commit": "daf8e2a9849cc77695b14bb6b9d4c02456cd3b3c",
+      "role": "R/natverse access and transforms for MaleCNS",
+      "tier": "P1",
+      "status": "not_run_r_missing",
+      "license_note": "GPL-3.0; separate R analysis environment"
+    },
+    {
+      "name": "coconatfly",
+      "url": "https://github.com/natverse/coconatfly.git",
+      "path": "../external/coconatfly",
+      "commit": "c33ae3d7c2f1a9b253384ddd11cf76beb02a81e7",
+      "role": "Comparative connectomics across Drosophila datasets",
+      "tier": "P1",
+      "status": "not_run_r_missing",
+      "license_note": "Experimental upstream R package; use for analysis only"
+    },
+    {
+      "name": "visualpathways",
+      "url": "https://github.com/reiserlab/visualpathways.git",
+      "path": "../external/visualpathways",
+      "commit": "23f6ac131529b5f56894c6eeb9b88b17894fc00d",
+      "role": "Visual pathway analysis and companion artifacts",
+      "tier": "P2",
+      "status": "source_compile_only",
+      "license_note": "Use upstream terms; external data dependencies are not bundled into core"
+    },
+    {
+      "name": "synister_malecns",
+      "url": "https://github.com/funkelab/synister_malecns.git",
+      "path": "../external/synister_malecns",
+      "commit": "538150285128687ea454827dbdc6666d592fdb2e",
+      "role": "Neurotransmitter prediction from MaleCNS EM volumes",
+      "tier": "P2",
+      "status": "source_compile_only",
+      "license_note": "Linux/pixi/GPU workflow; do not treat predictions as measured transmitter identity"
+    },
+    {
+      "name": "Drosophila_brain_model",
+      "url": "https://github.com/philshiu/Drosophila_brain_model.git",
+      "path": "../external/Drosophila_brain_model",
+      "commit": "91bdd1e7dcf193f3e7ca5a8933497fcef63b7960",
+      "role": "FlyWire v630 leaky-integrate-and-fire model and optogenetic perturbation reference",
+      "tier": "P2",
+      "status": "reproduced_reference_only",
+      "license_note": "MIT code; FlyWire data terms remain separate"
+    },
+    {
+      "name": "fly.ai",
+      "url": "https://github.com/alextitonis/fly.ai.git",
+      "path": "../external/fly.ai",
+      "commit": "0aa078055f7a975075ba5baf1156430f9e606356",
+      "role": "Community MaleCNS LIF/reservoir sandbox",
+      "tier": "P2",
+      "status": "cli_smoke_only",
+      "license_note": "Use only as a sandbox comparison; not an authoritative MaleCNS runtime"
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "mcns_dnan_cluster_function_20260509",
+      "source_repo": "2025malecns",
+      "path": "../external/2025malecns/supplemental_data/dnan_cluster_function_20260509.csv",
+      "source_dataset": "male-cns:v1.0",
+      "id_namespace": "male_cns_body_id",
+      "role": "descending_ascending_function_cluster",
+      "promotion_status": "target_candidate",
+      "sha256": "d0d3db8f9d02af61296f9e6f28dc983c364b1937196b94645d8cecf16f5862df"
+    },
+    {
+      "artifact_id": "mcns_sensorimotor_traversal_layers",
+      "source_repo": "2025malecns",
+      "path": "../external/2025malecns/supplemental_data/sensory_network_traversal_model_layers.feather",
+      "source_dataset": "male-cns:v1.0",
+      "id_namespace": "male_cns_body_id",
+      "role": "sensory_graph_traversal_layer",
+      "promotion_status": "audit_only",
+      "sha256": "a6d0f1ad66bcd7ce576f852f4245c4d7f3e86cdb7ab9da6b5309e6183d22cf35"
+    },
+    {
+      "artifact_id": "mcns_flywire_edge_comparison",
+      "source_repo": "2025malecns",
+      "path": "../external/2025malecns/supplemental_data/mcns_fw_edge_comp.feather",
+      "source_dataset": "male-cns:v1.0+flywire:783",
+      "id_namespace": "mixed_male_body_id_and_flywire_root_id",
+      "role": "male_female_cross_connectome_edge_comparison",
+      "promotion_status": "audit_only",
+      "sha256": "1cac309c7760d16f5f041a7b924efbf5cdfa3a46570090fb234c2323ed9e313c",
+      "notes": "Cross-match evidence; not a direct neural checkpoint"
+    },
+    {
+      "artifact_id": "mcns_flywire_mappings",
+      "source_repo": "2025malecns",
+      "path": "../external/2025malecns/supplemental_data/mcns_fw_edge_comp_mappings.json",
+      "source_dataset": "male-cns:v1.0+flywire:783",
+      "id_namespace": "mixed_male_body_id_and_flywire_root_id",
+      "role": "cross_connectome_mapping",
+      "promotion_status": "target_candidate",
+      "sha256": "94aaadbefedcc314c69fb8ad62a07361c1f78ee39424bad38ac1a6d7ca4d0a12"
+    },
+    {
+      "artifact_id": "flywire_v783_annotations",
+      "source_repo": "flywire_annotations_3.1.0",
+      "path": "../external/flywire_annotations_3.1.0/supplemental_files/Supplemental_file1_neuron_annotations.tsv",
+      "source_dataset": "flywire:783",
+      "id_namespace": "flywire_root_id",
+      "role": "female_brain_annotation",
+      "promotion_status": "audit_only",
+      "sha256": "c4bfe2722f45df80747105bea2fb4374f75cd922794dc73aef2364e5467bd34d",
+      "notes": "Cannot be assigned to MaleCNS without an explicit cross-match"
+    },
+    {
+      "artifact_id": "mcns_optic_column_assignments",
+      "source_repo": "2025malecns",
+      "path": "../external/2025malecns/supplemental_data/optic-column-type-assignments-v1.0.xlsx",
+      "source_dataset": "male-cns:v1.0",
+      "id_namespace": "male_cns_body_id",
+      "role": "optic_column_annotation",
+      "promotion_status": "target_candidate",
+      "sha256": "d4af1cacb751036f7e84bfecc9bec79ca010066ac066559c29b566003ec080d3"
+    },
+    {
+      "artifact_id": "mcns_synapse_qc",
+      "source_repo": "2025malecns",
+      "path": "../external/2025malecns/supplemental_data/male-cns-v1.0-synapse-connection-precision-recall-by-roi.csv",
+      "source_dataset": "male-cns:v1.0",
+      "id_namespace": "male_cns_body_id",
+      "role": "synapse_connection_quality_by_roi",
+      "promotion_status": "audit_only",
+      "sha256": "4479f6ead267a0cf79f5e7eba3f0b6e5304429b0559ff1b7523f88f4e9375612"
+    },
+    {
+      "artifact_id": "current_flywire_pd_annotation_subset",
+      "source_repo": "flywire_annotations_3.1.0",
+      "path": "annotations/neuron_annotations.csv",
+      "source_dataset": "flywire:783",
+      "id_namespace": "flywire_root_id",
+      "role": "existing_project_neuron_annotation_subset",
+      "promotion_status": "audit_only",
+      "sha256": "033a273772202a8277e715a4016708c9a6bc5682c541b0a6834fd3e764416840",
+      "notes": "Legacy project subset; mapping audit required before any promotion"
+    }
+  ],
+  "policies": {
+    "promotion_stages": [
+      "annotation_audit",
+      "target_selection",
+      "checkpoint_preparation",
+      "rollout"
+    ],
+    "primary_connectome_authority": "male-cns:v1.0",
+    "female_connectome_authority": "flywire:783",
+    "mixed_namespace_policy": "Never coerce flywire_root_id to male_cns_body_id; retain source and target namespaces on every mapping.",
+    "runtime_policy": "No connectome artifact is a rollout input until a verified mapping, reviewed target, checksum and real neural consumer are present.",
+    "claim_policy": "Connectome audits and LIF/simulation outputs are computational evidence, not biological Parkinson validation."
+  }
+}
