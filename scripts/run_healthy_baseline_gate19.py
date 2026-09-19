@@ -85,11 +85,15 @@ def _load_config(path: Path) -> dict[str, Any]:
 
 
 def _runner_supports_tracking(platform_root: Path) -> bool:
-    runner = platform_root / "scripts/run_brain_body_rollout.py"
+    # The platform's canonical video-capable runner superseded the historical
+    # brain-body wrapper.  Keep this capability check aligned with the actual
+    # current integration point rather than failing because an old filename is
+    # absent.
+    runner = platform_root / "scripts/run_brain_driven_with_video.py"
     if not runner.is_file():
         return False
     source = runner.read_text(encoding="utf-8")
-    return "--video-camera-mode" in source and "mjCAMERA_TRACKING" in source
+    return "add_tracking_camera" in source and "save_video" in source
 
 
 def _mapping_mean(value: Any) -> float | None:

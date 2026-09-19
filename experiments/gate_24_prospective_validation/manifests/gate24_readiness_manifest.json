@@ -1,6 +1,6 @@
 {
   "schema_version": "gate-24-prospective-validation-manifest-v1",
-  "status": "READY_FOR_BLINDED_GPU_PREDICTION",
+  "status": "NOT_EXECUTED",
   "inputs": {
     "assay_compatibility": {
       "path": "research/validation/prospective/parkin_assay_compatibility.yaml",
