@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from scripts.run_gates31_37_publication_control_plane import DEFAULT_CONFIG, _read_yaml, run_all
+from scripts.run_gates31_37_publication_control_plane import DEFAULT_CONFIG, _read_yaml
 from scripts.verify_gates31_37_publication_control_plane import verify
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,9 +23,9 @@ def test_gates31_37_are_local_and_analysis_only() -> None:
     )
 
 
-def test_gates31_37_create_templates_without_faking_human_actions() -> None:
-    outcome = run_all()
-    assert outcome["gate_statuses"] == {
+def test_gates31_37_committed_templates_do_not_fake_human_actions() -> None:
+    status = json.loads((ROOT / "experiments/gate_37_acceptance_archive/results/publication_control_plane_status.json").read_text(encoding="utf-8"))
+    assert status["gate_statuses"] == {
         "gate_31": "WAITING_AUTHORIZED_INTERNAL_SIGNOFF",
         "gate_32": "WAITING_APPROVED_PUBLICATION_METADATA",
         "gate_33": "VENUE_MANUSCRIPT_TEMPLATE_READY",
@@ -34,7 +34,6 @@ def test_gates31_37_create_templates_without_faking_human_actions() -> None:
         "gate_36": "WAITING_FOR_EDITORIAL_DECISION",
         "gate_37": "WAITING_FOR_ACCEPTANCE",
     }
-    status = json.loads((ROOT / "experiments/gate_37_acceptance_archive/results/publication_control_plane_status.json").read_text(encoding="utf-8"))
     assert status["no_external_release_created"] is True
     assert status["no_external_submission_executed"] is True
     assert (ROOT / "submission/gate_31_internal_scientific_signoff/publication_signoff.local.yaml.example").is_file()

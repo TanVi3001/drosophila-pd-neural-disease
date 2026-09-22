@@ -39,11 +39,11 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def _relative(path: Path) -> str:
+def _relative(path: Path, path_root: Path = ROOT) -> str:
     try:
-        return path.resolve().relative_to(ROOT.resolve()).as_posix()
+        return path.resolve().relative_to(path_root.resolve()).as_posix()
     except ValueError as exc:
-        raise ReproducibilityFreezeError(f"Artifact is outside repository: {path}") from exc
+        raise ReproducibilityFreezeError(f"Artifact is outside path root {path_root}: {path}") from exc
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -63,13 +63,20 @@ def _read_config(path: Path) -> dict[str, Any]:
     return value
 
 
-def _record(path: Path, *, artifact_id: str, group: str, status: str) -> dict[str, Any]:
+def _record(
+    path: Path,
+    *,
+    artifact_id: str,
+    group: str,
+    status: str,
+    path_root: Path = ROOT,
+) -> dict[str, Any]:
     if not path.is_file():
-        raise ReproducibilityFreezeError(f"Missing required artifact: {_relative(path)}")
+        raise ReproducibilityFreezeError(f"Missing required artifact: {_relative(path, path_root)}")
     return {
         "artifact_id": artifact_id,
         "group": group,
-        "path": _relative(path),
+        "path": _relative(path, path_root),
         "status": status,
         "size_bytes": path.stat().st_size,
         "sha256": _sha256(path),
@@ -278,8 +285,16 @@ def run(
     output_root: Path = DEFAULT_OUTPUT,
     report_path: Path = DEFAULT_REPORT,
     readme_path: Path = DEFAULT_README,
+    artifact_root: Path | None = None,
 ) -> dict[str, Any]:
-    """Verify existing Gate 11--24 evidence and write Gate 25 artifacts."""
+    """Verify evidence and write Gate 25 artifacts under an explicit root.
+
+    ``artifact_root`` defaults to the repository. Tests can supply an isolated
+    root while source evidence continues to be read from the real repository.
+    """
+    artifact_root = ROOT if artifact_root is None else artifact_root
+    for generated_path in (output_root, report_path, readme_path):
+        _relative(generated_path, artifact_root)
     config = _read_config(config_path)
     required_false = ("run_gpu", "run_simulation", "run_calibration", "run_holdout_validation", "run_tuning")
     if config.get("analysis_only") is not True or any(config.get(field) is not False for field in required_false):
@@ -304,10 +319,10 @@ def run(
 
     generated = [
         _record(config_path, artifact_id="gate25_config", group="gate25_generated", status="LOCKED"),
-        _record(inventory_path, artifact_id="freeze_inventory", group="gate25_generated", status="GENERATED"),
-        _record(environment_path, artifact_id="environment_lock", group="gate25_generated", status="GENERATED"),
-        _record(report_path, artifact_id="gate25_report", group="gate25_generated", status="GENERATED"),
-        _record(readme_path, artifact_id="gate25_readme", group="gate25_generated", status="GENERATED"),
+        _record(inventory_path, artifact_id="freeze_inventory", group="gate25_generated", status="GENERATED", path_root=artifact_root),
+        _record(environment_path, artifact_id="environment_lock", group="gate25_generated", status="GENERATED", path_root=artifact_root),
+        _record(report_path, artifact_id="gate25_report", group="gate25_generated", status="GENERATED", path_root=artifact_root),
+        _record(readme_path, artifact_id="gate25_readme", group="gate25_generated", status="GENERATED", path_root=artifact_root),
     ]
     manifest = {
         "schema_version": "gate-25-reproducibility-freeze-manifest-v1",
@@ -325,16 +340,26 @@ def run(
         "gene_specific_validation": False,
         "biological_parkinson_validation": False,
         "artifacts": {
-            "inventory": _relative(inventory_path),
-            "environment_lock": _relative(environment_path),
-            "report": _relative(report_path),
-            "readme": _relative(readme_path),
-            "checksums": _relative(checksums_path),
+            "inventory": _relative(inventory_path, artifact_root),
+            "environment_lock": _relative(environment_path, artifact_root),
+            "report": _relative(report_path, artifact_root),
+            "readme": _relative(readme_path, artifact_root),
+            "checksums": _relative(checksums_path, artifact_root),
         },
         "generated_artifacts": generated,
     }
     _write_json(manifest_path, manifest)
-    checksum_records = [*records, *generated, _record(manifest_path, artifact_id="gate25_manifest", group="gate25_generated", status="GENERATED")]
+    checksum_records = [
+        *records,
+        *generated,
+        _record(
+            manifest_path,
+            artifact_id="gate25_manifest",
+            group="gate25_generated",
+            status="GENERATED",
+            path_root=artifact_root,
+        ),
+    ]
     checksum_lines = [f"{record['sha256']}  {record['path']}" for record in sorted(checksum_records, key=lambda record: record["path"])]
     _write_text(checksums_path, "\n".join(checksum_lines))
     return manifest

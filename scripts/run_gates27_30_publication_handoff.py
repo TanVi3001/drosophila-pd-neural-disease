@@ -190,6 +190,16 @@ def _write_gate28() -> tuple[Path, Path, Path, list[Path]]:
     package = SUBMISSION_ROOT / "gate_28_archive_metadata"
     license_present = any((ROOT / name).is_file() for name in ("LICENSE", "LICENSE.md", "COPYING"))
     citation_present = any((ROOT / name).is_file() for name in ("CITATION.cff", "CITATION.md"))
+    license_decision = (
+        "Confirm the existing repository license is compatible with all dependencies and bundled materials"
+        if license_present
+        else "Choose a repository license compatible with all dependencies and bundled materials"
+    )
+    citation_decision = (
+        "Confirm the existing citation author order, affiliations and ORCID identifiers"
+        if citation_present
+        else "Create citation metadata after confirming author order, affiliations and ORCID identifiers"
+    )
     result = {
         "schema_version": "gate-28-archive-metadata-audit-v1",
         "status": "ARCHIVE_METADATA_PENDING_HUMAN_DECISIONS",
@@ -198,8 +208,8 @@ def _write_gate28() -> tuple[Path, Path, Path, list[Path]]:
         "doi_minted": False,
         "archive_deposited": False,
         "required_human_decisions": [
-            "Choose a repository license compatible with all dependencies and bundled materials",
-            "Confirm author order, affiliations and ORCID identifiers",
+            license_decision,
+            citation_decision,
             "Create a GitHub release and archive DOI through an authorized account",
             "Confirm data/video hosting and licensing for any large external artifact",
         ],
@@ -241,13 +251,15 @@ Zenodo or institutional archive deposition.
     _write_text(package / "data_availability_statement.md", data_statement)
     _write_text(
         report_path,
-        """# Gate 28: Archive and metadata handoff
+        f"""# Gate 28: Archive and metadata handoff
 
 **Status:** `ARCHIVE_METADATA_PENDING_HUMAN_DECISIONS`
 
 Gate 28 tao template CITATION, Zenodo va data-availability. Repository hien
-chua co license/CITATION release da duoc con nguoi xac nhan, DOI hay archive
-deposit. Khong duoc tao DOI, gan license hay gan tac gia bang script nay.
+ghi nhan repository license = `{str(license_present).lower()}` va citation
+metadata = `{str(citation_present).lower()}`. Author metadata, DOI va archive
+deposit van can nguoi co tham quyen xac nhan; script nay khong tu gan tac gia,
+tao DOI hay upload artifact.
 """,
     )
     generated = [package / "CITATION.cff.template", package / "zenodo.json.template", package / "data_availability_statement.md", report_path]

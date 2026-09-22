@@ -3,5 +3,7 @@
 **Status:** `ARCHIVE_METADATA_PENDING_HUMAN_DECISIONS`
 
 Gate 28 tao template CITATION, Zenodo va data-availability. Repository hien
-chua co license/CITATION release da duoc con nguoi xac nhan, DOI hay archive
-deposit. Khong duoc tao DOI, gan license hay gan tac gia bang script nay.
+ghi nhan repository license = `true` va citation
+metadata = `true`. Author metadata, DOI va archive
+deposit van can nguoi co tham quyen xac nhan; script nay khong tu gan tac gia,
+tao DOI hay upload artifact.

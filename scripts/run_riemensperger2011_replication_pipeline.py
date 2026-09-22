@@ -50,7 +50,13 @@ def _status(path: Path) -> str:
         return "INVALID_ARTIFACT"
 
 
-def _write_final_report(statuses: dict[str, str]) -> None:
+def _write_final_report(
+    statuses: dict[str, str],
+    *,
+    report_path: Path | None = None,
+    status_path: Path | None = None,
+) -> None:
+    """Write the summary to explicit targets so tests can remain hermetic."""
     final_status = statuses.get("21F", "NOT_RUN")
     if final_status == "FOUR_GROUP_ANALYSIS_COMPLETE":
         summary_path = FOUR_GROUP_OUTPUT / "results/four_group_summary.json"
@@ -93,10 +99,11 @@ def _write_final_report(statuses: dict[str, str]) -> None:
         "Mọi gate phải lưu config, input/output SHA256, commit, Python/runtime, seed list, QC và trạng thái simulation. GPU chỉ được chạy sau khi evidence lock và mapping class-level có human signoff.",
         "",
     ]
-    report = ROOT / "docs/replications/riemensperger_2011/final_replication_report.md"
+    report = report_path or ROOT / "docs/replications/riemensperger_2011/final_replication_report.md"
+    pipeline_status = status_path or ROOT / "experiments/riemensperger_2011_pipeline_status.json"
     report.parent.mkdir(parents=True, exist_ok=True)
     report.write_text("\n".join(lines), encoding="utf-8")
-    write_json(ROOT / "experiments/riemensperger_2011_pipeline_status.json", {"statuses": statuses, "interpretation": interpretation, "claim": claim, "simulation_executed": any("PASS" in value for value in statuses.values()), "data_fabricated": False})
+    write_json(pipeline_status, {"statuses": statuses, "interpretation": interpretation, "claim": claim, "simulation_executed": any("PASS" in value for value in statuses.values()), "data_fabricated": False})
 
 
 def run_pipeline(*, stage: str, dry_run: bool, brain_root: Path, platform_root: Path, brain_python: Path, runner_python: Path) -> dict[str, str]:

@@ -9,7 +9,6 @@ from pathlib import Path
 
 from scripts.run_gate25_reproducibility_freeze import (
     DEFAULT_CONFIG,
-    DEFAULT_OUTPUT,
     ReproducibilityFreezeError,
     _read_config,
     _validate_gate24_sources,
@@ -34,8 +33,16 @@ def test_gate25_is_file_only_and_claim_safe() -> None:
 
 
 def test_gate25_freeze_outputs_validate_existing_evidence(tmp_path: Path) -> None:
-    del tmp_path
-    manifest = run()
+    artifact_root = tmp_path / "isolated-repository"
+    output_root = artifact_root / "experiments/gate_25_reproducibility_freeze"
+    report_path = artifact_root / "docs/reproducibility/gate_25_reproducibility_freeze_report.md"
+    readme_path = artifact_root / "docs/reproducibility/README.md"
+    manifest = run(
+        output_root=output_root,
+        report_path=report_path,
+        readme_path=readme_path,
+        artifact_root=artifact_root,
+    )
 
     assert manifest["status"] == "REPRODUCIBILITY_FREEZE_COMPLETE"
     assert manifest["no_simulation"] is True
@@ -43,7 +50,7 @@ def test_gate25_freeze_outputs_validate_existing_evidence(tmp_path: Path) -> Non
     assert manifest["gene_specific_validation"] is False
     assert manifest["biological_parkinson_validation"] is False
 
-    inventory = DEFAULT_OUTPUT / "results" / "freeze_inventory.csv"
+    inventory = output_root / "results" / "freeze_inventory.csv"
     with inventory.open(encoding="utf-8", newline="") as handle:
         rows = list(csv.DictReader(handle))
     assert len(rows) == manifest["locked_evidence_count"]
@@ -51,10 +58,13 @@ def test_gate25_freeze_outputs_validate_existing_evidence(tmp_path: Path) -> Non
     assert any(row["artifact_id"] == "gate_24_concordance" for row in rows)
     assert any(row["artifact_id"] == "gate23_summary" for row in rows)
 
-    checksums = DEFAULT_OUTPUT / "manifests" / "checksums.sha256"
+    checksums = output_root / "manifests" / "checksums.sha256"
     for line in checksums.read_text(encoding="utf-8").splitlines():
         expected, relative = line.split("  ", maxsplit=1)
-        assert _sha256(ROOT / relative) == expected
+        generated_path = artifact_root / relative
+        source_path = ROOT / relative
+        path = generated_path if generated_path.is_file() else source_path
+        assert _sha256(path) == expected
 
 
 def test_gate25_rejects_mutated_gate24_source_checksum() -> None:

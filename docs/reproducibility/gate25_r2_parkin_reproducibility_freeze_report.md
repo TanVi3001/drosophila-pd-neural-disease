@@ -14,11 +14,11 @@ provenance only; it does not rerun Gate24E or create new scientific evidence.
 - Gate24E status: `GATE24E_VALIDATION_COMPLETE_DIRECTIONAL_DISCORDANCE`.
 - Scientific result: `NEGATIVE_VALIDATION_RESULT`.
 - Cross-assay decision: `DIRECTIONAL_CROSS_ASSAY_DISCORDANCE`.
-- Inventory entries: `95` deterministic lightweight files.
-- Gate25-R2 canonical freeze SHA256: `147bc90ea017b0a88a580e95d07f9d85548f157f45479283f67ac1b54444e36b`.
-- Previous Gate25-R2 freeze SHA256: `5aa0d5bf05dac950761b8636fdea001072f27c8226139ec1dac9066be6146d05`.
+- Inventory entries: `99` deterministic lightweight files.
+- Gate25-R2 canonical freeze SHA256: `0a338eaacbca8648d263ed4abca4b3df1e44393ae3cb35df1514957181dcab4d`.
+- Previous Gate25-R2 freeze SHA256: `147bc90ea017b0a88a580e95d07f9d85548f157f45479283f67ac1b54444e36b`.
 - Historical Gate25 report SHA256: `e09347664edbc069c8d8bdd0340811cbaf8a4b9f75a25d1e356a24086cb309f0`.
-- Refresh reason: `CROSS_PLATFORM_FROZEN_ARTIFACT_TRANSPORT_FIX`.
+- Refresh reason: `WORKSPACE_CANONICALIZATION_AND_HERMETIC_AUDIT_FIX`.
 
 The allowed primary claim is: **The frozen Parkin computational perturbation
 did not reproduce the held-out biological locomotor impairment direction under

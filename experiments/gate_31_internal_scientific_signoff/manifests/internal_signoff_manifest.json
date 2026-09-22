@@ -7,13 +7,13 @@
     {
       "path": "experiments/gate_26_submission_package/manifests/submission_package_manifest.json",
       "role": "frozen_source",
-      "sha256": "70a471a1a76ee4dd4c4df4016710bc2a655242c3268eb0b2015f72ed5a92b23f",
+      "sha256": "ca386091bf61f9a5942e355035407e40f6172236fd08b7d067953b1b33706377",
       "size_bytes": 6658
     },
     {
       "path": "experiments/gate_30_publication_handoff/manifests/publication_handoff_manifest.json",
       "role": "frozen_source",
-      "sha256": "337803ec4cc5d6c8857ea263d2e5a955804fd8f32c74340c7b74e6a7d5a3f5b5",
+      "sha256": "f5f0dc30b9c9d1b10d2bcb35de24fa246faf5bfcd02fc0fa9e1914a834053e30",
       "size_bytes": 5356
     },
     {

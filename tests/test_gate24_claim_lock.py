@@ -4,7 +4,7 @@ from scripts.audit_gate24_prediction_readiness import audit
 
 
 def test_gate24_never_issues_biological_validation_claim() -> None:
-    result = audit()
+    result = audit(write_outputs=False)
     assert result["data_fabricated"] is False
     assert result["gpu_executed"] is False
     assert result["simulation_executed"] is False

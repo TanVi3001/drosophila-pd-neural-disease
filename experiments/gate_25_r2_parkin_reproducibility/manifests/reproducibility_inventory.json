@@ -287,8 +287,8 @@
     {
       "path": "pyproject.toml",
       "role": "Runtime or claim contract",
-      "sha256": "b90ba4aa935f863633bdd83daf7282001014ba7f9f03ad23ed55b84f4b192c03",
-      "size_bytes": 830
+      "sha256": "4e305632633cbe7147b5ae2d95b215e5ebd0f87e1b8839dd009b5739868ab8b1",
+      "size_bytes": 990
     },
     {
       "path": "research/validation/gene_specific/parkin/biological_evidence_matrix.csv",
@@ -411,6 +411,24 @@
       "size_bytes": 1029
     },
     {
+      "path": "research/validation/prospective/gate26_reproducibility_canonicalization_reviewer_signoff.json",
+      "role": "Reviewed prospective Parkin protocol, signoff, and runtime provenance",
+      "sha256": "3c675c3d4a5eaed2f018e8371dd94817bf0a9280237158c89115121ec567edb6",
+      "size_bytes": 653
+    },
+    {
+      "path": "research/validation/prospective/gate28a_gen2_scope_metric_study_split_reviewer_signoff.json",
+      "role": "Reviewed prospective Parkin protocol, signoff, and runtime provenance",
+      "sha256": "91aa08d68434e127ca91c5fa3fe13bdadd27bde89a985b1c069809ae0566583b",
+      "size_bytes": 998
+    },
+    {
+      "path": "research/validation/prospective/gate28b_virtual_assay_adapter_reviewer_signoff.json",
+      "role": "Reviewed prospective Parkin protocol, signoff, and runtime provenance",
+      "sha256": "8db468baad5b2752737113bb9435accffb6553fa07fe166cc5ae71ac86d8bf62",
+      "size_bytes": 1337
+    },
+    {
       "path": "research/validation/prospective/parkin_assay_compatibility.yaml",
       "role": "Reviewed prospective Parkin protocol, signoff, and runtime provenance",
       "sha256": "bd82104a7890ab8c85481dece85f3816904ae1cf3b3370797b9b66d0bb0c505a",
@@ -463,6 +481,12 @@
       "role": "Reviewed prospective Parkin protocol, signoff, and runtime provenance",
       "sha256": "2b1258733f94c439992cbdd68cfc940ae4fef06cb0661bf862a382f9b59c5eaa",
       "size_bytes": 667
+    },
+    {
+      "path": "research/validation/prospective/riemensperger_2011_final_reviewer_signoff.json",
+      "role": "Reviewed prospective Parkin protocol, signoff, and runtime provenance",
+      "sha256": "e35de633758a09358ddb4953b74f344a423dc8e8e5492cbee8b550ff0f5e8b2f",
+      "size_bytes": 1069
     },
     {
       "path": "scripts/analyze_gate24e_blinded_prediction.py",
@@ -527,8 +551,8 @@
     {
       "path": "scripts/run_gate25_r2_reproducibility_freeze.py",
       "role": "Gate24E execution or audit source",
-      "sha256": "50af3b4ecc2e20987431405f2515134b0252897cc02e0947f9d93a497a5de027",
-      "size_bytes": 33895
+      "sha256": "4822d023f4fdb109e56b80ebedd06f7d085ed7eca7a3911de77792b4fc407ca0",
+      "size_bytes": 33900
     },
     {
       "path": "scripts/run_neural_experiment.py",
@@ -574,7 +598,7 @@
     }
   ],
   "gate24e_closed": true,
-  "inventory_file_count": 95,
+  "inventory_file_count": 99,
   "locked_gate24e_identifiers": {
     "executor_sha256": "4d10edecbc8d987285ea82eb36a7bcfd686da3abde3b5160a3dcec23a2e78f3f",
     "final_evidence_freeze_sha256": "2f056bf5b73ecc4b4de27f714bda681134050c5d82eb2f0f3170b67a5286e967",

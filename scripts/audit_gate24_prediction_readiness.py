@@ -79,7 +79,8 @@ def _valid_sha(value: object) -> bool:
     return len(text) == 64 and all(char in "0123456789abcdef" for char in text.lower())
 
 
-def audit() -> dict[str, Any]:
+def audit(*, write_outputs: bool = True) -> dict[str, Any]:
+    """Evaluate Gate 24 readiness, optionally refreshing tracked artifacts."""
     gate23 = _json(GATE23_MANIFEST)
     compatibility = _yaml(COMPATIBILITY)
     freeze = _yaml(FREEZE)
@@ -325,9 +326,6 @@ def audit() -> dict[str, Any]:
         "allowed_claim": "Parkin-specific intervention represented by a reviewed driver-defined neural perturbation and a preregistered directional computational validation protocol; no biological validation claim.",
         "forbidden_claims": ["BIOLOGICALLY_VALIDATED", "PARKINSON_VALIDATED", "GENE_SPECIFIC_BIOLOGICAL_VALIDATION_SUPPORTED", "drug validation"],
     }
-    RESULT.parent.mkdir(parents=True, exist_ok=True)
-    RESULT.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
-    MANIFEST.parent.mkdir(parents=True, exist_ok=True)
     manifest = {
         "schema_version": "gate-24-prospective-validation-manifest-v1",
         "status": result["gate24e_status"],
@@ -346,8 +344,12 @@ def audit() -> dict[str, Any]:
         "simulation_executed": False,
         "data_fabricated": False,
     }
-    MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-    _write_report(result)
+    if write_outputs:
+        RESULT.parent.mkdir(parents=True, exist_ok=True)
+        RESULT.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+        MANIFEST.parent.mkdir(parents=True, exist_ok=True)
+        MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        _write_report(result)
     return result
 
 

@@ -1,11 +1,11 @@
 {
   "archive_deposited": false,
-  "citation_metadata_present": false,
+  "citation_metadata_present": true,
   "doi_minted": false,
-  "repository_license_present": false,
+  "repository_license_present": true,
   "required_human_decisions": [
-    "Choose a repository license compatible with all dependencies and bundled materials",
-    "Confirm author order, affiliations and ORCID identifiers",
+    "Confirm the existing repository license is compatible with all dependencies and bundled materials",
+    "Confirm the existing citation author order, affiliations and ORCID identifiers",
     "Create a GitHub release and archive DOI through an authorized account",
     "Confirm data/video hosting and licensing for any large external artifact"
   ],
