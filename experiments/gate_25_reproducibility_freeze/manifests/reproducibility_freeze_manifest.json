@@ -24,7 +24,7 @@
       "artifact_id": "freeze_inventory",
       "group": "gate25_generated",
       "path": "experiments/gate_25_reproducibility_freeze/results/freeze_inventory.csv",
-      "sha256": "0c168498ebf6fab98485c01c33c0194c576b58c52320c6540014fc4be58b8f8e",
+      "sha256": "346bb12a2ae47191a107a31302247a94e32701795741abba1c57317aabf7a1d7",
       "size_bytes": 4909,
       "status": "GENERATED"
     },

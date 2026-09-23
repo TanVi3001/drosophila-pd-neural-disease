@@ -17,14 +17,14 @@
   "cross_assay_decision": "DIRECTIONAL_CROSS_ASSAY_DISCORDANCE",
   "gate24e_evidence_changed": false,
   "gate24e_final_status": "GATE24E_VALIDATION_COMPLETE_DIRECTIONAL_DISCORDANCE",
-  "gate25_r2_freeze_sha256": "0a338eaacbca8648d263ed4abca4b3df1e44393ae3cb35df1514957181dcab4d",
+  "gate25_r2_freeze_sha256": "c9309519fdddf30be40e916dd6c29d95f0faf67229d911e97671214fd56e8d85",
   "gpu": false,
   "historical_gate25_preserved": true,
   "historical_gate25_report_sha256": "e09347664edbc069c8d8bdd0340811cbaf8a4b9f75a25d1e356a24086cb309f0",
   "inventory": {
     "file_count": 99,
     "path": "experiments/gate_25_r2_parkin_reproducibility/manifests/reproducibility_inventory.json",
-    "sha256": "29f31c530ca59964215ec9ab9a4c66ea7d5cd362de323e91792bddd59f906a7a"
+    "sha256": "15933726cf8a309d4cb9b004209b2a731858564354c6fffbbd6f5e7c634dbb3e"
   },
   "locked_identifiers": {
     "executor_sha256": "4d10edecbc8d987285ea82eb36a7bcfd686da3abde3b5160a3dcec23a2e78f3f",

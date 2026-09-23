@@ -11,14 +11,14 @@
     {
       "path": ".github/workflows/tests.yml",
       "role": "Runtime or claim contract",
-      "sha256": "fa0bb8a74b1be0eed4c4d437707a1b6bf14dcd8459c63c5c5105afca93ffbf39",
-      "size_bytes": 611
+      "sha256": "758750f5bc384f474c945e40176704d987884430d898b1f9bd35ef14b702afd2",
+      "size_bytes": 864
     },
     {
       "path": "README.md",
       "role": "Current public claim surface",
-      "sha256": "268b06223aef2177f3a3cae34795f5eb40e1dc6285c357e26cb72f02762de488",
-      "size_bytes": 12133
+      "sha256": "c1c202f6380ceac4a03767442b1b1b02cf96a6f05015305a8c29a680ec8c2fbe",
+      "size_bytes": 12784
     },
     {
       "path": "docs/claims/current_claim_lock.md",
