@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Gate28A/Gate28B provenance checks intentionally inspect pinned
+          # historical commits, so a shallow checkout makes valid tests fail
+          # with "bad object" or "commit unavailable" errors.
+          fetch-depth: 0
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
