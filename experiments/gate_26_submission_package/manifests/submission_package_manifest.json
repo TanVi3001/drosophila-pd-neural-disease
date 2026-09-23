@@ -17,7 +17,7 @@
     {
       "path": "experiments/gate_25_reproducibility_freeze/manifests/reproducibility_freeze_manifest.json",
       "role": "source",
-      "sha256": "c359eec1bafd832f12a168c1911320422226388fcc6115630baaf00aa20af05d",
+      "sha256": "7bb13ccb7ffe9e572a7342241527a41f7217ea4b160f1eca4d8419de67ea9177",
       "size_bytes": 2466
     },
     {
@@ -71,7 +71,7 @@
     {
       "path": "experiments/gate_25_reproducibility_freeze/manifests/checksums.sha256",
       "role": "source",
-      "sha256": "16f6a0e7d45270599f9f8a1930b04af2b4f154e8e64c0dca50bf3302887a4db9",
+      "sha256": "7f743b32bab654b297b98ccb0d2084b1752d19ab92e59812fed747fb8e3b2d45",
       "size_bytes": 4171
     },
     {
