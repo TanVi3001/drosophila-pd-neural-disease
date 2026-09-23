@@ -119,7 +119,7 @@
     {
       "path": "experiments/gate_26_submission_package/manifests/submission_package_manifest.json",
       "role": "handoff_input",
-      "sha256": "ca386091bf61f9a5942e355035407e40f6172236fd08b7d067953b1b33706377",
+      "sha256": "d4fcc60d5ba14fcd467394bb62a53f4a7eb5607bf5e229907d0803fd4167be94",
       "size_bytes": 6658
     },
     {

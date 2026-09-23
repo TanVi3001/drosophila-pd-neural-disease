@@ -13,6 +13,11 @@ ROOT = Path(__file__).resolve().parents[1]
 GATE = ROOT / "experiments/gate_28a_gen2_scope_metric_study_split"
 CURRENT_MAIN = "cbd1ca071b2a8f28983d1cb78096501847fefbc1"
 ORIGINAL_GATE28A = "2dafaafc5a09eca1908457a54d8a0a5dc4e45b24"
+# Gate25-R2 was refreshed in the reviewed antecedent commit below for
+# hermetic provenance.  The branch must protect the Generation-1 scientific
+# tree relative to that refresh, not relative to origin/main, which predates
+# the accepted metadata-only update.
+PROTECTED_GENERATION1_BASELINE = "813289c74d00df1799851eafadf036557dc40c7b"
 ALIGNMENT_MANIFEST = (
     "experiments/gate_28b_virtual_assay_adapter/manifests/"
     "gate28a_human_closure_test_alignment.json"
@@ -65,7 +70,7 @@ def test_generation1_protected_directories_are_unchanged() -> None:
         "research/validation/prospective/riemensperger_2011_final_reviewer_signoff.json",
     )
     changed = subprocess.run(
-        ["git", "diff", "--name-only", "origin/main...HEAD"],
+        ["git", "diff", "--name-only", f"{PROTECTED_GENERATION1_BASELINE}...HEAD"],
         cwd=ROOT,
         check=True,
         capture_output=True,

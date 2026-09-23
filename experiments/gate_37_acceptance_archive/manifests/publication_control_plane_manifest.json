@@ -10,13 +10,13 @@
     {
       "path": "experiments/gate_26_submission_package/manifests/submission_package_manifest.json",
       "role": "publication_control_plane",
-      "sha256": "ca386091bf61f9a5942e355035407e40f6172236fd08b7d067953b1b33706377",
+      "sha256": "d4fcc60d5ba14fcd467394bb62a53f4a7eb5607bf5e229907d0803fd4167be94",
       "size_bytes": 6658
     },
     {
       "path": "experiments/gate_30_publication_handoff/manifests/publication_handoff_manifest.json",
       "role": "publication_control_plane",
-      "sha256": "f5f0dc30b9c9d1b10d2bcb35de24fa246faf5bfcd02fc0fa9e1914a834053e30",
+      "sha256": "0de288d6ba8be56a65ea67bb673c024d944f7abb416e14f4ee1a7dad77a13659",
       "size_bytes": 5356
     },
     {
